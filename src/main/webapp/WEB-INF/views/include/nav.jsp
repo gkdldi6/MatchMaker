@@ -13,34 +13,22 @@
 			<a class="navbar-brand" href="/">매치메이커</a>
 		</div>
 
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="/">홈 <span class="sr-only">(current)</span></a></li>
 				<li><a href="/matchmaker">소개</a></li>
 				<li><a href="/boards">게시판</a></li>
-				<li class="dropdown"><a href="#" class="dropdown-toggle"
-					data-toggle="dropdown" role="button" aria-expanded="false">목록 <span
-						class="caret"></span></a>
-					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Another action</a></li>
-						<li><a href="#">Something else here</a></li>
-						<li class="divider"></li>
-						<li><a href="#">Separated link</a></li>
-						<li class="divider"></li>
-						<li><a href="#">One more separated link</a></li>
-					</ul></li>
 			</ul>
 			<form class="navbar-form navbar-left" role="search">
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="">
+					<input type="text" class="form-control" size="14">
 				</div>
 				<button type="submit" class="btn btn-success">검색</button>
 			</form>
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">기타</a></li>
-			</ul>
+			<div class="navbar-form navbar-right">
+				<button class="btn btn-primary">로그인</button>
+				<button class="btn btn-warning">회원가입</button>
+			</div>
 		</div>
 	</div>
 </nav>

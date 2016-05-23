@@ -23,10 +23,13 @@ body {
 	</div>
 	<div class="login-block">
 		<h1>로그인</h1>
-		<input type="text" value="" placeholder="아이디" id="username" /> <input
-			type="password" value="" placeholder="비밀번호" id="password" /> <a
-			href="#" class="btn btn-primary">로그인</a> <a href="#"
-			class="btn btn-warning">회원가입</a>
+		<input type="text" value="" placeholder="아이디" id="username" /> 
+		<input type="password" value="" placeholder="비밀번호" id="password" /> 
+		<div align="center">
+			<a href="#" class="btn btn-primary">로그인</a>
+			&nbsp &nbsp &nbsp 
+			<a href="#"	class="btn btn-warning">회원가입</a>
+		</div>
 	</div>
 
 	<!-- 본문 -->
@@ -48,7 +51,7 @@ body {
 				</p>
 			</div>
 		</div>
-		<div class="row" class="row" style="height: 400px;">
+		<div class="row"style="height: 400px;">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="page-header">
 					<h1>Test</h1>
