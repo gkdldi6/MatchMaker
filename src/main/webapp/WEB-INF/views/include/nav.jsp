@@ -36,7 +36,7 @@
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="">
 				</div>
-				<button type="submit" class="btn btn-default">검색</button>
+				<button type="submit" class="btn btn-success">검색</button>
 			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">기타</a></li>

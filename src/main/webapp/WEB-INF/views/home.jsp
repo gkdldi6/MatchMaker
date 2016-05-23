@@ -8,7 +8,7 @@
 	type='text/css'>
 <style type="text/css">
 body {
-	background-image: url('/resources/img/bg1.jpg');
+	background-image: url('/resources/img/bg.jpg');
 	background-repeat: no-repeat;
 	background-position: left 50px;
 }
@@ -19,7 +19,7 @@ body {
 
 	<!-- 로그인 폼 -->
 	<div class="logo">
-		<h1>매치메이커</h1>
+		<h1><b>매치메이커</b></h1>
 	</div>
 	<div class="login-block">
 		<h1>로그인</h1>

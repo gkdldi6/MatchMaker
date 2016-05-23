@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="UTF-8"%>
 
-<link href='http://bootswatch.com/assets/css/custom.min.css' rel='stylesheet'
+<link href='/resources/css/footer.css' rel='stylesheet'
 	type='text/css'>
 
-<footer>
+
+<footer class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
 
