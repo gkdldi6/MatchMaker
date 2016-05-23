@@ -7,9 +7,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <link href="http://bootswatch.com/united/bootstrap.min.css"
 	rel="stylesheet" type="text/css" />
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <title>매치메이커</title>
 <style>
 body {

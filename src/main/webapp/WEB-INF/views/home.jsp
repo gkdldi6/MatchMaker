@@ -7,28 +7,35 @@
 <link href='/resources/css/loginForm.css' rel='stylesheet'
 	type='text/css'>
 <style type="text/css">
-body {
+#bg {
 	background-image: url('/resources/img/bg.jpg');
 	background-repeat: no-repeat;
-	background-position: left 50px;
+	background-position: left top;
+	height: 755px;
 }
 </style>
 </head>
 <body>
 	<jsp:include page="include/nav.jsp"></jsp:include>
 
-	<!-- 로그인 폼 -->
-	<div class="logo">
-		<h1><b>매치메이커</b></h1>
-	</div>
-	<div class="login-block">
-		<h1>로그인</h1>
-		<input type="text" value="" placeholder="아이디" id="username" /> 
-		<input type="password" value="" placeholder="비밀번호" id="password" /> 
-		<div align="center">
-			<a href="#" class="btn btn-primary">로그인</a>
-			&nbsp &nbsp &nbsp 
-			<a href="#"	class="btn btn-warning">회원가입</a>
+	<!-- 배경 -->
+	<div id="bg">
+		<!-- 로그인 폼 -->
+		<div id="login-form">
+			<div class="logo">
+				<font size="8">
+					<b>매치메이커</b>
+				</font>
+			</div>
+			<div class="login-block">
+				<h1>로그인</h1>
+				<input type="text" value="" placeholder="아이디" id="username" /> <input
+					type="password" value="" placeholder="비밀번호" id="password" />
+				<div align="center">
+					<a href="#" class="btn btn-primary">로그인</a> &nbsp &nbsp &nbsp <a
+						href="#" class="btn btn-warning">회원가입</a>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -36,7 +43,7 @@ body {
 	<div class="container-fluid">
 
 		<!-- 여백 맞추기 -->
-		<div style="height: 440px;"></div>
+		<!-- 		<div style="height: 440px;"></div> -->
 
 		<div class="row" style="height: 400px; background-color: #dd4814;">
 			<div class="col-md-6 col-md-offset-3">
@@ -51,7 +58,7 @@ body {
 				</p>
 			</div>
 		</div>
-		<div class="row"style="height: 400px;">
+		<div class="row" style="height: 400px;">
 			<div class="col-md-6 col-md-offset-3">
 				<div class="page-header">
 					<h1>Test</h1>

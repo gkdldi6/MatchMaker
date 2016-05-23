@@ -1,4 +1,10 @@
+#login-form {
+	position: relative;
+	top: 90px;
+}
+
 .logo {
+	margin-bottom: 20px;
 	text-align: center;
 	color: white;
 }
