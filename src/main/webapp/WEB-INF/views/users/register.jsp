@@ -80,7 +80,7 @@
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
 						<button type="submit" class="btn btn-primary">가입</button>
-						<button class="btn btn-default" onclick="history.go(-1);">취소</button>
+						<a class="btn btn-default" onclick="history.go(-1);">취소</a>
 					</div>
 				</div>
 
