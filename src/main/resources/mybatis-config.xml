@@ -4,5 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+<typeAliases>
+		<!-- 타입에 대한 별칭 설정 -->		
+		<typeAlias alias="board" type="com.kosta.matchmaker.domain.BoardVO"/>
+		<!-- 타입에 대한 패키지 생략 설정 -->
+		<package name="com.kosta.matchmaker.board.domain"/>
+		<package name="com.kosta.matchmaker.aop"/>
+	</typeAliases>
 
 </configuration>
