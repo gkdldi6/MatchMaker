@@ -7,14 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class NavbarController {
 
+	/*메인*/
 	@RequestMapping("/")
 	public String home() {
 		return "home";
-	}
-	
-	@RequestMapping("/boards")
-	public String board() {
-		return "board/board";
 	}
 	
 	@RequestMapping("/matchmaker")
@@ -22,16 +18,26 @@ public class NavbarController {
 		return "matchmaker";
 	}
 	
+	/*게시판*/
+	@RequestMapping("/boards")
+	public String board() {
+		return "boards/list";
+	}
+	
 	@RequestMapping("/boards/write")
 	public String write() {
-		return "board/write";
+		return "boards/write";
 	}
 	
 	@RequestMapping("/boards/{bno}")
 	public String read(@PathVariable int bno) {
-		System.out.println(bno);
-		
-		return "board/read";
+		return "boards/read";
+	}
+	
+	/*회원*/
+	@RequestMapping("/users/register")
+	public String register() {
+		return "users/register";
 	}
 	
 }

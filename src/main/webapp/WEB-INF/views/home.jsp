@@ -33,7 +33,7 @@
 					type="password" value="" placeholder="비밀번호" id="password" />
 				<div align="center">
 					<a href="#" class="btn btn-primary">로그인</a> &nbsp &nbsp &nbsp <a
-						href="#" class="btn btn-warning">회원가입</a>
+						href="/users/register" class="btn btn-warning">회원가입</a>
 				</div>
 			</div>
 		</div>

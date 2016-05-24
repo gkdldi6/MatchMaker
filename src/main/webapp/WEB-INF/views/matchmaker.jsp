@@ -206,6 +206,7 @@
 		</div>
 	</div>
 
+	<!-- 문의하기 -->
 	<div class="container">
 		<form class="form-horizontal">
 			<fieldset>
