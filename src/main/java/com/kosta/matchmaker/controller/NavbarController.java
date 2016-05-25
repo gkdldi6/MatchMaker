@@ -40,4 +40,10 @@ public class NavbarController {
 		return "users/register";
 	}
 	
+	/*농구 코트*/
+	@RequestMapping("/courts")
+	public String courts() {
+		return "courts/courts";
+	}
+	
 }

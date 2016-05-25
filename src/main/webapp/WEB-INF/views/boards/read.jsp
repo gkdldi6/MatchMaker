@@ -28,22 +28,21 @@
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" placeholder="작성자">
+						<input type="text" class="form-control">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">제목</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" placeholder="제목">
+						<input type="text" class="form-control">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
-						<textarea class="form-control" rows="7" id="textArea"
-							placeholder="내용"></textarea>
+						<textarea class="form-control" rows="7" id="textArea"></textarea>
 					</div>
 				</div>
 
