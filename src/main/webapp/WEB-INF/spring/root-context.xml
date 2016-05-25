@@ -25,6 +25,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+		<property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml"></property>
 	</bean>
 
 	<!-- inject할때? -->
@@ -32,5 +33,7 @@
 		destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
+
+	<context:component-scan base-package="com.kosta.matchmaker.persistence"></context:component-scan>
 
 </beans>
