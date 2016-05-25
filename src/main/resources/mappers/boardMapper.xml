@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{title}, #{content}, #{writer})
 	</insert>
 
-	<select id="readAll" resultType="com.kosta.matchmaker.domain.BoardVO">
+	<select id="readAll" resultType="BoardVO">
 		select bno, title, writer, regdate, hit
 		from freeboard
 	</select>

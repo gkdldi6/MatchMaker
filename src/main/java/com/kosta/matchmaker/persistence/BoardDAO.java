@@ -21,6 +21,4 @@ public interface BoardDAO {
 	//게시글 검색(selectOne)
 	public List<BoardVO> readOne() throws Exception;
 	
-	
-	
 }

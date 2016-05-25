@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kosta.matchmaker.ReplyMapper">
+<mapper namespace="com.kosta.matchmaker.mapper.ReplyMapper">
 
 	<!-- 등록 -->
 	<insert id="create">
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 수정 -->
 	<update id="update">
 		update freereply set replytext = #{replytext},
-		regdate = #{regdate},
+		regdate = now()
 		where rno = #{rno}
 	</update>
 

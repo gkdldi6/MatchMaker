@@ -14,5 +14,4 @@ public interface ReplyService {
 	
 	public void deleteReply(Integer rno) throws Exception;
 	
-	
 }

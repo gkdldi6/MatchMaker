@@ -1,6 +1,5 @@
 package com.kosta.matchmaker.test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,7 +11,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kosta.matchmaker.domain.BoardVO;
 import com.kosta.matchmaker.persistence.BoardDAO;
-import com.mysql.fabric.xmlrpc.base.Array;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })

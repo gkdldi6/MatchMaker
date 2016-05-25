@@ -42,7 +42,7 @@ public class ReplyDAOTest {
 	public void testUpdate() throws Exception {
 
 		ReplyVO reply = new ReplyVO();
-		reply.setRno(1);
+		reply.setRno(3);
 		reply.setReplytext("수정됐다..ㅠㅠ");
 		// reply.setReplyer("KuKluxKlan");
 
@@ -53,7 +53,7 @@ public class ReplyDAOTest {
 	@Test
 	public void testDelete() throws Exception {
 
-		dao.delete(2);
+		dao.delete(3);
 
 	}
 
