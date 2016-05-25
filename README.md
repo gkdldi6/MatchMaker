@@ -16,12 +16,12 @@
 # - 병합할 때 수정 사항
 --- 
 *5.26*
-	+ 매퍼 경로 통일
-	com.kosta.matchmaker.mapper.*Mapper
-	+ 리소스 매퍼 이름 통일
-	mappers
-	+ 가칭(alias) 통일
-	com.kosta.matchmaker.domain
+- 매퍼 경로 통일
+com.kosta.matchmaker.mapper.*Mapper
+- 리소스 매퍼 이름 통일
+mappers
+- 가칭(alias) 통일
+com.kosta.matchmaker.domain
 
 	
 	
