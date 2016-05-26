@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="readOne" resultType="BoardVO">
-		select bno, title, writer, regdate, hit
+		select bno, title, content, writer, regdate, hit
 		from freeboard
 		where bno = #{bno}
 	</select>

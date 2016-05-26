@@ -7,7 +7,7 @@ import com.kosta.matchmaker.domain.BoardVO;
 public interface BoardService {
 
 	//게시글 등록
-	public void regist(BoardVO board) throws Exception;
+	public void register(BoardVO board) throws Exception;
 	
 	//개시글 읽기
 	public List<BoardVO> readAll() throws Exception;

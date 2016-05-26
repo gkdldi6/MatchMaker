@@ -10,13 +10,13 @@ import com.kosta.matchmaker.domain.BoardVO;
 import com.kosta.matchmaker.persistence.BoardDAO;
 
 @Service
-public class BoardServiceImple implements BoardService {
+public class BoardServiceImpl implements BoardService {
 
 	@Inject
 	private BoardDAO dao;
 
 	@Override
-	public void regist(BoardVO board) throws Exception {
+	public void register(BoardVO board) throws Exception {
 		
 		dao.create(board);
 		

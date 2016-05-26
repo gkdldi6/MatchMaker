@@ -28,7 +28,7 @@ public class BoardServiceTest {
 		board.setContent("성공적");
 		board.setWriter("다음으로");
 
-		service.regist(board);
+		service.register(board);
 
 	}
 

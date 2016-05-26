@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,28 +23,28 @@
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">글번호</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control">
+						<input type="text" class="form-control" value="${article.bno }">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control">
+						<input type="text" class="form-control" value="${article.writer }">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">제목</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control">
+						<input type="text" class="form-control" value="${article.title }">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
-						<textarea class="form-control" rows="7" id="textArea"></textarea>
+						<textarea class="form-control" rows="7" id="textArea">${article.content }</textarea>
 					</div>
 				</div>
 
@@ -50,7 +52,9 @@
 					<label for="inputEmail" class="col-lg-2 control-label">작성
 						날짜</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control">
+						<input type="text" class="form-control" 
+								value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+								value="${article.regdate }" />" >
 					</div>
 				</div>
 

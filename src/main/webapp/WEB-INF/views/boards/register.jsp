@@ -15,7 +15,7 @@
 
 	<!-- 글쓰기 -->
 	<div class="container">
-		<form class="form-horizontal">
+		<form class="form-horizontal" action="/boards" method="post">
 			<fieldset>
 				<legend class="col-lg-10 col-lg-offset-1">글쓰기</legend>
 				<div class="form-group">
