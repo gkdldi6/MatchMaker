@@ -20,7 +20,7 @@ public class BoardServiceTest {
 	private BoardService service;
 
 	@Test
-	public void testRegist() throws Exception {
+	public void testRegister() throws Exception {
 
 		BoardVO board = new BoardVO();
 

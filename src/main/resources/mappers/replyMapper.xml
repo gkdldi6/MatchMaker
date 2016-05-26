@@ -20,8 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 수정 -->
 	<update id="update">
-		update freereply set replytext = #{replytext},
-		regdate = now()
+		update freereply set replytext = #{replytext}
 		where rno = #{rno}
 	</update>
 
