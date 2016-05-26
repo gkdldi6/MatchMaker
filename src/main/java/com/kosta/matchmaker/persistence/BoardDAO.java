@@ -18,7 +18,7 @@ public interface BoardDAO {
 	//게시글 삭제(delete)
 	public void delete(Integer bno) throws Exception;
 	
-	//게시글 검색(selectOne)
-	public List<BoardVO> readOne() throws Exception;
+	//게시글 조회(selectOne)
+	public BoardVO readOne(Integer bno) throws Exception;
 	
 }

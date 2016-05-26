@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 import com.kosta.matchmaker.domain.BoardVO;
 
 @Repository
-public class BoardDAOImple implements BoardDAO {
+public class BoardDAOImpl implements BoardDAO {
 
-	private static final String namespace = "com.kosta.matchmaker.mapper.BoardMapper";
+	private static final String namespace = "com.kosta.matchmaker.mappers.BoardMapper";
 
 	@Inject
 	private SqlSession session;
@@ -21,7 +21,6 @@ public class BoardDAOImple implements BoardDAO {
 	public void create(BoardVO board) throws Exception {
 
 		session.insert(namespace + ".create", board);
-
 	}
 
 	@Override
@@ -31,17 +30,17 @@ public class BoardDAOImple implements BoardDAO {
 
 	@Override
 	public void update(BoardVO board) throws Exception {
-
+		session.update(namespace + ".update", board);
 	}
 
 	@Override
 	public void delete(Integer bno) throws Exception {
-
+		session.delete(namespace + ".delete", bno);
 	}
 
 	@Override
-	public List<BoardVO> readOne() throws Exception {
-		return null;
+	public BoardVO readOne(Integer bno) throws Exception {
+		return session.selectOne(namespace + ".readOne", bno);
 	}
 
 }
