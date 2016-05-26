@@ -6,6 +6,7 @@ import com.kosta.matchmaker.domain.ReplyVO;
 
 public interface ReplyService {
 
+	//
 	public void addReply(ReplyVO reply) throws Exception;
 	
 	public List<ReplyVO> listReply(Integer bno) throws Exception;

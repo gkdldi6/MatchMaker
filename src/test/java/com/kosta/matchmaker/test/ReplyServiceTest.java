@@ -60,7 +60,7 @@ public class ReplyServiceTest {
 	public void modify() throws Exception {
 		ReplyVO reply = new ReplyVO();
 		reply.setRno(1);
-		reply.setReplytext("서비스도 수정됐다..ㅠㅠ");
+		reply.setReplytext("서비스도 수정됐다...ㅠㅠ");
 
 		service.modifyReply(reply);
 	}

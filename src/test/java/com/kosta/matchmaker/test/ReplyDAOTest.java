@@ -47,7 +47,6 @@ public class ReplyDAOTest {
 		ReplyVO reply = new ReplyVO();
 		reply.setRno(1);
 		reply.setReplytext("수정됐다..ㅠㅠ");
-		// reply.setReplyer("KuKluxKlan");
 
 		dao.update(reply);
 

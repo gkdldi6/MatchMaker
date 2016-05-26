@@ -15,7 +15,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Inject
 	private SqlSession session;
 
-	private static String namespace = "com.kosta.matchmaker.ReplyMapper";
+	private static final String namespace = "com.kosta.matchmaker.ReplyMapper";
 
 	@Override
 	public void create(ReplyVO reply) throws Exception {
