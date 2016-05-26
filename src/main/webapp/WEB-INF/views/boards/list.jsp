@@ -50,7 +50,7 @@
 					<th width="70">글번호</th>
 					<th>제목</th>
 					<th width="120">작성자</th>
-					<th width="130">작성 날짜</th>
+					<th width="140">작성 날짜</th>
 					<th width="70">조회수</th>
 				</tr>
 			</thead>
@@ -89,7 +89,7 @@
 		<!-- 글쓰기, 검색 버튼 -->
 		<div class="row">
 			<div class="col-xs-3">
-				<a href="boards/register" class="btn btn-primary">글쓰기</a>
+				<a href="boards/new" class="btn btn-primary">글쓰기</a>
 			</div>
 			<div class="col-xs-6 col-xs-offset-3 col-sm-3 col-sm-offset-6">
 				<div class="form-group">
@@ -106,5 +106,13 @@
 	</div>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
+
+	<script type="text/javascript">
+		var result = '${result}';
+		
+		if(result === 'success') {
+			alert('작업이 성공적으로 진행되었습니다.');
+		}
+	</script>
 </body>
 </html>

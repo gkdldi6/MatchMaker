@@ -15,14 +15,14 @@
 
 	<!-- 글쓰기 -->
 	<div class="container">
-		<form class="form-horizontal" action="/boards" method="post">
+		<form class="form-horizontal" action="new" method="post">
 			<fieldset>
 				<legend class="col-lg-10 col-lg-offset-1">글쓰기</legend>
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="inputEmail"
-							placeholder="작성자">
+							placeholder="작성자" name="writer">
 					</div>
 				</div>
 				
@@ -30,14 +30,14 @@
 					<label for="inputEmail" class="col-lg-2 control-label">제목</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="inputEmail"
-							placeholder="제목">
+							placeholder="제목" name="title">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
-						<textarea class="form-control" rows="7" id="textArea" placeholder="내용"></textarea>
+						<textarea class="form-control" rows="7" id="textArea" placeholder="내용" name="content"></textarea>
 					</div>
 				</div>
 

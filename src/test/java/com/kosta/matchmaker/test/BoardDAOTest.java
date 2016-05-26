@@ -50,7 +50,7 @@ public class BoardDAOTest {
 
 		BoardVO board = new BoardVO();
 
-		board.setBno(1);
+		board.setBno(3);
 		board.setTitle("zzzz");
 		board.setContent("성공");
 		board.setWriter("성공한자");

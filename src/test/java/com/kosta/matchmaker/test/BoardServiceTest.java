@@ -52,7 +52,7 @@ public class BoardServiceTest {
 		
 		BoardVO board = new BoardVO();
 		
-		board.setBno(2);
+		board.setBno(3);
 		board.setTitle("서비스 수정 테스트");
 		board.setContent("성공적");
 		board.setWriter("다음으로");

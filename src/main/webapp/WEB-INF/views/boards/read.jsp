@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -17,51 +17,51 @@
 
 	<!-- 글읽기 폼 -->
 	<div class="container">
-		<form class="form-horizontal">
+		<form class="form-horizontal" action="edit" method="post">
 			<fieldset>
 				<legend class="col-lg-10 col-lg-offset-1">글읽기</legend>
 				<div class="form-group">
-					<label for="inputEmail" class="col-lg-2 control-label">글번호</label>
+					<label for="bno" class="col-lg-2 control-label">글번호</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" value="${article.bno }">
+						<input type="text" class="form-control" value="${article.bno }" readonly name="bno">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
+					<label for="writer" class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" value="${article.writer }">
+						<input type="text" class="form-control" value="${article.writer }" readonly name="writer">
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="inputEmail" class="col-lg-2 control-label">제목</label>
+					<label for="title" class="col-lg-2 control-label">제목</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" value="${article.title }">
+						<input type="text" class="form-control" value="${article.title }" readonly name="title">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
-						<textarea class="form-control" rows="7" id="textArea">${article.content }</textarea>
+						<textarea class="form-control" rows="7" id="textArea" >${article.content }</textarea>
 					</div>
 				</div>
 
 				<div class="form-group">
-					<label for="inputEmail" class="col-lg-2 control-label">작성
+					<label for="regdate" class="col-lg-2 control-label">작성
 						날짜</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" 
 								value="<fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-								value="${article.regdate }" />" >
+								value="${article.regdate }" />" readonly>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button class="btn btn-warning">수정</button>
-						<button class="btn btn-primary">삭제</button>
+						<button type="submit" class="btn btn-warning" id="edit">수정</button>
+						<button type="submit" class="btn btn-primary">삭제</button>
 						<a href="/boards" class="btn btn-success">목록</a>
 					</div>
 				</div>
@@ -70,5 +70,11 @@
 	</div>
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
+	
+	<script type="text/javascript">
+// 		$('#edit').click(function () {
+// 			$('form').attr('action', 'edit');
+// 		});
+	</script>
 </body>
 </html>
