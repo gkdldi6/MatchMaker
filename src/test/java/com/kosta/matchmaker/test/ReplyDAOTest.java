@@ -1,5 +1,7 @@
 package com.kosta.matchmaker.test;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -30,11 +32,12 @@ public class ReplyDAOTest {
 
 	@Test
 	public void testList() throws Exception {
-		ReplyVO reply = new ReplyVO();
-		reply.setBno(1);
-		reply.setRno(1);
 
-		dao.list(1);
+		List<ReplyVO> list = dao.list(1);
+
+		for (ReplyVO reply : list) {
+			System.out.println(reply.toString());
+		}
 
 	}
 
@@ -53,7 +56,7 @@ public class ReplyDAOTest {
 	@Test
 	public void testDelete() throws Exception {
 
-		dao.delete(2);
+		dao.delete(1);
 
 	}
 
