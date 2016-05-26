@@ -14,6 +14,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select bno, title, writer, regdate, hit
 		from freeboard
 	</select>
+	
+	<update id="update">
+		update freeboard set title = #{title}, content = #{content}, writer = #{writer}
+		where bno = #{bno}
+	</update>
+	
+	<delete id="delete">
+		delete from freeboard
+		where bno = #{bno}
+	</delete>
+	
+	<select id="readOne" resultType="com.kosta.matchmaker.domain.BoardVO">
+		select bno, title, writer, regdate, hit
+		from freeboard
+		where bno = #{bno}
+	</select>
 
 
 

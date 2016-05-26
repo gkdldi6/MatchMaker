@@ -31,17 +31,17 @@ public class BoardDAOImple implements BoardDAO {
 
 	@Override
 	public void update(BoardVO board) throws Exception {
-
+		session.update(namespace + ".update", board);
 	}
 
 	@Override
 	public void delete(Integer bno) throws Exception {
-
+		session.delete(namespace + ".delete", bno);
 	}
 
 	@Override
-	public List<BoardVO> readOne() throws Exception {
-		return null;
+	public BoardVO readOne(Integer bno) throws Exception {
+		return session.selectOne(namespace + ".readOne", bno);
 	}
 
 }

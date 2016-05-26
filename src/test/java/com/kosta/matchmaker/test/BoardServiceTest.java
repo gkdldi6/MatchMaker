@@ -1,5 +1,6 @@
 package com.kosta.matchmaker.test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,31 +10,34 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.kosta.matchmaker.Service.BoardService;
 import com.kosta.matchmaker.domain.BoardVO;
-import com.kosta.matchmaker.persistence.BoardDAO;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
-public class BoardDAOTest {
+public class BoardServiceTest {
 
 	@Inject
-	private BoardDAO dao;
+	private BoardService service;
 
 	@Test
-	public void testCreate() throws Exception {
+	public void testRegist() throws Exception {
 
 		BoardVO board = new BoardVO();
 
-		board.setTitle("제목입니다");
-		board.setContent("내용입니다");
-		board.setWriter("작성자입니다");
+		board.setTitle("서비스 테스트");
+		board.setContent("성공적");
+		board.setWriter("다음으로");
 
-		dao.create(board);
+		service.regist(board);
+
 	}
 
 	@Test
 	public void testReadAll() throws Exception {
-		List<BoardVO> list = dao.readAll();
+
+		List<BoardVO> list = service.readAll();
 
 		if (list == null) {
 			System.out.println("없다");
@@ -46,34 +50,34 @@ public class BoardDAOTest {
 	}
 
 	@Test
-	public void testUpdate() throws Exception {
-
+	public void testModify() throws Exception{
+		
 		BoardVO board = new BoardVO();
-
-		board.setBno(1);
-		board.setTitle("zzzz");
-		board.setContent("성공");
-		board.setWriter("성공한자");
-
-		dao.update(board);
-
+		
+		board.setBno(2);
+		board.setTitle("서비스 수정 테스트");
+		board.setContent("성공적");
+		board.setWriter("다음으로");
+		
+		service.modify(board);
+		
 	}
-
+	
 	@Test
-	public void testDelete() throws Exception {
-
-		dao.delete(1);
+	public void testRemove() throws Exception{
+		
+		service.remove(3);
+		
 	}
-
+	
 	@Test
 	public void testReadOne() throws Exception{
 		
-		
-		BoardVO board = dao.readOne(2);
+		BoardVO board = service.readOne(2);
 		
 		System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
 				+ board.getRegdate() + "\t" + board.getHit());
-		
-		}
+	}
+	
+	
 }
-
