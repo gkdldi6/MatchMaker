@@ -23,12 +23,12 @@ public class ReplyController {
 	private ReplyService service;
 	
 	@RequestMapping(value="/{bno}", method=RequestMethod.GET)
-	public ResponseEntity<List> replies(@PathVariable int bno) {
+	public ResponseEntity<List<ReplyVO>> replies(@PathVariable int bno) {
 		
-		ResponseEntity<List> entity = null;
+		ResponseEntity<List<ReplyVO>> entity = null;
 			
 		try {
-			List list = service.listReply(bno);
+			List<ReplyVO> list = service.listReply(bno);
 			entity = new ResponseEntity<>(list, HttpStatus.OK);
 		} catch(Exception e) {
 			e.printStackTrace();

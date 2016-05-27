@@ -76,7 +76,7 @@
 	</div>
 
 	<!-- 댓글 입력폼 -->
-	<div style="background-color:#fcf8e3">
+	<div style="background-color: #fcf8e3">
 		<div class="container">
 			<form class="form-horizontal">
 				<fieldset>
@@ -84,27 +84,28 @@
 					<div class="form-group">
 						<label for="writer" class="col-lg-2 control-label">작성자</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" id="writer"
+							<input type="text" class="form-control" id="replyer"
 								placeholder="작성자를 입력해주세요.">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="textArea" class="col-lg-2 control-label">내용</label>
 						<div class="col-lg-10">
-							<textarea class="form-control" rows="3" id="content"
+							<textarea class="form-control" rows="3" id="replytext"
 								placeholder="댓글을 입력해주세요."></textarea>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-lg-10 col-lg-offset-2">
-							<button type="submit" class="btn btn-success">댓글 쓰기</button>
+							<input type="button" class="btn btn-success" value="댓글 쓰기"
+								id="new-reply">
 						</div>
 					</div>
 				</fieldset>
 			</form>
 
 			<!-- 댓글 목록 -->
-			<ul class="reply-list">
+			<ul id="reply-list">
 			</ul>
 
 		</div>
@@ -112,25 +113,56 @@
 
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 
+	<!-- Modal -->
+	<div id="modifyModal" class="modal modal-primary fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" adata-dismiss="modal">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body" data-rno>
+					<p>
+						<input type="text" id="replytext" class="form-control">
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="replyModBtn">수정</button>
+					<button type="button" class="btn btn-danger" id="replyDelBtn">삭제</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- 댓글 템플릿 -->
 	<script id="template" type="text/x-handlebars-template">
-{{#each .}}
-<div class="panel panel-warning">
-  <div class="panel-heading">
-    <h3 class="panel-title">${reply.title}</h3>
-  </div>
-  <div class="panel-body">
-    ${reply.content}
-  </div>
-</div>
-{{/each}}
-</script>
+		{{#each .}}
+		<div class="col-lg-10 col-lg-offset-2">
+		<div class="panel panel-warning each-reply">
+  			<div class="panel-heading">
+    			<h3 class="panel-title">{{replyer}}</h3>
+  			</div>
+  			<div class="panel-body">
+   				<div>{{replytext}}</div>
+				<div><br><input type="button" class="btn btn-warning btn-xs" value="수정"></div>
+			</div>
+		</div>
+		</div>
+		{{/each}}
+	</script>
 
 	<script type="text/javascript">
+		/* 삭제 버튼으로 변경 */
 		$('#delete').click(function() {
 			$('form').attr('action', 'delete');
 		});
 
+		/* 댓글 처리 스크립트 */
+		var bno = ${article.bno};
+
+		/* 템플릿 날짜 */
 		Handlebars.registerHelper("prettifyDate", function(timeValue) {
 			var dateObj = new Date(timeValue);
 			var year = dateObj.getFullYear();
@@ -139,26 +171,54 @@
 			return year + "/" + month + "/" + date;
 		});
 
+		/* ajax로 받아온 댓글 목록들을 템플릿에 컴파일하는 함수 */
 		var printData = function(replyArr, target, templateObject) {
 			var template = Handlebars.compile(templateObject.html());
 
 			var html = template(replyArr);
-			$(".reply-list").remove();
+			$(".each-reply").remove();
 			target.after(html);
 		}
 
-		$.getJSON
+		/* 댓글 목록 읽기 */
+		$.getJSON('/replies/' + bno, function(data) {
+			printData(data, $('#reply-list'), $('#template'));
+			/* $("#modifyModal").modal('hide'); */
+		});
 
-		function getPage(uri) {
-
-			$.getJSON(uri, function(data) {
-				printData(data.list, $("#repliesDiv"), $('#template'));
-				printPaging(data.pageMaker, $(".pagination"));
-
-				$("#modifyModal").modal('hide');
-
+		/* 댓글 쓰기 */
+		$('#new-reply').click(function() {
+			$.ajax({
+				url : '/replies',
+				type : 'post',
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST"
+				},
+				data : JSON.stringify({
+					bno : bno,
+					replyer : $('#replyer').val(),
+					replytext : $('#replytext').val()
+				}),
+				success : function(data) {
+					if (data === 'success') {
+						$('#replyer').val('');
+						$('#replytext').val('');
+						alert('댓글 등록에 성공했습니다.');
+						$.getJSON('/replies/' + bno, function(data) {
+							console.log(data);
+							printData(data, $("#reply-list"), $('#template'));
+						});
+					} else {
+						alert('댓글 등록에 실패했습니다.');
+					}
+				}
 			});
-		}
+		});
+
+		/* 댓글 수정 */
+
+		/* 댓글 삭제 */
 	</script>
 </body>
 </html>
