@@ -35,7 +35,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${list }" var="board">
-					<tr>
+					<tr onclick="window.location.href='/boards/${board.bno}'">
 						<td>${board.title }</td>
 						<td>${board.writer }</td>
 					</tr>
@@ -56,7 +56,7 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${list }" var="board">
-					<tr>
+					<tr onclick="window.location.href='/boards/${board.bno}'">
 						<td>${board.bno }</td>
 						<td>${board.title }</td>
 						<td>${board.writer }</td>

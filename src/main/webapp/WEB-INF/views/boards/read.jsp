@@ -60,8 +60,8 @@
 
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button type="submit" class="btn btn-warning" id="edit">수정</button>
-						<button type="submit" class="btn btn-primary">삭제</button>
+						<button type="submit" class="btn btn-warning">수정</button>
+						<button type="submit" class="btn btn-primary" id="delete">삭제</button>
 						<a href="/boards" class="btn btn-success">목록</a>
 					</div>
 				</div>
@@ -72,9 +72,9 @@
 	<jsp:include page="../include/footer.jsp"></jsp:include>
 	
 	<script type="text/javascript">
-// 		$('#edit').click(function () {
-// 			$('form').attr('action', 'edit');
-// 		});
+		$('#delete').click(function () {
+			$('form').attr('action', 'delete');
+		});
 	</script>
 </body>
 </html>
