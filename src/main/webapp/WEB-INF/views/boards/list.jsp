@@ -109,8 +109,8 @@
 
 	<script type="text/javascript">
 		var result = '${result}';
-		
-		if(result === 'success') {
+
+		if (result === 'success') {
 			alert('작업이 성공적으로 진행되었습니다.');
 		}
 	</script>

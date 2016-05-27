@@ -23,28 +23,28 @@
 				<div class="form-group">
 					<label for="bno" class="col-lg-2 control-label">글번호</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" value="${article.bno }" readonly name="bno">
+						<input type="text" class="form-control" value="${article.bno }" name="bno">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="writer" class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" value="${article.writer }" readonly name="writer">
+						<input type="text" class="form-control" value="${article.writer }" name="writer">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="title" class="col-lg-2 control-label">제목</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" value="${article.title }" readonly name="title">
+						<input type="text" class="form-control" value="${article.title }" name="title">
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
-						<textarea class="form-control" rows="7" id="textArea" >${article.content }</textarea>
+						<textarea class="form-control" rows="7" id="textArea" name="content">${article.content }</textarea>
 					</div>
 				</div>
 
