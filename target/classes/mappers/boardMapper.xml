@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="readAll" resultType="BoardVO">
 		select bno, title, writer, regdate, hit
-		from freeboard
+		from freeboard order by bno desc
 	</select>
 	
 	<update id="update">
