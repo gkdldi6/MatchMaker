@@ -88,7 +88,7 @@
 					<div class="form-group">
 						<label for="textArea" class="col-lg-2 control-label">내용</label>
 						<div class="col-lg-10">
-							<input type="text" class="form-control" rows="3" id="replytext"
+							<input type="text" class="form-control" id="replytext"
 								placeholder="댓글을 입력해주세요.">
 						</div>
 					</div>
@@ -141,7 +141,11 @@
   					</div>
   					<div class="panel-body">
    						<div id="replytext-list">{{replytext}}</div>
+<<<<<<< HEAD
 						<div><br><input type="button" class="btn btn-warning btn-xs btn-flat each-button"
+=======
+						<div><br><input type="button" class="btn btn-warning btn-xs each-button"
+>>>>>>> refs/remotes/origin/master
 										value="수정" data-toggle="modal" data-target="#modifyModal"></div>
 					</div>
 				</div>
