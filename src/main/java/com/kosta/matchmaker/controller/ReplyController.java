@@ -55,7 +55,7 @@ public class ReplyController {
 	}
 	
 	@RequestMapping(value="/{rno}", method={RequestMethod.PUT, RequestMethod.PATCH})
-	public ResponseEntity<String> modifyReply(@PathVariable("rno") Integer rno, 
+	public ResponseEntity<String> modifyReply(@PathVariable("rno") int rno, 
 			@RequestBody ReplyVO reply) {
 		
 		ResponseEntity<String> entity = null;

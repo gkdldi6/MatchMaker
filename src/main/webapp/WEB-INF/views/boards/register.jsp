@@ -1,18 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<jsp:include page="../include/head.jsp"></jsp:include>
+<jsp:include page="../include/header.jsp"></jsp:include>
+
+
 <style>
 .container {
 	padding-top: 30px;
 }
 </style>
-</head>
-<body>
-	<jsp:include page="../include/nav.jsp"></jsp:include>
 
 	<!-- 글쓰기 -->
 	<div class="container">
@@ -44,14 +40,13 @@
 
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button type="submit" class="btn btn-success">작성</button>
-						<a href="/boards" class="btn btn-warning">취소</a>
+						<button type="submit" class="btn btn-primary btn-flat">작성</button>
+						<a href="/boards" class="btn btn-default btn-flat">취소</a>
 					</div>
 				</div>
 			</fieldset>
 		</form>
 	</div>
 
-	<jsp:include page="../include/footer.jsp"></jsp:include>
-</body>
-</html>
+
+<jsp:include page="../include/footer.jsp"></jsp:include>

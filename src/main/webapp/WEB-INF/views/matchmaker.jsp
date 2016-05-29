@@ -1,31 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<jsp:include page="include/head.jsp"></jsp:include>
-<style type="text/css">
-#jumbo1 {
-	background-color: #40B2F0;
-}
 
-#jumbo2 {
-	background-color: #2D7FAB;
-	margin-top: 30px;
-}
+<jsp:include page="include/header.jsp"></jsp:include>
 
-#jumbo3 {
-	background-color: #3AA1D9;
-	margin-top: 30px;
-}
-
-.placeholder {
-	margin-top: 20px;
-}
-</style>
-</head>
-<body>
-	<jsp:include page="include/nav.jsp"></jsp:include>
 
 	<div id="jumbo1" class="jumbotron">
 		<div class="container">
@@ -214,13 +191,14 @@
 				<div class="form-group">
 					<label class="col-lg-2 control-label">이메일</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control"	placeholder="이메일 주소를 입력해주세요.">
+						<input type="text" class="form-control"
+							placeholder="이메일 주소를 입력해주세요.">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control"	placeholder="작성자를 입력해주세요.">
+						<input type="text" class="form-control" placeholder="작성자를 입력해주세요.">
 					</div>
 				</div>
 				<div class="form-group">
@@ -240,6 +218,5 @@
 		</form>
 	</div>
 
-	<jsp:include page="include/footer.jsp"></jsp:include>
-</body>
-</html>
+
+<jsp:include page="include/footer.jsp"></jsp:include>

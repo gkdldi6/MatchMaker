@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+
+body {
+	padding-top: 50px;
+}
+
+#bg {
+	background-image: url('http://127.0.0.1:8080/resources/img/new-bg.jpg');
+	background-size: cover;
+    background-position: center;
+	height: 755px;
+}
+
+#jumbo1 {
+	background-color: #40B2F0;
+}
+
+#jumbo2 {
+	background-color: #2D7FAB;
+	margin-top: 30px;
+}
+
+#jumbo3 {
+	background-color: #3AA1D9;
+	margin-top: 30px;
+}
+
+.placeholder {
+	margin-top: 20px;
+}

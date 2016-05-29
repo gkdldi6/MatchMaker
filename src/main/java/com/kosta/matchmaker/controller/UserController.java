@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/users")
 public class UserController {
 
-	@RequestMapping("/register")
+	@RequestMapping("/join")
 	public String register() {
-		return "users/register";
+		return "users/join";
 	}
 	
 }
