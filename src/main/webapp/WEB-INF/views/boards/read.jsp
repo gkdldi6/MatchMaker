@@ -75,8 +75,10 @@
 		</form>
 	</div>
 
-	<!-- 댓글 입력폼 -->
+	<!-- 댓글 -->
 	<div style="background-color: #fcf8e3">
+		
+		<!-- 댓글 입력폼 -->
 		<div class="container">
 			<form class="form-horizontal">
 				<fieldset>
@@ -91,8 +93,8 @@
 					<div class="form-group">
 						<label for="textArea" class="col-lg-2 control-label">내용</label>
 						<div class="col-lg-10">
-							<textarea class="form-control" rows="3" id="replytext"
-								placeholder="댓글을 입력해주세요."></textarea>
+							<input type="text" class="form-control" rows="3" id="replytext"
+								placeholder="댓글을 입력해주세요.">
 						</div>
 					</div>
 					<div class="form-group">
@@ -119,12 +121,12 @@
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" adata-dismiss="modal">&times;</button>
-					<h4 class="modal-title"></h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="replyer-modal"></h4>
 				</div>
 				<div class="modal-body" data-rno>
 					<p>
-						<input type="text" id="replytext" class="form-control">
+						<input type="text" id="replytext-modal" class="form-control">
 					</p>
 				</div>
 				<div class="modal-footer">
@@ -139,17 +141,18 @@
 	<!-- 댓글 템플릿 -->
 	<script id="template" type="text/x-handlebars-template">
 		{{#each .}}
-		<div class="col-lg-10 col-lg-offset-2">
-		<div class="panel panel-warning each-reply">
-  			<div class="panel-heading">
-    			<h3 class="panel-title">{{replyer}}</h3>
-  			</div>
-  			<div class="panel-body">
-   				<div>{{replytext}}</div>
-				<div><br><input type="button" class="btn btn-warning btn-xs" value="수정"></div>
+			<div class="col-lg-10 col-lg-offset-2 each-reply" data-rno={{rno}}>
+				<div class="panel panel-warning">
+  					<div class="panel-heading">
+    					<h3 class="panel-title" id="replyer-list">{{replyer}}</h3>
+  					</div>
+  					<div class="panel-body">
+   						<div id="replytext-list">{{replytext}}</div>
+						<div><br><input type="button" class="btn btn-warning btn-xs each-button"
+										value="수정" data-toggle="modal" data-target="#modifyModal"></div>
+					</div>
+				</div>
 			</div>
-		</div>
-		</div>
 		{{/each}}
 	</script>
 
@@ -177,14 +180,18 @@
 
 			var html = template(replyArr);
 			$(".each-reply").remove();
-			target.after(html);
+			target.html(html);
 		}
 
 		/* 댓글 목록 읽기 */
-		$.getJSON('/replies/' + bno, function(data) {
-			printData(data, $('#reply-list'), $('#template'));
-			/* $("#modifyModal").modal('hide'); */
-		});
+		function getReply() {
+			$.getJSON('/replies/' + bno, function(data) {
+				printData(data, $('#reply-list'), $('#template'));
+				$("#modifyModal").modal('hide');
+			});
+		};
+		
+		getReply();
 
 		/* 댓글 쓰기 */
 		$('#new-reply').click(function() {
@@ -204,21 +211,61 @@
 					if (data === 'success') {
 						$('#replyer').val('');
 						$('#replytext').val('');
-						alert('댓글 등록에 성공했습니다.');
-						$.getJSON('/replies/' + bno, function(data) {
-							console.log(data);
-							printData(data, $("#reply-list"), $('#template'));
-						});
-					} else {
-						alert('댓글 등록에 실패했습니다.');
+						alert('댓글이 등록되었습니다.');
+						getReply();
 					}
 				}
 			});
 		});
-
+		
+		/* 이벤트 연결 */
+		$('#reply-list').on('click', '.each-button', function() {
+			var reply = $(this).parents('.each-reply');
+			var rno = reply.attr('data-rno');
+			
+			$('.modal-body').attr('data-rno', rno);
+			$('#replyer-modal').text(reply.find('#replyer-list').text());
+			$('#replytext-modal').val(reply.find('#replytext-list').text());
+		});
+		
 		/* 댓글 수정 */
-
+		$('#replyModBtn').click(function() {
+			var rno = $('.modal-body').attr('data-rno');
+			
+			$.ajax({
+				url: '/replies/' + rno,
+				type: 'put',
+				headers: { 
+				      "Content-Type": "application/json",
+				      "X-HTTP-Method-Override": "PUT" },
+				data: JSON.stringify({
+					replytext: $('#replytext-modal').val()
+				}),
+				success: function(data) {
+					if(data === 'success') {
+						alert('댓글이 수정되었습니다.');
+						getReply();
+					}
+				}
+			});
+		});
+		
 		/* 댓글 삭제 */
+		$('#replyDelBtn').click(function() {
+			var rno = $('.modal-body').attr('data-rno');
+			
+			$.ajax({
+				url: '/replies/' + rno,
+				type: 'delete',
+				headers: { 
+				      "Content-Type": "application/json",
+				      "X-HTTP-Method-Override": "DELETE" },
+				success: function(data) {
+					alert('댓글이 삭제되었습니다.');
+					getReply();
+				}
+			});
+		});
 	</script>
 </body>
 </html>
