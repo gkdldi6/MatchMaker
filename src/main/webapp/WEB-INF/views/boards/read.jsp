@@ -141,11 +141,7 @@
   					</div>
   					<div class="panel-body">
    						<div id="replytext-list">{{replytext}}</div>
-<<<<<<< HEAD
 						<div><br><input type="button" class="btn btn-warning btn-xs btn-flat each-button"
-=======
-						<div><br><input type="button" class="btn btn-warning btn-xs each-button"
->>>>>>> refs/remotes/origin/master
 										value="수정" data-toggle="modal" data-target="#modifyModal"></div>
 					</div>
 				</div>

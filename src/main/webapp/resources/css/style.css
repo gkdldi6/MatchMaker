@@ -28,3 +28,16 @@ body {
 .placeholder {
 	margin-top: 20px;
 }
+
+footer {
+    margin: auto 0;
+}
+footer li {
+    float: left;
+    margin-right: 1.5em;
+    margin-bottom: 1.5em;
+}
+footer p {
+    clear: left;
+    margin-bottom: 0;
+}
