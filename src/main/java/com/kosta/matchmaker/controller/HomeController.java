@@ -16,5 +16,11 @@ public class HomeController {
 	public String matchmaker() {
 		return "matchmaker";
 	}
+	
+	@RequestMapping("/courts")
+	public String courts() {
+		return "courts/map";
+	}
+
 
 }

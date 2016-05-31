@@ -1,15 +1,28 @@
 package com.kosta.matchmaker.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
-@Controller
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.kosta.matchmaker.domain.CourtVO;
+
+@RestController
 @RequestMapping("/courts")
 public class CourtController {
 	
-	@RequestMapping("")
-	public String courts() {
-		return "courts/courts";
+	@RequestMapping("/all")
+	public ResponseEntity<List<CourtVO>>  courts() {
+		
+		ResponseEntity<List<CourtVO>> entity = null;
+		
+		
+		
+		
+		
+		
+		return entity;
 	}
 	
 }
