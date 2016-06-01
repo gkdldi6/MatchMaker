@@ -5,28 +5,19 @@
 <div class="box-widget">
 	<div class="box-header with-border">
 		<div class="user-block">
-			<img class="img-circle" src="../dist/img/user1-128x128.jpg"	alt="User Image"> 
-			<span class="username"><a href="#">Jonathan Burke Jr.</a></span> 
-			<span class="description">Shared publicly - 7:30 PM Today</span>
+			<img class="img-circle" src="/resources/img/court-icon.jpg"	alt="court Image"> 
+			<span id="cno" class="username"></span> 
+			<span id="address" class="description"></span>
 		</div>
 		<!-- /.user-block -->
-		<div class="box-tools">
-			<button type="button" class="btn btn-box-tool" data-toggle="tooltip"
-				title="Mark as read">
-				<i class="fa fa-circle-o"></i>
-			</button>
-			<button type="button" class="btn btn-box-tool" data-widget="collapse">
-				<i class="fa fa-minus"></i>
-			</button>
-			<button type="button" class="btn btn-box-tool" data-widget="remove">
-				<i class="fa fa-times"></i>
-			</button>
-		</div>
-		<!-- /.box-tools -->
 	</div>
 	<!-- /.box-header -->
 	<div class="box-body">
+		
+		<img alt="코트 사진" width="200" height="200"></img>
+		
 		<!-- post text -->
+		<br><b>코트 내용</b>
 		<p>Far far away, behind the word mountains, far from the countries
 			Vokalia and Consonantia, there live the blind texts. Separated they
 			live in Bookmarksgrove right at</p>
@@ -36,31 +27,7 @@
 			necessary regelialia. It is a paradisematic country, in which roasted
 			parts of sentences fly into your mouth.</p>
 
-		<!-- Attachment -->
-		<div class="attachment-block clearfix">
-			<img class="attachment-img" src="../dist/img/photo1.png"
-				alt="Attachment Image">
-
-			<div class="attachment-pushed">
-				<h4 class="attachment-heading">
-					<a href="http://www.lipsum.com/">Lorem ipsum text generator</a>
-				</h4>
-
-				<div class="attachment-text">
-					Description about the attachment can be placed here. Lorem Ipsum is
-					simply dummy text of the printing and typesetting industry... 
-					<a href="#">more</a>
-				</div>
-				<!-- /.attachment-text -->
-			</div>
-			<!-- /.attachment-pushed -->
-		</div>
-		<!-- /.attachment-block -->
-
 		<!-- Social sharing buttons -->
-		<button type="button" class="btn btn-default btn-xs">
-			<i class="fa fa-share"></i> Share
-		</button>
 		<button type="button" class="btn btn-default btn-xs">
 			<i class="fa fa-thumbs-o-up"></i> Like
 		</button>
@@ -72,7 +39,7 @@
 		
 		<div class="box-comment">
 			<!-- User image -->
-			<img class="img-circle img-sm" src="../dist/img/user3-128x128.jpg" alt="User Image">
+			<img class="img-circle img-sm" src="/resources/img/user.jpg" alt="User Image">
 			
 			<div class="comment-text">
 				<span class="username"> Maria Gonzales 
@@ -81,94 +48,6 @@
 				<!-- /.username -->
 				It is a long established fact that a reader will be distracted by
 				the readable content of a page when looking at its layout.
-			</div>
-			<!-- /.comment-text -->
-		</div>
-		<!-- /.box-comment -->
-		
-		<div class="box-comment">
-			<!-- User image -->
-			<img class="img-circle img-sm" src="../dist/img/user5-128x128.jpg" alt="User Image">
-			<div class="comment-text">
-				<span class="username"> Nora Havisham <span
-					class="text-muted pull-right">8:03 PM Today</span>
-				</span>
-				<!-- /.username -->
-				The point of using Lorem Ipsum is that it has a more-or-less normal
-				distribution of letters, as opposed to using 'Content here, content
-				here', making it look like readable English.
-			</div>
-			<!-- /.comment-text -->
-		</div>
-		<!-- /.box-comment -->
-		
-		<div class="box-comment">
-			<!-- User image -->
-			<img class="img-circle img-sm" src="../dist/img/user5-128x128.jpg"
-				alt="User Image">
-
-			<div class="comment-text">
-				<span class="username"> Nora Havisham <span
-					class="text-muted pull-right">8:03 PM Today</span>
-				</span>
-				<!-- /.username -->
-				The point of using Lorem Ipsum is that it has a more-or-less normal
-				distribution of letters, as opposed to using 'Content here, content
-				here', making it look like readable English.
-			</div>
-			<!-- /.comment-text -->
-		</div>
-		<!-- /.box-comment -->
-
-		<div class="box-comment">
-			<!-- User image -->
-			<img class="img-circle img-sm" src="../dist/img/user5-128x128.jpg"
-				alt="User Image">
-
-			<div class="comment-text">
-				<span class="username"> Nora Havisham <span
-					class="text-muted pull-right">8:03 PM Today</span>
-				</span>
-				<!-- /.username -->
-				The point of using Lorem Ipsum is that it has a more-or-less normal
-				distribution of letters, as opposed to using 'Content here, content
-				here', making it look like readable English.
-			</div>
-			<!-- /.comment-text -->
-		</div>
-		<!-- /.box-comment -->
-
-		<div class="box-comment">
-			<!-- User image -->
-			<img class="img-circle img-sm" src="../dist/img/user5-128x128.jpg"
-				alt="User Image">
-
-			<div class="comment-text">
-				<span class="username"> Nora Havisham <span
-					class="text-muted pull-right">8:03 PM Today</span>
-				</span>
-				<!-- /.username -->
-				The point of using Lorem Ipsum is that it has a more-or-less normal
-				distribution of letters, as opposed to using 'Content here, content
-				here', making it look like readable English.
-			</div>
-			<!-- /.comment-text -->
-		</div>
-		<!-- /.box-comment -->
-
-		<div class="box-comment">
-			<!-- User image -->
-			<img class="img-circle img-sm" src="../dist/img/user5-128x128.jpg"
-				alt="User Image">
-
-			<div class="comment-text">
-				<span class="username"> Nora Havisham <span
-					class="text-muted pull-right">8:03 PM Today</span>
-				</span>
-				<!-- /.username -->
-				The point of using Lorem Ipsum is that it has a more-or-less normal
-				distribution of letters, as opposed to using 'Content here, content
-				here', making it look like readable English.
 			</div>
 			<!-- /.comment-text -->
 		</div>
