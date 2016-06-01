@@ -27,7 +27,7 @@
 			</form>
 			<div class="navbar-form navbar-right">
 				<button class="btn btn-primary">로그인</button>
-				<a class="btn btn-warning" href="/users/register">회원가입</a>
+				<a class="btn btn-warning" href="/users/join">회원가입</a>
 			</div>
 		</div>
 	</div>

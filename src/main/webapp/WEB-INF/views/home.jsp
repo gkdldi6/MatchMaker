@@ -43,7 +43,13 @@
 		<!-- 로그인 폼 끝 -->
 
 	</div>
+<script type="text/javascript">
+	var result = '${result}';
 
+	if (result === 'joinSuccess') {
+		alert('가입이 성공적으로 되었습니다.');
+	}
+</script>
 
 
 <jsp:include page="include/footer.jsp"></jsp:include>

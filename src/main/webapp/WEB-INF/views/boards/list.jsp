@@ -89,6 +89,8 @@
 
 	if (result === 'success') {
 		alert('작업이 성공적으로 진행되었습니다.');
+	}else if(result ==='loginSuccess'){
+		alert('로그인이 성공적으로 되었습니다.');
 	}
 </script>
 
