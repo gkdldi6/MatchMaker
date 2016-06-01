@@ -58,4 +58,11 @@ public class UserServiceImpl implements UserService {
 		dao.delete(userid, userpw);
 	}
 
+	@Override
+	public void userIdCheck(String userid) {
+		dao.userIdCheck(userid);
+	}
+	
+	
+
 }

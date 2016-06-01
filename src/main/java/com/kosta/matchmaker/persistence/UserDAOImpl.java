@@ -27,7 +27,10 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public void join(UserVO user) throws Exception {
-		session.insert(namespace + ".join", user);
+		//아이디가 겹치지 않으면 이 if문에 걸려서 user등록됨
+		if(userIdCheck(user.getUserid())==1){
+			session.insert(namespace + ".join", user);
+		}
 	}
 
 	@Override
@@ -72,6 +75,20 @@ public class UserDAOImpl implements UserDAO {
 		UserVO user = session.selectOne(namespace + ".selectId", map);
 
 		return user;
+	}
+
+	@Override
+	public int userIdCheck(String userid) {
+		List<UserVO> list = session.selectList(namespace + ".selectList");
+		
+		for(UserVO user : list) {
+		
+			if(userid.equals(user.getUserid())){
+				return 0;//중복 아이디 있음
+			}
+				
+		}
+		return 1;//중복 아이디 없음
 	}
 
 }

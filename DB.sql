@@ -8,7 +8,7 @@ drop table user;
 -- 유저 테이블
 create table user (
 	userid varchar(50) not null, 
-	userpw varchar(50) not null, 
+	userpw varchar(60) not null, 
 	username varchar(50) not null, 
 	email varchar(100) not null, 
 	regdate timestamp default now(),

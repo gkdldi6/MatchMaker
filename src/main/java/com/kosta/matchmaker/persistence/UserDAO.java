@@ -28,4 +28,6 @@ public interface UserDAO {
 	//아이디 하나 검사
 	public UserVO selectId(String userid);
 	
+	//아이디 중복 검사
+	public int userIdCheck(String userid);
 }

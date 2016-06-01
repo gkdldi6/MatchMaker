@@ -24,6 +24,9 @@ public interface UserService {
 
 	// 회원 삭제
 	public void delete(String userid, String userpw);
+	
+	//아이디 중복 검사
+	public void userIdCheck(String userid);
 
 	
 }

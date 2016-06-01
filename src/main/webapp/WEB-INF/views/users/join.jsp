@@ -84,11 +84,6 @@
 		</fieldset>
 	</form>
 </div>
-<script type="text/javascript">
-	function idchk() {
-		alert("아이디를 입력하십시오.");
-		
-	}
-</script>
+
 
 <jsp:include page="../include/footer.jsp"></jsp:include>

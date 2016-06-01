@@ -98,7 +98,6 @@ public class UserDAOTest {
         
         if(BCrypt.checkpw(shaPass,dbpasswd) && user.getUserid().equals("user01")){
 		
-        	System.out.println("ㅅㅅㅅㅅ");
 			//아이디와 비밀번호로 나머지 수정 ->등록일과 유저 나이는 수정 x
 			user.setUserid("user01");
 			user.setUsername("수정된놈");
@@ -117,5 +116,14 @@ public class UserDAOTest {
 		dao.delete("1234", "1234");
 		
 	}
-
+	@Test
+	public void testUserIdCheck() throws Exception{
+		String userid = "123466";
+		int result = dao.userIdCheck(userid);
+		if(result ==1){
+			System.out.println("아이디 없음");
+		}else{
+			System.out.println("아이디 있음");
+		}
+	}
 }
