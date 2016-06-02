@@ -84,11 +84,10 @@ public class UserDAOImpl implements UserDAO {
 		for(UserVO user : list) {
 		
 			if(userid.equals(user.getUserid())){
-				return 0;//중복 아이디 있음
+				return 0;
 			}
-				
 		}
-		return 1;//중복 아이디 없음
+		return 1;
 	}
 
 }

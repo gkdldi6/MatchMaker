@@ -39,7 +39,7 @@
 					확인</label>
 				<div class="col-lg-10">
 					<input type="password" name="userpwCheck" class="form-control"
-						id="userpwCheck" placeholder="비밀번호를 다시 입력해주세요.">
+						id="userpwCheck" onblur="passwordCheck()"placeholder="비밀번호를 다시 입력해주세요.">
 				</div>
 			</div>
 
@@ -48,6 +48,7 @@
 				<div class="col-lg-10">
 					<input type="email" name="email" class="form-control" id="email"
 						placeholder="이메일을 입력해주세요.">
+					<a >이메일 인증</a>
 				</div>
 			</div>
 
@@ -88,19 +89,19 @@
 <script type="text/javascript">
 
 	$('#idcheck').click(function() {
+		alert($('#userid').val());
  		$.ajax({
 			url:'/users/join/idCheck',		
 			type: 'POST',
-			data:{"userid" :('#userid')},
+			data:{"userid" :$('#userid').val()},
 			success: function(data){
-				if(data =="idCheckSuccess"){
-					alert("아이디중복 없어용");
-				} else if(data == "idCheckFail"){
-					alert("아이디중복 있어용");
+				alert(data);
+				if(data ==="idCheckSuccess"){
+					alert("아이디 사용O");
+				} else {
+					alert("아이디 사용X");
 				}
-// 				}else{
-// 					alert(data);
-// 				}
+ 				alert(data);
 			},
 			error: function(){
 				alert("망함");
@@ -113,6 +114,19 @@
 		 	alert("아이디를 입력해 주세요.");
 		 	$('#userid').focus();
 		}
+	}
+	
+	function passwordCheck(){
+		if($('#userpw').val() == ""){
+		 	alert("비밀번호를 입력해 주세요.");
+		 	
+		 	$('#userpw').focus();
+		}
+		if($('#userpw').val() != $('#userpwCheck').val()){
+	 		alert("비밀번호가 서로 일치 하지 않습니다.");
+	 		$('#userpw').focus();
+	 	}
+		 	
 	}
 </script>
 

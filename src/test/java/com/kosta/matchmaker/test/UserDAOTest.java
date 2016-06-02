@@ -120,7 +120,7 @@ public class UserDAOTest {
 	public void testUserIdCheck() throws Exception{
 		String userid = "1234";
 		int result = dao.userIdCheck(userid);
-		if(result ==1){
+		if(result == 0){
 			System.out.println("아이디 사용 불가");
 		}else{
 			System.out.println("아이디 사용 가능");

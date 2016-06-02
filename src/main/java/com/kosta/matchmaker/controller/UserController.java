@@ -1,9 +1,7 @@
 package com.kosta.matchmaker.controller;
 
-import java.text.AttributedCharacterIterator.Attribute;
-
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -53,11 +51,13 @@ public class UserController {
 	//아이디 체크
 	@ResponseBody
 	@RequestMapping(value = "/join/idCheck", method=RequestMethod.POST)
-	public String idCheck(RedirectAttributes rttr, String userid) throws Exception{
+	public String idCheck(RedirectAttributes rttr, HttpServletRequest request) throws Exception{
+		String userid = request.getParameter("userid");
 		int result = service.userIdCheck(userid);
-		if(result ==1){
+		
+		if(result == 1){
 			return "idCheckSuccess";
-		}else{
+		}else{ 
 			return "idCheckFail";
 		}
 		
