@@ -36,9 +36,11 @@
 					<c:forEach items="${list }" var="board">
 						<tr onclick="window.location.href='/boards/${board.bno}'">
 							<td>${board.bno }</td>
-							<td>${board.title }</td>
+							<%-- <td>${board.title }</td> --%>
+							<td>${board.title } <strong>[ ${board.replycnt} ]</strong></td>
 							<td>${board.writer }</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${board.regdate }" /></td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+									value="${board.regdate }" /></td>
 							<td><span class="badge">${board.hit }</span></td>
 						</tr>
 					</c:forEach>

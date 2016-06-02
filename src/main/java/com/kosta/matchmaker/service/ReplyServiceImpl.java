@@ -21,7 +21,7 @@ public class ReplyServiceImpl implements ReplyService {
 	@Inject
 	private BoardDAO boardDAO;
 
-	// 트랜젝션 이전
+	// 트랜젝션 이전 
 	// @Override
 	// public void addReply(ReplyVO reply) throws Exception {
 	//

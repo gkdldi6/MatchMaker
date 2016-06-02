@@ -22,7 +22,7 @@ public interface ReplyDAO {
 
 	public int count(Integer bno) throws Exception;
 
-	// 본글번호 가져오기
+	// 본글번호 가져오기 
 	public int getBno(Integer rno) throws Exception;
 
 }

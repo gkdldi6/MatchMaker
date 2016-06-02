@@ -19,7 +19,7 @@ public interface ReplyService {
 
 	public void removeReply(Integer rno) throws Exception;
 
-	// reply 글수
+	// reply 글수 
 	public int count(Integer bno) throws Exception;
 
 }

@@ -67,7 +67,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 		return session.selectOne(namespace + ".count", bno);
 	}
 
-	// 본글번호 가져오기
+	// 본글번호 가져오기 
 	@Override
 	public int getBno(Integer rno) throws Exception {
 
