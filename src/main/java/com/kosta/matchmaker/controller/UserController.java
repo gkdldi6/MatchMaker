@@ -48,14 +48,19 @@ public class UserController {
 
 	}
 	
-	/*글 작성*/
+	//회원가입
 	@RequestMapping(value = "/join", method=RequestMethod.POST)
-	public String write(RedirectAttributes rttr, UserVO user) throws Exception {
+	public String write(RedirectAttributes rttr, UserVO user,String userid) throws Exception {
+		int result = service.userIdCheck(userid);
+		rttr.addFlashAttribute("data", "joinSuccess");
 		
-		service.join(user);
+		if(result >=1){
+			service.join(user);
 
-		rttr.addFlashAttribute("result", "joinSuccess");
-		return "redirect:/";
+			rttr.addFlashAttribute("result", "joinSuccess");
+			return "redirect:/";
+		}
+		return "";
 	}
 	
 }

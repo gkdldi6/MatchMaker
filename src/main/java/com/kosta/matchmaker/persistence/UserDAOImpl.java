@@ -79,7 +79,7 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int userIdCheck(String userid) {
-		List<UserVO> list = session.selectList(namespace + ".selectList");
+		List<UserVO> list = session.selectList(namespace + ".selectId");
 		
 		for(UserVO user : list) {
 		

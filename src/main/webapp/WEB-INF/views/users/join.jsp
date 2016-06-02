@@ -21,7 +21,8 @@
 				<label for="inputId" class="col-lg-2 control-label">아이디</label>
 				<div class="col-lg-10">
 					<input type="text" name="userid" class="form-control" id="userid"
-						onblur="idchk()" placeholder="아이디를 입력해주세요.">
+						placeholder="아이디를 입력해주세요.">
+					<input type="button" id ="idcheck" value="아이디 체크"/>
 				</div>
 			</div>
 
@@ -84,6 +85,28 @@
 		</fieldset>
 	</form>
 </div>
+<script type="text/javascript">
+	$('#idcheck').click(function() {
+// 		alert("나와랏!");
+		$.ajax({
+			url:'/users/join',		
+			type: 'POST',
+			data:{"userid" : userid},
+			success: function(data){
+				if(data =='joinSuccess'){
+					alert("아이디중복 없어용");
+				} else{
+					alert("아이디중복 있어용");
+				}
+			}	
+				
+		});
+		
+	});
+
+
+</script>
+
 
 
 <jsp:include page="../include/footer.jsp"></jsp:include>

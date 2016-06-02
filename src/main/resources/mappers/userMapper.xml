@@ -33,7 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="selectId" resultType="com.kosta.matchmaker.domain.UserVO">
-		select * from user where userid = #{userid}
+		select * 
+		from user 
+		where userid = #{userid}
 	</select>
 	
 	

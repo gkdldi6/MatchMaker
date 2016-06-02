@@ -59,8 +59,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void userIdCheck(String userid) {
-		dao.userIdCheck(userid);
+	public int userIdCheck(String userid) {
+		int result = dao.userIdCheck(userid);
+		
+		if(result==1){
+			return 1;
+		}
+		return 0;
+		
 	}
 	
 	
