@@ -71,7 +71,7 @@
 					<div class="col-lg-10 col-lg-offset-2">
 						<button type="submit" class="btn btn-warning btn-flat" id="edit">수정</button>
 						<button type="submit" class="btn btn-primary btn-flat" id="delete">삭제</button>
-						<a href="/boards?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}" class="btn btn-success btn-flat" id="list">목록</a>
+						<button class="btn btn-success btn-flat" id="list">목록</button>
 					</div>
 				</div>
 			</fieldset>
