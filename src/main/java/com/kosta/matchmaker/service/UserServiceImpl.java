@@ -62,11 +62,7 @@ public class UserServiceImpl implements UserService {
 	public int userIdCheck(String userid) {
 		int result = dao.userIdCheck(userid);
 		
-		if(result==1){
-			return 1;
-		}
-		return 0;
-		
+		return result;
 	}
 	
 	

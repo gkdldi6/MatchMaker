@@ -20,9 +20,9 @@
 			<div class="form-group">
 				<label for="inputId" class="col-lg-2 control-label">아이디</label>
 				<div class="col-lg-10">
-					<input type="text" name="userid" class="form-control" id="userid"
-						placeholder="아이디를 입력해주세요.">
-					<input type="button" id ="idcheck" value="아이디 체크"/>
+					<input type="text" name="userid" class="form-control" id="userid" 
+						placeholder="아이디를 입력해주세요."> <input type="button"
+						id="idcheck" value="아이디 체크" />
 				</div>
 			</div>
 
@@ -77,7 +77,7 @@
 
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
-					<button type="submit" class="btn btn-primary btn-flat">가입</button>
+					<button type="submit" onblur="checkID()" class="btn btn-primary btn-flat">가입</button>
 					<a class="btn btn-default btn-flat" onclick="history.go(-1);">취소</a>
 				</div>
 			</div>
@@ -86,25 +86,34 @@
 	</form>
 </div>
 <script type="text/javascript">
+
 	$('#idcheck').click(function() {
-// 		alert("나와랏!");
-		$.ajax({
-			url:'/users/join',		
+ 		$.ajax({
+			url:'/users/join/idCheck',		
 			type: 'POST',
-			data:{"userid" : userid},
+			data:{"userid" :('#userid')},
 			success: function(data){
-				if(data =='joinSuccess'){
+				if(data =="idCheckSuccess"){
 					alert("아이디중복 없어용");
-				} else{
+				} else if(data == "idCheckFail"){
 					alert("아이디중복 있어용");
 				}
-			}	
-				
+// 				}else{
+// 					alert(data);
+// 				}
+			},
+			error: function(){
+				alert("망함");
+			}
 		});
-		
 	});
-
-
+	
+	function checkID(){
+		 if($('#userid').val() == ""){
+		 	alert("아이디를 입력해 주세요.");
+		 	$('#userid').focus();
+		}
+	}
 </script>
 
 

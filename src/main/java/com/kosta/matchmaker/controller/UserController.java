@@ -1,6 +1,9 @@
 package com.kosta.matchmaker.controller;
 
+import java.text.AttributedCharacterIterator.Attribute;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -8,9 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kosta.matchmaker.domain.BoardVO;
 import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.service.UserService;
@@ -47,16 +50,26 @@ public class UserController {
 	public void join() throws Exception {
 
 	}
+	//아이디 체크
+	@ResponseBody
+	@RequestMapping(value = "/join/idCheck", method=RequestMethod.POST)
+	public String idCheck(RedirectAttributes rttr, String userid) throws Exception{
+		int result = service.userIdCheck(userid);
+		if(result ==1){
+			return "idCheckSuccess";
+		}else{
+			return "idCheckFail";
+		}
+		
+	}
+		
 	
 	//회원가입
 	@RequestMapping(value = "/join", method=RequestMethod.POST)
 	public String write(RedirectAttributes rttr, UserVO user,String userid) throws Exception {
 		int result = service.userIdCheck(userid);
-		rttr.addFlashAttribute("data", "joinSuccess");
-		
-		if(result >=1){
+		if(result ==1){
 			service.join(user);
-
 			rttr.addFlashAttribute("result", "joinSuccess");
 			return "redirect:/";
 		}
