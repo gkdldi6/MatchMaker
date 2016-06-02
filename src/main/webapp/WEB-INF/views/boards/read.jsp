@@ -21,7 +21,7 @@
 					<label for="bno" class="col-lg-2 control-label">글번호</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" value="${article.bno }"
-							name="bno">
+							name="bno" >
 					</div>
 				</div>
 
@@ -29,7 +29,7 @@
 					<label for="writer" class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" value="${article.writer }"
-							name="writer">
+							name="writer" >
 					</div>
 				</div>
 
@@ -59,16 +59,25 @@
 					</div>
 				</div>
 
+		<!-- 페이징용 파라미터 저장 폼 -->
+		<form role="form" action="edit" method="post">
+			<input type='hidden' name='bno' value="${board.bno}">
+			<input type='hidden' name='page' value="${cri.page}">
+			<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+			<input type='hidden' name='searchType' value="${cri.searchType}">
+			<input type='hidden' name='keyword' value="${cri.keyword}">
+		</form>
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button type="submit" class="btn btn-warning btn-flat">수정</button>
+						<button type="submit" class="btn btn-warning btn-flat" id="edit">수정</button>
 						<button type="submit" class="btn btn-primary btn-flat" id="delete">삭제</button>
-						<a href="/boards" class="btn btn-success btn-flat">목록</a>
+						<a href="/boards?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}" class="btn btn-success btn-flat" id="list">목록</a>
 					</div>
 				</div>
 			</fieldset>
 		</form>
 	</div>
+	
 
 	<!-- 댓글 -->
 	<div style="background-color: #fcf8e3">
@@ -147,6 +156,41 @@
 				</div>
 			</div>
 		{{/each}}
+	</script>
+	
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		var formObj = $("form[role='form']");
+		
+		console.log(formObj);
+		
+		/* 목록 버튼 클릭 */
+		$("#list").on("click", function(){
+			formObj.attr("action", "/boards");
+			formObj.attr("method", "get");
+			formObj.submit();
+		});
+		
+		/* 수정 버튼 클릭 */
+		$("#edit").on("click", function(){
+			formObj.attr("action", "/boards${board.bno}");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+		
+		/* 삭제 버튼 클릭 */
+		$("#delete").on("click", function(){
+			
+			formObj.attr("action", "/boards/delete");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+		
+	});
+		
+	
 	</script>
 
 	<script type="text/javascript">
@@ -262,6 +306,7 @@
 			});
 		});
 	</script>
+	
 
 	
 <jsp:include page="../include/footer.jsp"></jsp:include>	
