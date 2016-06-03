@@ -89,22 +89,19 @@
 <script type="text/javascript">
 
 	$('#idcheck').click(function() {
-		alert($('#userid').val());
+// 		var userid = $('#userid').val();
+		
  		$.ajax({
 			url:'/users/join/idCheck',		
 			type: 'POST',
-			data:{"userid" :$('#userid').val()},
+			data:{"userid" : $('#userid').val()},
 			success: function(data){
 				alert(data);
-				if(data ==="idCheckSuccess"){
+				if(data == "idCheckSuccess"){
 					alert("아이디 사용O");
 				} else {
-					alert("아이디 사용X");
+					alert('아이디 사용x');
 				}
- 				alert(data);
-			},
-			error: function(){
-				alert("망함");
 			}
 		});
 	});

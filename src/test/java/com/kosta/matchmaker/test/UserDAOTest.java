@@ -118,7 +118,7 @@ public class UserDAOTest {
 	}
 	@Test
 	public void testUserIdCheck() throws Exception{
-		String userid = "1234";
+		String userid = "user01";
 		int result = dao.userIdCheck(userid);
 		if(result == 0){
 			System.out.println("아이디 사용 불가");

@@ -60,8 +60,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int userIdCheck(String userid) {
+		//result :0 - 중복  1-중복아님
 		int result = dao.userIdCheck(userid);
-		System.out.println(result);
+		System.out.println("서비스-result:" + result);
 		return result;
 	}
 	
