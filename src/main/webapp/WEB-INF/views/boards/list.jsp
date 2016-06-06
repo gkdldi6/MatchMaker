@@ -10,6 +10,13 @@
 .container {
 	padding-top: 25px;
 }
+tbody tr:hover {
+	background-color: #00c0ef;
+	color: white;
+}
+.title:hover {
+	text-decoration: underline;
+}
 </style>
 
 <div class="container">
@@ -22,7 +29,7 @@
 
 	<div class="row">
 		<div class="box-body table-responsive">
-			<table class="table table-hover">
+			<table class="table">
 				<thead>
 					<tr>
 						<th width="70">글번호</th>
@@ -36,8 +43,10 @@
 					<c:forEach items="${list }" var="board">
 						<tr>
 							<td>${board.bno }</td>
-							<td><a href='/boards/${board.bno}${pageMaker.makeSearch(pageMaker.cri.page)}'>
-							${board.title }</a></td>
+<%-- 							<td><a href='/boards/${board.bno}${pageMaker.makeSearch(pageMaker.cri.page)}'> --%>
+<%-- 							${board.title }</a></td> --%>
+
+							<td class="title" onclick="location.href='/boards/' + '${board.bno}' + '${pageMaker.makeSearch(pageMaker.cri.page)}'">${board.title }</td>						
 							<td>${board.writer }</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 									value="${board.regdate }" /></td>
@@ -54,7 +63,7 @@
 		<ul class="pagination">
 
 			<c:if test="${pageMaker.prev }">
-				<li><a href="boards?page=${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+				<li><a href="boards${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
 			</c:if>
 
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
@@ -64,7 +73,7 @@
 			</c:forEach>
 
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a href="boards?page=${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
+				<li><a href="boards${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
 			</c:if>
 
 		</ul>
@@ -118,7 +127,7 @@
 	var result = '${result}';
 
 	if (result == 'success') {
-		alert('작업이 성공적으로 진행되었습니다.');
+		alert('작업이 처리되었습니다.');
 	}
 </script>
 <script type="text/javascript">

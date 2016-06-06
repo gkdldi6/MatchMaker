@@ -9,19 +9,31 @@
 .container {
 	padding-top: 30px;
 }
+
+input[readonly] {
+	border: 0px;
+}
+
+input:read-only, #textArea:read-only{ 
+    background-color: white !important;
+}
+
+#textArea {
+	resize: none;
+}
 </style>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 	<!-- 글읽기 폼 -->
 	<div class="container">
-		<form class="form-horizontal" action="edit" method="post">
+		<div  class="form-horizontal">
 			<fieldset>
 				<legend class="col-lg-10 col-lg-offset-1">글읽기</legend>
 				<div class="form-group">
 					<label for="bno" class="col-lg-2 control-label">글번호</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" value="${article.bno }"
-							name="bno" >
+							name="bno" readonly>
 					</div>
 				</div>
 
@@ -29,7 +41,7 @@
 					<label for="writer" class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" value="${article.writer }"
-							name="writer" >
+							name="writer" readonly>
 					</div>
 				</div>
 
@@ -37,15 +49,15 @@
 					<label for="title" class="col-lg-2 control-label">제목</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" value="${article.title }"
-							name="title">
+							name="title" readonly>
 					</div>
 				</div>
 
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
-						<textarea class="form-control" rows="7" id="textArea"
-							name="content">${article.content }</textarea>
+						 <textarea class="form-control" rows="7" id="textArea"
+						 		name="content" readonly>${article.content }</textarea>
 					</div>
 				</div>
 
@@ -59,25 +71,25 @@
 					</div>
 				</div>
 
-		<!-- 페이징용 파라미터 저장 폼 -->
-		<form role="form" action="edit" method="post">
-			<input type='hidden' name='bno' value="${board.bno}">
-			<input type='hidden' name='page' value="${cri.page}">
-			<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
-			<input type='hidden' name='searchType' value="${cri.searchType}">
-			<input type='hidden' name='keyword' value="${cri.keyword}">
-		</form>
+				<!-- 페이징용 파라미터 저장 폼 -->
+				<form role="page" action="/boards" method="get">
+					<input type='hidden' name='page' value="${cri.page}">
+					<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+					<input type='hidden' name='searchType' value="${cri.searchType}">
+					<input type='hidden' name='keyword' value="${cri.keyword}">
+				</form>
+
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button type="submit" class="btn btn-warning btn-flat" id="edit">수정</button>
-						<button type="submit" class="btn btn-primary btn-flat" id="delete">삭제</button>
+						<button class="btn btn-warning btn-flat" id="edit">수정</button>
+						<button class="btn btn-primary btn-flat" id="delete">삭제</button>
 						<button class="btn btn-success btn-flat" id="list">목록</button>
 					</div>
 				</div>
 			</fieldset>
-		</form>
+		</div>
 	</div>
-	
+
 
 	<!-- 댓글 -->
 	<div style="background-color: #fcf8e3">
@@ -117,6 +129,7 @@
 		</div>
 	</div>
 
+
 	<!-- Modal -->
 	<div id="modifyModal" class="modal modal-primary fade" role="dialog">
 		<div class="modal-dialog">
@@ -140,173 +153,162 @@
 		</div>
 	</div>
 
-	<!-- 댓글 템플릿 -->
-	<script id="template" type="text/x-handlebars-template">
-		{{#each .}}
-			<div class="col-lg-10 col-lg-offset-2 each-reply" data-rno={{rno}}>
-				<div class="panel panel-warning">
-  					<div class="panel-heading">
-    					<h3 class="panel-title" id="replyer-list">{{replyer}}</h3>
-  					</div>
-  					<div class="panel-body">
-   						<div id="replytext-list">{{replytext}}</div>
-						<div><br><input type="button" class="btn btn-warning btn-xs btn-flat each-button"
-										value="수정" data-toggle="modal" data-target="#modifyModal"></div>
-					</div>
+
+<!-- 댓글 템플릿 -->
+<script id="template" type="text/x-handlebars-template">
+	{{#each .}}
+		<div class="col-lg-10 col-lg-offset-2 each-reply" data-rno={{rno}}>
+			<div class="panel panel-warning">
+				<div class="panel-heading">
+   					<h3 class="panel-title" id="replyer-list">{{replyer}}</h3>
+				</div>
+				<div class="panel-body">
+					<div id="replytext-list">{{replytext}}
+				</div>
+				<div><br><input type="button" class="btn btn-warning btn-xs btn-flat each-button"
+								value="수정" data-toggle="modal" data-target="#modifyModal"></div>
 				</div>
 			</div>
-		{{/each}}
-	</script>
+		</div>
+	{{/each}}
+</script>
 	
+
+<!-- 글 관련 스크립트 -->
+<script type="text/javascript">
+	var bno = ${article.bno};
+	var pageForm = $('form[role="page"]');
 	
-	<script type="text/javascript">
-	$(document).ready(function(){
-		
-		var formObj = $("form[role='form']");
-		
-		console.log(formObj);
-		
-		/* 목록 버튼 클릭 */
-		$("#list").on("click", function(){
-			formObj.attr("action", "/boards");
-			formObj.attr("method", "get");
-			formObj.submit();
-		});
-		
-		/* 수정 버튼 클릭 */
-		$("#edit").on("click", function(){
-			formObj.attr("action", "/boards${board.bno}");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
-		/* 삭제 버튼 클릭 */
-		$("#delete").on("click", function(){
-			
-			formObj.attr("action", "/boards/delete");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
+	/* 목록 버튼 클릭 */
+	$("#list").on("click", function(){
+		pageForm.submit();
 	});
-		
 	
-	</script>
+	/* 편집 버튼 클릭 */
+	$('#edit').click(function() {
+		pageForm.attr('action', bno + '/edit');
+		pageForm.submit();
+	});
+	
+	/* 삭제 버튼 클릭 */
+	$('#delete').click(function() {
+		pageForm.attr('action', bno + '/delete');
+		pageForm.attr('method', 'post');
+		pageForm.submit();
+	});
+</script>
 
-	<script type="text/javascript">
-		/* 삭제 버튼으로 변경 */
-		$('#delete').click(function() {
-			$('form').attr('action', 'delete');
+
+<!-- 댓글 처리 스크립트 -->
+<script>
+	/* 글번호를 jquery 객체로 생성 */
+	var bno = ${article.bno};
+
+	/* 템플릿 helper로 날짜 생성 */
+	Handlebars.registerHelper("prettifyDate", function(timeValue) {
+		var dateObj = new Date(timeValue);
+		var year = dateObj.getFullYear();
+		var month = dateObj.getMonth() + 1;
+		var date = dateObj.getDate();
+		return year + "/" + month + "/" + date;
+	});
+
+	/* ajax로 받아온 댓글 목록들을 템플릿에 컴파일하는 함수 */
+	var printData = function(replyArr, target, templateObject) {
+		var template = Handlebars.compile(templateObject.html());
+
+		var html = template(replyArr);
+		$(".each-reply").remove();
+		target.html(html);
+	}
+
+	/* 댓글 목록 읽기 */
+	function getReply() {
+		$.getJSON('/replies/' + bno, function(data) {
+			printData(data, $('#reply-list'), $('#template'));
+			$("#modifyModal").modal('hide');
 		});
+	};
+	
+	/* 댓글 가져오기 */
+	getReply();
 
-		/* 댓글 처리 스크립트 */
-		var bno = ${article.bno};
-
-		/* 템플릿 날짜 */
-		Handlebars.registerHelper("prettifyDate", function(timeValue) {
-			var dateObj = new Date(timeValue);
-			var year = dateObj.getFullYear();
-			var month = dateObj.getMonth() + 1;
-			var date = dateObj.getDate();
-			return year + "/" + month + "/" + date;
-		});
-
-		/* ajax로 받아온 댓글 목록들을 템플릿에 컴파일하는 함수 */
-		var printData = function(replyArr, target, templateObject) {
-			var template = Handlebars.compile(templateObject.html());
-
-			var html = template(replyArr);
-			$(".each-reply").remove();
-			target.html(html);
-		}
-
-		/* 댓글 목록 읽기 */
-		function getReply() {
-			$.getJSON('/replies/' + bno, function(data) {
-				printData(data, $('#reply-list'), $('#template'));
-				$("#modifyModal").modal('hide');
-			});
-		};
-		
-		getReply();
-
-		/* 댓글 쓰기 */
-		$('#new-reply').click(function() {
-			$.ajax({
-				url : '/replies',
-				type : 'post',
-				headers : {
-					"Content-Type" : "application/json",
-					"X-HTTP-Method-Override" : "POST"
-				},
-				data : JSON.stringify({
-					bno : bno,
-					replyer : $('#replyer').val(),
-					replytext : $('#replytext').val()
-				}),
-				success : function(data) {
-					if (data === 'success') {
-						$('#replyer').val('');
-						$('#replytext').val('');
-						alert('댓글이 등록되었습니다.');
-						getReply();
-					}
+	/* 댓글 쓰기 */
+	$('#new-reply').click(function() {
+		$.ajax({
+			url : '/replies',
+			type : 'post',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			data : JSON.stringify({
+				bno : bno,
+				replyer : $('#replyer').val(),
+				replytext : $('#replytext').val()
+			}),
+			success : function(data) {
+				if (data === 'success') {
+					$('#replyer').val('');
+					$('#replytext').val('');
+					alert('댓글이 등록되었습니다.');
+					getReply();
 				}
-			});
+			}
 		});
+	});
+	
+	/* 이벤트 연결 */
+	$('#reply-list').on('click', '.each-button', function() {
+		var reply = $(this).parents('.each-reply');
+		var rno = reply.attr('data-rno');
 		
-		/* 이벤트 연결 */
-		$('#reply-list').on('click', '.each-button', function() {
-			var reply = $(this).parents('.each-reply');
-			var rno = reply.attr('data-rno');
-			
-			$('.modal-body').attr('data-rno', rno);
-			$('#replyer-modal').text(reply.find('#replyer-list').text());
-			$('#replytext-modal').val(reply.find('#replytext-list').text());
-		});
+		$('.modal-body').attr('data-rno', rno);
+		$('#replyer-modal').text(reply.find('#replyer-list').text());
+		$('#replytext-modal').val(reply.find('#replytext-list').text());
+	});
+	
+	/* 댓글 수정 */
+	$('#replyModBtn').click(function() {
+		var rno = $('.modal-body').attr('data-rno');
 		
-		/* 댓글 수정 */
-		$('#replyModBtn').click(function() {
-			var rno = $('.modal-body').attr('data-rno');
-			
-			$.ajax({
-				url: '/replies/' + rno,
-				type: 'put',
-				headers: { 
-				      "Content-Type": "application/json",
-				      "X-HTTP-Method-Override": "PUT" },
-				data: JSON.stringify({
-					replytext: $('#replytext-modal').val()
-				}),
-				success: function(data) {
-					if(data === 'success') {
-						alert('댓글이 수정되었습니다.');
-						getReply();
-					}
+		$.ajax({
+			url: '/replies/' + rno,
+			type: 'put',
+			headers: { 
+			      "Content-Type": "application/json",
+			      "X-HTTP-Method-Override": "PUT" },
+			data: JSON.stringify({
+				replytext: $('#replytext-modal').val()
+			}),
+			success: function(data) {
+				if(data === 'success') {
+					alert('댓글이 수정되었습니다.');
+					getReply();
 				}
-			});
+			}
 		});
+	});
+	
+	/* 댓글 삭제 */
+	$('#replyDelBtn').click(function() {
+		var rno = $('.modal-body').attr('data-rno');
 		
-		/* 댓글 삭제 */
-		$('#replyDelBtn').click(function() {
-			var rno = $('.modal-body').attr('data-rno');
-			
-			$.ajax({
-				url: '/replies/' + rno,
-				type: 'delete',
-				headers: { 
-				      "Content-Type": "application/json",
-				      "X-HTTP-Method-Override": "DELETE" },
-				success: function(data) {
-					if(data === 'success') {
-						alert('댓글이 삭제되었습니다.');
-						getReply();
-					}
+		$.ajax({
+			url: '/replies/' + rno,
+			type: 'delete',
+			headers: { 
+			      "Content-Type": "application/json",
+			      "X-HTTP-Method-Override": "DELETE" },
+			success: function(data) {
+				if(data === 'success') {
+					alert('댓글이 삭제되었습니다.');
+					getReply();
 				}
-			});
+			}
 		});
-	</script>
+	});
+</script>
 	
 
-	
 <jsp:include page="../include/footer.jsp"></jsp:include>	

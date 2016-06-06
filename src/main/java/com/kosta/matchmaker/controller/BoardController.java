@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosta.matchmaker.domain.BoardVO;
@@ -25,7 +24,7 @@ public class BoardController {
 
 	/*게시판 글 목록 읽기*/
 	@RequestMapping(value = "", method=RequestMethod.GET)
-	public String listAll(@ModelAttribute("cri")SearchCriteria cri, Model model) throws Exception {
+	public String listAll(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		
 		model.addAttribute("list", service.listSearch(cri));
 		
@@ -35,11 +34,10 @@ public class BoardController {
 		
 		model.addAttribute("pageMaker", pagemaker);
 		
-		
 		return "boards/list";
 	}
 	
-	/*글 작성폼 불러오기*/
+	/*글 작성폼 열기*/
 	@RequestMapping(value="/new", method=RequestMethod.GET)
 	public String write() throws Exception {
 		return "boards/register";
@@ -68,10 +66,20 @@ public class BoardController {
 		return "boards/read";
 	}
 	
-
+	/*글 수정 폼 열기*/
+	@RequestMapping(value="/{bno}/edit", method=RequestMethod.GET)
+	public String editForm(@PathVariable int bno, Model model, @ModelAttribute("cri") SearchCriteria cri) throws Exception {
+		
+		BoardVO article = service.readOne(bno);
+		
+		model.addAttribute("article", article);
+		
+		return "/boards/edit";
+	}
+	
 	/*글 수정*/
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public String edit(BoardVO board, SearchCriteria cri,RedirectAttributes rttr) throws Exception {
+	public String edit(BoardVO board, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
 		
 		service.modify(board);
 		rttr.addAttribute("page", cri.getPage());
@@ -84,8 +92,8 @@ public class BoardController {
 	}
 	
 	/*글 삭제*/
-	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public String delete(@RequestParam("bno") int bno, SearchCriteria cri,
+	@RequestMapping(value="/{bno}/delete", method=RequestMethod.POST)
+	public String delete(@PathVariable int bno, SearchCriteria cri,
 			RedirectAttributes rttr) throws Exception {
 		
 		service.remove(bno);

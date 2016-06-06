@@ -70,7 +70,7 @@
 					<label for="textArea" class="col-lg-2 control-label">자기 소개</label>
 					<div class="col-lg-10">
 						<textarea class="form-control" rows="3" id="textArea"
-							placeholder="자신을 소개하세요."></textarea>
+							placeholder="자신을 소개하세요." style="resize:none"></textarea>
 					</div>
 				</div>
 

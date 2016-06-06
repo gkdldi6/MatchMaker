@@ -54,17 +54,23 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<BoardVO> listPage(int page) throws Exception {
+		
 		return dao.readAll();
+		
 	}
 
 	@Override
 	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
+		
 		return dao.listSearch(cri);
+		
 	}
 
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
+		
 		return dao.listSearchCount(cri);
+		
 	}
 
 }

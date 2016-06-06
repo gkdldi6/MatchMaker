@@ -2,8 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 <jsp:include page="../include/header.jsp"></jsp:include>
-<link href="/resources/plugins/editor/editor.css" rel="stylesheet" type="text/css" />
-<script src="/resources/plugins/editor/editor.js"></script>
 
 <style>
 .container {
@@ -11,24 +9,22 @@
 }
 </style>
 	
-	<!-- 글쓰기 -->
 	<div class="container">
-		<form class="form-horizontal" action="new" method="post">
+		<form class="form-horizontal" action="/boards/edit" method="post">
 			<fieldset>
 				<legend class="col-lg-10 col-lg-offset-1">글쓰기</legend>
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="inputEmail"
-							placeholder="작성자를 입력해주세요." name="writer">
+						<input type="text" class="form-control" name="writer" value="${article.writer }" readonly>
 					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">제목</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="inputEmail"
-							placeholder="제목을 입력해주세요." name="title">
+						<input type="text" class="form-control"
+							value="${article.title }" name="title">
 					</div>
 				</div>
 
@@ -36,27 +32,25 @@
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
 						<textarea class="form-control textarea" rows="14" id="textArea" 
-								placeholder="내용을 입력해주세요." name="content" style="resize:none"></textarea>
-						<!-- <div id="txtEditor" name="content"></div> -->
+								name="content" style="resize:none">${article.content }</textarea>
 					</div>
 				</div>
 
+				<input type="hidden" name="bno" value="${article.bno }">
+				<input type='hidden' name='page' value="${cri.page}">
+				<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+				<input type='hidden' name='searchType' value="${cri.searchType}">
+				<input type='hidden' name='keyword' value="${cri.keyword}">
+
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button type="submit" class="btn btn-primary btn-flat">작성</button>
-						<a href="/boards" class="btn btn-default btn-flat">취소</a>
+						<button class="btn btn-primary btn-flat">수정</button>
+						<a class="btn btn-default btn-flat" onclick="history.go(-1)">취소</a>
 					</div>
 				</div>
 			</fieldset>
 		</form>
 	</div>
-
-
-<!-- 에디터로 작성 -->
-<!-- <script type="text/javascript">
-	$('.textarea').wysihtml5();
-	$("#txtEditor").Editor();
-</script> -->
 
 
 <jsp:include page="../include/footer.jsp"></jsp:include>
