@@ -135,7 +135,7 @@ input:read-only, #textArea:read-only{
 	</div>
 
 
-	<!-- 댓글창 -->
+	<!-- 댓글 편집창 -->
 	<div id="modifyModal" class="modal modal-primary fade" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
@@ -206,9 +206,7 @@ input:read-only, #textArea:read-only{
 
 <!-- 댓글 처리 스크립트 -->
 <script type="text/javascript">
-	// 	var bno = $	{article.bno};
-	var bno = 1;
-	// 	var bno = ${board.bno};
+	var bno = ${article.bno};
 	var replyPage = 1;
 
 	/* 템플릿 날짜 */
@@ -229,34 +227,23 @@ input:read-only, #textArea:read-only{
 		target.html(html);
 	}
 
-	/* 댓글 목록 읽기 */
-	// 		function getReply() {
-	// 			$.getJSON('/replies/' + bno, function(data) {
-	// 				printData(data, $('#reply-list'), $('#template'));
-	// 				$("#modifyModal").modal('hide');
-	// 			});
-	// 		};
+	/* 댓글 목록 및 페이지 가져오기 */
 	function getReply() {
-		// 	var page = 1;
-		// 	var replyPage = 1;
-
 		$.getJSON('/replies/' + bno + "/" + replyPage, function(data) {
 			printData(data.list, $('#reply-list'), $('#template'));
 			$("#modifyModal").modal('hide');
 			printPaging(data.pageMaker);
-			// 			printPaging(dat.pageMaker, $(".pagination"));
-
+			//printPaging(dat.pageMaker, $(".pagination"));
 		});
 	};
 
-	//댓글 페이징 이벤트달기
+	/* 댓글 페이징 이벤트 달기 */
 	$(".pagination").on("click", "li a", function(event) {
 		event.preventDefault();
 
 		replyPage = $(this).attr("href");
 
 		getReply("/replies/" + bno + "/" + replyPage);
-
 	});
 
 	/* 댓글 페이징 처리 */
@@ -276,7 +263,7 @@ input:read-only, #textArea:read-only{
 			str += "<li><a href='" + (pageMaker.endPage + 1)
 					+ "'> >> </a></li>";
 		}
-		// 				target.html(str);
+		//target.html(str);
 		$('.pagination').html(str);
 	};
 

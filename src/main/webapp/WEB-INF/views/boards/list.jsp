@@ -44,7 +44,10 @@ tbody tr:hover {
 					<c:forEach items="${list }" var="board">
 						<tr>
 							<td>${board.bno }</td>
-							<td class="title" onclick="location.href='/boards/' + '${board.bno}' + '${pageMaker.makeSearch(pageMaker.cri.page)}'">${board.title } <span class="badge">${board.replycnt}</span></td>						
+							<td class="title" onclick="location.href='/boards/' 
+								+ '${board.bno}' + '${pageMaker.makeSearch(pageMaker.cri.page)}'">${board.title } 
+								<span class="badge">${board.replycnt}</span>
+							</td>						
 							<td>${board.writer }</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 									value="${board.regdate }" /></td>
