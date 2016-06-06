@@ -95,6 +95,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateReplyCnt">
 		update freeboard set replycnt = replycnt + #{amount} where bno = #{bno}
 	</update>
+	
+	<update id="updateHit">
+		update freeboard set hit = hit + 1 where bno = #{bno}
+	</update>
 
 
 

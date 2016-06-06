@@ -37,7 +37,8 @@
 						<tr>
 							<td>${board.bno }</td>
 							<td><a href='/boards/${board.bno}${pageMaker.makeSearch(pageMaker.cri.page)}'>
-							${board.title }</a></td>
+							${board.title } <strong>[${board.replycnt }]</strong>
+							</a></td>
 							<td>${board.writer }</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 									value="${board.regdate }" /></td>

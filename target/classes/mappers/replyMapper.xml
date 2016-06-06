@@ -28,4 +28,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete">
 		delete from freereply where rno = #{rno}
 	</delete>
+	
+	<!-- 댓글 개수 조회 -->
+	<select id="listCount" resultType="int">
+		select bno 
+		from freereply
+		where rno = #{rno}
+	</select>
+	
+	
 </mapper>

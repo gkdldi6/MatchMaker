@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kosta.matchmaker.domain.BoardVO;
 import com.kosta.matchmaker.domain.Criteria;
@@ -45,9 +47,11 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public BoardVO readOne(Integer bno) throws Exception {
 		
+		dao.updateHit(bno);
 		return dao.readOne(bno);
 		
 	}

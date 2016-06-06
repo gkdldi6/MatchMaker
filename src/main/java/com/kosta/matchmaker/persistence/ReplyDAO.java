@@ -6,7 +6,6 @@ import com.kosta.matchmaker.domain.ReplyVO;
 
 public interface ReplyDAO {
 	
-	//ㄹ
 	public void create(ReplyVO reply) throws Exception;
 
 	public List<ReplyVO> list(Integer bno) throws Exception;
@@ -14,5 +13,7 @@ public interface ReplyDAO {
 	public void update(ReplyVO reply) throws Exception;
 
 	public void delete(Integer rno) throws Exception;
-
+	
+	public int listCount(Integer rno) throws Exception;
+	
 }
