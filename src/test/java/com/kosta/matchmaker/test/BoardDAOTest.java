@@ -6,8 +6,12 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.kosta.matchmaker.domain.BoardVO;
 import com.kosta.matchmaker.persistence.BoardDAO;
@@ -16,6 +20,8 @@ import com.kosta.matchmaker.persistence.BoardDAO;
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
 public class BoardDAOTest {
 
+	private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
+	
 	@Inject
 	private BoardDAO dao;
 
@@ -75,5 +81,15 @@ public class BoardDAOTest {
 				+ board.getRegdate() + "\t" + board.getHit());
 		
 		}
+	
+	@Test
+	public void testURI() throws Exception{
+		
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().path("/boards")
+				.queryParam("bno", 12).queryParam("perPageNum", 20).build();
+		
+		logger.info(uriComponents.toString());
+		
+	}
 }
 

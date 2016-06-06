@@ -1,6 +1,8 @@
 package com.kosta.matchmaker.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -8,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kosta.matchmaker.domain.BoardVO;
+import com.kosta.matchmaker.domain.SearchCriteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -43,4 +46,29 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectOne(namespace + ".readOne", bno);
 	}
 
+	@Override
+	public List<BoardVO> listPage(int page) throws Exception {
+		return null;
+	}
+
+	@Override
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
+		return session.selectList(namespace + ".listSearch", cri);
+	}
+
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace + ".listSearchCount", cri);
+	}
+
+	@Override
+	  public void updateReplyCnt(Integer bno, int amount) throws Exception {
+
+	    Map<String, Object> paramMap = new HashMap<String, Object>();
+
+	    paramMap.put("bno", bno);
+	    paramMap.put("amount", amount);
+
+	    session.update(namespace + ".updateReplyCnt", paramMap);
+	  }
 }

@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kosta.matchmaker.domain.BoardVO;
+import com.kosta.matchmaker.domain.Criteria;
+import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.persistence.BoardDAO;
 
 @Service
@@ -48,6 +50,21 @@ public class BoardServiceImpl implements BoardService {
 		
 		return dao.readOne(bno);
 		
+	}
+
+	@Override
+	public List<BoardVO> listPage(int page) throws Exception {
+		return dao.readAll();
+	}
+
+	@Override
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
+		return dao.listSearch(cri);
+	}
+
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		return dao.listSearchCount(cri);
 	}
 
 }
