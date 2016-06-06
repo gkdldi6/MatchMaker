@@ -126,11 +126,16 @@ input:read-only, #textArea:read-only{
 			<ul id="reply-list">
 			</ul>
 
+			<!-- 댓글 페이징 영역 -->
+			<div class='text-center'>
+				<ul id="pagination" class="pagination pagination-sm no-margin"></ul>
+			</div>
+
 		</div>
 	</div>
 
 
-	<!-- Modal -->
+	<!-- 댓글창 -->
 	<div id="modifyModal" class="modal modal-primary fade" role="dialog">
 		<div class="modal-dialog">
 			<!-- Modal content-->
@@ -174,7 +179,7 @@ input:read-only, #textArea:read-only{
 </script>
 	
 
-<!-- 글 관련 스크립트 -->
+<!-- 글 처리 스크립트 -->
 <script type="text/javascript">
 	var bno = ${article.bno};
 	var pageForm = $('form[role="page"]');
@@ -200,11 +205,13 @@ input:read-only, #textArea:read-only{
 
 
 <!-- 댓글 처리 스크립트 -->
-<script>
-	/* 글번호를 jquery 객체로 생성 */
-	var bno = ${article.bno};
+<script type="text/javascript">
+	// 	var bno = $	{article.bno};
+	var bno = 1;
+	// 	var bno = ${board.bno};
+	var replyPage = 1;
 
-	/* 템플릿 helper로 날짜 생성 */
+	/* 템플릿 날짜 */
 	Handlebars.registerHelper("prettifyDate", function(timeValue) {
 		var dateObj = new Date(timeValue);
 		var year = dateObj.getFullYear();
@@ -223,18 +230,61 @@ input:read-only, #textArea:read-only{
 	}
 
 	/* 댓글 목록 읽기 */
+	// 		function getReply() {
+	// 			$.getJSON('/replies/' + bno, function(data) {
+	// 				printData(data, $('#reply-list'), $('#template'));
+	// 				$("#modifyModal").modal('hide');
+	// 			});
+	// 		};
 	function getReply() {
-		$.getJSON('/replies/' + bno, function(data) {
-			printData(data, $('#reply-list'), $('#template'));
+		// 	var page = 1;
+		// 	var replyPage = 1;
+
+		$.getJSON('/replies/' + bno + "/" + replyPage, function(data) {
+			printData(data.list, $('#reply-list'), $('#template'));
 			$("#modifyModal").modal('hide');
+			printPaging(data.pageMaker);
+			// 			printPaging(dat.pageMaker, $(".pagination"));
+
 		});
 	};
-	
-	/* 댓글 가져오기 */
+
+	//댓글 페이징 이벤트달기
+	$(".pagination").on("click", "li a", function(event) {
+		event.preventDefault();
+
+		replyPage = $(this).attr("href");
+
+		getReply("/replies/" + bno + "/" + replyPage);
+
+	});
+
+	/* 댓글 페이징 처리 */
+	function printPaging(pageMaker) {
+		var str = "";
+		if (pageMaker.prev) {
+			str += "<li><a href='" + (pageMaker.startPage - 1)
+					+ "'> << </a></li>";
+		}
+
+		for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+			var strClass = pageMaker.cri.page == i ? 'class=active' : '';
+			str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+		}
+
+		if (pageMaker.next) {
+			str += "<li><a href='" + (pageMaker.endPage + 1)
+					+ "'> >> </a></li>";
+		}
+		// 				target.html(str);
+		$('.pagination').html(str);
+	};
+
 	getReply();
 
 	/* 댓글 쓰기 */
 	$('#new-reply').click(function() {
+
 		$.ajax({
 			url : '/replies',
 			type : 'post',
@@ -249,59 +299,62 @@ input:read-only, #textArea:read-only{
 			}),
 			success : function(data) {
 				if (data === 'success') {
+					alert('댓글이 등록되었습니다.');
+					replyPage = 1;
+					getReply("/replies/" + bno + "/" + replyPage);
 					$('#replyer').val('');
 					$('#replytext').val('');
-					alert('댓글이 등록되었습니다.');
-					getReply();
 				}
 			}
 		});
 	});
-	
+
 	/* 이벤트 연결 */
 	$('#reply-list').on('click', '.each-button', function() {
 		var reply = $(this).parents('.each-reply');
 		var rno = reply.attr('data-rno');
-		
+
 		$('.modal-body').attr('data-rno', rno);
 		$('#replyer-modal').text(reply.find('#replyer-list').text());
 		$('#replytext-modal').val(reply.find('#replytext-list').text());
 	});
-	
+
 	/* 댓글 수정 */
 	$('#replyModBtn').click(function() {
 		var rno = $('.modal-body').attr('data-rno');
-		
+
 		$.ajax({
-			url: '/replies/' + rno,
-			type: 'put',
-			headers: { 
-			      "Content-Type": "application/json",
-			      "X-HTTP-Method-Override": "PUT" },
-			data: JSON.stringify({
-				replytext: $('#replytext-modal').val()
+			url : '/replies/' + rno,
+			type : 'put',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "PUT"
+			},
+			data : JSON.stringify({
+				replytext : $('#replytext-modal').val()
 			}),
-			success: function(data) {
-				if(data === 'success') {
+			success : function(data) {
+				if (data === 'success') {
 					alert('댓글이 수정되었습니다.');
 					getReply();
 				}
 			}
 		});
 	});
-	
+
 	/* 댓글 삭제 */
 	$('#replyDelBtn').click(function() {
 		var rno = $('.modal-body').attr('data-rno');
-		
+
 		$.ajax({
-			url: '/replies/' + rno,
-			type: 'delete',
-			headers: { 
-			      "Content-Type": "application/json",
-			      "X-HTTP-Method-Override": "DELETE" },
-			success: function(data) {
-				if(data === 'success') {
+			url : '/replies/' + rno,
+			type : 'delete',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "DELETE"
+			},
+			success : function(data) {
+				if (data === 'success') {
 					alert('댓글이 삭제되었습니다.');
 					getReply();
 				}
