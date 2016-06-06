@@ -11,7 +11,7 @@ public class UserVO {
 	private Date regdate;
 	private int userage;
 	private String userinfo;
-
+	
 	public String getUserid() {
 		return userid;
 	}
