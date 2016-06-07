@@ -66,7 +66,7 @@
 			</div>
 		</div>
 		<!-- /.box-header -->
-		<div class="box-body">
+		<div id="msgbox" class="box-body">
 			
 			<!-- 대화가 생성되는 곳 -->
 			<!-- /대화가 생성되는 곳 -->
@@ -93,28 +93,21 @@
 		</div>
 		<!-- /.box-body -->
 		<div class="box-footer">
-			<form action="#" method="post">
-				<div class="input-group">
-					<input type="text" name="message" placeholder="Type Message ..."
-						class="form-control"> <span class="input-group-btn">
-						<button type="submit" class="btn btn-danger btn-flat">Send</button>
-					</span>
-				</div>
-			</form>
+			<div class="input-group">
+				
+				<!-- 메시지 입력 공간 -->
+				<input type="text" id="message" placeholder="메시지를 입력해주세요." class="form-control"> 
+				
+				<!-- 전송 버튼 -->
+				<span class="input-group-btn">
+					<a id="send" class="btn btn-danger btn-flat">전송</a>
+				</span>
+			
+			</div>
 		</div>
 		<!-- /.box-footer-->
 	</div>
 <!-- chatbar 끝 -->
-
-
-
-
-
-
-
-
-
-
 
 
 	<!-- 사이드바 시작  -->
@@ -210,29 +203,31 @@
 		<div id="map" style="width: 83%; height: 680px"></div>
 	</div>
 
-<!-- chatbar 처리 스크립트 -->
-<script type="text/javascript">
-	var chatbar = $('.chatbar');
-	var chatbtn = $('.chatbtn');
-	
-	chatbtn.click(function() {
-		if(chatbar.attr('state') === 'closed') {
-			chatbar.css('left', '0px');
-			chatbtn.css('left', '400px');
-			chatbar.attr('state', 'opened');	
-		} else {
-			chatbar.css('left', '-400px');
-			chatbtn.css('left', '0px');
-			chatbar.attr('state', 'closed');
-		}
-	});
-	
-</script>
-
+<!-- socket.io api -->
+<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script>
+<!-- socket.io client -->
+<script src="/resources/js/socket.io.client.js"></script>
+<!-- 다음 지도 API -->
 <script	src="//apis.daum.net/maps/maps3.js?apikey=55e0d519a9b6c3ce803115407c5ce276"></script>
+<!-- 다음 지도 API 구현 -->
 <script src="/resources/js/daumMap.js"></script>
+<!-- chatbar 조작 -->
+<script type="text/javascript">
+var chatbar = $('.chatbar');
+var chatbtn = $('.chatbtn');
 
-
+chatbtn.click(function() {
+	if(chatbar.attr('state') === 'closed') {
+		chatbar.css('left', '0px');
+		chatbtn.css('left', '400px');
+		chatbar.attr('state', 'opened');	
+	} else {
+		chatbar.css('left', '-400px');
+		chatbtn.css('left', '0px');
+		chatbar.attr('state', 'closed');
+	}
+});
+</script>
 <!-- 타임라인 템플릿 -->
 <script id="template" type="text/x-handlebars-template">
 {{#each .}}
