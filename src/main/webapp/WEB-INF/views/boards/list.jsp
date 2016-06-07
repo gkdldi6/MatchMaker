@@ -55,7 +55,7 @@
 		<ul class="pagination">
 
 			<c:if test="${pageMaker.prev }">
-				<li><a href="boards?page=${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+				<li><a href="boards${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
 			</c:if>
 
 			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
@@ -65,7 +65,7 @@
 			</c:forEach>
 
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a href="boards?page=${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
+				<li><a href="boards${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
 			</c:if>
 
 		</ul>
