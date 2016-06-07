@@ -16,10 +16,10 @@ import com.kosta.matchmaker.persistence.ReplyDAO;
 public class ReplyServiceImpl implements ReplyService {
 
 	@Inject
-	private ReplyDAO replyDAO;
-
+	private ReplyDAO dao;
+	
 	@Inject
-	private BoardDAO boardDAO;
+	private BoardDAO bdao;
 
 	// 트랜젝션 이전 
 	// @Override
@@ -30,12 +30,13 @@ public class ReplyServiceImpl implements ReplyService {
 	// }
 
 	// 트랜젝션
+
 	@Transactional
 	@Override
 	public void addReply(ReplyVO reply) throws Exception {
 
-		replyDAO.create(reply);
-		boardDAO.updateReplyCnt(reply.getBno(), 1);
+		dao.create(reply);
+		bdao.updateReplyCnt(reply.getBno(), 1);
 
 	}
 
@@ -47,38 +48,26 @@ public class ReplyServiceImpl implements ReplyService {
 	// }
 
 	// 페이징 v1
-	@Override
+	
 	public List<ReplyVO> listReply(Integer bno, Criteria cri) throws Exception {
 
-		return replyDAO.list(bno, cri);
+		return dao.list(bno, cri);
 	}
 
 	@Override
 	public void modifyReply(ReplyVO reply) throws Exception {
-		// TODO Auto-generated method stub
 
-		replyDAO.update(reply);
-
+		dao.update(reply);
 	}
 
-	// 트랜잭션 이전
-	// @Override
-	// public void removeReply(Integer rno) throws Exception {
-	// // TODO Auto-generated method stub
-	//
-	// replyDAO.delete(rno);
-	//
-	// }
-
-	// 트랜잭션
 	@Transactional
 	@Override
 	public void removeReply(Integer rno) throws Exception {
 		// TODO Auto-generated method stub
 
-		int bno = replyDAO.getBno(rno);
-		replyDAO.delete(rno);
-		boardDAO.updateReplyCnt(bno, -1);
+		int bno = dao.getBno(rno);
+		dao.delete(rno);
+		bdao.updateReplyCnt(bno, -1);
 
 	}
 
@@ -86,7 +75,13 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public int count(Integer bno) throws Exception {
 		// TODO Auto-generated method stub
-		return replyDAO.count(bno);
+		return dao.count(bno);
+	}
+
+	@Override
+	public List<ReplyVO> listReply(Integer bno) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

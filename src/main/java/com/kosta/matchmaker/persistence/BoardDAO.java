@@ -32,4 +32,9 @@ public interface BoardDAO {
 	// 리플라이 카운터
 	public void updateReplyCnt(Integer bno, int amount)throws Exception;
 	
+	//조회수
+	public void updateHit(Integer bno) throws Exception;
+
+	
+	
 }

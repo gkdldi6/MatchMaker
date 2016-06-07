@@ -48,4 +48,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		rno = #{rno}
 	</select>
 
+	<!-- 댓글 개수 조회 -->
+	<select id="listCount" resultType="int">
+		select bno 
+		from freereply
+		where rno = #{rno}
+	</select>
+	
+	
 </mapper>
