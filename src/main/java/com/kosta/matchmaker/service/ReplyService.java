@@ -22,4 +22,6 @@ public interface ReplyService {
 	// reply 글수 
 	public int count(Integer bno) throws Exception;
 
+	public List<ReplyVO> listReply(Integer bno) throws Exception;
+
 }

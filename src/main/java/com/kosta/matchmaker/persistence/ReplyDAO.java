@@ -6,8 +6,7 @@ import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.ReplyVO;
 
 public interface ReplyDAO {
-
-	// 댓글
+	
 	public void create(ReplyVO reply) throws Exception;
 
 	// 페이징 이전
@@ -25,4 +24,7 @@ public interface ReplyDAO {
 	// 본글번호 가져오기 
 	public int getBno(Integer rno) throws Exception;
 
+	
+	public int listCount(Integer rno) throws Exception;
+	
 }
