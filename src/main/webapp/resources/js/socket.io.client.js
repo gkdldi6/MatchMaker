@@ -48,6 +48,21 @@ socket.on('message', function(msg) {
 	scrollAuto();
 });
 
+socket.emit('test');
+
+socket.on('users', function(data) {
+	console.log(data);
+});
+
+
+
+
+
+
+
+/*접속 인원 보기*/
+
+
 /*방 만들고 접속하기*/
 
 
@@ -60,15 +75,4 @@ socket.on('message', function(msg) {
 /*방 예약하기*/
 
 
-/*접속 인원 보기*/
-
-
 /*귓속말하기*/
-
-
-
-
-
-
-
-
