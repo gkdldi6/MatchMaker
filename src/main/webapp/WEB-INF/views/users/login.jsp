@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 
 <jsp:include page="../include/header.jsp"></jsp:include>
-
+<script type="text/javascript">
+history.replaceState('','hello','test12');
+</script>
 
 	<div id="bg">
 

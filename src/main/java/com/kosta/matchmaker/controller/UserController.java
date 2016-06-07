@@ -25,7 +25,7 @@ public class UserController {
 	
 	/*로그인 페이지 이동*/
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public void loginGet(@ModelAttribute("dto") LoginDTO dto){}
+	public void loginGet() {}
 	
 	/*로그인*/
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
@@ -39,8 +39,8 @@ public class UserController {
 		}
 		
 		model.addAttribute("userVO", user);
-		rttr.addAttribute("result", "success");
-		return "/boards";
+		rttr.addFlashAttribute("result", "success");
+		return "redirect:/";
 		
 	}
 	

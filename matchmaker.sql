@@ -5,7 +5,7 @@ use matchmaker;
 -- 유저 테이블
 create table user (
 userid varchar(50) not null, 
-userpw varchar(50) not null, 
+userpw varchar(60) not null, 
 username varchar(50) not null, 
 email varchar(100) not null, 
 regdate timestamp default now(),
@@ -53,3 +53,6 @@ select * from freereply;
 update freeboard set replycnt = 
 (select count (rno) from freereply where bno = freeboard.bno)
 where bno > 0;
+
+SELECT * FROM USER;
+delete from user;
