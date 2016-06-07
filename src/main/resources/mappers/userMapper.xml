@@ -15,7 +15,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectOne"  resultType="UserVO">
-		select * from user where userid = #{userid} and userpw = #{userpw}
+		select * from user where userid = #{userid} 
+		<!-- and userpw = #{userpw} -->
 	</select>
 	
 	<update id="update">

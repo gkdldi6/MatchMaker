@@ -34,13 +34,13 @@ public class UserController {
 		UserVO user = service.login(dto);
 		
 		if(user == null){
-			rttr.addFlashAttribute("result", "fail");
-			return "redirect:/users/login";
+			rttr.addAttribute("result", "fail");
+			return "users/login";
 		}
 		
-//		model.addAttribute("userVO", user);
-		rttr.addFlashAttribute("result", "success");
-		return "redirect:/users/login";
+		model.addAttribute("userVO", user);
+		rttr.addAttribute("result", "success");
+		return "/boards";
 		
 	}
 	
