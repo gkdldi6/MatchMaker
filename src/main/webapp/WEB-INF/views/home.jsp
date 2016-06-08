@@ -4,7 +4,6 @@
 <jsp:include page="include/header.jsp"></jsp:include>
 
 
-
 	<div id="bg">
 
 		<!-- 로그인 폼 -->

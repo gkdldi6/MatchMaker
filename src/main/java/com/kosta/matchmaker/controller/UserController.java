@@ -29,19 +29,16 @@ public class UserController {
 	
 	/*로그인*/
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
-	public String loginPost(LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttr)throws Exception{
+	public void loginPost(LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttr)throws Exception{
 		
 		UserVO user = service.login(dto);
 		
 		if(user == null){
 			rttr.addAttribute("result", "fail");
-			return "users/login";
 		}
 		
 		model.addAttribute("userVO", user);
-		rttr.addFlashAttribute("result", "success");
-		return "redirect:/";
-		
+		rttr.addAttribute("result", "success");
 	}
 	
 	/*회원가입 페이지 이동*/ 

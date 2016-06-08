@@ -4,6 +4,13 @@
 <jsp:include page="../include/header.jsp"></jsp:include>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
+
+<script type="text/javascript">
+var id = '${login.userid}';			/* 회원 아이디 */
+var name = '${login.username}';		/* 회원 이름 */
+</script>
+<button id="addRoom">방 만들기</button>
+
 <style>
 .chatbar, .chatbtn {
 	position: fixed;
@@ -216,15 +223,23 @@
 var chatbar = $('.chatbar');
 var chatbtn = $('.chatbtn');
 
+function chatbarOpen() {
+	chatbar.css('left', '0px');
+	chatbtn.css('left', '400px');
+	chatbar.attr('state', 'opened');
+};
+
+function chatbarClose() {
+	chatbar.css('left', '-400px');
+	chatbtn.css('left', '0px');
+	chatbar.attr('state', 'closed');
+};
+
 chatbtn.click(function() {
 	if(chatbar.attr('state') === 'closed') {
-		chatbar.css('left', '0px');
-		chatbtn.css('left', '400px');
-		chatbar.attr('state', 'opened');	
+		chatbarOpen();
 	} else {
-		chatbar.css('left', '-400px');
-		chatbtn.css('left', '0px');
-		chatbar.attr('state', 'closed');
+		chatbarClose();
 	}
 });
 </script>

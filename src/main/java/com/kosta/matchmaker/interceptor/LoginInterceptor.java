@@ -22,8 +22,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		
 		ModelMap modelMap =modelAndView.getModelMap();
 		Object userVO = modelMap.get("userVO");
-		
-		if(userVO !=null){
+
+		if(userVO != null) {
 			
 			logger.info("new login success");
 			session.setAttribute(LOGIN, userVO);
@@ -36,7 +36,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler
 			)throws Exception{
-		
+	
 		HttpSession session = request.getSession();
 		if(session.getAttribute(LOGIN) !=null){
 			logger.info("clear login data before");

@@ -31,10 +31,8 @@ public class UserServiceImpl implements UserService {
 		String dbpasswd = user.getUserpw();
 		
 		if(BCrypt.checkpw(shaPass,dbpasswd) ){
-			System.out.println("됐다 ㅅㅅㅅㅅㅅㅅ");
 			return dao.login(dto);
 		}
-		System.out.println("망함 ㅜㅜㅜ");
 		return null;
 	}
 
