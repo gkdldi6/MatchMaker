@@ -12,7 +12,7 @@
 
 <!-- 회원 가입 -->
 <div class="container">
-	<form action="join" method="post" name="form" class="form-horizontal" onsubmit="return joinCheck()">
+	<form action="join" method="post" name="form" class="form-horizontal">
 		<fieldset>
 
 			<legend>회원 가입</legend>
@@ -103,7 +103,7 @@
 	</form>
 </div>
 <script type="text/javascript">
-
+	
 
 	$('#idcheck').click(function() {
 		$.ajax({
@@ -119,7 +119,7 @@
 					alert('이미 사용중인 아이디 입니다.');
 					document.getElementById("messageidsucess").innerHTML = "";
 					document.getElementById("messageidfail").innerHTML = "이미 존재하는 아이디 입니다.";
-					exit;
+					return false ;
 				}
 			}	
 		});
@@ -143,11 +143,11 @@
 	}
 
 	
-	function joinCheck(){
+	/* function joinCheck(){
 		alert("나가뒤져")
 		return false
 		
-	}
+	} */
 </script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
