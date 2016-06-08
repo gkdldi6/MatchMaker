@@ -17,7 +17,6 @@ import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.service.UserService;
 
-import net.tanesha.recaptcha.ReCaptchaImpl;
 import net.tanesha.recaptcha.ReCaptchaResponse;
 
 @Controller
@@ -81,17 +80,15 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/test/validateRecaptcha", method = RequestMethod.POST)
 	public String validateRecaptcha(@RequestParam Map<String, String> paramMap) {
-	     
-	    String check = "Y";
-	     
-	    ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
-	    reCaptcha.setPrivateKey("6Lf0DSITAAAAAGN2lOkpGqTwgV_9SZGNZbMc9hug");//Secret key
-	 
+	    
+		service.reCaptcha();
+		
+	    String check = "";
 	    String host = paramMap.get("host");
 	    String challenge = paramMap.get("challenge");
 	    String res = paramMap.get("response");
-	     
-	    ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(host, challenge, res);
+	    
+	    ReCaptchaResponse reCaptchaResponse = service.reCaptcha().checkAnswer(host, challenge, res);
 	 
 	    if (reCaptchaResponse.isValid()) {
 	        System.out.println("true");

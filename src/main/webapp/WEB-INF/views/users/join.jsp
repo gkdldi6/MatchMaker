@@ -12,7 +12,7 @@
 
 <!-- 회원 가입 -->
 <div class="container">
-	<form action="join" method="post" name="form" class="form-horizontal" onsubmit="return passwordCheck()">
+	<form action="join" method="post" name="form" class="form-horizontal" onsubmit="return joinCheck()">
 		<fieldset>
 
 			<legend>회원 가입</legend>
@@ -94,7 +94,7 @@
 					
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
-					<button type="submit" class="btn btn-primary btn-flat">가입</button>  
+					<button type="submit" class="btn btn-primary btn-flat" onclick="checkfield()">가입</button>  
 					<a class="btn btn-default btn-flat" onclick="history.go(-1);">취소</a>
 				</div>
 			</div>
@@ -103,10 +103,9 @@
 	</form>
 </div>
 <script type="text/javascript">
-	
 
 
-	$('#idcheck').click(function idCheck() {
+	$('#idcheck').click(function() {
 		$.ajax({
 			url:'/users/join/idCheck',		
 			type: 'POST',
@@ -120,19 +119,21 @@
 					alert('이미 사용중인 아이디 입니다.');
 					document.getElementById("messageidsucess").innerHTML = "";
 					document.getElementById("messageidfail").innerHTML = "이미 존재하는 아이디 입니다.";
-					return false;
+					exit;
 				}
 			}	
 		});
 	});
 		
+		
 	function passwordCheck(){
+		//var passwordCheck = "fail";
 		if($('#userpw').val() != $('#userpwCheck').val()){
 	 		alert("비밀번호가 서로 일치 하지 않습니다.");
 	 		$('#userpw').focus();
 	 		document.getElementById("messagepwsucess").innerHTML = "";
 	 		document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
-	 		return false;
+	 	
 		}
 		else{
 			document.getElementById("messagepwfail").innerHTML = "";
@@ -140,20 +141,20 @@
 			
 		}
 	}
+
 	
-</script>
-<script type="text/javascript">
-function joinCheck(){
-	function idCheck();
-	function passwordCheck();
-}
+	function joinCheck(){
+		alert("나가뒤져")
+		return false
+		
+	}
 </script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script>
 
 /* 캡챠 */
-$(function chapcha(){
+$(function(){
      
     var siteKey = "6Lf0DSITAAAAAPczYXzTJk0h4sgglsen_hixdmSW";//Site key
     var div = "recaptcha";
@@ -178,15 +179,17 @@ $(function chapcha(){
                 if(data == "Y") {
                 	document.getElementById("chapchasucess").innerHTML = "인증 성공";
     		 		document.getElementById("chapchafail").innerHTML = "";
-    		 	}else{
+    		 	}
+    			else{
     				document.getElementById("chapchasucess").innerHTML = "";
     		 		document.getElementById("chapchafail").innerHTML = "자동 가입 방지 코드가 일치 하지 않습니다.";
-    		 		Recaptcha.reload();
-    		 		return false;
-    		 	}
+                    Recaptcha.reload();
+                }
             }
         });
+         
     });
-});
+         
+}); 
 </script>
 <jsp:include page="../include/footer.jsp"></jsp:include>

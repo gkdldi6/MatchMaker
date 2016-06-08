@@ -12,6 +12,8 @@ import com.kosta.matchmaker.persistence.UserDAO;
 import com.kosta.matchmaker.util.work.crypt.BCrypt;
 import com.kosta.matchmaker.util.work.crypt.SHA256;
 
+import net.tanesha.recaptcha.ReCaptchaImpl;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -31,10 +33,10 @@ public class UserServiceImpl implements UserService {
 		String dbpasswd = user.getUserpw();
 		
 		if(BCrypt.checkpw(shaPass,dbpasswd) ){
-			System.out.println("됐다 ㅅㅅㅅㅅㅅㅅ");
+			//System.out.println("됐다 ㅅㅅㅅㅅㅅㅅ");
 			return dao.login(dto);
 		}
-		System.out.println("망함 ㅜㅜㅜ");
+		//System.out.println("망함 ㅜㅜㅜ");
 		return null;
 	}
 
@@ -78,6 +80,15 @@ public class UserServiceImpl implements UserService {
 		int result = dao.userIdCheck(userid);
 
 		return result;
+	}
+
+	@Override
+	public ReCaptchaImpl reCaptcha() {
+		
+		ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
+		reCaptcha.setPrivateKey("6Lf0DSITAAAAAGN2lOkpGqTwgV_9SZGNZbMc9hug");
+		
+		return reCaptcha;
 	}
 	
 	
