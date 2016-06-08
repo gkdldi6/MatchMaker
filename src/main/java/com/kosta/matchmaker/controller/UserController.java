@@ -1,11 +1,12 @@
 package com.kosta.matchmaker.controller;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.service.UserService;
+
+import net.tanesha.recaptcha.ReCaptchaImpl;
+import net.tanesha.recaptcha.ReCaptchaResponse;
 
 @Controller
 @RequestMapping("/users")
@@ -73,5 +77,34 @@ public class UserController {
 		}
 		
 	}
+	//캡차
+	@ResponseBody
+	@RequestMapping(value = "/test/validateRecaptcha", method = RequestMethod.POST)
+	public String validateRecaptcha(@RequestParam Map<String, String> paramMap) {
+	     
+	    String check = "Y";
+	     
+	    ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
+	    reCaptcha.setPrivateKey("6Lf0DSITAAAAAGN2lOkpGqTwgV_9SZGNZbMc9hug");//Secret key
+	 
+	    String host = paramMap.get("host");
+	    String challenge = paramMap.get("challenge");
+	    String res = paramMap.get("response");
+	     
+	    ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(host, challenge, res);
+	 
+	    if (reCaptchaResponse.isValid()) {
+	        System.out.println("true");
+	        check = "Y";
+	    } else {
+	        System.out.println("false");
+	        check = "N";
+	    }
+	     
+	    return check;
+	}
+	
+	@RequestMapping(value = "/recapcha", method=RequestMethod.GET)
+	public void validateRecaptcha() throws Exception {}
 	
 }
