@@ -8,6 +8,7 @@
 <script type="text/javascript">
 var id = '${login.userid}';			/* 회원 아이디 */
 var name = '${login.username}';		/* 회원 이름 */
+
 </script>
 <button id="addRoom">방 만들기</button>
 
@@ -24,10 +25,10 @@ var name = '${login.username}';		/* 회원 이름 */
 .chatbar {
 	left: -400px;
 	width: 400px;
-	height: 600px;
+/* 	height: 600px; */
 }
 
-.chatbar .box-body, .direct-chat-messages {
+.direct-chat-messages {
 	height: 500px;
 }
 
@@ -47,54 +48,55 @@ var name = '${login.username}';		/* 회원 이름 */
 </style>
 
 
+<div class="nav-tabs-custom chatbar" state="closed">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_1" data-toggle="tab">Tab 1</a></li>
+              <li><a href="#tab_2" data-toggle="tab">Tab 2</a></li>
+              <li><a href="#tab_3" data-toggle="tab">Tab 3</a></li>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  Dropdown <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                  <li role="presentation" class="divider"></li>
+                  <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                </ul>
+              </li>
+              <li class="pull-right"><a href="#" class="text-muted"><i class="fa fa-gear"></i></a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+                
 
-<!-- chatbar 버튼 -->
-<span class="info-box-icon bg-red chatbtn"><i class="fa fa-comments-o"></i></span>
 
-<!-- chatbar 시작 -->
-	<div class="box box-danger direct-chat direct-chat-danger chatbar" state="closed">
+
+
+					<div class="box box-danger direct-chat direct-chat-danger">
 		<div class="box-header with-border">
 			<h3 class="box-title">매치메이커</h3>
 
 			<div class="box-tools pull-right">
-				<span data-toggle="tooltip" title="3 New Messages"
-					class="badge bg-red">3</span>
-				<button type="button" class="btn btn-box-tool"
-					data-widget="collapse">
-					<i class="fa fa-minus"></i>
-				</button>
+				
+				
 				<button type="button" class="btn btn-box-tool" data-toggle="tooltip"
 					title="Contacts" data-widget="chat-pane-toggle">
 					<i class="fa fa-comments"></i>
 				</button>
-				<button type="button" class="btn btn-box-tool" data-widget="remove">
-					<i class="fa fa-times"></i>
-				</button>
+				
 			</div>
 		</div>
 		<!-- /.box-header -->
 		<div id="msgbox" class="box-body">
 			
 			<!-- 대화가 생성되는 곳 -->
+			<div class="direct-chat-messages"></div>
 			<!-- /대화가 생성되는 곳 -->
 			
 			<!-- 접속한 인원들 -->
-			<div class="direct-chat-contacts">
-				<ul class="contacts-list">
-					<li><a href="#"> <img class="contacts-list-img"
-							src="../dist/img/user1-128x128.jpg" alt="User Image">
-
-							<div class="contacts-list-info">
-								<span class="contacts-list-name"> Count Dracula <small
-									class="contacts-list-date pull-right">2/28/2015</small>
-								</span> <span class="contacts-list-msg">How have you been? I
-									was...</span>
-							</div> <!-- /.contacts-list-info -->
-					</a></li>
-					<!-- End Contact Item -->
-				</ul>
-				<!-- /.contatcts-list -->
-			</div>
+			<div class="direct-chat-contacts"></div>
 			<!-- /접속한 인원들 -->
 			
 		</div>
@@ -114,6 +116,80 @@ var name = '${login.username}';		/* 회원 이름 */
 		</div>
 		<!-- /.box-footer-->
 	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_2">
+                The European languages are members of the same family. Their separate existence is a myth.
+                For science, music, sport, etc, Europe uses the same vocabulary. The languages only differ
+                in their grammar, their pronunciation and their most common words. Everyone realizes why a
+                new common language would be desirable: one could refuse to pay expensive translators. To
+                achieve this, it would be necessary to have uniform grammar, pronunciation and more common
+                words. If several languages coalesce, the grammar of the resulting language is more simple
+                and regular than that of the individual languages.
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_3">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                It has survived not only five centuries, but also the leap into electronic typesetting,
+                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+                sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+                like Aldus PageMaker including versions of Lorem Ipsum.
+              </div>
+              <!-- /.tab-pane -->
+            </div>
+            <!-- /.tab-content -->
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- chatbar 버튼 -->
+<span class="info-box-icon bg-red chatbtn"><i class="fa fa-comments-o"></i></span>
+
+<!-- chatbar 시작 -->
+	
 <!-- chatbar 끝 -->
 
 
@@ -211,7 +287,9 @@ var name = '${login.username}';		/* 회원 이름 */
 	</div>
 
 <!-- socket.io api -->
-<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script>
+<!-- 학원용
+<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <!-- socket.io client -->
 <script src="/resources/js/socket.io.client.js"></script>
 <!-- 다음 지도 API -->
