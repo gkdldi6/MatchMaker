@@ -58,21 +58,42 @@ socket.on('message', function(msg) {
 socket.on('userlist', function(userlist) {
 	userbox.html('');
 	for(i in userlist) {
-		userbox.append('아이디: ' + userlist[i].uid + '	이름: ' + userlist[i].name + '<br>');
+		userbox.append('아이디: ' + userlist[i].uid + '	이름: ' + userlist[i].name 
+				+ '    방: ' + userlist[i].room +	'<br>');
 	};
 });
 
-/*방 만들고 접속하기*/
-$('#addRoom').click(function() {
-	socket.emit('join', 1);
+/*방 만들기 */
+$('#create').click(function() {
+	var room = {
+		rname: $('#rname').val(),
+		usercnt: $('#usercnt').val(),
+		userid: id
+	};
+	socket.emit('create', room);
+	$('#createRoom').modal('hide');
+});
+
+/*방 접속하기*/
+$('#roomSpace').on('click', '#join', function() {
+	var eachRoom = $(this).parents('.eachRoom');
+	var roomno = eachRoom.find('.roomno').text();
+	socket.emit('join', {id: id, rno: roomno});
 });
 
 /*방 나가기*/
 
 
 /*방 목록보기*/
-socket.on('roomList', function(roomList) {
-	console.log(roomList);
+socket.on('roomlist', function(rooms) {
+	var templateObj = $('#roomTemplate');
+	var target = $('#roomSpace');
+	
+	var template = Handlebars.compile(templateObj.html());
+	
+	var html = template(rooms);
+	$('.eachRoom').remove();
+	target.html(html);
 });
 
 /*방 예약하기*/

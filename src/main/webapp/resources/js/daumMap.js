@@ -51,6 +51,7 @@ map.addControl(zoomControl, daum.maps.ControlPosition.LEFT);
 
 // 지도 클릭 이벤트를 등록한다 (좌클릭 : click, 우클릭 : rightclick, 더블클릭 : dblclick)
 daum.maps.event.addListener(map, 'click', function (mouseEvent) {
+	closeSbar();
 	console.log('지도에서 클릭한 위치의 좌표는 ' + mouseEvent.latLng.toString() + ' 입니다.');
 });
 
@@ -99,23 +100,6 @@ function makeOutListener(infowindow) {
     return function() {
         infowindow.close();
     };
-}
-
-function openSidebar(cno, addr) {
-	return function() {
-		if(sidebar.attr('state') === 'opened' && courtNo === cno) {
-			$('.control-sidebar-bg, .control-sidebar').css('right', '-400px');
-			sidebar.attr('state', 'closed');
-		} else {
-			$('.control-sidebar-bg, .control-sidebar').css('right', '0px');
-			sidebar.attr('state', 'opened');
-			
-			$('#cno').text(cno);
-			$('#address').text(addr);
-			
-			courtNo = cno;
-		}
-	};
 }
 
 function displayMarker(locPosition) {
