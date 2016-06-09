@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kosta.matchmaker.domain.BoardVO;
-import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.persistence.BoardDAO;
 
@@ -19,11 +18,21 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private BoardDAO dao;
 
+	@Transactional
 	@Override
 	public void register(BoardVO board) throws Exception {
 		
 		dao.create(board);
 		
+		String[] files = board.getFiles();
+		
+		if(files == null){
+			return;
+		}
+		
+		for(String fileName : files){
+			dao.addAttach(fileName);
+		}
 	}
 
 	@Override
@@ -33,16 +42,32 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Transactional
 	@Override
 	public void modify(BoardVO board) throws Exception {
 		
 		dao.update(board);
 
+		Integer bno = board.getBno();
+		
+		dao.deleteAttach(bno);
+		
+		String[] files = board.getFiles();
+		
+		if(files == null){
+			return;
+		}
+		
+		for(String fileName : files){
+			dao.replaceAttach(fileName, bno);
+		}
 	}
 
+	@Transactional
 	@Override
 	public void remove(Integer bno) throws Exception {
 
+		dao.deleteAttach(bno);
 		dao.delete(bno);
 		
 	}
@@ -56,10 +81,10 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
-	@Override
+	/*@Override
 	public List<BoardVO> listPage(int page) throws Exception {
 		return dao.readAll();
-	}
+	}*/
 
 	@Override
 	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
@@ -69,6 +94,18 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int listSearchCount(SearchCriteria cri) throws Exception {
 		return dao.listSearchCount(cri);
+	}
+
+	@Override
+	public List<String> getAttach(Integer bno) throws Exception {
+		
+		return dao.getAttach(bno);
+	}
+
+	@Override
+	public void removeAttach(Integer bno) throws Exception {
+		dao.deleteAttach(bno);
+		
 	}
 
 }
