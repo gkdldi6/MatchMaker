@@ -12,7 +12,7 @@
 
 <!-- 회원 가입 -->
 <div class="container">
-	<form action="join" method="post" name="form" class="form-horizontal">
+	<form action="join" method="post" name="form" class="form-horizontal" onsubmit="return joinCheck();">
 		<fieldset>
 
 			<legend>회원 가입</legend>
@@ -20,7 +20,7 @@
 			<div class="form-group">
 				<label for="inputId" class="col-lg-2 control-label">아이디</label>
 				<div class="col-lg-8">
-					<input type="text" name="userid" class="form-control" id="userid"
+					<input type="text" name="userid" class="form-control" id="userid" onblur="capcharCheck()"
 						placeholder="아이디를 입력해주세요." required></input>
 					<div id="messageidfail" style="color: #ff0000"></div>
 					<div id="messageidsucess" style="color: #0000ff"></div>
@@ -94,7 +94,7 @@
 					
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
-					<button type="submit" class="btn btn-primary btn-flat" onclick="checkfield()">가입</button>  
+					<button type="submit" class="btn btn-primary btn-flat">가입</button>  
 					<a class="btn btn-default btn-flat" onclick="history.go(-1);">취소</a>
 				</div>
 			</div>
@@ -102,53 +102,6 @@
 		</fieldset>
 	</form>
 </div>
-<script type="text/javascript">
-	
-
-	$('#idcheck').click(function() {
-		$.ajax({
-			url:'/users/join/idCheck',		
-			type: 'POST',
-			data:{"userid" : $('#userid').val()},
-			success: function(data){
-				if(data == "idCheckSuccess" && $('#userid').val() != ""){
-					alert("사용 가능한 아이디 입니다.");
-					document.getElementById("messageidfail").innerHTML = "";
-					document.getElementById("messageidsucess").innerHTML = "사용가능한 아이디 입니다.";
-				} else if(data =="idCheckFail"){
-					alert('이미 사용중인 아이디 입니다.');
-					document.getElementById("messageidsucess").innerHTML = "";
-					document.getElementById("messageidfail").innerHTML = "이미 존재하는 아이디 입니다.";
-					return false ;
-				}
-			}	
-		});
-	});
-		
-		
-	function passwordCheck(){
-		//var passwordCheck = "fail";
-		if($('#userpw').val() != $('#userpwCheck').val()){
-	 		alert("비밀번호가 서로 일치 하지 않습니다.");
-	 		$('#userpw').focus();
-	 		document.getElementById("messagepwsucess").innerHTML = "";
-	 		document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
-	 	
-		}
-		else{
-			document.getElementById("messagepwfail").innerHTML = "";
-			document.getElementById("messagepwsucess").innerHTML = "비밀번호가 일치 합니다.";
-			
-		}
-	}
-
-	
-	/* function joinCheck(){
-		alert("나가뒤져")
-		return false
-		
-	} */
-</script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script>
@@ -187,9 +140,73 @@ $(function(){
                 }
             }
         });
-         
     });
-         
 }); 
+</script>
+<script type="text/javascript">
+	var idCheckNum = 0;
+	
+	$('#idcheck').click(function () {
+		$.ajax({
+			url:'/users/join/idCheck',		
+			type: 'POST',
+			data:{"userid" : $('#userid').val()},
+			success: function(data){
+				if(data == "idCheckSuccess" && $('#userid').val() != ""){
+					alert("사용 가능한 아이디 입니다.");
+					document.getElementById("messageidfail").innerHTML = "";
+					document.getElementById("messageidsucess").innerHTML = "사용가능한 아이디 입니다.";
+				} else if(data =="idCheckFail" || $('#userid').val() == ""){
+					alert('사용 할 수 없는 아이디 입니다.');
+					document.getElementById("messageidsucess").innerHTML = "";
+					document.getElementById("messageidfail").innerHTML = "사용 할 수 없는 아이디 입니다.";
+				}
+			}	
+		});
+		idCheckNum++;
+	});
+	
+	function passwordCheck(){
+		if($('#userpw').val() != $('#userpwCheck').val()){
+	 		alert("비밀번호가 서로 일치 하지 않습니다.");
+	 		$('#userpw').focus();
+	 		document.getElementById("messagepwsucess").innerHTML = "";
+	 		document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
+	 		return false;
+		}
+		else{
+			document.getElementById("messagepwfail").innerHTML = "";
+			document.getElementById("messagepwsucess").innerHTML = "비밀번호가 일치 합니다.";
+			return true;
+		}
+	}
+ 
+	function joinCheck(){
+		var aaa = $('#chapchasucess').text();
+		alert(aaa);
+	 	if($('#recaptcha_response_field').val()==""){
+	 		alert("자동 방지 입력코드를 확인해 주세요");
+	 		return false;
+		}else{
+			//아이디 체크
+			if(idCheckNum > 0 ){
+				//비밀번호 체크
+				if($('#userpw').val() != $('#userpwCheck').val()){
+			 		alert("비밀번호가 서로 일치 하지 않습니다.");
+			 		$('#userpw').focus();
+			 		document.getElementById("messagepwsucess").innerHTML = "";
+			 		document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
+			 		return false;
+				}else{
+					document.getElementById("messagepwfail").innerHTML = "";
+					document.getElementById("messagepwsucess").innerHTML = "비밀번호가 일치 합니다.";
+					return true;
+				}
+			}else{
+				alert("아이디 중복 검사를 해주세요");
+				return false;
+			}
+		}
+	}		
 </script>
 <jsp:include page="../include/footer.jsp"></jsp:include>
