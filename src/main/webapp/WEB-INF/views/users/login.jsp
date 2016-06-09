@@ -25,7 +25,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4 col-sm-offset-2">
-							<button class="btn btn-primary btn-block btn-flat">로그인</button>
+							<button type="submit" class ="btn btn-primary btn-block btn-flat">로그인</button>
 						</div>
 						<div class="col-sm-4">
 							<a class="btn btn-default btn-block btn-flat" href="/users/join">가입하기</a>

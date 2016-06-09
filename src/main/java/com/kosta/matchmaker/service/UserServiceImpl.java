@@ -22,21 +22,23 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO login(LoginDTO dto) throws Exception {
-		dao.login(dto);
-		SHA256 sha = SHA256.getInsatnce();
-
-		String orgPass = dto.getUserpw();
-		String shaPass = sha.getSha256(orgPass.getBytes());
-		dto.setUserpw(shaPass);
-
-		UserVO user = dao.selectId(dto.getUserid());
-		String dbpasswd = user.getUserpw();
-		
-		if(BCrypt.checkpw(shaPass,dbpasswd) ){
-			//System.out.println("됐다 ㅅㅅㅅㅅㅅㅅ");
-			return dao.login(dto);
+		if(dao.login(dto) !=null){
+			System.out.println("디비에있으");
+			SHA256 sha = SHA256.getInsatnce();
+			
+			String orgPass = dto.getUserpw();
+			String shaPass = sha.getSha256(orgPass.getBytes());
+			dto.setUserpw(shaPass);
+	
+			UserVO user = dao.selectId(dto.getUserid());
+			String dbpasswd = user.getUserpw();
+			
+			if(BCrypt.checkpw(shaPass,dbpasswd)){
+				return dao.login(dto);
+			}
+		}else{
+			return null;
 		}
-		//System.out.println("망함 ㅜㅜㅜ");
 		return null;
 	}
 
