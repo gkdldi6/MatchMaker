@@ -20,10 +20,10 @@
 			<div class="form-group">
 				<label for="inputId" class="col-lg-2 control-label">아이디</label>
 				<div class="col-lg-8">
-					<input type="text" name="userid" class="form-control" id="userid" onblur="capcharCheck()"
+					<input type="text" name="userid" class="form-control" id="userid"
 						placeholder="아이디를 입력해주세요." required></input>
 					<div id="messageidfail" style="color: #ff0000"></div>
-					<div id="messageidsucess" style="color: #0000ff"></div>
+					<div id="messageidsuccess" style="color: #0000ff"></div>
 				</div>
 				<div class="col-lg-2">
 					<a id="idcheck" class="btn btn-primary btn-flat">중복확인</a>
@@ -46,7 +46,7 @@
 						id="userpwCheck" onblur="passwordCheck()"
 						placeholder="비밀번호를 다시 입력해주세요." required>
 					<div id="messagepwfail" style="color: #ff0000"></div>
-					<div id="messagepwsucess" style="color: #0000ff"></div>
+					<div id="messagepwsuccess" style="color: #0000ff"></div>
 				</div>
 			</div>
 
@@ -87,8 +87,8 @@
 				<div class="col-lg-10">
 					<div id="recaptcha"></div>
 					<input id="recaptchaCheck" type="button" value="Check" >
-					<div id="chapchafail" style="color:#ff0000"></div>			
-					<div id="chapchasucess" style="color:#0000ff"></div>
+					<div id="capchafail" style="color:#ff0000"></div>			
+					<div id="capchasuccess" style="color:#0000ff"></div>
 				</div>
 			</div>
 					
@@ -130,12 +130,12 @@ $(function(){
             },
             success: function(data) {
                 if(data == "Y") {
-                	document.getElementById("chapchasucess").innerHTML = "인증 성공";
-    		 		document.getElementById("chapchafail").innerHTML = "";
+                	document.getElementById("capchasuccess").innerHTML = "인증 성공";
+    		 		document.getElementById("capchafail").innerHTML = "";
     		 	}
     			else{
-    				document.getElementById("chapchasucess").innerHTML = "";
-    		 		document.getElementById("chapchafail").innerHTML = "자동 가입 방지 코드가 일치 하지 않습니다.";
+    				document.getElementById("capchasuccess").innerHTML = "";
+    		 		document.getElementById("capchafail").innerHTML = "자동 가입 방지 코드가 일치 하지 않습니다.";
                     Recaptcha.reload();
                 }
             }
@@ -155,10 +155,10 @@ $(function(){
 				if(data == "idCheckSuccess" && $('#userid').val() != ""){
 					alert("사용 가능한 아이디 입니다.");
 					document.getElementById("messageidfail").innerHTML = "";
-					document.getElementById("messageidsucess").innerHTML = "사용가능한 아이디 입니다.";
+					document.getElementById("messageidsuccess").innerHTML = "사용가능한 아이디 입니다.";
 				} else if(data =="idCheckFail" || $('#userid').val() == ""){
 					alert('사용 할 수 없는 아이디 입니다.');
-					document.getElementById("messageidsucess").innerHTML = "";
+					document.getElementById("messageidsuccess").innerHTML = "";
 					document.getElementById("messageidfail").innerHTML = "사용 할 수 없는 아이디 입니다.";
 				}
 			}	
@@ -170,38 +170,40 @@ $(function(){
 		if($('#userpw').val() != $('#userpwCheck').val()){
 	 		alert("비밀번호가 서로 일치 하지 않습니다.");
 	 		$('#userpw').focus();
-	 		document.getElementById("messagepwsucess").innerHTML = "";
+	 		document.getElementById("messagepwsuccess").innerHTML = "";
 	 		document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
 	 		return false;
 		}
 		else{
 			document.getElementById("messagepwfail").innerHTML = "";
-			document.getElementById("messagepwsucess").innerHTML = "비밀번호가 일치 합니다.";
+			document.getElementById("messagepwsuccess").innerHTML = "비밀번호가 일치 합니다.";
 			return true;
 		}
 	}
  
 	function joinCheck(){
-		var aaa = $('#chapchasucess').text();
-		alert(aaa);
-	 	if($('#recaptcha_response_field').val()==""){
+		var capChasuccessField = $('#capchasuccess').text();
+	 	if($('#recaptcha_response_field').val()=="" || capChasuccessField != "인증 성공"){
 	 		alert("자동 방지 입력코드를 확인해 주세요");
 	 		return false;
 		}else{
+			var idsuccessField = $('#messageidsuccess').text();
 			//아이디 체크
-			if(idCheckNum > 0 ){
-				//비밀번호 체크
+			if(idCheckNum > 0 && idsuccessField == "사용가능한 아이디 입니다."){
 				if($('#userpw').val() != $('#userpwCheck').val()){
-			 		alert("비밀번호가 서로 일치 하지 않습니다.");
-			 		$('#userpw').focus();
-			 		document.getElementById("messagepwsucess").innerHTML = "";
-			 		document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
-			 		return false;
+					alert("비밀번호가 서로 일치 하지 않습니다.");
+					$('#userpw').focus();
+						document.getElementById("messagepwsuccess").innerHTML = "";
+						document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
+						return false;
 				}else{
 					document.getElementById("messagepwfail").innerHTML = "";
-					document.getElementById("messagepwsucess").innerHTML = "비밀번호가 일치 합니다.";
+					document.getElementById("messagepwsuccess").innerHTML = "비밀번호가 일치 합니다.";
 					return true;
 				}
+			}else if(idCheckNum > 0 && idsuccessField != "사용가능한 아이디 입니다."){
+				alert("아이디 검사를 다시 한 번 해주세요.");
+				return false;
 			}else{
 				alert("아이디 중복 검사를 해주세요");
 				return false;
