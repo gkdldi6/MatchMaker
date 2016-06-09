@@ -5,9 +5,10 @@ var userbox = $('.direct-chat-contacts');		/*회원 목록 공간*/
 /*id, name은	map.jsp 윗부분에 세션에서 받음*/
 
 /*socket.io 서버에 접속*/
-/*학원용
-var socket = io('http://192.168.0.114:3000');*/
-var socket = io('http://localhost:3000');
+/*학원*/
+/*var socket = io('http://192.168.0.114:3000');*/
+/*집*/
+var socket = io('http://192.168.219.188:3000');
 socket.emit('enter', {uid: id, name: name});
 
 /*스크롤 자동으로 내리기*/
@@ -55,11 +56,12 @@ socket.on('message', function(msg) {
 });
 
 /*접속 인원 보기*/
+
 socket.on('userlist', function(userlist) {
 	userbox.html('');
 	for(i in userlist) {
 		userbox.append('아이디: ' + userlist[i].uid + '	이름: ' + userlist[i].name 
-				+ '    방: ' + userlist[i].room +	'<br>');
+				+ '    방: ' + userlist[i].roomno +	'<br>');
 	};
 });
 

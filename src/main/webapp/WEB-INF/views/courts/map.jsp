@@ -136,13 +136,6 @@ var name = '${login.username}';		/* 회원 이름 */
 				
 				<!-- 방 생성 공간 -->
 				<div id="roomSpace" class="box-body" style="overflow-y:auto">
-
-
-			
-
-
-
-
 				</div>
 				<!-- 방 생성 공간 끝 -->
 				
@@ -261,9 +254,10 @@ var name = '${login.username}';		/* 회원 이름 */
 	{{/each}}
 </script>
 <!-- socket.io api -->
-<!-- 학원용
-<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<!-- 학원 -->
+<!-- <script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
+<!-- 집 -->
+<script src="http://192.168.219.188:3000/socket.io/socket.io.js"></script>
 <!-- socket.io client -->
 <script src="/resources/js/socket.io.client.js"></script>
 <!-- 다음 지도 API -->
