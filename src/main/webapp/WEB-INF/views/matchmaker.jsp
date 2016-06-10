@@ -204,7 +204,7 @@
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">문의 내용</label>
 					<div class="col-lg-10">
-						<textarea class="form-control" rows="3" id="textArea"></textarea>
+						<textarea class="form-control" rows="3" id="textArea" style="resize:none"></textarea>
 						<span class="help-block">문의할 내용을 입력해주세요.</span>
 					</div>
 				</div>

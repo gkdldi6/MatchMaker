@@ -19,7 +19,6 @@ tbody tr:hover {
 	text-decoration: underline;
 }
 </style>
-
 <div class="container">
 
 	<div class="row">

@@ -3,7 +3,6 @@ package com.kosta.matchmaker.controller;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,28 +25,28 @@ public class UserController {
 	@Inject
 	private UserService service;
 	
-	/*로그인 페이지 이동*/
+	/*로그인 페이지로 이동*/
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGet() {}
 	
 	/*로그인*/
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
-	public String loginPost(LoginDTO dto, HttpSession session, Model model, RedirectAttributes rttr)throws Exception{
+	public void loginPost(LoginDTO dto, Model model)throws Exception{
 		
 		UserVO user = service.login(dto);
 		
 		if(user == null){
-			rttr.addAttribute("result", "fail");
-			
-			return "users/login";
+			return;
 		}
 		
 		model.addAttribute("userVO", user);
-
-		return "redirect:/";
 	}
 	
-	/*회원가입 페이지 이동*/ 
+	/*프로파일 페이지로 이동*/ 
+	@RequestMapping(value = "/profile", method=RequestMethod.GET)
+	public void getProfile() throws Exception {}
+	
+	/*회원가입 페이지로 이동*/ 
 	@RequestMapping(value = "/join", method=RequestMethod.GET)
 	public void joinGet() throws Exception {}
 	

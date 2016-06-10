@@ -17,7 +17,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler
-			,ModelAndView modelAndView)throws Exception{
+			,ModelAndView modelAndView)throws Exception {
+		String dest = "/";
 		HttpSession session = request.getSession();
 		
 		ModelMap modelMap =modelAndView.getModelMap();
@@ -28,14 +29,16 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			logger.info("new login success");
 			session.setAttribute(LOGIN, userVO);
 			
-			Object dest = session.getAttribute("dest");
-			response.sendRedirect(dest != null ? (String)dest:"/");
+			dest = "/users/profile";
+//			Object dest = session.getAttribute("dest");
+//			response.sendRedirect(dest != null ? (String)dest:"/users/login");
 		}
+		response.sendRedirect(dest);
 	}
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler
-			)throws Exception{
+			)throws Exception {
 	
 		HttpSession session = request.getSession();
 		if(session.getAttribute(LOGIN) !=null){

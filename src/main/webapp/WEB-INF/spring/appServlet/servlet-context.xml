@@ -25,10 +25,16 @@
 	</beans:bean>
 
 	
-	<beans:bean id="loginInterceptor" class="com.kosta.matchmaker.interceptor.LoginInterceptor">
+	<beans:bean id="loginInterceptor" 
+		class="com.kosta.matchmaker.interceptor.LoginInterceptor">
 	</beans:bean>
 	
-	<beans:bean id="authInterceptor" class="com.kosta.matchmaker.interceptor.AuthInterceptor">
+	<beans:bean id="homeInterceptor"
+		class="com.kosta.matchmaker.interceptor.HomeInterceptor">
+	</beans:bean>
+
+	<beans:bean id="authInterceptor" 
+		class="com.kosta.matchmaker.interceptor.AuthInterceptor">
 	</beans:bean>
 	
 	<interceptors>
@@ -38,11 +44,15 @@
 		</interceptor>
 		
 		<interceptor>
+			<mapping path="/"/>
+			<beans:ref bean="homeInterceptor"/>		
+		</interceptor>
+		
+		<interceptor>
 			<mapping path="/boards/new"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>
-	
 
 	<context:component-scan base-package="com.kosta.matchmaker.controller" />
 	

@@ -190,60 +190,33 @@ input:read-only, #textArea:read-only{
 	var bno = ${article.bno};
 	var pageForm = $('form[role="page"]');
 	
-
-	<script type="text/javascript">
-	$(document).ready(function(){
-		
-		var formObj = $("form[role='form']");
-		
-		console.log(formObj);
-		
-		/* 목록 버튼 클릭 */
-		$("#list").on("click", function(){
-			formObj.attr("action", "/boards");
-			formObj.attr("method", "get");
-			formObj.submit();
-		});
-		
-		/* 수정 버튼 클릭 */
-		$("#edit").on("click", function(){
-			formObj.attr("action", "/boards${board.bno}");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
-		/* 삭제 버튼 클릭 */
-		$("#delete").on("click", function(){
-			
-			var arr = [];
-			$(".uploadedList li").each(function(index){
-				 arr.push($(this).attr("data-src"));
-			});
-			
-			if(arr.length > 0){
-				$.post("/deleteAllFiles",{files:arr}, function(){
-					
-				});
-			}
-			
-			formObj.attr("action", "/boards/delete");
-			formObj.attr("method", "post");
-			formObj.submit();
-		});
-		
-
+	/* 목록 버튼 클릭 */
+	$("#list").on("click", function(){
+		pageForm.submit();
 	});
-	
+		
+	/* 삭제 버튼 클릭 */
+	$("#delete").on("click", function(){
+		
+		var arr = [];
+		$(".uploadedList li").each(function(index){
+			 arr.push($(this).attr("data-src"));
+		});
+		
+		if(arr.length > 0){
+			$.post("/deleteAllFiles",{files:arr}, function(){
+				
+			});
+		}
+		
+		pageForm.attr('action', bno + '/delete');
+		pageForm.attr('method', 'post');
+		pageForm.submit();
+	});
+		
 	/* 편집 버튼 클릭 */
 	$('#edit').click(function() {
 		pageForm.attr('action', bno + '/edit');
-		pageForm.submit();
-	});
-	
-	/* 삭제 버튼 클릭 */
-	$('#delete').click(function() {
-		pageForm.attr('action', bno + '/delete');
-		pageForm.attr('method', 'post');
 		pageForm.submit();
 	});
 </script>
@@ -447,10 +420,5 @@ input:read-only, #textArea:read-only{
 	});
 </script>
 	
-
-<<<<<<< HEAD
-<jsp:include page="../include/footer.jsp"></jsp:include>	
-=======
 	
-<jsp:include page="../include/footer.jsp"></jsp:include>
->>>>>>> refs/remotes/origin/soohyun
+<jsp:include page="../include/footer.jsp"></jsp:include>	
