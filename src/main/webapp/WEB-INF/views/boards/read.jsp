@@ -60,7 +60,13 @@ input:read-only, #textArea:read-only{
 						 		name="content" readonly>${article.content }</textarea>
 					</div>
 				</div>
-
+				
+				<div class='popup back' style="display:none;"></div>
+					<div id="popup_front" class='popup front' style="display:none;">
+						<img id="popup_img">
+					</div>
+				<ul class="mailbox-attachments clearfix uploadedList"> </ul>
+				
 				<div class="form-group">
 					<label for="regdate" class="col-lg-2 control-label">작성 날짜</label>
 					<div class="col-lg-10">
@@ -184,9 +190,48 @@ input:read-only, #textArea:read-only{
 	var bno = ${article.bno};
 	var pageForm = $('form[role="page"]');
 	
-	/* 목록 버튼 클릭 */
-	$("#list").on("click", function(){
-		pageForm.submit();
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		var formObj = $("form[role='form']");
+		
+		console.log(formObj);
+		
+		/* 목록 버튼 클릭 */
+		$("#list").on("click", function(){
+			formObj.attr("action", "/boards");
+			formObj.attr("method", "get");
+			formObj.submit();
+		});
+		
+		/* 수정 버튼 클릭 */
+		$("#edit").on("click", function(){
+			formObj.attr("action", "/boards${board.bno}");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+		
+		/* 삭제 버튼 클릭 */
+		$("#delete").on("click", function(){
+			
+			var arr = [];
+			$(".uploadedList li").each(function(index){
+				 arr.push($(this).attr("data-src"));
+			});
+			
+			if(arr.length > 0){
+				$.post("/deleteAllFiles",{files:arr}, function(){
+					
+				});
+			}
+			
+			formObj.attr("action", "/boards/delete");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+		
+
 	});
 	
 	/* 편집 버튼 클릭 */
@@ -350,5 +395,62 @@ input:read-only, #textArea:read-only{
 	});
 </script>
 	
+<script id="templateAttach" type="text/x-handlebars-template">
+<li data-src='{{fullName}}'>
+  <span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" data="{{getLink}}"alt="Attachment"></span>
+  <div class="mailbox-attachment-info">
+	<a href="{{getLink}}" download="{{fileName}}" class="mailbox-attachment-name">{{fileName}}</a>
+	</span>
+  </div>
+</li>                
+</script>
 
+<script type="text/javascript" src="/resources/js/upload.js"></script>
+
+<script>
+	var bno = ${article.bno};
+	
+	var template = Handlebars.compile($("#templateAttach").html());
+	
+	$.getJSON("/boards/getAttach/" + bno, function(list) {	
+		$(list).each(function() {			
+			var fileInfo = getFileInfo(this);
+			var html = template(fileInfo);
+			
+			$(".uploadedList").append(html);
+		});
+	});
+</script>
+<script>
+	$(".uploadedList").on("click", ".mailbox-attachment-icon img", function(event){
+		
+		var fileLink = $(this).attr("data");
+		
+		if(checkImageType(fileLink)){
+			
+			event.preventDefault();
+					
+			var imgTag = $("#popup_img");
+			imgTag.attr("src", fileLink);
+			
+			console.log(imgTag.attr("src"));
+					
+			$(".popup").show('slow');
+			imgTag.addClass("show");		
+		}	
+	});
+	
+	$("#popup_img").on("click", function(){
+		
+		$(".popup").hide('slow');
+		
+	});
+</script>
+	
+
+<<<<<<< HEAD
 <jsp:include page="../include/footer.jsp"></jsp:include>	
+=======
+	
+<jsp:include page="../include/footer.jsp"></jsp:include>
+>>>>>>> refs/remotes/origin/soohyun
