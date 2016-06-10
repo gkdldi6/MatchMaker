@@ -2,13 +2,16 @@ var send = $('#send');							/*전송 버튼*/
 var msgbox = $('.direct-chat-messages');		/*대화가 로딩되는 공간*/
 var message = $('#message');					/*메시지 입력 input*/
 var userbox = $('.direct-chat-contacts');		/*회원 목록 공간*/
+var room;												
+
+
 /*id, name은	map.jsp 윗부분에 세션에서 받음*/
 
 /*socket.io 서버에 접속*/
 /*학원*/
-var socket = io('http://192.168.0.114:3000');
+//var socket = io('http://192.168.0.114:3000');
 /*집*/
-//var socket = io('http://192.168.219.188:3000');
+var socket = io('http://192.168.219.133:3000');
 socket.emit('enter', {uid: id, name: name});
 
 /*스크롤 자동으로 내리기*/
@@ -55,6 +58,11 @@ socket.on('message', function(msg) {
 	scrollAuto();
 });
 
+/*알림*/
+socket.on('alert', function(msg) {
+	alert(msg);
+});
+
 /*접속 인원 보기*/
 
 socket.on('userlist', function(userlist) {
@@ -67,7 +75,7 @@ socket.on('userlist', function(userlist) {
 
 /*방 만들기 */
 $('#create').click(function() {
-	var room = {
+	room = {
 		rname: $('#rname').val(),
 		usercnt: $('#usercnt').val(),
 		userid: id
@@ -76,14 +84,40 @@ $('#create').click(function() {
 	$('#createRoom').modal('hide');
 });
 
-/*방 접속하기*/
+/*방 접속 클릭*/
 $('#roomSpace').on('click', '#join', function() {
 	var eachRoom = $(this).parents('.eachRoom');
 	var roomno = eachRoom.find('.roomno').text();
 	socket.emit('join', {id: id, rno: roomno});
 });
 
-/*방 나가기*/
+/*방 접속 이벤트*/
+socket.on('join', function(msg) {
+	room = msg;
+	$('#room-name').text(msg.rname);
+	$('a[href="#tab_2"]').parent('li').removeClass('active');
+	$('a[href="#tab_1"]').parent('li').addClass('active');
+	$('#tab_2').removeClass('active');
+	$('#tab_1').addClass('active');
+	$('#exit').show();
+});
+
+/*방 나가기 클릭*/
+$('#exit').click(function() {
+	socket.emit('exit', room, id);
+});
+
+/*방 나가기 이벤트*/
+socket.on('exit', function(msg) {
+	$('#room-name').text('대기실');
+	$('a[href="#tab_1"]').parent('li').removeClass('active');
+	$('a[href="#tab_2"]').parent('li').addClass('active');
+	$('#tab_1').removeClass('active');
+	$('#tab_2').addClass('active');
+	$('#exit').hide();
+});
+
+
 
 
 /*방 목록보기*/
@@ -101,7 +135,4 @@ socket.on('roomlist', function(rooms) {
 /*방 예약하기*/
 
 
-/*테스트*/
-socket.on('alert', function(msg) {
-	alert(msg);
-});
+

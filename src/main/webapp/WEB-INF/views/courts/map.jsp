@@ -58,22 +58,6 @@ var name = '${login.username}';		/* 회원 이름 */
 		<li class="active"><a href="#tab_1" data-toggle="tab">채팅</a></li>
 		<li><a href="#tab_2" data-toggle="tab">방목록</a></li>
 		<li><a href="#tab_3" data-toggle="tab">예약목록</a></li>
-		<li class="dropdown"><a class="dropdown-toggle"
-			data-toggle="dropdown" href="#"> Dropdown <span class="caret"></span>
-		</a>
-			<ul class="dropdown-menu">
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="#">Action</a></li>
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="#">Another action</a></li>
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="#">Something else here</a></li>
-				<li role="presentation" class="divider"></li>
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="#">Separated link</a></li>
-			</ul></li>
-		<li class="pull-right"><a href="#" class="text-muted"><i
-				class="fa fa-gear"></i></a></li>
 	</ul>
 	<div class="tab-content">
 	
@@ -83,12 +67,14 @@ var name = '${login.username}';		/* 회원 이름 */
 			<div class="box box-danger direct-chat direct-chat-danger">
 				<div class="box-header with-border">
 					<h3 id="room-name" class="box-title">대기실</h3>
+					
 					<div class="box-tools pull-right">
 						<!-- 접속한 인원 목록 버튼 -->
 						<button type="button" class="btn btn-box-tool"
 							data-toggle="tooltip" title="회원" data-widget="chat-pane-toggle">
 							<i class="fa fa-comments"></i>
 						</button>
+						<button id="exit" class="btn btn-warning btn-flat btn-xs" style="display:none">나가기</button>
 					</div>
 				</div>
 				<!-- /.box-header -->
@@ -255,9 +241,9 @@ var name = '${login.username}';		/* 회원 이름 */
 </script>
 <!-- socket.io api -->
 <!-- 학원 -->
-<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script>
+<!-- <script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
 <!-- 집 -->
-<!-- <script src="http://192.168.219.188:3000/socket.io/socket.io.js"></script> -->
+<script src="http://192.168.219.133:3000/socket.io/socket.io.js"></script>
 <!-- socket.io client -->
 <script src="/resources/js/socket.io.client.js"></script>
 <!-- 다음 지도 API -->
