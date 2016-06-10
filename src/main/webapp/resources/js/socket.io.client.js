@@ -6,9 +6,9 @@ var userbox = $('.direct-chat-contacts');		/*회원 목록 공간*/
 
 /*socket.io 서버에 접속*/
 /*학원*/
-/*var socket = io('http://192.168.0.114:3000');*/
+var socket = io('http://192.168.0.114:3000');
 /*집*/
-var socket = io('http://192.168.219.188:3000');
+//var socket = io('http://192.168.219.188:3000');
 socket.emit('enter', {uid: id, name: name});
 
 /*스크롤 자동으로 내리기*/
@@ -101,5 +101,7 @@ socket.on('roomlist', function(rooms) {
 /*방 예약하기*/
 
 
-/*귓속말하기*/
-
+/*테스트*/
+socket.on('alert', function(msg) {
+	alert(msg);
+});
