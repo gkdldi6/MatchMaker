@@ -1,6 +1,7 @@
 package com.kosta.matchmaker.test;
 
 import java.util.List;
+import java.util.Scanner;
 
 import javax.inject.Inject;
 
@@ -21,7 +22,7 @@ import com.kosta.matchmaker.persistence.BoardDAO;
 public class BoardDAOTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
-	
+
 	@Inject
 	private BoardDAO dao;
 
@@ -72,24 +73,52 @@ public class BoardDAOTest {
 	}
 
 	@Test
-	public void testReadOne() throws Exception{
-		
-		
+	public void testReadOne() throws Exception {
+
 		BoardVO board = dao.readOne(2);
-		
+
 		System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
 				+ board.getRegdate() + "\t" + board.getHit());
-		
-		}
-	
-	@Test
-	public void testURI() throws Exception{
-		
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().path("/boards")
-				.queryParam("bno", 12).queryParam("perPageNum", 20).build();
-		
-		logger.info(uriComponents.toString());
-		
-	}
-}
 
+	}
+
+	@Test
+	public void testURI() throws Exception {
+
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().path("/boards").queryParam("bno", 12)
+				.queryParam("perPageNum", 20).build();
+
+		logger.info(uriComponents.toString());
+
+	}
+
+	@Test
+	public void testaddAttach() throws Exception {
+		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("파일명 입력하시오");
+		String fullName = sc.next();
+		dao.addAttach(fullName);
+		sc.close();
+	}
+
+	@Test
+	public List<String> testList() throws Exception {
+		
+		
+		
+		return null;
+
+	}
+
+	@Test
+	public void testdelete() throws Exception {
+
+	}
+
+	@Test
+	public void testreplace() throws Exception {
+
+	}
+
+}

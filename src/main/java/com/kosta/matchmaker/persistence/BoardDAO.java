@@ -23,7 +23,7 @@ public interface BoardDAO {
 	public List<BoardVO> readAll() throws Exception;
 
 	//게시글 페이징처리중
-	public List<BoardVO> listPage(int page) throws Exception;
+	//public List<BoardVO> listPage(int page) throws Exception;
 	
 	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
 	
@@ -34,7 +34,16 @@ public interface BoardDAO {
 	
 	//조회수
 	public void updateHit(Integer bno) throws Exception;
-
 	
+	//첨부파일
+	public void addAttach(String fullName) throws Exception;
+	
+	public List<String> getAttach(Integer bno)throws Exception;
+	
+	//첨부파일 삭제
+	public void deleteAttach(Integer bno)throws Exception;
+	
+	//첨부파일 수정
+	public void replaceAttach(String fullName, Integer bno) throws Exception;
 	
 }

@@ -100,4 +100,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update freeboard set hit = hit + 1 where bno = #{bno}
 	</update>
 
+
+	<insert id="addAttach">
+		insert into boardattach(fullname, bno) values (#{fullName}, LAST_INSERT_ID())
+	</insert>
+	
+	<select id="getAttach" resultType="string">
+		select fullname from boardattach where bno = #{bno} 
+		order by regdate
+	</select>
+	
+	<delete id="deleteAttach">
+		delete from boardattach where bno = #{bno}
+	</delete>
+	
+	<insert id="replaceAttach">
+		insert into boardattach(fullname, bno) values (#{fullName}, #{bno})
+	</insert>
+
+
+
 </mapper>
