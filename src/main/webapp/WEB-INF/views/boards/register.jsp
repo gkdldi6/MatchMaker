@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <jsp:include page="../include/header.jsp"></jsp:include>
-
+<script type="text/javascript"
+	src="/resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript"
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
 <style>
 .container {
@@ -29,42 +31,78 @@
 					<input type="text" class="form-control" id="inputEmail"
 						placeholder="제목" name="title">
 				</div>
+
 			</div>
 
 			<div class="form-group">
-				<label for="textArea" class="col-lg-2 control-label">내용</label>
+				<label for="inputEmail" class="col-lg-2 control-label">내용</label>
 				<div class="col-lg-10">
-					<textarea class="form-control" rows="7" id="textArea"
-						placeholder="내용" name="content"></textarea>
+					<textarea class="form-control" id="textArea" name="content"></textarea>
 				</div>
 			</div>
 
-		<label for="inputAttach" class="col-lg-2 control-label">첨부파일</label>
+
+			<label for="inputAttach" class="col-lg-2 control-label">첨부파일</label>
 			<div class="form-group">
 				<div class="fileDrop">
 					<div class="box-footer">
-								<!-- <textarea class="form-control" rows="7" id="textArea" placeholder="첨부파일" name="content">
+						<!-- <textarea class="form-control" rows="7" id="textArea" placeholder="첨부파일" name="content">
 								</textarea> -->
-						<ul class="mailbox-attachments clearfix uploadedList" >
+						<ul class="mailbox-attachments clearfix uploadedList">
 
 						</ul>
-							
+
+
 						<!-- <button type="button" class="btn btn-primary" id="fileadd">파일 등록</button> -->
 					</div>
 				</div>
 			</div>
-			
+
 
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
-					<button type="submit" class="btn btn-primary btn-flat">작성</button>
+					<button type="submit" class="btn btn-primary btn-flat" id="addnew">작성</button>
 					<a href="/boards" class="btn btn-default btn-flat">취소</a>
 				</div>
 			</div>
 		</fieldset>
 	</form>
 </div>
+<script type="text/javascript">
+	var oEditors = [];
+	$(function() {
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef : oEditors,
+			elPlaceHolder : "textArea",
+			//SmartEditor2Skin.html 파일이 존재하는 경로
+			sSkinURI : "/resources/editor/SmartEditor2Skin.html",
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true,
+				fOnBeforeUnload : function() {
 
+				}
+			},
+			fOnAppLoad : function() {
+				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+				oEditors.getById["textArea"].exec("PASTE_HTML",
+						[ "내용을 입력하시려면 지우고 입력하세요." ]);
+			},
+			fCreator : "createSEditor2"
+		});
+	});
+</script>
+
+<<script>
+$("#addnew").click(function(){
+	oEditors.getById["textArea"].exec("UPDATE_CONTENTS_FIELD", []);
+	$("#textArea").submit();
+})
+</script>
 <script type="text/javascript" src="/resources/js/upload.js"></script>
 
 <script
