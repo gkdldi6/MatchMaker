@@ -12,6 +12,8 @@ import com.kosta.matchmaker.persistence.UserDAO;
 import com.kosta.matchmaker.util.work.crypt.BCrypt;
 import com.kosta.matchmaker.util.work.crypt.SHA256;
 
+import net.tanesha.recaptcha.ReCaptchaImpl;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -20,18 +22,22 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserVO login(LoginDTO dto) throws Exception {
-		dao.login(dto);
-		SHA256 sha = SHA256.getInsatnce();
-
-		String orgPass = dto.getUserpw();
-		String shaPass = sha.getSha256(orgPass.getBytes());
-		dto.setUserpw(shaPass);
-
-		UserVO user = dao.selectId(dto.getUserid());
-		String dbpasswd = user.getUserpw();
-		
-		if(BCrypt.checkpw(shaPass,dbpasswd) ){
-			return dao.login(dto);
+		if(dao.login(dto) !=null){
+			System.out.println("디비에있으");
+			SHA256 sha = SHA256.getInsatnce();
+			
+			String orgPass = dto.getUserpw();
+			String shaPass = sha.getSha256(orgPass.getBytes());
+			dto.setUserpw(shaPass);
+	
+			UserVO user = dao.selectId(dto.getUserid());
+			String dbpasswd = user.getUserpw();
+			
+			if(BCrypt.checkpw(shaPass,dbpasswd)){
+				return dao.login(dto);
+			}
+		}else{
+			return null;
 		}
 		return null;
 	}
@@ -76,6 +82,15 @@ public class UserServiceImpl implements UserService {
 		int result = dao.userIdCheck(userid);
 
 		return result;
+	}
+
+	@Override
+	public ReCaptchaImpl reCaptcha() {
+		
+		ReCaptchaImpl reCaptcha = new ReCaptchaImpl();
+		reCaptcha.setPrivateKey("6Lf0DSITAAAAAGN2lOkpGqTwgV_9SZGNZbMc9hug");
+		
+		return reCaptcha;
 	}
 	
 	

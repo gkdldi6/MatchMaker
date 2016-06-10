@@ -5,6 +5,8 @@ import java.util.List;
 import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.UserVO;
 
+import net.tanesha.recaptcha.ReCaptchaImpl;
+
 public interface UserService {
 
 	// 회원 로그인
@@ -27,5 +29,8 @@ public interface UserService {
 	
 	//아이디 중복 검사
 	public int userIdCheck(String userid);
+	
+	//캡챠
+	public ReCaptchaImpl reCaptcha();
 	
 }

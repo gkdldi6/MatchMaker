@@ -1,3 +1,5 @@
+-- 16-06-08 09:35 --
+
 -- 스키마 생성
 create database matchmaker;
 use matchmaker;
@@ -8,7 +10,7 @@ userid varchar(50) not null,
 userpw varchar(60) not null, 
 username varchar(50) not null, 
 email varchar(100) not null, 
-regdate timestamp default now(),
+regdate timestamp default now(), 
 userage int,
 userinfo text,
 primary key(userid)
