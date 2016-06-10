@@ -86,7 +86,7 @@ public class BoardController {
 		return "redirect:/boards";
 	}
 	
-	/*글 삭제*/
+	/*글 삭제* ㅋㅋㅋ*/
 	@RequestMapping(value="/delete", method=RequestMethod.POST)
 	public String delete(@RequestParam("bno") int bno, SearchCriteria cri,
 			RedirectAttributes rttr) throws Exception {
