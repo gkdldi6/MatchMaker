@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kosta.matchmaker.mappers.MessageMapper">
+
+	<insert id="create">
+		insert into message(targetid, sender, message)
+		values (#{targetid}, #{sender}, #{message})
+	</insert>
+	
+	<select id="readMessage" resultType="MessageVO">
+		select * from message where mid = #{mid}
+	</select>
+	
+	<update id="updateState">
+		update message set opendate = now() where mid = #{mid}
+	</update>
+</mapper>

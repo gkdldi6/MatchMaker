@@ -92,10 +92,10 @@ public class UserController {
 	    ReCaptchaResponse reCaptchaResponse = service.reCaptcha().checkAnswer(host, challenge, res);
 	 
 	    if (reCaptchaResponse.isValid()) {
-	        System.out.println("true");
+	        //System.out.println("true");
 	        check = "Y";
 	    } else {
-	        System.out.println("false");
+	        //System.out.println("false");
 	        check = "N";
 	    }
 	     

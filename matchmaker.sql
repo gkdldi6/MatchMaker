@@ -1,4 +1,4 @@
--- 16-06-08 09:35 --
+-- 쪽지 테이블 추가 --
 
 -- 스키마 생성
 create database matchmaker;
@@ -58,3 +58,19 @@ where bno > 0;
 
 SELECT * FROM USER;
 delete from user;
+
+
+-- 쪽지 테이블
+create table message(
+	mid int not null auto_increment,
+    targetid varchar(50) not null references user (userid),
+    readpoint int NOT NULL default 0,
+    sender varchar(50) not null references user (userid),
+    message text not null,
+    opendate timestamp,
+    senddate timestamp not null default now(),
+    primary key (mid)
+);
+
+drop table message;
+select * from message;
