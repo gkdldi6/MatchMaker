@@ -109,6 +109,7 @@ public class BoardController {
 		return "redirect:/boards";
 	}
 	
+	/*첨부파일 목록 조회*/
 	@ResponseBody
 	@RequestMapping("/getAttach/{bno}")
 	public List<String> getAttach(@PathVariable("bno") Integer bno)throws Exception{

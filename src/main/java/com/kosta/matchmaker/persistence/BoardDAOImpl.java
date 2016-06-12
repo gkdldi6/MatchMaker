@@ -105,6 +105,6 @@ public class BoardDAOImpl implements BoardDAO {
 		paramMap.put("bno", bno);
 		paramMap.put("fullName", fullName);
 		
-		session.insert(namespace + ".replaceAttach", bno);
+		session.insert(namespace + ".replaceAttach", paramMap);
 	}
 }

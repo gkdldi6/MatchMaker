@@ -50,15 +50,22 @@ public class BoardServiceImpl implements BoardService {
 
 		Integer bno = board.getBno();
 		
+		System.out.println(bno);
+		
+		
+		
 		dao.deleteAttach(bno);
 		
 		String[] files = board.getFiles();
+		
+		
 		
 		if(files == null){
 			return;
 		}
 		
 		for(String fileName : files){
+			System.out.println(fileName.toString());
 			dao.replaceAttach(fileName, bno);
 		}
 	}

@@ -61,11 +61,16 @@ input:read-only, #textArea:read-only{
 					</div>
 				</div>
 				
-				<div class='popup back' style="display:none;"></div>
-					<div id="popup_front" class='popup front' style="display:none;">
-						<img id="popup_img">
+				<div class="form-group">
+					<label class="col-lg-2 control-label">첨부파일</label>
+					<div class="col-lg-10">
+						<div class='popup back' style="display:none;"></div>
+						<div id="popup_front" class='popup front' style="display:none;">
+							<img id="popup_img">
+						</div>
+						<ul class="mailbox-attachments clearfix uploadedList"> </ul>
 					</div>
-				<ul class="mailbox-attachments clearfix uploadedList"> </ul>
+				</div>
 				
 				<div class="form-group">
 					<label for="regdate" class="col-lg-2 control-label">작성 날짜</label>

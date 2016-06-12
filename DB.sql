@@ -46,3 +46,15 @@ create table freereply(
 	regdate timestamp not null default now(),
 	primary key(rno)
 );
+
+-- 첨부파일 테이블
+create table boardattach(
+   fullname varchar(150) not null,
+    bno int not null,
+    regdate timestamp default now(),
+    primary key(fullname)
+);
+
+ -- 첨부파일 테이블 만들고 바로 삽입하세요
+alter table boardattach add constraint fk_board_attach
+foreign key (bno) references freeboard (bno);

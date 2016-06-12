@@ -11,79 +11,65 @@
 }
 </style>
 
-	
-	<!-- 글쓰기 -->
-	<div class="container">
-		<form class="form-horizontal" action="new" method="post">
-			<fieldset>
-				<legend class="col-lg-10 col-lg-offset-1">글쓰기</legend>
-				<div class="form-group">
-					<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
-					<div class="col-lg-10">
-						<input type="text" class="form-control" id="inputEmail"
-							placeholder="작성자를 입력해주세요." name="writer">
-					</div>
+
+<!-- 글쓰기 -->
+<div class="container">
+	<form class="form-horizontal" action="new" method="post">
+		<fieldset>
+			<legend class="col-lg-10 col-lg-offset-1">글쓰기</legend>
+			<div class="form-group">
+				<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="inputEmail"
+						placeholder="작성자를 입력해주세요." name="writer">
 				</div>
+			</div>
 
-				
-				<div class="form-group">
-					<label for="inputEmail" class="col-lg-2 control-label">제목</label>
-					<div class="col-lg-10">
-						<input type="text" class="form-control" id="inputEmail"
-							placeholder="제목을 입력해주세요." name="title">
-					</div>
-				</div>
-
-
-
-				<div class="form-group">
-					<label for="textArea" class="col-lg-2 control-label">내용</label>
-					<div class="col-lg-10">
-						<textarea class="form-control textarea" rows="14" id="textArea" 
-								placeholder="내용을 입력해주세요." name="content" style="resize:none"></textarea>
-					</div>
-
+			<div class="form-group">
+				<label for="inputEmail" class="col-lg-2 control-label">제목</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="inputEmail"
+						placeholder="제목을 입력해주세요." name="title">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="textArea" class="col-lg-2 control-label">내용</label>
 				<div class="col-lg-10">
-					<textarea class="form-control" rows="7" id="textArea"
-						placeholder="내용" name="content"></textarea>
-				</div>
-			</div>
-
-		<label for="inputAttach" class="col-lg-2 control-label">첨부파일</label>
-			<div class="form-group">
-				<div class="fileDrop">
-					<div class="box-footer">
-								<!-- <textarea class="form-control" rows="7" id="textArea" placeholder="첨부파일" name="content">
-								</textarea> -->
-						<ul class="mailbox-attachments clearfix uploadedList" >
-
-						</ul>
-							
-						<!-- <button type="button" class="btn btn-primary" id="fileadd">파일 등록</button> -->
-					</div>
+					<textarea class="form-control textarea" rows="14" id="textArea"
+						placeholder="내용을 입력해주세요." name="content" style="resize: none"></textarea>
 				</div>
 			</div>
 			
-
+			<div class="col-lg-offset-2">
+				<div class="fileDrop" style="height:100px;background-color:gray">
+					<label>여기에 파일을 첨부하세요.</label>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-lg-2 control-label">첨부파일</label>
+				<div class="col-lg-10">
+					<ul class="mailbox-attachments clearfix uploadedList" >
+					</ul>
+				</div>
+			</div>
+			
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
 					<button type="submit" class="btn btn-primary btn-flat">작성</button>
 					<a href="/boards" class="btn btn-default btn-flat">취소</a>
 				</div>
 			</div>
+
 		</fieldset>
 	</form>
 </div>
+<!-- 끌 쓰기 끝 -->
+
 
 <script type="text/javascript" src="/resources/js/upload.js"></script>
-
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <script id="template" type="text/x-handlebars-template">
 <li>
@@ -179,13 +165,6 @@
 		 }); 
 		});	
 </script>
-
-
-<!-- 에디터로 작성 -->
-<!-- <script type="text/javascript">
-	$('.textarea').wysihtml5();
-	$("#txtEditor").Editor();
-</script> -->
 
 
 <jsp:include page="../include/footer.jsp"></jsp:include>
