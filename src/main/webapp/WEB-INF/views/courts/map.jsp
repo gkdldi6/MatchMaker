@@ -230,8 +230,8 @@ var name = '${login.username}';		/* 회원 이름 */
 				</div>
 			</div>
 			<div class="box-body" style="display: none;">
-				<span>{{rusers.length}}/{{usercnt}}</span>
-				<span>현재 접속중인 회원: {{rusers}}</span>
+				<span class="ruserscnt"></span><span>/{{usercnt}}</span>
+				<span>현재 접속중인 회원:</span><span class="rusers"></span>
 			</div>
 			<div class="box-footer" style="border-top:0px">
 				<button id="join" type="button" class="btn btn-primary btn-flat">참가</button>
@@ -243,7 +243,7 @@ var name = '${login.username}';		/* 회원 이름 */
 <!-- 학원 -->
 <!-- <script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
 <!-- 집 -->
-<script src="http://192.168.219.133:3000/socket.io/socket.io.js"></script>
+<script src="http://192.168.219.188:3000/socket.io/socket.io.js"></script>
 <!-- socket.io client -->
 <script src="/resources/js/socket.io.client.js"></script>
 <!-- 다음 지도 API -->

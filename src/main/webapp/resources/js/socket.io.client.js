@@ -11,7 +11,7 @@ var room;
 /*학원*/
 //var socket = io('http://192.168.0.114:3000');
 /*집*/
-var socket = io('http://192.168.219.133:3000');
+var socket = io('http://192.168.219.188:3000');
 socket.emit('enter', {uid: id, name: name});
 
 /*스크롤 자동으로 내리기*/
@@ -64,12 +64,11 @@ socket.on('alert', function(msg) {
 });
 
 /*접속 인원 보기*/
-
 socket.on('userlist', function(userlist) {
 	userbox.html('');
 	for(i in userlist) {
-		userbox.append('아이디: ' + userlist[i].uid + '	이름: ' + userlist[i].name 
-				+ '    방: ' + userlist[i].roomno +	'<br>');
+		userbox.append('<div uid="' + userlist[i].uid + '">아이디: ' + userlist[i].uid + '	이름: ' + userlist[i].name 
+				+ '    방: ' + userlist[i].roomno +	'</div>');
 	};
 });
 
@@ -82,6 +81,23 @@ $('#create').click(function() {
 	};
 	socket.emit('create', room);
 	$('#createRoom').modal('hide');
+});
+
+/*방 접속하는 인원 정보 받기*/
+socket.on('enterroom', function(user) {
+	userbox.append('<div uid="' + user.uid + '">아이디: ' + user.uid + '	이름: ' + user.name 
+			+ '    방: ' + user.roomno +	'</div>');
+});
+
+/*방 나가는 인원 정보 받기*/
+socket.on('exitroom', function(user) {
+	userbox.find('div').each(function() {
+		var userid = $(this).attr('uid');
+		if(userid === user.uid) {
+			$(this).remove();
+			return;
+		};
+	});
 });
 
 /*방 접속 클릭*/
@@ -100,6 +116,7 @@ socket.on('join', function(msg) {
 	$('#tab_2').removeClass('active');
 	$('#tab_1').addClass('active');
 	$('#exit').show();
+	scrollAuto();
 });
 
 /*방 나가기 클릭*/
@@ -115,10 +132,57 @@ socket.on('exit', function(msg) {
 	$('#tab_1').removeClass('active');
 	$('#tab_2').addClass('active');
 	$('#exit').hide();
+	scrollAuto();
 });
 
+/*방 정보 자세히 보기*/
+$('#roomSpace').on('click', 'button[data-widget="collapse"]', function() {
+	var state = $(this).parents('.eachRoom').hasClass('collapsed-box');
+	var roomno = $(this).parents('.eachRoom').find('.roomno').text();
+	
+	if(state) {
+		socket.emit('detail', roomno);
+	}
+});
 
+socket.on('detail', function(msg) {
+	$('.roomno').each(function() {
+		var roomno = $(this).text();(output);
+			
+		if(roomno == msg.roomno) {
+			$(this).parents('.eachRoom').find('.ruserscnt').text(msg.ruserscnt);
+			
+			var output = '' + msg.rusers[0].name;
+			for(var i = 1; i < msg.rusers.length; i++) {
+				output += ', ' + msg.rusers[i].name;
+			}
+			$(this).parents('.eachRoom').find('.rusers').text(output);
+			return;
+		}
+	});
+});
 
+/*생성된 방 목록에 추가*/
+socket.on('createRoom', function(room) {
+	var templateObj = $('#roomTemplate');
+	var target = $('#roomSpace');
+	
+	var template = Handlebars.compile(templateObj.html());
+	
+	var html = template(room);
+	target.prepend(html);
+});
+
+/*사라진 방 목록에서 제거*/
+socket.on('deleteRoom', function(room) {
+	$('.roomno').each(function() {
+		var roomno = $(this).text();
+		if(roomno == room.roomno) {
+			$(this).parents('.eachRoom').remove();
+			return;
+		}
+	});
+});
 
 /*방 목록보기*/
 socket.on('roomlist', function(rooms) {

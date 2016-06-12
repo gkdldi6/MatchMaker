@@ -49,6 +49,8 @@
 							
 							<li><a href="/boards">게시판</a></li>
 							
+							<li><a href="/courts">코트 찾기</a></li>
+							
 							<!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
 								data-toggle="dropdown">Dropdown <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
