@@ -32,7 +32,7 @@
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
 						<textarea class="form-control textarea" rows="14" id="textArea" 
-								name="content" style="resize:none">${article.content }</textarea>
+								name="content"></textarea>
 					</div>
 				</div>
 
@@ -58,7 +58,7 @@
 
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button class="btn btn-primary btn-flat">수정</button>
+						<button id="edit" class="btn btn-primary btn-flat">수정</button>
 						<a class="btn btn-default btn-flat" onclick="history.go(-1)">취소</a>
 					</div>
 				</div>
@@ -70,8 +70,43 @@
 <jsp:include page="../include/footer.jsp"></jsp:include>
 
 
+<script type="text/javascript" src="/resources/plugins/editor/js/HuskyEZCreator.js" charset="UTF-8"></script>
 <script type="text/javascript" src="/resources/js/upload.js"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+<script type="text/javascript">
+	var oEditors = [];
+	$(function() {
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef : oEditors,
+			elPlaceHolder : "textArea",
+			//SmartEditor2Skin.html 파일이 존재하는 경로
+			sSkinURI : "/resources/plugins/editor/SmartEditor2Skin.html",
+			htParams : {
+				// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseToolbar : true,
+				// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseVerticalResizer : true,
+				// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+				bUseModeChanger : true,
+				fOnBeforeUnload : function() {
+
+				}
+			},
+			fOnAppLoad : function() {
+				//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+				oEditors.getById["textArea"].exec("PASTE_HTML",
+						["${article.content }"]);
+			},
+			fCreator : "createSEditor2"
+		});
+	});
+	
+	$("#edit").click(function(){
+		oEditors.getById["textArea"].exec("UPDATE_CONTENTS_FIELD", []);
+		$("#textArea").submit();
+	})
+</script>
 
 <script id="template" type="text/x-handlebars-template">
 <li>
@@ -157,7 +192,7 @@
 			});	
 	});
 	
-	$(".btn-primary").on("click", function(){
+	$("#edit").on("click", function(){
 		/* event.preventDefault(); */
 		
 		var that = $(this);

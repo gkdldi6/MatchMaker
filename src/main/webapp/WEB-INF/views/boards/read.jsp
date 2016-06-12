@@ -21,13 +21,19 @@ input:read-only, #textArea:read-only{
 #textArea {
 	resize: none;
 }
+
+.container {
+	background-color: white;
+}
 </style>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+	<div class="content-wrapper">
 
 	<!-- 글읽기 폼 -->
 	<div class="container">
 		<div  class="form-horizontal">
-			<fieldset>
+			<fieldset >
 				<legend class="col-lg-10 col-lg-offset-1">글읽기</legend>
 				<div class="form-group">
 					<label for="bno" class="col-lg-2 control-label">글번호</label>
@@ -56,8 +62,7 @@ input:read-only, #textArea:read-only{
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
-						 <textarea class="form-control" rows="7" id="textArea"
-						 		name="content" readonly>${article.content }</textarea>
+						<div id="content" style="padding:20px;"></div>
 					</div>
 				</div>
 				
@@ -103,7 +108,7 @@ input:read-only, #textArea:read-only{
 
 
 	<!-- 댓글 -->
-	<div style="background-color: #fcf8e3">
+	<div>
 		
 		<!-- 댓글 입력폼 -->
 		<div class="container">
@@ -114,7 +119,7 @@ input:read-only, #textArea:read-only{
 						<label for="writer" class="col-lg-2 control-label">작성자</label>
 						<div class="col-lg-10">
 							<input type="text" class="form-control" id="replyer"
-								placeholder="작성자를 입력해주세요.">
+								value="${login.username }" readonly>
 						</div>
 					</div>
 					<div class="form-group">
@@ -168,6 +173,8 @@ input:read-only, #textArea:read-only{
 			</div>
 		</div>
 	</div>
+	
+	</div>
 
 
 <!-- 댓글 템플릿 -->
@@ -194,7 +201,10 @@ input:read-only, #textArea:read-only{
 <script type="text/javascript">
 	var bno = ${article.bno};
 	var pageForm = $('form[role="page"]');
+	var content = '${article.content}';
 	
+	$('#content').html(content);
+		
 	/* 목록 버튼 클릭 */
 	$("#list").on("click", function(){
 		pageForm.submit();

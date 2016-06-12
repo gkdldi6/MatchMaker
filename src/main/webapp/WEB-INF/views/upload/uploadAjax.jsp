@@ -96,7 +96,7 @@ small {
 				 var that = $(this);
 			
 			   $.ajax({
-				   url:"deleteFile",
+				   url:"/deleteFile",
 				   type:"post",
 				   data: {fileName:$(this).attr("data-src")},
 				   dataType:"text",
