@@ -19,11 +19,6 @@ public class MessageController {
 	@Inject
 	private MessageService service;
 
-	@RequestMapping("/")
-	public String MessagesList() {
-		return "messages/list";
-	}
-	
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	public ResponseEntity<String> addMessage(@RequestBody MessageVO vo){
 		
@@ -38,5 +33,8 @@ public class MessageController {
 		return entity;
 	}
 	
-	
+	@RequestMapping(value = "/send", method = RequestMethod.GET)
+	public void addMessages(){
+		
+	}
 }
