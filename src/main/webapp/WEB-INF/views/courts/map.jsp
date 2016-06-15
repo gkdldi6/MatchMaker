@@ -117,6 +117,7 @@ var name = '${login.username}';		/* 회원 이름 */
 			<div class="box box-warning">
 				<div class="box-header">
 					<h3 class="box-title">생성된 방 목록</h3>
+					<button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
 				</div>
 				<!-- /.box-header -->
 				
@@ -141,6 +142,7 @@ var name = '${login.username}';		/* 회원 이름 */
 			<div class="box box-success">
 				<div class="box-header">
 					<h3 class="box-title">예약 목록</h3>
+					<button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
 				</div>
 				<!-- /.box-header -->
 				
