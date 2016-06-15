@@ -28,13 +28,9 @@ public class MessageController {
 			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<>("FAIL",HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
 	
-	@RequestMapping(value = "/send", method = RequestMethod.GET)
-	public void addMessages(){
-		
-	}
 }

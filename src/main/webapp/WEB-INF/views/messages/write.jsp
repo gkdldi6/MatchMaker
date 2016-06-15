@@ -20,7 +20,7 @@
 					<label for="inputEmail" class="col-lg-2 control-label">보내는 아이디</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="sender"
-							placeholder="작성자를 입력해주세요." name="writer">
+							placeholder="작성자를 입력해주세요." name="sender">
 					</div>
 				</div>
 				
@@ -28,7 +28,7 @@
 					<label for="inputEmail" class="col-lg-2 control-label">받는 아이디</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="targetid"
-							placeholder="작성자를 입력해주세요." name="writer">
+							placeholder="작성자를 입력해주세요." name="targetid">
 					</div>
 				</div>
 
@@ -36,7 +36,7 @@
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
 						<textarea class="form-control textarea" rows="14" id="message" 
-								placeholder="내용을 입력해주세요." name="content" style="resize:none"></textarea>
+								placeholder="내용을 입력해주세요." name="message" style="resize:none"></textarea>
 						<!-- <div id="txtEditor" name="content"></div> -->
 					</div>
 				</div>
@@ -55,24 +55,27 @@
 <script type="text/javascript">
 	
 	function MessageSend() {
-		alert("dddd");
+		var sender = $("#sender").val();
+		var targetid = $("#targetid").val();
+		var message = $("#message").val();
 		$.ajax({
-			url:'/messages/send',
-			//contentType : 'application/json',
-			type: 'POST',
-			dataType: 'json',
-			data:
-			{
-				 "sender" : $('#sender').val(),
-				 "targetid" : $('#targetid').val(),
-				 "message" : $('#message').val()
+			type : 'post',
+			url : '/messages/send',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
 			},
-			success: function(data){
-				alert("쪽지 전송 성공");
+			dataType : 'text',
+			data: JSON.stringify({
+				sender : sender,
+				targetid : targetid,
+				message : message
+			}),
+			success: function(result){
+				if(result==SUCCESS){
+					alert("쪽지 전송 성공");
+				}
 			},
-			error : function(data){
-				alert("쪽지 전송 실패");	
-			}
 		});
 	};
 </script>
