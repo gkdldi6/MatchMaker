@@ -1,5 +1,7 @@
 package com.kosta.matchmaker.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -26,6 +28,11 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
+	public List<MessageVO> readAll() throws Exception {
+		return messageDAO.readAll();
+	}
+
+	/*@Override
 	public MessageVO readMessage(String targetid, Integer mid) throws Exception {
 		
 		messageDAO.updateState(mid);
@@ -33,5 +40,6 @@ public class MessageServiceImpl implements MessageService {
 		
 		return messageDAO.readMessage(mid);
 	}
-
+	 */
+	
 }

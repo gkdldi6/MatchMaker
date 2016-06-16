@@ -1,5 +1,7 @@
 package com.kosta.matchmaker.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,12 +24,14 @@ public class MessageDAOImpl implements MessageDAO{
 	}
 
 	@Override
-	public MessageVO readMessage(Integer mid) throws Exception {
-		return session.selectOne(namespace+".readMessage",mid);
+	public List<MessageVO> readAll() throws Exception {
+		return session.selectList(namespace + ".readAll");
 	}
-
+	
 	@Override
 	public void updateState(Integer mid) throws Exception {
 		session.update(namespace+".updateState",mid);
 	}
+
+	
 }

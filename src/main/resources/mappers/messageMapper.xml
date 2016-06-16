@@ -14,6 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from message where mid = #{mid}
 	</select>
 	
+	<select id="readAll" resultType="MessageVO">
+		select *
+		from message order by mid desc
+	</select>
+	
 	<update id="updateState">
 		update message set opendate = now() where mid = #{mid}
 	</update>

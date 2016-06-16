@@ -23,13 +23,13 @@ public class HomeController {
 		return "courts/map";
 	}
 
-	@RequestMapping("/messages")
-	public String MessagesList() {
-		return "messages/list";
-	}
-	
 	@RequestMapping("/messages/write")
 	public String MessagesWrite() {
 		return "messages/write";
 	}
+	
+	/*@RequestMapping("/messages")
+	public String MessagesList() {
+		return "messages/list";
+	}*/
 }
