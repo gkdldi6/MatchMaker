@@ -6,8 +6,22 @@ public class CourtVO {
 	private String address;
 	private double lat;
 	private double lng;
+	private String cname;
+	private String ccontent;
 	
 	
+	public String getCname() {
+		return cname;
+	}
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+	public String getCcontent() {
+		return ccontent;
+	}
+	public void setCcontent(String ccontent) {
+		this.ccontent = ccontent;
+	}
 	public int getCno() {
 		return cno;
 	}

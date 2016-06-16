@@ -66,6 +66,9 @@ $(function() {
 	for (var i = 0; i < list.length; i ++) {
 		var cno = list[i].cno;
 	    var addr = list[i].address;
+	    var cname = list[i].cname;
+	    var ccontent = list[i].ccontent;
+	    
 		
 		// 마커를 생성합니다
 	    var marker = new daum.maps.Marker({
@@ -84,7 +87,7 @@ $(function() {
 	    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
 	    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
 	    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-	    daum.maps.event.addListener(marker, 'click', openSidebar(cno, addr));
+	    daum.maps.event.addListener(marker, 'click', openSidebar(cno, addr, cname, ccontent));
 	}
 })
 

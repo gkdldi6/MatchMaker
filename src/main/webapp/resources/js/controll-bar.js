@@ -23,22 +23,25 @@ chatbtn.click(function() {
 });
 
 /* 사이드바 조작 */
-function openSidebar(cno, addr) {
+function openSidebar(cno, addr, cname, ccontent) {
 	return function() {
 		if(sidebar.attr('state') === 'opened' && courtNo === cno) {
 			closeSbar();
 		} else {
-			openSbar(cno, addr);
+			openSbar(cno, addr, cname, ccontent);
 		}
 	};
 };
 
-function openSbar(cno, addr) {
+function openSbar(cno, addr, cname, ccontent) {
 	$('.control-sidebar-bg, .control-sidebar').css('right', '0px');
 	sidebar.attr('state', 'opened');
 	
-	$('#cno').text(cno);
+	
+//	$('#cno').text(cno);
 	$('#address').text(addr);
+	$('#cname').text(cname);
+	$('#ccontent').text(ccontent);
 	
 	courtNo = cno;
 };
