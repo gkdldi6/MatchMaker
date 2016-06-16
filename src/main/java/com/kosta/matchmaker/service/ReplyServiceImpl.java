@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kosta.matchmaker.domain.Criteria;
-import com.kosta.matchmaker.domain.ReplyVO;
+import com.kosta.matchmaker.domain.article.Criteria;
+import com.kosta.matchmaker.domain.article.ReplyVO;
 import com.kosta.matchmaker.persistence.BoardDAO;
 import com.kosta.matchmaker.persistence.ReplyDAO;
 

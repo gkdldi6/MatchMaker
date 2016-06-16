@@ -9,6 +9,6 @@
 		<package name="com.kosta.matchmaker.domain" />
 		<package name="com.kosta.matchmaker.aop" />
 		<!-- article 패키지 안돌 때 사용 -->
-		<!-- <package name="com.kosta.matchmaker.domain.*" /> -->
+		<package name="com.kosta.matchmaker.domain.*" />
 	</typeAliases>
 </configuration>

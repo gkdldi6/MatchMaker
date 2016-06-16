@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kosta.matchmaker.domain.Criteria;
-import com.kosta.matchmaker.domain.PageMaker;
-import com.kosta.matchmaker.domain.ReplyVO;
+import com.kosta.matchmaker.domain.article.Criteria;
+import com.kosta.matchmaker.domain.article.PageMaker;
+import com.kosta.matchmaker.domain.article.ReplyVO;
 import com.kosta.matchmaker.service.ReplyService;
 
 @RestController

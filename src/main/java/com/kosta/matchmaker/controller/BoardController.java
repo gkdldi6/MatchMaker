@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kosta.matchmaker.domain.BoardVO;
-import com.kosta.matchmaker.domain.PageMaker;
-import com.kosta.matchmaker.domain.SearchCriteria;
+import com.kosta.matchmaker.domain.article.FreeBoardVO;
+import com.kosta.matchmaker.domain.article.PageMaker;
+import com.kosta.matchmaker.domain.article.SearchCriteria;
 import com.kosta.matchmaker.service.BoardService;
 
 @Controller
@@ -48,7 +48,7 @@ public class BoardController {
 	
 	/*글 작성*/
 	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public String write(RedirectAttributes rttr, BoardVO article) throws Exception {
+	public String write(RedirectAttributes rttr, FreeBoardVO article) throws Exception {
 		service.register(article);
 		
 		rttr.addFlashAttribute("result", "success");
@@ -62,7 +62,7 @@ public class BoardController {
 			@ModelAttribute("cri") SearchCriteria cri,
 						Model model) throws Exception {
 		
-		BoardVO article = service.readOne(bno);
+		FreeBoardVO article = service.readOne(bno);
 		
 		model.addAttribute("article", article);
 		
@@ -73,7 +73,7 @@ public class BoardController {
 	@RequestMapping(value="/{bno}/edit", method=RequestMethod.GET)
 	public String editForm(@PathVariable int bno, Model model, @ModelAttribute("cri") SearchCriteria cri) throws Exception {
 		
-		BoardVO article = service.readOne(bno);
+		FreeBoardVO article = service.readOne(bno);
 		
 		model.addAttribute("article", article);
 		
@@ -82,7 +82,7 @@ public class BoardController {
 	
 	/*글 수정*/
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public String edit(BoardVO board, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
+	public String edit(FreeBoardVO board, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
 		
 		service.modify(board);
 		rttr.addAttribute("page", cri.getPage());

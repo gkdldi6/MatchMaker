@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.kosta.matchmaker.domain.BoardVO;
+import com.kosta.matchmaker.domain.article.ArticleVO;
 import com.kosta.matchmaker.service.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,7 +22,7 @@ public class BoardServiceTest {
 	@Test
 	public void testRegister() throws Exception {
 
-		BoardVO board = new BoardVO();
+		ArticleVO board = new ArticleVO();
 
 		board.setTitle("서비스 테스트");
 		board.setContent("성공적");
@@ -35,47 +35,46 @@ public class BoardServiceTest {
 	@Test
 	public void testReadAll() throws Exception {
 
-		List<BoardVO> list = service.readAll();
+		List<ArticleVO> list = service.readAll();
 
 		if (list == null) {
 			System.out.println("없다");
 		}
 
-		for (BoardVO board : list) {
+		for (ArticleVO board : list) {
 			System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
 					+ board.getRegdate() + "\t" + board.getHit());
 		}
 	}
 
 	@Test
-	public void testModify() throws Exception{
-		
-		BoardVO board = new BoardVO();
-		
-		board.setBno(3);
-		board.setTitle("서비스 수정 테스트");
+	public void testModify() throws Exception {
+
+		ArticleVO board = new ArticleVO();
+
+		board.setBno(2);
+		board.setTitle("서비스 수정 테스트 zzzzzzzzzz");
 		board.setContent("성공적");
 		board.setWriter("다음으로");
-		
+
 		service.modify(board);
-		
+
 	}
-	
+
 	@Test
-	public void testRemove() throws Exception{
-		
-		service.remove(3);
-		
+	public void testRemove() throws Exception {
+
+		service.remove(2);
+
 	}
-	
+
 	@Test
-	public void testReadOne() throws Exception{
-		
-		BoardVO board = service.readOne(2);
-		
+	public void testReadOne() throws Exception {
+
+		ArticleVO board = service.readOne(2);
+
 		System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
 				+ board.getRegdate() + "\t" + board.getHit());
 	}
-	
-	
+
 }

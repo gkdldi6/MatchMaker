@@ -125,8 +125,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 신버전 맵퍼 -->
 
 	<insert id="create">
-		insert into article (title, content, writer)
-		values(#{title}, #{content}, #{writer})
+		insert into article (bno, ano, title, content, writer)
+		values(#{bno}, #{ano}, #{title}, #{content}, #{writer})
 	</insert>
 
 	<select id="readAll" resultType="ArticleVO">
@@ -147,9 +147,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<select id="readOne" resultType="ArticleVO">
-		select bno, title, content,
-		writer, regdate, hit
-		from article
+		select * from article
 		where bno = #{bno}
 	</select>
 

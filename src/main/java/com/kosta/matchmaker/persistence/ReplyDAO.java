@@ -2,8 +2,8 @@ package com.kosta.matchmaker.persistence;
 
 import java.util.List;
 
-import com.kosta.matchmaker.domain.Criteria;
-import com.kosta.matchmaker.domain.ReplyVO;
+import com.kosta.matchmaker.domain.article.Criteria;
+import com.kosta.matchmaker.domain.article.ReplyVO;
 
 public interface ReplyDAO {
 	

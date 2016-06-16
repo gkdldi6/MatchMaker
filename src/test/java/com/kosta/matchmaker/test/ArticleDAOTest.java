@@ -1,7 +1,6 @@
 package com.kosta.matchmaker.test;
 
 import java.util.List;
-import java.util.Scanner;
 
 import javax.inject.Inject;
 
@@ -15,33 +14,32 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.kosta.matchmaker.domain.article.ArticleVO;
 import com.kosta.matchmaker.persistence.ArticleDAO;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
-public class BoardDAOTest {
 
-//	private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
+public class ArticleDAOTest {
 
 	@Inject
 	private ArticleDAO dao;
 
-	//새로운 설계 적용 부분
 	@Test
 	public void testCreate() throws Exception {
-		
+		System.out.println("sdfsdf");
 		ArticleVO board = new ArticleVO();
-		
+
+		board.setBno(2);
 		board.setAno(2);
 		board.setTitle("제목입니다");
 		board.setContent("내용입니다");
 		board.setWriter("작성자입니다");
 
 		dao.create(board);
+
 	}
 
-	
 	@Test
-	public void testReadAll() throws Exception {
+	public void testList() throws Exception {
+
 		List<ArticleVO> list = dao.readAll();
 
 		if (list == null) {
@@ -55,26 +53,6 @@ public class BoardDAOTest {
 	}
 
 	@Test
-	public void testUpdate() throws Exception {
-
-		ArticleVO board = new ArticleVO();
-
-		board.setBno(3);
-		board.setTitle("zzzz");
-		board.setContent("성공");
-		board.setWriter("성공한자");
-
-		dao.update(board);
-
-	}
-
-	@Test
-	public void testDelete() throws Exception {
-
-		dao.delete(1);
-	}
-
-	@Test
 	public void testReadOne() throws Exception {
 
 		ArticleVO board = dao.readOne(2);
@@ -85,40 +63,22 @@ public class BoardDAOTest {
 	}
 
 	@Test
-	public void testURI() throws Exception {
+	public void testUpdate() throws Exception {
 
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().path("/boards").queryParam("bno", 12)
-				.queryParam("perPageNum", 20).build();
+		ArticleVO board = new ArticleVO();
 
-		logger.info(uriComponents.toString());
+		board.setBno(2);
+		board.setTitle("zzzz");
+		board.setContent("성공");
+		board.setWriter("성공한자sssss");
 
+		dao.update(board);
 	}
 
 	@Test
-	public void testaddAttach() throws Exception {
+	public void testDelete() throws Exception {
 
-		Scanner sc = new Scanner(System.in);
-		System.out.println("파일명 입력하시오");
-		String fullName = sc.next();
-		dao.addAttach(fullName);
-		sc.close();
-	}
-
-	@Test
-	public List<String> testList() throws Exception {
-
-		return null;
-
-	}
-
-	@Test
-	public void testdelete() throws Exception {
-
-	}
-
-	@Test
-	public void testreplace() throws Exception {
-
+		dao.delete(2);
 	}
 
 }

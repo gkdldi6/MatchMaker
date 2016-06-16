@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import com.kosta.matchmaker.domain.article.ArticleVO;
 import com.kosta.matchmaker.domain.article.Criteria;
 import com.kosta.matchmaker.domain.article.ReplyVO;
 import com.kosta.matchmaker.persistence.ArticleDAO;
@@ -17,31 +17,50 @@ import com.kosta.matchmaker.persistence.ReplyDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
-public class ReplyDAOTest {
+public class ReplyDAOTest_bak {
 
 	@Inject
 	private ReplyDAO dao;
+	@Inject
+	private ArticleDAO adao;
 
-	private int bno = 2;
-	private int ano = 2;
+	private int bno = 1;
 	private int page = 1;
 	private int perPageNum = 5;
+	private int rno;
 
 	@Test
 	public void testCreate() throws Exception {
 		System.out.println("sdfsdf");
+		ArticleVO board = new ArticleVO();
+		
+		board.setBno(1);
+		board.setAno(2);
+		board.setTitle("제목입니다");
+		board.setContent("내용입니다");
+		board.setWriter("작성자입니다");
 
-		ReplyVO reply = new ReplyVO();
-		reply.setBno(bno);
-		reply.setAno(ano);
-		reply.setReplytext("나랑 미친듯 놀자~!");
-		reply.setReplyer("jyt");
-
-		dao.create(reply);
+		adao.create(board);
+		
+//		ReplyVO reply = new ReplyVO();
+//		reply.setBno(bno);
+//		reply.setReplytext("나랑 미친듯 놀자~!");
+//		reply.setReplyer("jyt");
+//
+//		dao.create(reply);
 	}
-	
-	//리플라이 등록까지만 테스트 완료..ㅜ
-	
+
+	// 페이징 이전
+	// @Test
+	// public void testList() throws Exception {
+	//
+	// List<ReplyVO> list = dao.list(1);
+	//
+	// for (ReplyVO reply : list) {
+	// System.out.println(reply.toString());
+	// }
+	//
+	// }
 
 	// 페이징 버전1
 	@Test

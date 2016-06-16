@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kosta.matchmaker.domain.Criteria;
-import com.kosta.matchmaker.domain.ReplyVO;
+import com.kosta.matchmaker.domain.article.Criteria;
+import com.kosta.matchmaker.domain.article.ReplyVO;
 
 @Repository
 public class ReplyDAOImpl implements ReplyDAO {
