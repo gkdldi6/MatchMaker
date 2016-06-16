@@ -17,7 +17,7 @@
 		<img alt="코트 사진" width="200" height="200"></img><br>
 		
 
-		<b>코트 내용</b>
+		<b>코트 상세</b>
 		<p id="ccontent"></p>
 
 

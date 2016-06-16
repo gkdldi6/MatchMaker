@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 
-<jsp:include page="include/header.jsp"></jsp:include>
+<jsp:include page="../include/header.jsp"></jsp:include>
 
 
 <div class="content-wrapper">
@@ -205,7 +205,7 @@
       </div>
 
 
-<jsp:include page="include/footer.jsp"></jsp:include>
+<jsp:include page="../include/footer.jsp"></jsp:include>
 
 
 
