@@ -70,8 +70,9 @@
 						</form>
 						
 						<div class="navbar-form navbar-right">
+							<a>${userid}</a>
 							<a href=# onClick="window.open('messages',
-								'new','resizable=no,scrollbars=no,width=800,height=600'); return false">쪽지</a>
+								'new','resizable=no,scrollbars=no,width=800,height=600'); return false"> ${count} </a>
 							<button class="btn btn-default btn-flat">로그인</button>
 							<a class="btn btn-info btn-flat" href="/users/join">회원가입</a>
 						</div>

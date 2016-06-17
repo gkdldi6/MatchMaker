@@ -40,7 +40,7 @@ public class MessageDAOTest {
 	
 	
 	@Test
-	public void MessageList() throws Exception {
+	public void messageList() throws Exception {
 		
 		List<MessageVO> list = dao.readAll();
 		
@@ -57,7 +57,7 @@ public class MessageDAOTest {
 	}
 	
 	@Test
-	public void IdMessageList() throws Exception{
+	public void idMessageList() throws Exception{
 		String id = "user00";
 		
 		List<MessageVO> list = dao.idReadAll(id);
@@ -75,7 +75,7 @@ public class MessageDAOTest {
 	}
 	
 	@Test
-	public void MessageOneRead() throws Exception{
+	public void messageOneRead() throws Exception{
 		int mno = 1;
 		
 		MessageVO message = dao.readOne(mno);
@@ -90,14 +90,21 @@ public class MessageDAOTest {
 	}
 	
 	@Test
-	public void MessageDelete() throws Exception{
+	public void messageDelete() throws Exception{
 		int mno = 1;
 		dao.delete(mno);
 	}
 	
 	@Test
-	public void OpendateUpdate() throws Exception{
+	public void opendateUpdate() throws Exception{
 		int mno = 4;
 		dao.updateDate(mno);
+	}
+	
+	@Test
+	public void messageCount() throws Exception{
+		String targetid = "1234";
+		String result = dao.messageCount(targetid);
+		System.out.println(result);
 	}
 }

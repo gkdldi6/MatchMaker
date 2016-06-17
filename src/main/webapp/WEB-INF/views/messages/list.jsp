@@ -44,7 +44,6 @@ tbody tr:hover {
 				</thead>
 				<tbody>
 					<c:forEach items="${list}" var="MessageVO">
-						
 						<tr>
 							<td>
 							<input type="checkbox" name="cb${MessageVO.mno}" class="ab">

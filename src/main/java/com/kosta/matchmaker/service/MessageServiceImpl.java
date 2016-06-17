@@ -16,7 +16,6 @@ public class MessageServiceImpl implements MessageService {
 	@Inject
 	private MessageDAO messageDAO;
 	
-	
 	@Transactional
 	@Override
 	public void addMessage(MessageVO vo) throws Exception {
@@ -41,6 +40,16 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public void delete(Integer mno) throws Exception {
 		messageDAO.delete(mno);
+	}
+
+	@Override
+	public void updateDate(Integer mno) throws Exception {
+		messageDAO.updateDate(mno);
+	}
+
+	@Override
+	public String messageCount(String targetid) throws Exception {
+		return messageDAO.messageCount(targetid);
 	}
 	
 	

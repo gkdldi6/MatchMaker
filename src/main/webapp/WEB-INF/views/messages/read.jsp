@@ -63,15 +63,6 @@ input:read-only, #textArea:read-only{
 					</div>
 				</div>
 
-				<!--
-				<div class="form-group">
-					<label for="title" class="col-lg-2 control-label">제목</label>
-					<div class="col-lg-10">
-						<input type="text" class="form-control" value="${article.title }"
-							name="title" readonly>
-					</div>
-				</div> -->
-
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">메시지</label>
 					<div class="col-lg-10">
@@ -97,8 +88,11 @@ input:read-only, #textArea:read-only{
 		var formObj = $("form[role='form']");
 		
 		$("#delete").on("click", function(){
-			formObj.attr("action", "/messages/remove");
-			formObj.submit();
+			var yesorno=confirm("이 쪽지를 지우시겠습니까?");
+			if(yesorno == true){
+				formObj.attr("action", "/messages/remove");
+				formObj.submit();
+			}
 		});
 		
 		$("#list").on("click", function(){

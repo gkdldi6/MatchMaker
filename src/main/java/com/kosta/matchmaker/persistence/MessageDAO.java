@@ -22,6 +22,9 @@ public interface MessageDAO {
 	//쪽지 삭제
 	public void delete(Integer mno) throws Exception;
 	
-	//첫 쪽지 읽은 시간 업데이트
+	//첫 쪽지 읽은 시간(opendate) 업데이트
 	public void updateDate(Integer mno) throws Exception;
+	
+	//쪽지 개수 확인
+	public String messageCount (String targetid) throws Exception;
 }

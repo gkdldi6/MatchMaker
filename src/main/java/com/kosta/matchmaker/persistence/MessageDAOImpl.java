@@ -50,5 +50,10 @@ public class MessageDAOImpl implements MessageDAO{
 		session.update(namespace + ".updateDate", mno);
 	}
 
+	@Override
+	public String messageCount(String targetid) throws Exception {
+		return session.selectList(namespace + ".messageCount",targetid).toString();
+	}
+
 	
 }

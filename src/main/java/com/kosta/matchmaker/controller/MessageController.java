@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosta.matchmaker.domain.MessageVO;
@@ -45,12 +46,14 @@ public class MessageController {
 		HttpSession session = request.getSession();
 		UserVO user = (UserVO) session.getAttribute("login");
 		String targetid = user.getUserid().toString();
+		//model.addAttribute("count",service.messageCount(targetid)); //쪽지 개수
 		model.addAttribute("list", service.idReadAll(targetid));
 		return "/messages/list";
 	}
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(@RequestParam("mno") int mno, Model model)throws Exception{
+		service.updateDate(mno); //opendate 처리
 		MessageVO message = service.readOne(mno);
 		model.addAttribute("MessageVO",message);
 	}
