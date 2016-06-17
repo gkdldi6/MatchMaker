@@ -1,7 +1,9 @@
 var send = $('#send');							/*전송 버튼*/
 var msgbox = $('.direct-chat-messages');		/*대화가 로딩되는 공간*/
 var message = $('#message');					/*메시지 입력 input*/
-var userbox = $('.direct-chat-contacts');		/*회원 목록 공간*/
+var userbox = $('.home');						/*회원 목록 공간*/
+var home = $('.home');							/*홈팀*/
+var away = $('.away');							/*어웨이팀*/
 var room;												
 
 
@@ -9,9 +11,9 @@ var room;
 
 /*socket.io 서버에 접속*/
 /*학원*/
-//var socket = io('http://192.168.0.114:3000');
+var socket = io('http://192.168.0.114:3000');
 /*집*/
-var socket = io('http://192.168.219.188:3000');
+//var socket = io('http://192.168.219.188:3000');
 socket.emit('enter', {uid: id, name: name});
 
 /*스크롤 자동으로 내리기*/
@@ -65,11 +67,21 @@ socket.on('alert', function(msg) {
 
 /*접속 인원 보기*/
 socket.on('userlist', function(userlist) {
-	userbox.html('');
+	home.html('');
+	away.html('');
+	
+//	for(i in userlist) {
+//		userbox.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
+//	};
+	
 	for(i in userlist) {
-		userbox.append('<div uid="' + userlist[i].uid + '">아이디: ' + userlist[i].uid + '	이름: ' + userlist[i].name 
-				+ '    방: ' + userlist[i].roomno +	'</div>');
-	};
+		if(userlist[i].team === 'home') {
+			home.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
+		} else {
+			away.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
+		}
+	}
+	
 });
 
 /*방 만들기 */
@@ -85,8 +97,7 @@ $('#create').click(function() {
 
 /*방 접속하는 인원 정보 받기*/
 socket.on('enterroom', function(user) {
-	userbox.append('<div uid="' + user.uid + '">아이디: ' + user.uid + '	이름: ' + user.name 
-			+ '    방: ' + user.roomno +	'</div>');
+	userbox.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
 });
 
 /*방 나가는 인원 정보 받기*/
