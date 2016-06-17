@@ -1,19 +1,20 @@
--- 16-06-08 09:35 --
-
 -- 스키마 생성
 create database matchmaker;
 use matchmaker;
 
+select * from freeboard;
+select * from freereply;
+
 -- 유저 테이블
 create table user (
-userid varchar(50) not null, 
-userpw varchar(60) not null, 
-username varchar(50) not null, 
-email varchar(100) not null, 
-regdate timestamp default now(), 
-userage int,
-userinfo text,
-primary key(userid)
+	userid varchar(50) not null, 
+	userpw varchar(60) not null, 
+	username varchar(50) not null, 
+	email varchar(100) not null, 
+	regdate timestamp default now(),
+	userage int,
+	userinfo text,
+	primary key(userid)
 );
 
 -- 자유게시판 테이블
@@ -38,8 +39,17 @@ regdate timestamp not null default now(),
 primary key(rno)
 );
 
-select * from freeboard;
-select * from freereply;
+-- 첨부파일 테이블
+create table boardattach(
+   fullname varchar(150) not null,
+    bno int not null,
+    regdate timestamp default now(),
+    primary key(fullname)
+);
+
+ -- 첨부파일 테이블 만들고 바로 삽입하세요
+alter table boardattach add constraint fk_board_attach
+foreign key (bno) references freeboard (bno);
 
 -- 댓글 CLUD 테스트 쿼리
 insert into freeboard (title, content, writer) values ('제목', '내용', '저녕태');
@@ -48,13 +58,11 @@ select * from freereply where bno = 1 order by rno desc;
 update freereply set replytext = 'sss' where rno = 1;
 delete from from freereply where rno;
 
-select * from freeboard;
-select * from freereply;
-
 -- 댓글 카운터 동기화
 update freeboard set replycnt = 
 (select count (rno) from freereply where bno = freeboard.bno)
 where bno > 0;
 
-SELECT * FROM USER;
-delete from user;
+-- 유저 추가
+insert into user(userid,userpw,username,email,regdate,userage,userinfo) values('1234','1234','김선중','sunjoong91@naver.com',now(),11,'ㅅㅅㅅㅅ');
+insert into user(userid,userpw,username,email,regdate,userage,userinfo) values('sunjoong91','1234','김선중','sunjoong91@naver.com',now(),11,'ㅅㅅㅅㅅ');

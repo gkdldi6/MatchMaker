@@ -10,19 +10,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kosta.matchmaker.domain.article.ArticleVO;
 import com.kosta.matchmaker.domain.article.SearchCriteria;
-import com.kosta.matchmaker.persistence.BoardDAO;
+import com.kosta.matchmaker.persistence.ArticleDAO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Inject
-	private BoardDAO dao;
+	private ArticleDAO dao;
 
-	@Transactional
 	@Override
-	public void register(ArticleVO board) throws Exception {
+	public void freeregister(ArticleVO board) throws Exception {
 
-		dao.create(board);
+		dao.freecreate(board);
 
 		// String[] files = board.getFiles();
 		//
@@ -36,19 +35,19 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<ArticleVO> readAll() throws Exception {
+	public List<ArticleVO> freereadAll() throws Exception {
 
-		return dao.readAll();
+		return dao.freereadAll();
 
 	}
 
 	@Transactional
 	@Override
-	public void modify(ArticleVO board) throws Exception {
+	public void freemodify(ArticleVO board) throws Exception {
 
-		dao.update(board);
+		dao.freeupdate(board);
 
-		Integer bno = board.getBno();
+		Integer ano = board.getAno();
 
 		// dao.deleteAttach(bno);
 
@@ -63,35 +62,35 @@ public class BoardServiceImpl implements BoardService {
 		// }
 	}
 
-	@Transactional
+	
 	@Override
-	public void remove(Integer bno) throws Exception {
+	public void freeremove(Integer ano) throws Exception {
 
-		dao.deleteAttach(bno);
-		dao.delete(bno);
+		//dao.deleteAttach(bno);
+		dao.freedelete(ano);
 
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
-	public ArticleVO readOne(Integer bno) throws Exception {
+	public ArticleVO freereadOne(Integer ano) throws Exception {
 
-		dao.updateHit(bno);
-		return dao.readOne(bno);
-
-	}
-
-	@Override
-	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception {
-
-		return dao.listSearch(cri);
+		dao.updateHit(ano);
+		return dao.freereadOne(ano);
 
 	}
 
 	@Override
-	public int listSearchCount(SearchCriteria cri) throws Exception {
+	public List<ArticleVO> freelistSearch(SearchCriteria cri) throws Exception {
 
-		return dao.listSearchCount(cri);
+		return dao.freelistSearch(cri);
+
+	}
+
+	@Override
+	public int freelistSearchCount(SearchCriteria cri) throws Exception {
+
+		return dao.freelistSearchCount(cri);
 
 	}
 

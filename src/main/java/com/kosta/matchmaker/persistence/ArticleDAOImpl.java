@@ -19,47 +19,46 @@ public class ArticleDAOImpl implements ArticleDAO {
 	private static final String namespace = "com.kosta.matchmaker.mappers.BoardMapper";
 
 	@Override
-	public void create(ArticleVO board) throws Exception {
+	public void freecreate(ArticleVO board) throws Exception {
 
 		session.insert(namespace + ".create", board);
 	}
 
 	@Override
-	public List<ArticleVO> readAll() throws Exception {
-		// TODO Auto-generated method stub
+	public List<ArticleVO> freereadAll() throws Exception {
 		return session.selectList(namespace + ".readAll");
 	}
 
 	@Override
-	public ArticleVO readOne(Integer bno) throws Exception {
-		// TODO Auto-generated method stub
-		return session.selectOne(namespace + ".readOne", bno);
+	public ArticleVO freereadOne(Integer ano) throws Exception {
+		return session.selectOne(namespace + ".readOne", ano);
 	}
 
 	@Override
-	public void update(ArticleVO board) throws Exception {
+	public void freeupdate(ArticleVO board) throws Exception {
 		session.update(namespace + ".update", board);
 	}
 
 	@Override
-	public void delete(Integer bno) throws Exception {
-		session.delete(namespace + ".delete", bno);
+	public void freedelete(Integer ano) throws Exception {
+		session.delete(namespace + ".delete", ano);
 
 	}
 
-	// 아래부터는 테스트 하지않은 미완성 코드..
-
 	@Override
-	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception {
-		// TODO Auto-generated method stub
+	public List<ArticleVO> freelistSearch(SearchCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listSearch", cri);
 	}
-
+	
 	@Override
-	public int listSearchCount(SearchCriteria cri) throws Exception {
-		// TODO Auto-generated method stub
+	public int freelistSearchCount(SearchCriteria cri) throws Exception {
 		return 0;
 	}
+	
+	
+	
+	// 아래부터는 테스트 하지않은 미완성 코드..
+
 
 	@Override
 	public void updateReplyCnt(Integer bno, int amount) throws Exception {

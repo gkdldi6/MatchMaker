@@ -27,20 +27,20 @@ public class ArticleDAOTest {
 		System.out.println("sdfsdf");
 		ArticleVO board = new ArticleVO();
 
-		board.setBno(2);
-		board.setAno(2);
+		board.setBno(01);
+		board.setAno(3);
 		board.setTitle("제목입니다");
 		board.setContent("내용입니다");
 		board.setWriter("작성자입니다");
 
-		dao.create(board);
+		dao.freecreate(board);
 
 	}
 
 	@Test
 	public void testList() throws Exception {
 
-		List<ArticleVO> list = dao.readAll();
+		List<ArticleVO> list = dao.freereadAll();
 
 		if (list == null) {
 			System.out.println("없다");
@@ -55,7 +55,7 @@ public class ArticleDAOTest {
 	@Test
 	public void testReadOne() throws Exception {
 
-		ArticleVO board = dao.readOne(2);
+		ArticleVO board = dao.freereadOne(2);
 
 		System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
 				+ board.getRegdate() + "\t" + board.getHit());
@@ -72,13 +72,13 @@ public class ArticleDAOTest {
 		board.setContent("성공");
 		board.setWriter("성공한자sssss");
 
-		dao.update(board);
+		dao.freeupdate(board);
 	}
 
 	@Test
 	public void testDelete() throws Exception {
 
-		dao.delete(2);
+		dao.freedelete(2);
 	}
 
 }

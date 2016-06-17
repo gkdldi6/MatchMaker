@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kosta.matchmaker.domain.article.ArticleVO;
 import com.kosta.matchmaker.domain.article.FreeBoardVO;
 import com.kosta.matchmaker.domain.article.PageMaker;
 import com.kosta.matchmaker.domain.article.SearchCriteria;
@@ -29,27 +30,27 @@ public class BoardController {
 	@RequestMapping(value = "", method=RequestMethod.GET)
 	public String listAll(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		
-		model.addAttribute("list", service.listSearch(cri));
+		model.addAttribute("freelist", service.freelistSearch(cri));
 		
 		PageMaker pagemaker = new PageMaker();
 		pagemaker.setCri(cri);
-		pagemaker.setTotalCount(service.listSearchCount(cri));
+		pagemaker.setTotalCount(service.freelistSearchCount(cri));
 		
 		model.addAttribute("pageMaker", pagemaker);
 		
-		return "boards/list";
+		return "boards/freelist";
 	}
 	
 	/*글 작성폼 열기*/
 	@RequestMapping(value="/new", method=RequestMethod.GET)
 	public String write() throws Exception {
-		return "boards/register";
+		return "boards/freeregister";
 	}
 	
 	/*글 작성*/
 	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public String write(RedirectAttributes rttr, FreeBoardVO article) throws Exception {
-		service.register(article);
+	public String write(RedirectAttributes rttr, ArticleVO article) throws Exception {
+		service.freeregister(article);
 		
 		rttr.addFlashAttribute("result", "success");
 		
@@ -62,29 +63,29 @@ public class BoardController {
 			@ModelAttribute("cri") SearchCriteria cri,
 						Model model) throws Exception {
 		
-		FreeBoardVO article = service.readOne(bno);
+		ArticleVO article = service.freereadOne(bno);
 		
 		model.addAttribute("article", article);
 		
-		return "boards/read";
+		return "boards/freeread";
 	}
 	
 	/*글 수정 폼 열기*/
 	@RequestMapping(value="/{bno}/edit", method=RequestMethod.GET)
 	public String editForm(@PathVariable int bno, Model model, @ModelAttribute("cri") SearchCriteria cri) throws Exception {
 		
-		FreeBoardVO article = service.readOne(bno);
+		ArticleVO article = service.freereadOne(bno);
 		
 		model.addAttribute("article", article);
 		
-		return "/boards/edit";
+		return "/boards/freeedit";
 	}
 	
 	/*글 수정*/
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
-	public String edit(FreeBoardVO board, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
+	public String edit(ArticleVO board, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
 		
-		service.modify(board);
+		service.freemodify(board);
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("searchType", cri.getSearchType());
@@ -99,7 +100,7 @@ public class BoardController {
 	public String delete(@PathVariable int bno, SearchCriteria cri,
 			RedirectAttributes rttr) throws Exception {
 		
-		service.remove(bno);
+		service.freeremove(bno);
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("searchType", cri.getSearchType());
@@ -109,7 +110,7 @@ public class BoardController {
 		return "redirect:/boards";
 	}
 	
-	/*첨부파일 목록 조회*/
+	/*첨부파일 목록 조회 6월 17일 여긴 아직 안함요*/
 	@ResponseBody
 	@RequestMapping("/getAttach/{bno}")
 	public List<String> getAttach(@PathVariable("bno") Integer bno)throws Exception{

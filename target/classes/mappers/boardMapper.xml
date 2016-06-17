@@ -5,32 +5,150 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.kosta.matchmaker.mappers.BoardMapper">
 
-	<insert id="create">
-		insert into freeboard (title, content, writer)
-		values(#{title}, #{content}, #{writer})
+	<!-- 구버전 -->
+	<!-- <insert id="create"> -->
+	<!-- insert into freeboard (title, content, writer) -->
+	<!-- values(#{title}, #{content}, #{writer}) -->
+	<!-- </insert> -->
+
+	<!-- <select id="readAll" resultType="BoardVO"> -->
+	<!-- select bno, title, writer, -->
+	<!-- regdate, hit -->
+	<!-- from freeboard order by bno desc -->
+	<!-- </select> -->
+
+	<!-- <update id="update"> -->
+	<!-- update freeboard set title = #{title}, content = -->
+	<!-- #{content}, writer = #{writer}, regdate = now() -->
+	<!-- where bno = #{bno} -->
+	<!-- </update> -->
+
+	<!-- <delete id="delete"> -->
+	<!-- delete from freeboard -->
+	<!-- where bno = #{bno} -->
+	<!-- </delete> -->
+
+	<!-- <select id="readOne" resultType="BoardVO"> -->
+	<!-- select bno, title, content, -->
+	<!-- writer, regdate, hit -->
+	<!-- from freeboard -->
+	<!-- where bno = #{bno} -->
+	<!-- </select> -->
+
+	<!-- <sql id="search"> -->
+	<!-- <if test="searchType != null"> -->
+	<!-- <if test="searchType == 't'.toString()"> -->
+	<!-- and title like CONCAT('%', #{keyword}, '%') -->
+	<!-- </if> -->
+	<!-- <if test="searchType == 'c'.toString()"> -->
+	<!-- and content like CONCAT('%', #{keyword}, '%') -->
+	<!-- </if> -->
+	<!-- <if test="searchType == 'w'.toString()"> -->
+	<!-- and writer like CONCAT('%', #{keyword}, '%') -->
+	<!-- </if> -->
+	<!-- <if test="searchType == 'tc'.toString()"> -->
+	<!-- and ( title like CONCAT('%', #{keyword}, '%') OR content -->
+	<!-- like -->
+	<!-- CONCAT('%', #{keyword}, '%')) -->
+	<!-- </if> -->
+	<!-- <if test="searchType == 'cw'.toString()"> -->
+	<!-- and ( content like CONCAT('%', #{keyword}, '%') OR writer -->
+	<!-- like -->
+	<!-- CONCAT('%', #{keyword}, '%')) -->
+	<!-- </if> -->
+	<!-- <if test="searchType == 'tcw'.toString()"> -->
+	<!-- and ( title like CONCAT('%', #{keyword}, '%') -->
+	<!-- OR -->
+	<!-- content -->
+	<!-- like CONCAT('%', #{keyword}, '%') -->
+	<!-- OR -->
+	<!-- writer like CONCAT('%', -->
+	<!-- #{keyword}, '%')) -->
+	<!-- </if> -->
+	<!-- </if> -->
+	<!-- </sql> -->
+
+	<!-- <select id="listSearch" resultType="BoardVO"> -->
+	<!-- <![CDATA[ -->
+	<!-- select bno, title, content, writer, regdate, hit, replycnt -->
+	<!-- from freeboard -->
+	<!-- where bno > 0 -->
+	<!-- ]]> -->
+
+	<!-- <include refid="search"></include> -->
+
+	<!-- <![CDATA[ -->
+	<!-- order by bno desc, regdate desc -->
+	<!-- limit #{pageStart} , #{perPageNum} -->
+	<!-- ]]> -->
+	<!-- </select> -->
+
+	<!-- <select id="listSearchCount" resultType="int"> -->
+	<!-- <![CDATA[ -->
+	<!-- select count(bno) -->
+	<!-- from freeboard -->
+	<!-- where bno > 0 -->
+	<!-- ]]> -->
+	<!-- <include refid="search"></include> -->
+	<!-- </select> -->
+
+	<!-- <update id="updateReplyCnt"> -->
+	<!-- update freeboard set replycnt = replycnt + #{amount} -->
+	<!-- where bno = #{bno} -->
+	<!-- </update> -->
+
+	<!-- <update id="updateHit"> -->
+	<!-- update freeboard set hit = hit + 1 where bno = #{bno} -->
+	<!-- </update> -->
+
+
+	<!-- <insert id="addAttach"> -->
+	<!-- insert into boardattach(fullname, bno) values -->
+	<!-- (#{fullName}, LAST_INSERT_ID()) -->
+	<!-- </insert> -->
+
+	<!-- <select id="getAttach" resultType="string"> -->
+	<!-- select fullname from -->
+	<!-- boardattach where bno = #{bno} -->
+	<!-- order by regdate -->
+	<!-- </select> -->
+
+	<!-- <delete id="deleteAttach"> -->
+	<!-- delete from boardattach where bno = #{bno} -->
+	<!-- </delete> -->
+
+	<!-- <insert id="replaceAttach"> -->
+	<!-- insert into boardattach(fullname, bno) values -->
+	<!-- (#{fullName}, #{bno}) -->
+	<!-- </insert> -->
+
+	<!-- 신버전 맵퍼 -->
+
+	<insert id="freecreate">
+		insert into article (bno, ano, title, content, writer)
+		values(#{bno}, #{ano}, #{title}, #{content}, #{writer})
 	</insert>
 
-	<select id="readAll" resultType="BoardVO">
-		select bno, title, writer,
-		regdate, hit 
-		from freeboard order by bno desc
+	<select id="freereadAll" resultType="ArticleVO">
+		select ano, title, writer, regdate, hit
+		from article
+		where bno = 0 
+		order by ano desc
 	</select>
 
-	<update id="update">
-		update freeboard set title = #{title}, content =
+	<update id="freeupdate">
+		update article set title = #{title}, content =
 		#{content}, writer = #{writer}, regdate = now()
 		where bno = #{bno}
 	</update>
 
-	<delete id="delete">
-		delete from freeboard
+	<delete id="freedelete">
+		delete from article
 		where bno = #{bno}
 	</delete>
 
-	<select id="readOne" resultType="BoardVO">
-		select bno, title, content,
-		writer, regdate, hit
-		from freeboard
+	<select id="freereadOne" resultType="ArticleVO">
+		select * from article
 		where bno = #{bno}
 	</select>
 
@@ -68,10 +186,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</sql>
 
-	<select id="listSearch" resultType="BoardVO">
+	<select id="listSearch" resultType="ArticleVO">
 		<![CDATA[
-		select bno, title, content, writer, regdate, hit, replycnt
-		from freeboard
+		select *
+		from article
 		where bno > 0	
 		]]>
 
@@ -86,38 +204,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listSearchCount" resultType="int">
 		<![CDATA[
 			select count(bno) 
-			from freeboard
+			from article
 			where bno > 0	
 		]]>
 		<include refid="search"></include>
 	</select>
 
 	<update id="updateReplyCnt">
-		update freeboard set replycnt = replycnt + #{amount} where bno = #{bno}
+		update article set replycnt = replycnt + #{amount}
+		where bno = #{bno}
 	</update>
-	
+
 	<update id="updateHit">
-		update freeboard set hit = hit + 1 where bno = #{bno}
+		update article set hit = hit + 1 where bno = #{bno}
 	</update>
 
 
 	<insert id="addAttach">
-		insert into boardattach(fullname, bno) values (#{fullName}, LAST_INSERT_ID())
+		insert into reference(fullname, bno) values
+		(#{fullName}, LAST_INSERT_ID())
 	</insert>
-	
+
 	<select id="getAttach" resultType="string">
-		select fullname from boardattach where bno = #{bno} 
+		select fullname from
+		reference
+		where bno = #{bno}
 		order by regdate
 	</select>
-	
+
 	<delete id="deleteAttach">
-		delete from boardattach where bno = #{bno}
+		delete from reference where bno = #{bno}
 	</delete>
-	
+
 	<insert id="replaceAttach">
-		insert into boardattach(fullname, bno) values (#{fullName}, #{bno})
+		insert into reference(fullname, bno) values
+		(#{fullName}, #{bno})
 	</insert>
-
-
 
 </mapper>

@@ -6,54 +6,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 등록 -->
 	<insert id="create">
-		insert into freereply (bno,
+		insert into reply (bno, ano,
 		replytext, replyer)
 		values
-		(#{bno}, #{replytext}, #{replyer})
+		(#{bno}, #{ano}, #{replytext}, #{replyer})
 	</insert>
 
 	<!-- 리스트 페이징 이전 -->
 	<!-- <select id="list" resultType="ReplyVO"> -->
-	<!-- select * from freereply where bno = -->
+	<!-- select * from reply where bno = -->
 	<!-- #{bno} order by rno desc -->
 	<!-- </select> -->
 
 	<!-- 리스트(페이징) v1 -->
 	<select id="list" resultType="ReplyVO">
-		select * from freereply where bno =
+		select * from reply where bno =
 		#{bno} order by rno desc limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 
 	<!-- 페이징 카운트 -->
 	<select id="count" resultType="int">
-		select count(bno) from freereply
-		where bno =#{bno}
+		select count(bno) from reply
+		where
+		bno =#{bno}
 	</select>
 
 	<!-- 수정 -->
 	<update id="update">
-		update freereply set replytext = #{replytext}
+		update reply set replytext = #{replytext}
 		where
-		rno = #{rno}
+		rno =
+		#{rno}
 	</update>
 
 	<!-- 삭제 -->
 	<delete id="delete">
-		delete from freereply where rno = #{rno}
+		delete from reply where rno = #{rno}
 	</delete>
 
 	<!-- 본글번호 가져오기 -->
 	<select id="getBno" resultType="int">
-		select bno from freereply where
-		rno = #{rno}
+		select bno from reply where
+		rno =
+		#{rno}
 	</select>
 
 	<!-- 댓글 개수 조회 -->
 	<select id="listCount" resultType="int">
-		select bno 
-		from freereply
+		select bno
+		from reply
 		where rno = #{rno}
 	</select>
-	
-	
+
+
 </mapper>

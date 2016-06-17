@@ -124,29 +124,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 신버전 맵퍼 -->
 
-	<insert id="create">
+	<insert id="freecreate">
 		insert into article (bno, ano, title, content, writer)
 		values(#{bno}, #{ano}, #{title}, #{content}, #{writer})
 	</insert>
 
-	<select id="readAll" resultType="ArticleVO">
-		select *
-		from article order by
-		bno desc
+	<select id="freereadAll" resultType="ArticleVO">
+		select ano, title, writer, regdate, hit
+		from article
+		where bno = 0 
+		order by ano desc
 	</select>
 
-	<update id="update">
+	<update id="freeupdate">
 		update article set title = #{title}, content =
 		#{content}, writer = #{writer}, regdate = now()
 		where bno = #{bno}
 	</update>
 
-	<delete id="delete">
+	<delete id="freedelete">
 		delete from article
 		where bno = #{bno}
 	</delete>
 
-	<select id="readOne" resultType="ArticleVO">
+	<select id="freereadOne" resultType="ArticleVO">
 		select * from article
 		where bno = #{bno}
 	</select>

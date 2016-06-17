@@ -24,9 +24,9 @@ public class BoardServiceTest {
 
 		ArticleVO board = new ArticleVO();
 
-		board.setTitle("서비스 테스트");
-		board.setContent("성공적");
-		board.setWriter("다음으로");
+		board.setTitle("tgtg");
+		board.setContent("tgtg");
+		board.setWriter("tgtg");
 
 		service.register(board);
 

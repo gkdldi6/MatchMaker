@@ -8,28 +8,28 @@ import com.kosta.matchmaker.domain.article.SearchCriteria;
 public interface ArticleDAO {
 
 	// 게시글 등록(create)
-	public void create(ArticleVO board) throws Exception;
+	public void freecreate(ArticleVO board) throws Exception;
 
 	// 게시글 조회(selectOne)
-	public ArticleVO readOne(Integer bno) throws Exception;
+	public ArticleVO freereadOne(Integer ano) throws Exception;
 
 	// 게시글 수정(update)
-	public void update(ArticleVO board) throws Exception;
+	public void freeupdate(ArticleVO board) throws Exception;
 
 	// 게시글 삭제(delete)
-	public void delete(Integer bno) throws Exception;
+	public void freedelete(Integer ano) throws Exception;
 
 	// 게시글 읽기 (전체목록 read)
-	public List<ArticleVO> readAll() throws Exception;
+	public List<ArticleVO> freereadAll() throws Exception;
 
 	// 게시글 페이징처리중
 	// public List<BoardVO> listPage(int page) throws Exception;
 
-	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception;
+	public List<ArticleVO> freelistSearch(SearchCriteria cri) throws Exception;
 
-	public int listSearchCount(SearchCriteria cri) throws Exception;
+	public int freelistSearchCount(SearchCriteria cri) throws Exception;
 
-	// 리플라이 카운터
+	// 리플라이 카운터 6월 17일 이밑 메서드 ㄴㄴ
 	public void updateReplyCnt(Integer bno, int amount) throws Exception;
 
 	// 조회수

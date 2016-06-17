@@ -20,7 +20,7 @@ import com.kosta.matchmaker.persistence.ArticleDAO;
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
 public class BoardDAOTest {
 
-//	private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
 
 	@Inject
 	private ArticleDAO dao;
