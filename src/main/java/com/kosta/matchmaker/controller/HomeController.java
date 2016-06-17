@@ -27,8 +27,8 @@ public class HomeController {
 	public String MessagesWrite() {
 		return "messages/write";
 	}
-	
-	/*@RequestMapping("/messages")
+	/*
+	@RequestMapping("/messages")
 	public String MessagesList() {
 		return "messages/list";
 	}*/

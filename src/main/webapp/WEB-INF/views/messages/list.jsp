@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page session="false" %>
 <jsp:include page="../include/header.jsp"></jsp:include>
+<html>
 <head>
 <title>쪽지</title>
 </head>
@@ -24,7 +25,7 @@ tbody tr:hover {
 
 	<div class="row">
 		<h1 class="text-center" style="color: #3c8dbc;">
-			<b>자유 게시판</b>
+			<b>쪽지</b>
 		</h1>
 	</div>
 	
@@ -33,10 +34,11 @@ tbody tr:hover {
 			<table class="table">
 				<thead>
 					<tr>
-						<th width="70">쪽지번호</th>
+						<th width="70">
+							<input type="checkbox" name="all" class="check-all">
+						</th>
+						<th width="120">보낸사람</th>
 						<th>메시지</th>
-						<th width="120">보내는사람</th>
-						<th width="120">받는사람</th>
 						<th width="140">작성날짜</th>
 					</tr>
 				</thead>
@@ -44,14 +46,14 @@ tbody tr:hover {
 					<c:forEach items="${list}" var="MessageVO">
 						
 						<tr>
-							<td>${MessageVO.mid}</td>
-							<td>${MessageVO.message}</td>
+							<td>
+							<input type="checkbox" name="cb${MessageVO.mno}" class="ab">
+							</td>
 							<td>${MessageVO.sender}</td>
-							<td>${MessageVO.targetid}</td>
+							<td><a href="/messages/read?mno=${MessageVO.mno}">${MessageVO.message}</a></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-									value="${MessageVO.senddate}" /></td>
-							<%-- <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
-									value="${MessageVO.opendate}" /></td> --%>
+									value="${MessageVO.senddate}" />
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -71,7 +73,12 @@ tbody tr:hover {
 	
 </body>
 </html>
-
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".check-all").click(function(){
+			$(".ab").prop("checked", this.checked);
+		});
+	});
+</script>
 
 <jsp:include page="../include/footer.jsp"></jsp:include>

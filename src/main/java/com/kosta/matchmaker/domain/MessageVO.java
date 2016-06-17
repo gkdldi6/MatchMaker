@@ -3,7 +3,7 @@ package com.kosta.matchmaker.domain;
 import java.util.Date;
 
 public class MessageVO {
-	private Integer mid;
+	private Integer mno;
 	private String targetid;
 	private int readpoint;
 	private String sender;
@@ -12,13 +12,13 @@ public class MessageVO {
 	private Date senddate;
 	
 	
-	public Integer getMid() {
-		return mid;
+	public Integer getMno() {
+		return mno;
 	}
 
 
-	public void setMid(Integer mid) {
-		this.mid = mid;
+	public void setMid(Integer mno) {
+		this.mno = mno;
 	}
 
 
@@ -82,7 +82,7 @@ public class MessageVO {
 
 	@Override
 	public String toString() {
-		return "MessageVO [mid=" + mid + ", targetid=" + targetid + ", sender=" + sender + ", message=" + message
+		return "MessageVO [mno=" + mno + ", targetid=" + targetid + ", sender=" + sender + ", message=" + message
 				+ ", opendate=" + opendate + ", senddate=" + senddate + "]";
 	}
 	

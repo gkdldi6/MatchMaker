@@ -31,13 +31,12 @@ public class MessageDAOTest {
 
 		message.setTargetid("user00");
 		message.setReadpoint(0);
-		message.setSender("user00");
+		message.setSender("user01");
 		message.setMessage("123123");
 
 		dao.create(message);
 
 	}
-	
 	
 	
 	@Test
@@ -46,7 +45,7 @@ public class MessageDAOTest {
 		List<MessageVO> list = dao.readAll();
 		
 		for(MessageVO message : list) {
-			System.out.print(message.getMid() + "\t");
+			System.out.print(message.getMno() + "\t");
 			System.out.print(message.getTargetid() + "\t");
 			System.out.print(message.getReadpoint() + "\t");
 			System.out.print(message.getSender() + "\t");
@@ -55,5 +54,50 @@ public class MessageDAOTest {
 			System.out.println(message.getSenddate() + "\t");
 		}
 		
+	}
+	
+	@Test
+	public void IdMessageList() throws Exception{
+		String id = "user00";
+		
+		List<MessageVO> list = dao.idReadAll(id);
+		
+		for(MessageVO message : list) {
+			System.out.print(message.getMno() + "\t");
+			System.out.print(message.getTargetid() + "\t");
+			System.out.print(message.getReadpoint() + "\t");
+			System.out.print(message.getSender() + "\t");
+			System.out.print(message.getMessage() + "\t");
+			System.out.print(message.getOpendate() + "\t");
+			System.out.println(message.getSenddate() + "\t");
+		}
+		
+	}
+	
+	@Test
+	public void MessageOneRead() throws Exception{
+		int mno = 1;
+		
+		MessageVO message = dao.readOne(mno);
+		
+		System.out.print(message.getMno() + "\t");
+		System.out.print(message.getTargetid() + "\t");
+		System.out.print(message.getReadpoint() + "\t");
+		System.out.print(message.getSender() + "\t");
+		System.out.print(message.getMessage() + "\t");
+		System.out.print(message.getOpendate() + "\t");
+		System.out.println(message.getSenddate() + "\t");
+	}
+	
+	@Test
+	public void MessageDelete() throws Exception{
+		int mno = 1;
+		dao.delete(mno);
+	}
+	
+	@Test
+	public void OpendateUpdate() throws Exception{
+		int mno = 4;
+		dao.updateDate(mno);
 	}
 }
