@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.kosta.matchmaker.domain.BoardVO;
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.MessageVO;
 import com.kosta.matchmaker.persistence.MessageDAO;
 
@@ -59,8 +59,9 @@ public class MessageDAOTest {
 	@Test
 	public void idMessageList() throws Exception{
 		String id = "user00";
+		int page = 1;
 		
-		List<MessageVO> list = dao.idReadAll(id);
+		List<MessageVO> list = dao.idReadAll(id, page);
 		
 		for(MessageVO message : list) {
 			System.out.print(message.getMno() + "\t");
@@ -106,5 +107,25 @@ public class MessageDAOTest {
 		String targetid = "1234";
 		String result = dao.messageCount(targetid);
 		System.out.println(result);
+	}
+	
+	@Test
+	public void testListCriteria() throws Exception{
+		Criteria cri = new Criteria();
+		cri.setPage(2);
+		cri.setPerPageNum(10);
+		
+		String targetid = "user00";
+		List<MessageVO> list = dao.idReadListCriteria(targetid, cri);
+	
+		for(MessageVO message : list){
+			System.out.print(message.getMno() + "\t");
+			System.out.print(message.getTargetid() + "\t");
+			System.out.print(message.getReadpoint() + "\t");
+			System.out.print(message.getSender() + "\t");
+			System.out.print(message.getMessage() + "\t");
+			System.out.print(message.getOpendate() + "\t");
+			System.out.println(message.getSenddate() + "\t");
+		}
 	}
 }

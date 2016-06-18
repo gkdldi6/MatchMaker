@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.MessageVO;
 import com.kosta.matchmaker.persistence.MessageDAO;
 
@@ -28,8 +29,8 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public List<MessageVO> idReadAll(String targetid) throws Exception {
-		return messageDAO.idReadAll(targetid);
+	public List<MessageVO> idReadAll(String targetid,int page) throws Exception {
+		return messageDAO.idReadAll(targetid, page);
 	}
 
 	@Override
@@ -48,8 +49,13 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public String messageCount(String targetid) throws Exception {
+	public int messageCount(String targetid) throws Exception {
 		return messageDAO.messageCount(targetid);
+	}
+
+	@Override
+	public List<MessageVO> idReadListCriteria(String targetid, Criteria cri) throws Exception {
+		return messageDAO.idReadListCriteria(targetid, cri);
 	}
 	
 	

@@ -3,6 +3,7 @@ package com.kosta.matchmaker.persistence;
 
 import java.util.List;
 
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.MessageVO;
 
 public interface MessageDAO {
@@ -14,7 +15,7 @@ public interface MessageDAO {
 	public List<MessageVO> readAll() throws Exception;
 	
 	//해당되는 아이디만 read
-	public List<MessageVO> idReadAll(String targetid) throws Exception;
+	public List<MessageVO> idReadAll(String targetid,int page) throws Exception;
 
 	//쪽지 한개씩 읽기(쪽지 조회)
 	public MessageVO readOne(Integer mno) throws Exception;
@@ -26,5 +27,9 @@ public interface MessageDAO {
 	public void updateDate(Integer mno) throws Exception;
 	
 	//쪽지 개수 확인
-	public String messageCount (String targetid) throws Exception;
+	public int messageCount (String targetid) throws Exception;
+	
+	//페이징 처리
+	public List<MessageVO> idReadListCriteria(String targetid, Criteria cri) throws Exception;
+	
 }

@@ -1,15 +1,16 @@
 package com.kosta.matchmaker.persistence;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.MessageVO;
-import com.kosta.matchmaker.domain.UserVO;
 
 @Repository
 public class MessageDAOImpl implements MessageDAO{
@@ -31,8 +32,18 @@ public class MessageDAOImpl implements MessageDAO{
 	}
 
 	@Override
-	public List<MessageVO> idReadAll(String targetid) throws Exception {
-		return session.selectList(namespace + ".idReadAll", targetid);
+	public List<MessageVO> idReadAll(String targetid,int page) throws Exception {
+		
+		if(page <=0){
+			page =1;
+		}
+		page = (page -1)*10;
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("targetid", targetid);
+		map.put("page", page);
+		
+		return session.selectList(namespace + ".idReadAll", map);
 	}
 
 	@Override
@@ -51,8 +62,18 @@ public class MessageDAOImpl implements MessageDAO{
 	}
 
 	@Override
-	public String messageCount(String targetid) throws Exception {
-		return session.selectList(namespace + ".messageCount",targetid).toString();
+	public int messageCount(String targetid) throws Exception {
+		return session.selectOne(namespace + ".messageCount",targetid);
+	}
+
+	@Override
+	public List<MessageVO> idReadListCriteria(String targetid, Criteria cri) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("targetid", targetid);
+		map.put("pageStart", cri.getPageStart());
+		map.put("perPageNum", cri.getPerPageNum());
+		
+		return session.selectList(namespace + ".listCriteria", map);
 	}
 
 	

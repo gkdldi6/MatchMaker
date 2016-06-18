@@ -66,6 +66,27 @@ tbody tr:hover {
 			<a href="messages/write" class="btn btn-primary btn-flat">쪽지 쓰기</a>
 		</div>
 	</div>
+	
+		<!-- 페이지 -->
+	<div align="center">
+		<ul class="pagination">
+
+			<c:if test="${pageMaker.prev}">
+				<li><a href="messages?page=${pageMaker.startPage - 1}">&laquo;</a></li>
+			</c:if>
+
+			<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+				<li <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+					<a href="messages?page=${idx}">${idx}</a>
+				</li>
+			</c:forEach>
+
+			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+				<li><a href="messages?page=${pageMaker.endPage + 1}">&raquo;</a></li>
+			</c:if>
+
+		</ul>
+	</div>
 
 </div>
 

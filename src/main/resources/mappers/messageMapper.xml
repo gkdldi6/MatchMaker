@@ -20,9 +20,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="idReadAll" resultType="MessageVO">
+	<![CDATA[
 		select * 
 		from message
-		where targetid = #{targetid}
+		where mno > 0 and targetid = #{targetid}
+		order by mno desc
+		limit #{page}, 10
+	]]>
 	</select>
 	
 	<select id="delete">
@@ -40,6 +44,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*)
 		from message
 		where targetid = #{targetid}
+	</select>
+	
+	<select id="listCriteria" resultType="MessageVO">
+	<![CDATA[
+		select * 
+		from message
+		where mno > 0 and targetid = #{targetid}
+		order by mno desc
+		limit #{pageStart}, #{perPageNum}
+	]]>
 	</select>
 	
 </mapper>
