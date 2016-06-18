@@ -1,7 +1,8 @@
 var send = $('#send');							/*전송 버튼*/
 var msgbox = $('.direct-chat-messages');		/*대화가 로딩되는 공간*/
 var message = $('#message');					/*메시지 입력 input*/
-var userbox = $('.home');						/*회원 목록 공간*/
+var userbox = $('#waitUserlist');				/*대기실 회원 목록*/
+var roombox = $('#roomUserlist');				/*방 회원 목록*/
 var home = $('.home');							/*홈팀*/
 var away = $('.away');							/*어웨이팀*/
 var room;												
@@ -67,21 +68,32 @@ socket.on('alert', function(msg) {
 
 /*접속 인원 보기*/
 socket.on('userlist', function(userlist) {
+	if(userlist[0].roomno === 'waitroom') {
+		roombox.hide();
+		userbox.show();
+		
+		userbox.html('');
+		for(i in userlist) {
+			userbox.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
+		};
+		return;
+	}
+	
+	userbox.hide();
+	roombox.show();
+	
 	home.html('');
 	away.html('');
-	
-//	for(i in userlist) {
-//		userbox.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
-//	};
 	
 	for(i in userlist) {
 		if(userlist[i].team === 'home') {
 			home.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
-		} else {
+		} else if(userlist[i].team === 'away') {
 			away.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
+		} else {
+			console.log('아무것도 아님');
 		}
 	}
-	
 });
 
 /*방 만들기 */
@@ -97,12 +109,39 @@ $('#create').click(function() {
 
 /*방 접속하는 인원 정보 받기*/
 socket.on('enterroom', function(user) {
-	userbox.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
+	if(user.roomno === 'waitroom') {
+		userbox.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
+		return;
+	}
+	
+	if(user.team === 'home') {
+		home.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
+	} else {
+		away.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
+	}
 });
 
 /*방 나가는 인원 정보 받기*/
 socket.on('exitroom', function(user) {
-	userbox.find('div').each(function() {
+	if(user.roomno !== 'waitroom') {
+		userbox.find('div').each(function() {
+			var userid = $(this).attr('uid');
+			if(userid === user.uid) {
+				$(this).remove();
+				return;
+			};
+		});
+	}
+	
+	var position;
+	
+	if(user.team === 'home') {
+		position = home;
+	} else {
+		position = away;
+	}
+	
+	position.find('div').each(function() {
 		var userid = $(this).attr('uid');
 		if(userid === user.uid) {
 			$(this).remove();
@@ -126,7 +165,7 @@ socket.on('join', function(msg) {
 	$('a[href="#tab_1"]').parent('li').addClass('active');
 	$('#tab_2').removeClass('active');
 	$('#tab_1').addClass('active');
-	$('#exit').show();
+	$('#exit-btn-group').show();
 	scrollAuto();
 });
 
@@ -142,7 +181,7 @@ socket.on('exit', function(msg) {
 	$('a[href="#tab_2"]').parent('li').addClass('active');
 	$('#tab_1').removeClass('active');
 	$('#tab_2').addClass('active');
-	$('#exit').hide();
+	$('#exit-btn-group').hide();
 	scrollAuto();
 });
 
@@ -205,6 +244,37 @@ socket.on('roomlist', function(rooms) {
 	var html = template(rooms);
 	$('.eachRoom').remove();
 	target.html(html);
+});
+
+/*팀 바꾸기*/
+$('#teamChange').click(function() {
+	socket.emit('teamChange', id);
+});
+
+socket.on('teamChange', function(user) {
+	var position;
+	
+	if(user.team !== 'home') {
+		position = home;
+	} else {
+		position = away;
+	}
+	
+	position.find('div').each(function() {
+		var userid = $(this).attr('uid');
+		if(userid === user.uid) {
+			$(this).remove();
+			return;
+		};
+	});
+	
+	if(user.team === 'home') {
+		position = home;
+	} else {
+		position = away;
+	}
+	
+	position.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
 });
 
 /*방 예약하기*/

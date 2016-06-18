@@ -49,11 +49,7 @@ var name = '${login.username}';		/* 회원 이름 */
     margin-bottom: 0px;
 }
 
-.home, .away {
-	
-}
-
-.direct-chat-contacts > div {
+#roomUserlist > div {
 	width: 50%;
 	height: 100%;
 	float: left;
@@ -83,7 +79,10 @@ var name = '${login.username}';		/* 회원 이름 */
 							data-toggle="tooltip" title="회원" data-widget="chat-pane-toggle">
 							<i class="fa fa-comments"></i>
 						</button>
-						<button id="exit" class="btn btn-warning btn-flat btn-xs" style="display:none">나가기</button>
+						<span id="exit-btn-group" style="display:none">
+							<button id=teamChange class="btn btn-success btn-flat btn-xs">팀 변경</button>
+							<button id="exit" class="btn btn-warning btn-flat btn-xs">나가기</button>
+						</span>
 					</div>
 				</div>
 				<!-- /.box-header -->
@@ -96,22 +95,17 @@ var name = '${login.username}';		/* 회원 이름 */
 
 					<!-- 접속한 인원들 -->
 					<div class="direct-chat-contacts">
-						<div>
-						<span><b>Home</b></span>
-							<div class="home">
-							
-
-
-
-							</div>
-						</div>							
-						<div>
-						<span><b>Away</b></span>
-							<div class="away">
-							
-							
-							
-							
+						<div id="waitUserlist"></div>
+						<div id="roomUserlist">
+							<div>
+								<span><b>Home</b></span>
+								<div class="home">
+								</div>
+							</div>							
+							<div>
+								<span><b>Away</b></span>
+								<div class="away">
+								</div>
 							</div>
 						</div>
 					</div>
