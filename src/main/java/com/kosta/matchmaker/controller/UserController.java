@@ -3,6 +3,8 @@ package com.kosta.matchmaker.controller;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -72,6 +74,9 @@ public class UserController {
 		
 	}
 	//캡차
+	@RequestMapping(value = "/recapcha", method=RequestMethod.GET)
+	public void validateRecaptcha() throws Exception {}
+	
 	@ResponseBody
 	@RequestMapping(value = "/test/validateRecaptcha", method = RequestMethod.POST)
 	public String validateRecaptcha(@RequestParam Map<String, String> paramMap) {
@@ -94,7 +99,19 @@ public class UserController {
 	    return check;
 	}
 	
-	@RequestMapping(value = "/recapcha", method=RequestMethod.GET)
-	public void validateRecaptcha() throws Exception {}
 	
+	//로그 아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout() throws Exception{
+		return "/home";
+	}
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.POST)
+	public boolean logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		HttpSession session = request.getSession();
+		if(session.getAttribute("login") !=null){
+			session.removeAttribute("login");
+		}
+		return true;
+	}
 }

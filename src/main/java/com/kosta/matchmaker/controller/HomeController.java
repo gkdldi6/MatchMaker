@@ -50,6 +50,9 @@ public class HomeController {
 		String targetid = user.getUserid().toString();
 		model.addAttribute("userid", targetid + "님  ");
 		model.addAttribute("count","쪽지 [" + service.messageCount(targetid) + "]개"); //쪽지 개수
+		model.addAttribute("logout","로그아웃");
 		return "home";
 	}
+	
+	
 }

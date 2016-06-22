@@ -73,6 +73,7 @@
 							<a>${userid}</a>
 							<a href=# onClick="window.open('messages',
 								'new','resizable=no,scrollbars=no,width=800,height=600'); return false"> ${count} </a>
+							<a href="/users/logout">${logout}</a>
 							<button class="btn btn-default btn-flat">로그인</button>
 							<a class="btn btn-info btn-flat" href="/users/join">회원가입</a>
 						</div>
@@ -83,6 +84,8 @@
 				<!-- /.container-fluid -->
 			</nav>
 		</header>
+	</div>
+</body>
 		
 
 

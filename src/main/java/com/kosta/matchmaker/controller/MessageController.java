@@ -28,17 +28,20 @@ public class MessageController {
 	private MessageService service;
 
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
-	public ResponseEntity<String> addMessage(@RequestBody MessageVO vo){
+	public String addMessage(RedirectAttributes rttr, MessageVO vo){
 		
-		ResponseEntity<String> entity = null;
+		//ResponseEntity<String> entity = null;
 		try{
 			service.addMessage(vo);
-			entity = new ResponseEntity<>("SUCCESS", HttpStatus.OK);
+			//entity = new ResponseEntity<String>("SUCCESSㅅㅅㅅㅅㅅㅅㅅㅅ", HttpStatus.OK);
+			rttr.addFlashAttribute("msg", "sendsuccess");
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<>("FAIL",HttpStatus.BAD_REQUEST);
+			//entity = new ResponseEntity<String>("FAIL",HttpStatus.BAD_REQUEST);
+			rttr.addFlashAttribute("msg", "sendfail");
+		
 		}
-		return entity;
+		return "redirect:/messages";
 	}
 	
 	
@@ -70,7 +73,7 @@ public class MessageController {
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	public String remove(@RequestParam("mno") int mno, RedirectAttributes rttr) throws Exception{
 		service.delete(mno);
-		rttr.addFlashAttribute("msg", "SUCCESS");
+		rttr.addFlashAttribute("msg", "removesucess");
 		return "redirect:/messages";
 	}
 	

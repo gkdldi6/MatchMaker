@@ -99,6 +99,16 @@ tbody tr:hover {
 			$(".ab").prop("checked", this.checked);
 		});
 	});
+	
+	var result = '${msg}';
+	
+	if (result === 'sendsuccess') {
+		alert('쪽지 전송에 성공 하였습니다.');
+	} else if(result =='sendfail') {
+		alert('쪽지 전송에 실패 하였습니다.');
+	} else if(result == 'removesucess') {
+		alert('쪽지를 삭제 하였습니다.');
+	}
 </script>
 
 <jsp:include page="../include/footer.jsp"></jsp:include>
