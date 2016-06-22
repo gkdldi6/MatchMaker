@@ -102,16 +102,12 @@ public class UserController {
 	
 	//로그 아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout() throws Exception{
-		return "/home";
-	}
-	
-	@RequestMapping(value = "/logout", method = RequestMethod.POST)
-	public boolean logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		HttpSession session = request.getSession();
 		if(session.getAttribute("login") !=null){
 			session.removeAttribute("login");
+			session.invalidate();
 		}
-		return true;
+		return "home";
 	}
 }
