@@ -70,7 +70,7 @@
 						</form>
 						
 						<div class="navbar-form navbar-right">
-							<a>${userid}</a>
+							<a href="/users/update">${userid}</a>
 							<a href=# onClick="window.open('messages',
 								'new','resizable=no,scrollbars=no,width=800,height=600'); return false"> ${count} </a>
 							<a href="/users/logout">${logout}</a>

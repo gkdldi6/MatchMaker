@@ -110,4 +110,10 @@ public class UserController {
 		}
 		return "home";
 	}
+	
+	//회원 정보 수정
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public String update(){
+		return "users/update";
+	}
 }
