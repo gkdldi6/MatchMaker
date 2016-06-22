@@ -104,8 +104,8 @@ public class MessageDAOTest {
 	
 	@Test
 	public void messageCount() throws Exception{
-		String targetid = "1234";
-		String result = dao.messageCount(targetid);
+		String targetid = "user00";
+		int result = dao.messageCount(targetid);
 		System.out.println(result);
 	}
 	
