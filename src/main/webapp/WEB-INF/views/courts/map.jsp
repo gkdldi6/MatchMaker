@@ -9,7 +9,7 @@
 var id = '${login.userid}';			/* 회원 아이디 */
 var name = '${login.username}';		/* 회원 이름 */
 </script>
-
+<link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
 <style>
 .chatbar, .chatbtn {
 	position: fixed;
@@ -79,6 +79,9 @@ var name = '${login.username}';		/* 회원 이름 */
 							data-toggle="tooltip" title="회원" data-widget="chat-pane-toggle">
 							<i class="fa fa-comments"></i>
 						</button>
+						<span id="reser-btn-group" style="display:none">
+							<button id="reserve" class="btn btn-primary btn-flat btn-xs">예약</button>
+						</span>						
 						<span id="exit-btn-group" style="display:none">
 							<button id=teamChange class="btn btn-success btn-flat btn-xs">팀 변경</button>
 							<button id="exit" class="btn btn-warning btn-flat btn-xs">나가기</button>
@@ -205,9 +208,7 @@ var name = '${login.username}';		/* 회원 이름 */
 
 
 <!-- 지도가 표시될 공간 -->
-<div class="container" align="center">
-	<div id="map" style="height: 650px"></div>
-</div>
+<div id="map" style="height: 650px"></div>
 
 
 <!-- 방 만들때 뜨는 모달 -->
@@ -223,10 +224,19 @@ var name = '${login.username}';		/* 회원 이름 */
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
+                  <input type="number" class="form-control" id="cno" placeholder="사용할 코트를 입력해주세요.">
+                </div>
+				<div class="form-group">
                   <input type="text" class="form-control" id="rname" placeholder="생성할 게임방의 이름을 입력해주세요.">
                 </div>
                 <div class="form-group">
                   <input type="number" class="form-control" id="usercnt" placeholder="최대 인원을 입력해주세요.">
+                </div>
+                <div class="form-group">
+                	<input type="text" class='datetimepicker form-control' id="begintime" placeholder="예약 날짜 및 시간을 선택해주세요.">
+                </div>
+                <div class="form-group">
+					<input type="number" class="form-control" id="endtime" placeholder="사용 시간을 입력해주세요.">                	
                 </div>
 			</div>
 			<div class="modal-footer">
@@ -262,6 +272,11 @@ var name = '${login.username}';		/* 회원 이름 */
 			</div>
 		</div>
 	{{/each}}
+</script>
+<script src="//code.jquery.com/jquery.min.js"></script>
+<script src="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
+<script>
+	$('.datetimepicker').appendDtpicker({'locale':'ko'});
 </script>
 <!-- socket.io api -->
 <!-- 학원 -->

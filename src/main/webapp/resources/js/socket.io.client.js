@@ -98,11 +98,20 @@ socket.on('userlist', function(userlist) {
 
 /*방 만들기 */
 $('#create').click(function() {
+	var begintime = new Date($('#begintime').val());
+	var endtime = new Date($('#begintime').val());
+	endtime.setMinutes($('#endtime').val());
+	endtime.setMinutes(begintime.getMinutes() + endtime.getMinutes())
+	
 	room = {
 		rname: $('#rname').val(),
 		usercnt: $('#usercnt').val(),
-		userid: id
+		userid: id,
+		begintime: begintime,
+		endtime:  endtime,
+		cno: $('#cno').val()
 	};
+	
 	socket.emit('create', room);
 	$('#createRoom').modal('hide');
 });
@@ -182,6 +191,7 @@ socket.on('exit', function(msg) {
 	$('#tab_1').removeClass('active');
 	$('#tab_2').addClass('active');
 	$('#exit-btn-group').hide();
+	$('#reser-btn-group').hide();
 	scrollAuto();
 });
 
@@ -277,7 +287,20 @@ socket.on('teamChange', function(user) {
 	position.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
 });
 
-/*방 예약하기*/
+/*방 예약 버튼 생성*/
+socket.on('leader', function() {
+	$('#reser-btn-group').show();
+});
 
+/*예약 버튼 누르기*/
+$('#reserve').click(function() {
+	socket.emit('reserve', room.roomno);
+});
+
+socket.on('reserve', function() {
+	socket.emit('exit', room, id);
+	
+	alert('예약에 성공했습니다.');
+});
 
 

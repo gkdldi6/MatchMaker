@@ -47,29 +47,26 @@
 							
 							<li><a href="/matchmaker">소개</a></li>
 							
-							<li><a href="/boards">게시판</a></li>
+							<li class="dropdown"><a class="dropdown-toggle"
+								data-toggle="dropdown">게시판 <span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#">공지게시판</a></li>
+                                    <li class="divider"></li>
+									<li><a href="/boards">자유게시판</a></li>
+									<li><a href="#">농구게시판</a></li>
+									<li class="divider"></li>
+									<li><a href="#">자료게시판</a></li>
+								</ul>
+							</li>
 							
 							<li><a href="/courts">코트 찾기</a></li>
 							
-							<!-- <li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Action</a></li>
-									<li><a href="#">Another action</a></li>
-									<li><a href="#">Something else here</a></li>
-									<li class="divider"></li>
-									<li><a href="#">Separated link</a></li>
-									<li class="divider"></li>
-									<li><a href="#">One more separated link</a></li>
-								</ul>
-							</li> -->
-								
 						</ul>
-						<form class="navbar-form navbar-left" role="search">
-							<div class="form-group">
-								<input type="text" class="form-control" id="navbar-search-input" placeholder="게임을 검색하세요.">
-							</div>
-						</form>
+<!-- 						<form class="navbar-form navbar-left" role="search"> -->
+<!-- 							<div class="form-group"> -->
+<!-- 								<input type="text" class="form-control" id="navbar-search-input" placeholder="게임을 검색하세요."> -->
+<!-- 							</div> -->
+<!-- 						</form> -->
 						
 						<div class="navbar-form navbar-right">
 							<button class="btn btn-default btn-flat">로그인</button>
