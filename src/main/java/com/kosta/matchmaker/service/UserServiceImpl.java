@@ -23,7 +23,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserVO login(LoginDTO dto) throws Exception {
 		if(dao.login(dto) !=null){
-			System.out.println("디비에있으");
 			SHA256 sha = SHA256.getInsatnce();
 			
 			String orgPass = dto.getUserpw();

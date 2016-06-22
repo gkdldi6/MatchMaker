@@ -47,6 +47,8 @@
 							
 							<li><a href="/matchmaker">소개</a></li>
 							
+							<li><a href="/courts">코트 찾기</a></li>
+							
 							<li class="dropdown"><a class="dropdown-toggle"
 								data-toggle="dropdown">게시판 <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
@@ -58,8 +60,6 @@
 									<li><a href="#">자료게시판</a></li>
 								</ul>
 							</li>
-							
-							<li><a href="/courts">코트 찾기</a></li>
 							
 						</ul>
 <!-- 						<form class="navbar-form navbar-left" role="search"> -->
