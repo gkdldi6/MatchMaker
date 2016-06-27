@@ -8,10 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import com.kosta.matchmaker.domain.article.ArticleVO;
+import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.persistence.ArticleDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,27 +25,27 @@ public class ArticleDAOTest {
 		System.out.println("sdfsdf");
 		ArticleVO board = new ArticleVO();
 
-		board.setBno(01);
-		board.setAno(3);
-		board.setTitle("제목입니다");
-		board.setContent("내용입니다");
-		board.setWriter("작성자입니다");
+		board.setBno(1);
+		board.setAno(5);
+		board.setTitle("5");
+		board.setContent("5");
+		board.setWriter("5");
 
-		dao.freecreate(board);
+		dao.create(board);
 
 	}
 
 	@Test
 	public void testList() throws Exception {
 
-		List<ArticleVO> list = dao.freereadAll();
+		List<ArticleVO> list = dao.readAll(01);
 
 		if (list == null) {
 			System.out.println("없다");
 		}
 
 		for (ArticleVO board : list) {
-			System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
+			System.out.println(board.getBno() + "\t" + board.getAno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
 					+ board.getRegdate() + "\t" + board.getHit());
 		}
 	}
@@ -55,7 +53,7 @@ public class ArticleDAOTest {
 	@Test
 	public void testReadOne() throws Exception {
 
-		ArticleVO board = dao.freereadOne(2);
+		ArticleVO board = dao.readOne(1);
 
 		System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
 				+ board.getRegdate() + "\t" + board.getHit());
@@ -67,18 +65,19 @@ public class ArticleDAOTest {
 
 		ArticleVO board = new ArticleVO();
 
-		board.setBno(2);
+		board.setBno(1);
+		board.setAno(1);
 		board.setTitle("zzzz");
 		board.setContent("성공");
 		board.setWriter("성공한자sssss");
 
-		dao.freeupdate(board);
+		dao.update(board);
 	}
 
 	@Test
 	public void testDelete() throws Exception {
 
-		dao.freedelete(2);
+		dao.delete(5);
 	}
 
 }

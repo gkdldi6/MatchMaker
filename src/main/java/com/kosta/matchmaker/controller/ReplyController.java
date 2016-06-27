@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kosta.matchmaker.domain.article.Criteria;
-import com.kosta.matchmaker.domain.article.PageMaker;
-import com.kosta.matchmaker.domain.article.ReplyVO;
+import com.kosta.matchmaker.domain.Criteria;
+import com.kosta.matchmaker.domain.PageMaker;
+import com.kosta.matchmaker.domain.ReplyVO;
 import com.kosta.matchmaker.service.ReplyService;
 
 @RestController
@@ -26,32 +26,21 @@ public class ReplyController {
 	@Inject
 	private ReplyService service;
 
-	// 페이징 이전 버전
-	// @RequestMapping(value="/{bno}", method=RequestMethod.GET)
-	// public ResponseEntity<List<ReplyVO>> replies(@PathVariable int bno) {
-	//
-	// ResponseEntity<List<ReplyVO>> entity = null;
-	//
-	// try {
-	// List<ReplyVO> list = service.listReply(bno);
-	// entity = new ResponseEntity<>(list, HttpStatus.OK);
-	// } catch(Exception e) {
-	// e.printStackTrace();
-	// entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-	// }
-	//
-	// return entity;
-	// }
-
 	// 페이징 v1 : List<replyVO> => Map<String, Object>, @PathVariable 추가..
-	@RequestMapping(value = "/{bno}/{page}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String, Object>> replies(@PathVariable Integer bno, @PathVariable Integer page) {
+//	@RequestMapping(value = "/{ano}/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{bno}/{ano}/{page}", method = RequestMethod.GET)
+	public ResponseEntity<Map<String, Object>> replies(@PathVariable Integer bno, @PathVariable Integer ano,
+			@PathVariable Integer page) {
 
+		System.out.println(67576);
+		
 		// ResponseEntity<List<ReplyVO>> entity = null;
 		ResponseEntity<Map<String, Object>> entity = null;
 
+		System.out.println("11의 정체가 궁그마다");
+		
 		try {
-			// List<ReplyVO> list = service.listReply(bno);
+			// List<ReplyVO> list = service.listReply(ano);
 			// entity = new ResponseEntity<>(list, HttpStatus.OK);
 
 			Criteria cri = new Criteria();
@@ -59,12 +48,14 @@ public class ReplyController {
 
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
-
+			System.out.println("???");
 			Map<String, Object> map = new HashMap<>();
-			List<ReplyVO> list = service.listReply(bno, cri);
+			List<ReplyVO> list = service.listReply(bno, ano, cri);
 			map.put("list", list);
 
-			int replyCount = service.count(bno);
+			System.out.println("kkkk");
+			int replyCount = service.count(ano);
+			System.out.println("uuuuu");
 			pageMaker.setTotalCount(replyCount);
 
 			map.put("pageMaker", pageMaker);

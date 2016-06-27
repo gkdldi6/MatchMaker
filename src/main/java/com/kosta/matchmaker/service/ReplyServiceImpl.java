@@ -7,9 +7,9 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kosta.matchmaker.domain.article.Criteria;
-import com.kosta.matchmaker.domain.article.ReplyVO;
-import com.kosta.matchmaker.persistence.BoardDAO;
+import com.kosta.matchmaker.domain.Criteria;
+import com.kosta.matchmaker.domain.ReplyVO;
+import com.kosta.matchmaker.persistence.ArticleDAO;
 import com.kosta.matchmaker.persistence.ReplyDAO;
 
 @Service
@@ -17,17 +17,9 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Inject
 	private ReplyDAO dao;
-	
-	@Inject
-	private BoardDAO bdao;
 
-	// 트랜젝션 이전 
-	// @Override
-	// public void addReply(ReplyVO reply) throws Exception {
-	//
-	// dao.create(reply);
-	//
-	// }
+	@Inject
+	private ArticleDAO aDao;
 
 	// 트랜젝션
 
@@ -35,23 +27,16 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public void addReply(ReplyVO reply) throws Exception {
 
-		dao.create(reply);
-		bdao.updateReplyCnt(reply.getBno(), 1);
+		dao.create(reply);	
+		aDao.updateReplyCnt(reply.getAno(), 1);
 
 	}
 
-	// 페이징 이전
-	// @Override
-	// public List<ReplyVO> listReply(Integer bno) throws Exception {
-	// // TODO Auto-generated method stub
-	// return dao.list(bno);
-	// }
-
 	// 페이징 v1
-	
-	public List<ReplyVO> listReply(Integer bno, Criteria cri) throws Exception {
 
-		return dao.list(bno, cri);
+	public List<ReplyVO> listReply(Integer bno, Integer ano, Criteria cri) throws Exception {
+
+		return dao.list(bno, ano, cri);
 	}
 
 	@Override
@@ -63,25 +48,25 @@ public class ReplyServiceImpl implements ReplyService {
 	@Transactional
 	@Override
 	public void removeReply(Integer rno) throws Exception {
-		// TODO Auto-generated method stub
+		
 
-		int bno = dao.getBno(rno);
+		int ano = dao.getAno(rno);
 		dao.delete(rno);
-		bdao.updateReplyCnt(bno, -1);
+		aDao.updateReplyCnt(ano, -1);
 
 	}
 
 	// counter
 	@Override
-	public int count(Integer bno) throws Exception {
-		// TODO Auto-generated method stub
-		return dao.count(bno);
+	public int count(Integer ano) throws Exception {
+		
+		return dao.count(ano);
 	}
 
-	@Override
-	public List<ReplyVO> listReply(Integer bno) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<ReplyVO> listReply(Integer ano) throws Exception {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

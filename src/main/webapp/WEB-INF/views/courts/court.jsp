@@ -6,7 +6,7 @@
 	<div class="box-header with-border">
 		<div class="user-block">
 			<img class="img-circle" src="/resources/img/court-icon.jpg"	alt="court Image"> 
-			<span id="cno" class="username"></span> 
+			<span id="cname" class="username"></span> 
 			<span id="address" class="description"></span>
 		</div>
 		<!-- /.user-block -->
@@ -14,18 +14,12 @@
 	<!-- /.box-header -->
 	<div class="box-body">
 		
-		<img alt="코트 사진" width="200" height="200"></img>
+		<img alt="코트 사진" width="200" height="200"></img><br>
 		
-		<!-- post text -->
-		<br><b>코트 내용</b>
-		<p>Far far away, behind the word mountains, far from the countries
-			Vokalia and Consonantia, there live the blind texts. Separated they
-			live in Bookmarksgrove right at</p>
 
-		<p>the coast of the Semantics, a large language ocean. A small
-			river named Duden flows by their place and supplies it with the
-			necessary regelialia. It is a paradisematic country, in which roasted
-			parts of sentences fly into your mouth.</p>
+		<b>코트 상세</b>
+		<p id="ccontent"></p>
+
 
 		<!-- Social sharing buttons -->
 		<button type="button" class="btn btn-default btn-xs">

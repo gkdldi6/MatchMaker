@@ -6,37 +6,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 등록 -->
 	<insert id="create">
-		insert into reply (bno, ano,
-		replytext, replyer)
+		insert into reply (bno, ano, replytext, replyer)
 		values
-		(#{bno}, #{ano}, #{replytext}, #{replyer})
+		( #{bno}, #{ano}, #{replytext}, #{replyer})
 	</insert>
 
-	<!-- 리스트 페이징 이전 -->
-	<!-- <select id="list" resultType="ReplyVO"> -->
-	<!-- select * from reply where bno = -->
-	<!-- #{bno} order by rno desc -->
-	<!-- </select> -->
-
-	<!-- 리스트(페이징) v1 -->
+	<!-- 리스트(페이징) -->
 	<select id="list" resultType="ReplyVO">
-		select * from reply where bno =
-		#{bno} order by rno desc limit #{cri.pageStart}, #{cri.perPageNum}
+		select * from reply where bno =	#{bno} and ano = #{ano}
+		order by rno desc limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 
 	<!-- 페이징 카운트 -->
 	<select id="count" resultType="int">
 		select count(bno) from reply
-		where
-		bno =#{bno}
+		where bno =	#{bno} and ano = #{ano}
 	</select>
 
 	<!-- 수정 -->
 	<update id="update">
 		update reply set replytext = #{replytext}
-		where
-		rno =
-		#{rno}
+		where rno =	#{rno}
 	</update>
 
 	<!-- 삭제 -->
@@ -45,15 +35,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<!-- 본글번호 가져오기 -->
-	<select id="getBno" resultType="int">
-		select bno from reply where
-		rno =
-		#{rno}
+	<select id="getAno" resultType="int">
+		select ano from reply
+		where rno = #{rno}
 	</select>
 
 	<!-- 댓글 개수 조회 -->
 	<select id="listCount" resultType="int">
-		select bno
+		select ano
 		from reply
 		where rno = #{rno}
 	</select>

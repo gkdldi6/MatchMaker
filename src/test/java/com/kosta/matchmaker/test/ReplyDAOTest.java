@@ -10,9 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.kosta.matchmaker.domain.article.Criteria;
-import com.kosta.matchmaker.domain.article.ReplyVO;
-import com.kosta.matchmaker.persistence.ArticleDAO;
+import com.kosta.matchmaker.domain.Criteria;
+import com.kosta.matchmaker.domain.ReplyVO;
 import com.kosta.matchmaker.persistence.ReplyDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,8 +21,9 @@ public class ReplyDAOTest {
 	@Inject
 	private ReplyDAO dao;
 
-	private int bno = 2;
-	private int ano = 2;
+	private int bno = 1;
+	private int ano = 1;
+	private int rno;
 	private int page = 1;
 	private int perPageNum = 5;
 
@@ -39,9 +39,8 @@ public class ReplyDAOTest {
 
 		dao.create(reply);
 	}
-	
-	//리플라이 등록까지만 테스트 완료..ㅜ
-	
+
+	// 리플라이 등록까지만 테스트 완료..ㅜ
 
 	// 페이징 버전1
 	@Test
@@ -51,13 +50,21 @@ public class ReplyDAOTest {
 		cri.setPage(page);
 		cri.setPerPageNum(perPageNum);
 
-		List<ReplyVO> list = dao.list(bno, cri);
+		List<ReplyVO> list = dao.list(bno, ano, cri);
 
 		// 댓글 수
-		System.out.println(bno + "의 전체 댓글수 : " + dao.count(bno));
+		System.out.println(ano + "의 전체 댓글수 : " + dao.count(ano));
 
+		System.out.println(list);
+		if (list == null) {
+			System.out.println("없다");
+		}
+		
+		
+		
 		for (ReplyVO reply : list) {
-			System.out.println(reply.toString());
+			System.out.println("-----");
+			System.out.println(reply.getBno());
 		}
 
 	}
@@ -84,10 +91,10 @@ public class ReplyDAOTest {
 	}
 
 	@Test
-	public void testGetBno() throws Exception {
+	public void testGetano() throws Exception {
 
 		rnoNum();
-		dao.getBno(rno);
+		dao.getAno(rno);
 
 	}
 

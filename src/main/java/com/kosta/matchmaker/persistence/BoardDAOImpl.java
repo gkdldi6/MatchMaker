@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kosta.matchmaker.domain.article.ArticleVO;
-import com.kosta.matchmaker.domain.article.SearchCriteria;
+import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.SearchCriteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {

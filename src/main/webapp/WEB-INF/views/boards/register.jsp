@@ -38,12 +38,6 @@
 				</div>
 			</div>
 			
-			<div class="col-lg-offset-2">
-				<div class="fileDrop" style="height:100px;background-color:gray">
-					<label>여기에 파일을 첨부하세요.</label>
-				</div>
-			</div>
-			
 			<div class="form-group">
 				<label class="col-lg-2 control-label">첨부파일</label>
 				<div class="col-lg-10">

@@ -122,35 +122,100 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- (#{fullName}, #{bno}) -->
 	<!-- </insert> -->
 
+	<!-- <select id="readOne" resultType="ArticleVO"> select * from article 
+		where bno = 1 and ano = #{ano} </select> -->
+
 	<!-- 신버전 맵퍼 -->
 
-	<insert id="freecreate">
-		insert into article (bno, ano, title, content, writer)
-		values(#{bno}, #{ano}, #{title}, #{content}, #{writer})
+	<select id="getType" resultType="String">
+		select article_type from article
+		where bno = #{bno} and ano = #{ano}
+	</select>
+
+	<select id="lastAno" resultType="Integer">
+		select ano from article where
+		bno = #{bno} order by ano desc limit 1;
+	</select>
+
+
+	<!-- I N S E R T -->
+	<insert id="create">
+		insert into article (bno, ano, title, content,
+		writer, article_type)
+		values(#{bno}, #{ano}, #{title}, #{content},
+		#{writer}, #{article_type})
 	</insert>
 
-	<select id="freereadAll" resultType="ArticleVO">
-		select ano, title, writer, regdate, hit
+	<insert id="freeCreate">
+		insert into free(bno, ano, liked) values(#{bno},
+		#{ano}, #{liked})
+	</insert>
+
+	<insert id="noticeCreate">
+		insert into notice(bno, ano, deadline, bound)
+		values(#{bno}, #{ano}, #{deadline}, #{bound})
+	</insert>
+
+	<insert id="referenceCreate">
+		insert into reference(bno, ano, fullname)
+		values(#{bno}, #{ano}, #{fullname})
+	</insert>
+
+	<!-- I N S E R T -->
+
+
+	<!-- R E A D -->
+	<select id="readAll" resultType="ArticleVO">
+		select *
 		from article
-		where bno = 0 
+		where bno = #{bno}
 		order by ano desc
 	</select>
 
-	<update id="freeupdate">
-		update article set title = #{title}, content =
-		#{content}, writer = #{writer}, regdate = now()
-		where bno = #{bno}
+	<select id="freeOne" resultType="FreeBoardVO">
+		select * from article a, free f
+		where a.bno = f.bno and a.ano = f.ano and a.ano = #{ano} and a.bno = #{bno}
+	</select>
+
+
+	<select id="noticeOne" resultType="NoticeBoardVO">
+		select * from article a, notice n
+		where a.bno = n.bno and a.ano = n.ano and a.ano = #{ano} and a.bno = #{bno}
+	</select>
+
+
+	<select id="referenceOne" resultType="ReferenceBoardVO">
+		select * from article a,
+		reference r
+		where a.bno = r.bno and a.ano = r.ano and a.ano = #{ano} and a.bno = #{bno}
+	</select>
+	<!-- R E A D -->
+
+
+	<!-- U P D A T E -->
+
+	<update id="update">
+		update article set title = #{title}, writer = #{writer}, content = #{content}, regdate = now()
+		where bno = #{bno} and ano = #{ano}
 	</update>
 
-	<delete id="freedelete">
-		delete from article
-		where bno = #{bno}
-	</delete>
+	<update id="reference">
+		update reference set fullname = #{fullname}
+		where a.bno = r.bno and a.ano = r.ano and a.ano = #{ano}
+		and a.bno = #{bno}
+	</update>
 
-	<select id="freereadOne" resultType="ArticleVO">
-		select * from article
-		where bno = #{bno}
-	</select>
+	<!-- U P D A T E -->
+
+
+	<delete id="delete">
+		delete from article
+		where bno = #{bno} and ano = #{ano}
+	</delete>
+	
+	<update id="updateHit">
+		update article set hit = hit + 1 where bno = #{bno} and ano = #{ano}
+	</update>
 
 	<!-- 동적 SQL을 위한 부분 SQL -->
 	<sql id="search">
@@ -190,7 +255,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[
 		select *
 		from article
-		where bno > 0	
+		where bno = 1 and ano > 0	
 		]]>
 
 		<include refid="search"></include>
@@ -205,21 +270,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[
 			select count(bno) 
 			from article
-			where bno > 0	
+			where bno = 1 and ano > 0	
 		]]>
 		<include refid="search"></include>
 	</select>
 
 	<update id="updateReplyCnt">
 		update article set replycnt = replycnt + #{amount}
-		where bno = #{bno}
-	</update>
-
-	<update id="updateHit">
-		update article set hit = hit + 1 where bno = #{bno}
+		where bno = 1 and ano = #{ano}
 	</update>
 
 
+
+	<!-- 파일첨부 기능 자료게시판용 -->
 	<insert id="addAttach">
 		insert into reference(fullname, bno) values
 		(#{fullName}, LAST_INSERT_ID())
@@ -228,17 +291,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getAttach" resultType="string">
 		select fullname from
 		reference
-		where bno = #{bno}
+		where bno = 1 and ano = #{ano}
 		order by regdate
 	</select>
 
 	<delete id="deleteAttach">
-		delete from reference where bno = #{bno}
+		delete from reference where bno = 1 and ano = #{ano}
 	</delete>
 
 	<insert id="replaceAttach">
-		insert into reference(fullname, bno) values
-		(#{fullName}, #{bno})
+		insert into reference(fullname, ano) values
+		(#{fullName}, #{ano})
 	</insert>
 
 </mapper>

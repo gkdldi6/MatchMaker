@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.kosta.matchmaker.domain.article.ArticleVO;
+import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.persistence.ArticleDAO;
 
 
@@ -20,7 +20,7 @@ import com.kosta.matchmaker.persistence.ArticleDAO;
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
 public class BoardDAOTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
+//	private static final Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
 
 	@Inject
 	private ArticleDAO dao;
@@ -40,19 +40,19 @@ public class BoardDAOTest {
 	}
 
 	
-	@Test
-	public void testReadAll() throws Exception {
-		List<ArticleVO> list = dao.readAll();
-
-		if (list == null) {
-			System.out.println("없다");
-		}
-
-		for (ArticleVO board : list) {
-			System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
-					+ board.getRegdate() + "\t" + board.getHit());
-		}
-	}
+//	@Test
+//	public void testReadAll() throws Exception {
+//		List<ArticleVO> list = dao.readAll();
+//
+//		if (list == null) {
+//			System.out.println("없다");
+//		}
+//
+//		for (ArticleVO board : list) {
+//			System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
+//					+ board.getRegdate() + "\t" + board.getHit());
+//		}
+//	}
 
 	@Test
 	public void testUpdate() throws Exception {
@@ -90,7 +90,7 @@ public class BoardDAOTest {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().path("/boards").queryParam("bno", 12)
 				.queryParam("perPageNum", 20).build();
 
-		logger.info(uriComponents.toString());
+//		logger.info(uriComponents.toString());
 
 	}
 

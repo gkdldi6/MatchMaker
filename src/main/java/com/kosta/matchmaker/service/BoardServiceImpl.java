@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kosta.matchmaker.domain.article.ArticleVO;
-import com.kosta.matchmaker.domain.article.SearchCriteria;
+import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.persistence.ArticleDAO;
 
 @Service
@@ -18,10 +18,35 @@ public class BoardServiceImpl implements BoardService {
 	@Inject
 	private ArticleDAO dao;
 
-	@Override
-	public void freeregister(ArticleVO board) throws Exception {
+	// -------------------------- 게시판 등록 -------------------------
 
-		dao.freecreate(board);
+	@Transactional
+	@Override
+	public void register(ArticleVO board) throws Exception {
+
+		int ano;
+		int bno = board.getBno();
+		Integer lano = dao.lastAno(bno);
+
+		if (lano != null) {
+			ano = lano + 1;
+		} else {
+			ano = 1;
+		}
+
+		board.setAno(ano);
+		dao.create(board);
+
+		String article_type = board.getArticle_type();
+		// String article_type = "F";
+
+		if (article_type.equals("F")) {
+			dao.freeCreate(board);
+		} else if (article_type.equals("N")) {
+			dao.noticeCreate(board);
+		} else if (article_type.equals("R")) {
+			dao.referenceCreate(board);
+		}
 
 		// String[] files = board.getFiles();
 		//
@@ -34,22 +59,57 @@ public class BoardServiceImpl implements BoardService {
 		// }
 	}
 
-	@Override
-	public List<ArticleVO> freereadAll() throws Exception {
+	// -------------------------- 게시판 등록 -------------------------
 
-		return dao.freereadAll();
+	@Override
+	public List<ArticleVO> readAll(Integer bno) throws Exception {
+
+		return dao.readAll(bno);
+
+	}
+
+	@Override
+	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception {
+
+		return dao.listSearch(cri);
+
+	}
+
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+
+		return dao.listSearchCount(cri);
+
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED)
+	@Override
+	public ArticleVO readOne(Integer bno, Integer ano) throws Exception {
+		String type = dao.getType(bno, ano);
+
+		ArticleVO vo = null;
+
+		if (type.equals("F")) {
+			vo = dao.freeOne(bno, ano);
+		} else if (type.equals("N")) {
+			vo = dao.noticeOne(bno, ano);
+		} else if (type.equals("R")) {
+			vo = dao.referenceOne(bno, ano);
+		}
+
+		dao.updateHit(bno, ano);
+		return vo;
 
 	}
 
 	@Transactional
 	@Override
-	public void freemodify(ArticleVO board) throws Exception {
+	public void modify(ArticleVO board) throws Exception {
 
-		dao.freeupdate(board);
+		dao.update(board);
 
 		Integer ano = board.getAno();
-
-		// dao.deleteAttach(bno);
+		// dao.deleteAttach(ano);
 
 		// String[] files = board.getFiles();
 		//
@@ -58,51 +118,28 @@ public class BoardServiceImpl implements BoardService {
 		// }
 		//
 		// for (String fileName : files) {
-		// dao.replaceAttach(fileName, bno);
+		// dao.replaceAttach(fileName, ano);
 		// }
 	}
 
-	
+	@Transactional
 	@Override
-	public void freeremove(Integer ano) throws Exception {
+	public void remove(Integer bno, Integer ano) throws Exception {
 
-		//dao.deleteAttach(bno);
-		dao.freedelete(ano);
-
-	}
-
-	@Transactional(isolation = Isolation.READ_COMMITTED)
-	@Override
-	public ArticleVO freereadOne(Integer ano) throws Exception {
-
-		dao.updateHit(ano);
-		return dao.freereadOne(ano);
+		// dao.deleteAttach(ano);
+		dao.delete(bno, ano);
 
 	}
 
 	@Override
-	public List<ArticleVO> freelistSearch(SearchCriteria cri) throws Exception {
+	public List<String> getAttach(Integer ano) throws Exception {
 
-		return dao.freelistSearch(cri);
-
+		return dao.getAttach(ano);
 	}
 
 	@Override
-	public int freelistSearchCount(SearchCriteria cri) throws Exception {
-
-		return dao.freelistSearchCount(cri);
-
-	}
-
-	@Override
-	public List<String> getAttach(Integer bno) throws Exception {
-
-		return dao.getAttach(bno);
-	}
-
-	@Override
-	public void removeAttach(Integer bno) throws Exception {
-		dao.deleteAttach(bno);
+	public void removeAttach(Integer ano) throws Exception {
+		dao.deleteAttach(ano);
 
 	}
 

@@ -8,7 +8,6 @@
 <script type="text/javascript">
 var id = '${login.userid}';			/* 회원 아이디 */
 var name = '${login.username}';		/* 회원 이름 */
-
 </script>
 
 <style>
@@ -49,6 +48,16 @@ var name = '${login.username}';		/* 회원 이름 */
     height: 620px;
     margin-bottom: 0px;
 }
+
+.home, .away {
+	
+}
+
+.direct-chat-contacts > div {
+	width: 50%;
+	height: 100%;
+	float: left;
+}
 </style>
 
 
@@ -86,7 +95,26 @@ var name = '${login.username}';		/* 회원 이름 */
 					<!-- /대화가 생성되는 곳 -->
 
 					<!-- 접속한 인원들 -->
-					<div class="direct-chat-contacts"></div>
+					<div class="direct-chat-contacts">
+						<div>
+						<span><b>Home</b></span>
+							<div class="home">
+							
+
+
+
+							</div>
+						</div>							
+						<div>
+						<span><b>Away</b></span>
+							<div class="away">
+							
+							
+							
+							
+							</div>
+						</div>
+					</div>
 					<!-- /접속한 인원들 -->
 
 				</div>
@@ -117,6 +145,7 @@ var name = '${login.username}';		/* 회원 이름 */
 			<div class="box box-warning">
 				<div class="box-header">
 					<h3 class="box-title">생성된 방 목록</h3>
+					<button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
 				</div>
 				<!-- /.box-header -->
 				
@@ -141,6 +170,7 @@ var name = '${login.username}';		/* 회원 이름 */
 			<div class="box box-success">
 				<div class="box-header">
 					<h3 class="box-title">예약 목록</h3>
+					<button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
 				</div>
 				<!-- /.box-header -->
 				
@@ -241,9 +271,9 @@ var name = '${login.username}';		/* 회원 이름 */
 </script>
 <!-- socket.io api -->
 <!-- 학원 -->
-<!-- <script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
+<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script>
 <!-- 집 -->
-<script src="http://192.168.219.188:3000/socket.io/socket.io.js"></script>
+<!-- <script src="http://192.168.219.188:3000/socket.io/socket.io.js"></script> -->
 <!-- socket.io client -->
 <script src="/resources/js/socket.io.client.js"></script>
 <!-- 다음 지도 API -->
