@@ -117,4 +117,8 @@ public class BoardController {
 		return service.getAttach(bno);
 	}
 	
+	/*새로운 게시판 시험*/
+	@RequestMapping("/test")
+	public void test() {}
+	
 }
