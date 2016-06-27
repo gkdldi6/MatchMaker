@@ -22,32 +22,25 @@ public class ReplyDAOTest {
 	private ReplyDAO dao;
 
 	private int bno = 1;
+	private int ano = 1;
+	private int rno;
 	private int page = 1;
 	private int perPageNum = 5;
-	private int rno;
 
 	@Test
 	public void testCreate() throws Exception {
+		System.out.println("sdfsdf");
 
 		ReplyVO reply = new ReplyVO();
 		reply.setBno(bno);
+		reply.setAno(ano);
 		reply.setReplytext("나랑 미친듯 놀자~!");
 		reply.setReplyer("jyt");
 
 		dao.create(reply);
 	}
 
-	// 페이징 이전
-	// @Test
-	// public void testList() throws Exception {
-	//
-	// List<ReplyVO> list = dao.list(1);
-	//
-	// for (ReplyVO reply : list) {
-	// System.out.println(reply.toString());
-	// }
-	//
-	// }
+	// 리플라이 등록까지만 테스트 완료..ㅜ
 
 	// 페이징 버전1
 	@Test
@@ -57,13 +50,21 @@ public class ReplyDAOTest {
 		cri.setPage(page);
 		cri.setPerPageNum(perPageNum);
 
-		List<ReplyVO> list = dao.list(bno, cri);
+		List<ReplyVO> list = dao.list(bno, ano, cri);
 
 		// 댓글 수
-		System.out.println(bno + "의 전체 댓글수 : " + dao.count(bno));
+		System.out.println(ano + "의 전체 댓글수 : " + dao.count(ano));
 
+		System.out.println(list);
+		if (list == null) {
+			System.out.println("없다");
+		}
+		
+		
+		
 		for (ReplyVO reply : list) {
-			System.out.println(reply.toString());
+			System.out.println("-----");
+			System.out.println(reply.getBno());
 		}
 
 	}
@@ -90,10 +91,10 @@ public class ReplyDAOTest {
 	}
 
 	@Test
-	public void testGetBno() throws Exception {
+	public void testGetano() throws Exception {
 
 		rnoNum();
-		dao.getBno(rno);
+		dao.getAno(rno);
 
 	}
 

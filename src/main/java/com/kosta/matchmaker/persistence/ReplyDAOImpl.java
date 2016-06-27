@@ -18,7 +18,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Inject
 	private SqlSession session;
 
-	private static String namespace = "com.kosta.matchmaker.mappers.ReplyMapper";
+	private static final String namespace = "com.kosta.matchmaker.mappers.ReplyMapper";
 
 	@Override
 	public void create(ReplyVO reply) throws Exception {
@@ -27,20 +27,13 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	}
 
-	// 페이징 이전임
-	// @Override
-	// public List<ReplyVO> list(Integer bno) throws Exception {
-	//
-	// return session.selectList(namespace + ".list", bno);
-	//
-	// }
-
-	// 페이징 v1
+	// 페이징 
 	@Override
-	public List<ReplyVO> list(Integer bno, Criteria cri) throws Exception {
+	public List<ReplyVO> list(Integer bno, Integer ano, Criteria cri) throws Exception {
 
 		Map<String, Object> listMap = new HashMap<>();
 		listMap.put("bno", bno);
+		listMap.put("ano", ano);
 		listMap.put("cri", cri);
 
 		return session.selectList(namespace + ".list", listMap);
@@ -62,16 +55,16 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	// 댓글수 카운팅
 	@Override
-	public int count(Integer bno) throws Exception {
+	public int count(Integer ano) throws Exception {
 		// TODO Auto-generated method stub
-		return session.selectOne(namespace + ".count", bno);
+		return session.selectOne(namespace + ".count", ano);
 	}
 
 	// 본글번호 가져오기 
 	@Override
-	public int getBno(Integer rno) throws Exception {
+	public int getAno(Integer rno) throws Exception {
 
-		return session.selectOne(namespace + ".getBno", rno);
+		return session.selectOne(namespace + ".getAno", rno);
 	}
 
 		@Override

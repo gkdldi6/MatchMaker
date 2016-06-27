@@ -13,16 +13,17 @@ public interface ReplyDAO {
 	// public List<ReplyVO> list(Integer bno) throws Exception;
 
 	// 페이징 처리 v1
-	public List<ReplyVO> list(Integer bno, Criteria cri) throws Exception;
+	public List<ReplyVO> list(Integer bno, Integer ano, Criteria cri) throws Exception;
 
 	public void update(ReplyVO reply) throws Exception;
 
 	public void delete(Integer rno) throws Exception;
 
-	public int count(Integer bno) throws Exception;
+	//댓글수
+	public int count(Integer ano) throws Exception;
 
 	// 본글번호 가져오기 
-	public int getBno(Integer rno) throws Exception;
+	public int getAno(Integer rno) throws Exception;
 
 	
 	public int listCount(Integer rno) throws Exception;

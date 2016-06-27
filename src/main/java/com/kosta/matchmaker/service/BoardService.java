@@ -2,37 +2,38 @@ package com.kosta.matchmaker.service;
 
 import java.util.List;
 
-import com.kosta.matchmaker.domain.BoardVO;
+import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.SearchCriteria;
 
 public interface BoardService {
 
 	// 게시글 등록
-	public void register(BoardVO board) throws Exception;
+	public void register(ArticleVO board) throws Exception;
 
 	// 개시글 읽기
-	public List<BoardVO> readAll() throws Exception;
+	public List<ArticleVO> readAll(Integer bno) throws Exception;
 
-	// 게시글 수정
-	public void modify(BoardVO board) throws Exception;
-
-	// 게시글 삭제
-	public void remove(Integer bno) throws Exception;
-
-	// 게시글 검색
-	public BoardVO readOne(Integer bno) throws Exception;
-
-	// 게시글 페이징처리중
-	// public List<BoardVO> listPage(int page) throws Exception;
-
-	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception;
-
+	//검색 결과 
+	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception;
+	
+	//검색 결과  개수
 	public int listSearchCount(SearchCriteria cri) throws Exception;
 
+	// 자유 게시글 조회
+	public ArticleVO readOne(Integer bno, Integer ano) throws Exception;
+
+	// 게시글 수정
+	public void modify(ArticleVO board) throws Exception;
+
+	// 게시글 삭제
+	public void remove(Integer bno, Integer ano) throws Exception;
+
+
+
 	// 첨부파일 ㄱㄱ
-	public List<String> getAttach(Integer bno) throws Exception;
+	public List<String> getAttach(Integer ano) throws Exception;
 
 	// 첨부파일 삭제
-	public void removeAttach(Integer bno) throws Exception;
+	public void removeAttach(Integer ano) throws Exception;
 
 }

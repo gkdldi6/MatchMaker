@@ -98,7 +98,7 @@ var name = '${login.username}';		/* 회원 이름 */
 
 					<!-- 접속한 인원들 -->
 					<div class="direct-chat-contacts">
-						<div id="waitUserlist"></div>
+					  	<div id="waitUserlist"></div>
 						<div id="roomUserlist">
 							<div>
 								<span><b>Home</b></span>
@@ -280,7 +280,7 @@ var name = '${login.username}';		/* 회원 이름 */
 </script>
 <!-- socket.io api -->
 <!-- 학원 -->
-<!-- <script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
+<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script>
 <!-- 집 -->
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <!-- socket.io client -->

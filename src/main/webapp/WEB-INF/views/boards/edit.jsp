@@ -16,7 +16,7 @@
 				<div class="form-group">
 					<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" name="writer" value="${article.writer }" readonly>
+						<input type="text" class="form-control" name="writer" value="${article.writer }" readonly="readonly">
 					</div>
 				</div>
 				
@@ -35,8 +35,8 @@
 								name="content"></textarea>
 					</div>
 				</div>
-
-				<input type="hidden" name="bno" value="${article.bno }">
+				
+				<input type="hidden" name="ano" value="${article.ano }">
 				<input type='hidden' name='page' value="${cri.page}">
 				<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
 				<input type='hidden' name='searchType' value="${cri.searchType}">
@@ -131,7 +131,7 @@
 </script>
 
 <script>
-	var bno = ${article.bno};
+	var ano = ${article.ano};
 
 	/* printData(data.list, $("#repliesDiv"), $('#template'));	
 	var template = Handlebars.compile(templateObject.html());
@@ -139,7 +139,7 @@
 	
 	var template = Handlebars.compile($("#templateAttach").html());
 	
-	$.getJSON("/boards/getAttach/" + bno, function(list) {	
+	$.getJSON("/boards/getAttach/" + ano, function(list) {	
 		$(list).each(function() {			
 			var fileInfo = getFileInfo(this);
 			

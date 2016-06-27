@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kosta.matchmaker.domain.BoardVO;
+import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.SearchCriteria;
 
 @Repository
@@ -21,18 +21,18 @@ public class BoardDAOImpl implements BoardDAO {
 	private SqlSession session;
 
 	@Override
-	public void create(BoardVO board) throws Exception {
+	public void create(ArticleVO board) throws Exception {
 
 		session.insert(namespace + ".create", board);
 	}
 
 	@Override
-	public List<BoardVO> readAll() throws Exception {
+	public List<ArticleVO> readAll() throws Exception {
 		return session.selectList(namespace + ".readAll");
 	}
 
 	@Override
-	public void update(BoardVO board) throws Exception {
+	public void update(ArticleVO board) throws Exception {
 		session.update(namespace + ".update", board);
 	}
 
@@ -42,17 +42,17 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public BoardVO readOne(Integer bno) throws Exception {
+	public ArticleVO readOne(Integer bno) throws Exception {
 		return session.selectOne(namespace + ".readOne", bno);
 	}
 
-	/*@Override
-	public List<BoardVO> listPage(int page) throws Exception {
-		return null;
-	}*/
+	/*
+	 * @Override public List<BoardVO> listPage(int page) throws Exception {
+	 * return null; }
+	 */
 
 	@Override
-	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
+	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception {
 		return session.selectList(namespace + ".listSearch", cri);
 	}
 
@@ -62,49 +62,49 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	  public void updateReplyCnt(Integer bno, int amount) throws Exception {
+	public void updateReplyCnt(Integer bno, int amount) throws Exception {
 
-	    Map<String, Object> paramMap = new HashMap<String, Object>();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 
-	    paramMap.put("bno", bno);
-	    paramMap.put("amount", amount);
+		paramMap.put("bno", bno);
+		paramMap.put("amount", amount);
 
-	    session.update(namespace + ".updateReplyCnt", paramMap);
-	  }
+		session.update(namespace + ".updateReplyCnt", paramMap);
+	}
 
 	@Override
 	public void updateHit(Integer bno) throws Exception {
 		session.update(namespace + ".updateHit", bno);
-		
+
 	}
 
 	@Override
 	public void addAttach(String fullName) throws Exception {
 
 		session.insert(namespace + ".addAttach", fullName);
-		
+
 	}
 
 	@Override
 	public List<String> getAttach(Integer bno) throws Exception {
-		
+
 		return session.selectList(namespace + ".getAttach", bno);
 	}
 
 	@Override
 	public void deleteAttach(Integer bno) throws Exception {
-		
+
 		session.delete(namespace + ".deleteAttach", bno);
 	}
 
 	@Override
 	public void replaceAttach(String fullName, Integer bno) throws Exception {
-		
+
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		
+
 		paramMap.put("bno", bno);
 		paramMap.put("fullName", fullName);
-		
+
 		session.insert(namespace + ".replaceAttach", paramMap);
 	}
 }

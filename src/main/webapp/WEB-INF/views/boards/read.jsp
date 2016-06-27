@@ -14,8 +14,8 @@ input[readonly] {
 	border: 0px;
 }
 
-input:read-only, #textArea:read-only{ 
-    background-color: white !important;
+input:read-only, #textArea:read-only {
+	background-color: white !important;
 }
 
 #textArea {
@@ -26,20 +26,22 @@ input:read-only, #textArea:read-only{
 	background-color: white;
 }
 </style>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
-	<div class="content-wrapper">
+<div class="content-wrapper">
 
 	<!-- 글읽기 폼 -->
 	<div class="container">
-		<div  class="form-horizontal">
-			<fieldset >
+		<div class="form-horizontal">
+			<fieldset>
 				<legend class="col-lg-10 col-lg-offset-1">글읽기</legend>
 				<div class="form-group">
-					<label for="bno" class="col-lg-2 control-label">글번호</label>
+
+					<label for="ano" class="col-lg-2 control-label">글번호</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" value="${article.bno }"
-							name="bno" readonly>
+						<input type="text" class="form-control" value="${article.ano }"
+							name="ano" readonly>
 					</div>
 				</div>
 
@@ -62,21 +64,22 @@ input:read-only, #textArea:read-only{
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
-						<div id="content" style="padding:20px;"></div>
+						<div id="content" style="padding: 20px;"></div>
 					</div>
 				</div>
-				
+
 				<div class="form-group">
 					<label class="col-lg-2 control-label">첨부파일</label>
 					<div class="col-lg-10">
-						<div class='popup back' style="display:none;"></div>
-						<div id="popup_front" class='popup front' style="display:none;">
+						<div class='popup back' style="display: none;"></div>
+						<div id="popup_front" class='popup front' style="display: none;">
 							<img id="popup_img">
 						</div>
-						<ul class="mailbox-attachments clearfix uploadedList"> </ul>
+						<ul class="mailbox-attachments clearfix uploadedList">
+						</ul>
 					</div>
 				</div>
-				
+
 				<div class="form-group">
 					<label for="regdate" class="col-lg-2 control-label">작성 날짜</label>
 					<div class="col-lg-10">
@@ -89,8 +92,8 @@ input:read-only, #textArea:read-only{
 
 				<!-- 페이징용 파라미터 저장 폼 -->
 				<form role="page" action="/boards" method="get">
-					<input type='hidden' name='page' value="${cri.page}">
-					<input type='hidden' name='perPageNum' value="${cri.perPageNum}">
+					<input type='hidden' name='page' value="${cri.page}"> <input
+						type='hidden' name='perPageNum' value="${cri.perPageNum}">
 					<input type='hidden' name='searchType' value="${cri.searchType}">
 					<input type='hidden' name='keyword' value="${cri.keyword}">
 				</form>
@@ -109,7 +112,7 @@ input:read-only, #textArea:read-only{
 
 	<!-- 댓글 -->
 	<div>
-		
+
 		<!-- 댓글 입력폼 -->
 		<div class="container">
 			<form class="form-horizontal">
@@ -131,8 +134,8 @@ input:read-only, #textArea:read-only{
 					</div>
 					<div class="form-group">
 						<div class="col-lg-10 col-lg-offset-2">
-							<input type="button" class="btn btn-success btn-flat" value="댓글 쓰기"
-								id="new-reply">
+							<input type="button" class="btn btn-success btn-flat"
+								value="댓글 쓰기" id="new-reply">
 						</div>
 					</div>
 				</fieldset>
@@ -166,15 +169,18 @@ input:read-only, #textArea:read-only{
 					</p>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-info btn-flat" id="replyModBtn">수정</button>
-					<button type="button" class="btn btn-danger btn-flat" id="replyDelBtn">삭제</button>
-					<button type="button" class="btn btn-default btn-flat" data-dismiss="modal">닫기</button>
+					<button type="button" class="btn btn-info btn-flat"
+						id="replyModBtn">수정</button>
+					<button type="button" class="btn btn-danger btn-flat"
+						id="replyDelBtn">삭제</button>
+					<button type="button" class="btn btn-default btn-flat"
+						data-dismiss="modal">닫기</button>
 				</div>
 			</div>
 		</div>
 	</div>
-	
-	</div>
+
+</div>
 
 
 <!-- 댓글 템플릿 -->
@@ -195,43 +201,46 @@ input:read-only, #textArea:read-only{
 		</div>
 	{{/each}}
 </script>
-	
+
 
 <!-- 글 처리 스크립트 -->
 <script type="text/javascript">
-	var bno = ${article.bno};
+
+	var ano = ${article.ano};
 	var pageForm = $('form[role="page"]');
 	var content = '${article.content}';
-	
+
 	$('#content').html(content);
-		
+
 	/* 목록 버튼 클릭 */
-	$("#list").on("click", function(){
+	$("#list").on("click", function() {
 		pageForm.submit();
 	});
-		
+
 	/* 삭제 버튼 클릭 */
-	$("#delete").on("click", function(){
-		
+	$("#delete").on("click", function() {
+
 		var arr = [];
-		$(".uploadedList li").each(function(index){
-			 arr.push($(this).attr("data-src"));
+		$(".uploadedList li").each(function(index) {
+			arr.push($(this).attr("data-src"));
 		});
-		
-		if(arr.length > 0){
-			$.post("/deleteAllFiles",{files:arr}, function(){
-				
+
+		if (arr.length > 0) {
+			$.post("/deleteAllFiles", {
+				files : arr
+			}, function() {
+
 			});
 		}
-		
-		pageForm.attr('action', bno + '/delete');
+
+		pageForm.attr('action', ano + '/delete');
 		pageForm.attr('method', 'post');
 		pageForm.submit();
 	});
-		
+
 	/* 편집 버튼 클릭 */
 	$('#edit').click(function() {
-		pageForm.attr('action', bno + '/edit');
+		pageForm.attr('action', ano + '/edit');
 		pageForm.submit();
 	});
 </script>
@@ -239,6 +248,7 @@ input:read-only, #textArea:read-only{
 
 <!-- 댓글 처리 스크립트 -->
 <script type="text/javascript">
+	var ano = ${article.ano};
 	var bno = ${article.bno};
 	var replyPage = 1;
 
@@ -262,7 +272,9 @@ input:read-only, #textArea:read-only{
 
 	/* 댓글 목록 및 페이지 가져오기 */
 	function getReply() {
-		$.getJSON('/replies/' + bno + "/" + replyPage, function(data) {
+		// 		$.getJSON('/replies/' + ano + "/" + replyPage, function(data) {
+		$.getJSON('/replies/' + bno + "/" + ano + "/" + replyPage, function(
+				data) {
 			printData(data.list, $('#reply-list'), $('#template'));
 			$("#modifyModal").modal('hide');
 			printPaging(data.pageMaker);
@@ -276,7 +288,7 @@ input:read-only, #textArea:read-only{
 
 		replyPage = $(this).attr("href");
 
-		getReply("/replies/" + bno + "/" + replyPage);
+		getReply("/replies/" + bno + "/" + ano + "/" + replyPage);
 	});
 
 	/* 댓글 페이징 처리 */
@@ -314,6 +326,7 @@ input:read-only, #textArea:read-only{
 			},
 			data : JSON.stringify({
 				bno : bno,
+				ano : ano,
 				replyer : $('#replyer').val(),
 				replytext : $('#replytext').val()
 			}),
@@ -321,7 +334,7 @@ input:read-only, #textArea:read-only{
 				if (data === 'success') {
 					alert('댓글이 등록되었습니다.');
 					replyPage = 1;
-					getReply("/replies/" + bno + "/" + replyPage);
+					getReply("/replies/" + bno + "/" + ano + "/" + replyPage);
 					$('#replyer').val('');
 					$('#replytext').val('');
 				}
@@ -382,7 +395,7 @@ input:read-only, #textArea:read-only{
 		});
 	});
 </script>
-	
+
 <script id="templateAttach" type="text/x-handlebars-template">
 <li data-src='{{fullName}}'>
   <span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" data="{{getLink}}"alt="Attachment"></span>
@@ -396,44 +409,45 @@ input:read-only, #textArea:read-only{
 <script type="text/javascript" src="/resources/js/upload.js"></script>
 
 <script>
-	var bno = ${article.bno};
-	
+	var ano = ${article.ano};
+
 	var template = Handlebars.compile($("#templateAttach").html());
-	
-	$.getJSON("/boards/getAttach/" + bno, function(list) {	
-		$(list).each(function() {			
+
+	$.getJSON("/boards/getAttach/" + ano, function(list) {
+		$(list).each(function() {
 			var fileInfo = getFileInfo(this);
 			var html = template(fileInfo);
-			
+
 			$(".uploadedList").append(html);
 		});
 	});
 </script>
 <script>
-	$(".uploadedList").on("click", ".mailbox-attachment-icon img", function(event){
-		
-		var fileLink = $(this).attr("data");
-		
-		if(checkImageType(fileLink)){
-			
-			event.preventDefault();
-					
-			var imgTag = $("#popup_img");
-			imgTag.attr("src", fileLink);
-			
-			console.log(imgTag.attr("src"));
-					
-			$(".popup").show('slow');
-			imgTag.addClass("show");		
-		}	
-	});
-	
-	$("#popup_img").on("click", function(){
-		
+	$(".uploadedList").on("click", ".mailbox-attachment-icon img",
+			function(event) {
+
+				var fileLink = $(this).attr("data");
+
+				if (checkImageType(fileLink)) {
+
+					event.preventDefault();
+
+					var imgTag = $("#popup_img");
+					imgTag.attr("src", fileLink);
+
+					console.log(imgTag.attr("src"));
+
+					$(".popup").show('slow');
+					imgTag.addClass("show");
+				}
+			});
+
+	$("#popup_img").on("click", function() {
+
 		$(".popup").hide('slow');
-		
+
 	});
 </script>
-	
-	
-<jsp:include page="../include/footer.jsp"></jsp:include>	
+
+
+<jsp:include page="../include/footer.jsp"></jsp:include>

@@ -4,56 +4,65 @@ import java.util.Date;
 
 public class ReplyVO {
 
-	private int rno;
-	private int bno;
-	private String replytext;
-	private String replyer;
-	private Date regdate;
+   private int bno;
+   private int ano;
+   private int rno;
+   private String replytext;
+   private String replyer;
+   private Date regdate;
 
-	public int getRno() {
-		return rno;
-	}
+   public int getBno() {
+      return bno;
+   }
 
-	public void setRno(int rno) {
-		this.rno = rno;
-	}
+   public void setBno(int bno) {
+      this.bno = bno;
+   }
 
-	public int getBno() {
-		return bno;
-	}
+   public int getAno() {
+      return ano;
+   }
 
-	public void setBno(int bno) {
-		this.bno = bno;
-	}
+   public void setAno(int ano) {
+      this.ano = ano;
+   }
 
-	public String getReplytext() {
-		return replytext;
-	}
+   public int getRno() {
+      return rno;
+   }
 
-	public void setReplytext(String replytext) {
-		this.replytext = replytext;
-	}
+   public void setRno(int rno) {
+      this.rno = rno;
+   }
 
-	public String getReplyer() {
-		return replyer;
-	}
+   public String getReplytext() {
+      return replytext;
+   }
 
-	public void setReplyer(String replyer) {
-		this.replyer = replyer;
-	}
+   public void setReplytext(String replytext) {
+      this.replytext = replytext;
+   }
 
-	public Date getRegdate() {
-		return regdate;
-	}
+   public String getReplyer() {
+      return replyer;
+   }
 
-	public void setRegdate(Date regdate) {
-		this.regdate = regdate;
-	}
+   public void setReplyer(String replyer) {
+      this.replyer = replyer;
+   }
 
-	@Override
-	public String toString() {
-		return "ReplyVO [rno=" + rno + ", bno=" + bno + ", replytext=" + replytext + ", replyer=" + replyer
-				+ ", regdate=" + regdate + "]";
-	}
+   public Date getRegdate() {
+      return regdate;
+   }
+
+   public void setRegdate(Date regdate) {
+      this.regdate = regdate;
+   }
+
+   @Override
+   public String toString() {
+      return "ReplyVO [bno=" + bno + ", ano=" + ano + ", rno=" + rno + ", replytext=" + replytext + ", replyer="
+            + replyer + ", regdate=" + regdate + "]";
+   }
 
 }

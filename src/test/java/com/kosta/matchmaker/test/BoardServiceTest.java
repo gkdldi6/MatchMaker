@@ -9,7 +9,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.kosta.matchmaker.domain.BoardVO;
+import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.FreeBoardVO;
+import com.kosta.matchmaker.domain.NoticeBoardVO;
+import com.kosta.matchmaker.domain.ReferenceBoardVO;
 import com.kosta.matchmaker.service.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,60 +25,79 @@ public class BoardServiceTest {
 	@Test
 	public void testRegister() throws Exception {
 
-		BoardVO board = new BoardVO();
-
-		board.setTitle("서비스 테스트");
-		board.setContent("성공적");
-		board.setWriter("다음으로");
+		FreeBoardVO board = new FreeBoardVO();
+//		NoticeBoardVO board = new NoticeBoardVO();
+//		ReferenceBoardVO board = new ReferenceBoardVO();
+		
+		board.setBno(1);
+		board.setArticle_type("F");
+		board.setTitle("113122313");
+		board.setContent("222");
+		board.setWriter("2");
+//		board.setLiked(100);
+//		board.setDeadline("1991.05.28");
+//		board.setBound("free");
+//		board.setFullname("fafdighaeoifgoaierjg");
 
 		service.register(board);
 
 	}
+	
 
 	@Test
 	public void testReadAll() throws Exception {
 
-		List<BoardVO> list = service.readAll();
+		
+		List<ArticleVO> list = service.readAll(1);
 
 		if (list == null) {
 			System.out.println("없다");
 		}
 
-		for (BoardVO board : list) {
+		for (ArticleVO board : list) {
 			System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
 					+ board.getRegdate() + "\t" + board.getHit());
 		}
 	}
+	
+	@Test
+	public void testReadOne() throws Exception {
+
+		NoticeBoardVO article = (NoticeBoardVO) service.readOne(2, 1);
+
+		System.out.println(article.getBno() + "\t" + article.getTitle() + "\t" + article.getWriter() + "\t"
+				+ article.getRegdate() + "\t" + article.getHit());
+	}
 
 	@Test
-	public void testModify() throws Exception{
+	public void testModify() throws Exception {
+
+		FreeBoardVO board = new FreeBoardVO();
+//		NoticeBoardVO board = new NoticeBoardVO();
+//		ReferenceBoardVO board = new ReferenceBoardVO();
 		
-		BoardVO board = new BoardVO();
-		
-		board.setBno(3);
-		board.setTitle("서비스 수정 테스트");
-		board.setContent("성공적");
+		board.setBno(1);
+		board.setAno(1);
+//		board.setArticle_type("F");
+		board.setTitle("뭐야이거");
+		board.setContent("바뀜");
 		board.setWriter("다음으로");
-		
+//		board.setLiked(200);
+//		board.setDeadline("1991.05.28");
+//		board.setBound("free");
+
 		service.modify(board);
-		
+
 	}
-	
+
 	@Test
-	public void testRemove() throws Exception{
-		
-		service.remove(3);
-		
+	public void testRemove() throws Exception {
+
+		service.remove(1, 2);
+
 	}
+
+
 	
-	@Test
-	public void testReadOne() throws Exception{
-		
-		BoardVO board = service.readOne(2);
-		
-		System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
-				+ board.getRegdate() + "\t" + board.getHit());
-	}
-	
-	
+
 }
