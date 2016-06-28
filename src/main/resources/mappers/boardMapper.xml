@@ -172,11 +172,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by ano desc
 	</select>
 
-	<select id="freeOne" resultType="FreeBoardVO">
+	<select id="freeAll" resultType="FreeBoardVO">
 		select * from article a, free f
-		where a.bno = f.bno and a.ano = f.ano and a.ano = #{ano} and a.bno = #{bno}
+		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
 	</select>
 
+	<select id="freeOne" resultType="FreeBoardVO">
+		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, f.liked 
+		from article a, free f
+		where a.bno = f.bno and a.ano = f.ano and a.ano = #{ano} and a.bno = #{bno}
+	</select>
 
 	<select id="noticeOne" resultType="NoticeBoardVO">
 		select * from article a, notice n
@@ -213,6 +218,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where bno = #{bno} and ano = #{ano}
 	</delete>
 	
+	<delete id="deleteFree">
+		delete from free
+		where bno = #{bno} and ano = #{ano}
+	</delete>
+	
+	<delete id="deleteNotice">
+		delete from notice
+		where bno = #{bno} and ano = #{ano}
+	</delete>
+	
+	<delete id="deleteReference">
+		delete from reference
+		where bno = #{bno} and ano = #{ano}
+	</delete>
+	
 	<update id="updateHit">
 		update article set hit = hit + 1 where bno = #{bno} and ano = #{ano}
 	</update>
@@ -221,48 +241,67 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">
-				and title like CONCAT('%', #{keyword}, '%')
+				and title like CONCAT('%', #{cri.keyword}, '%')
 			</if>
 			<if test="searchType == 'c'.toString()">
-				and content like CONCAT('%', #{keyword}, '%')
+				and content like CONCAT('%', #{cri.keyword}, '%')
 			</if>
 			<if test="searchType == 'w'.toString()">
-				and writer like CONCAT('%', #{keyword}, '%')
+				and writer like CONCAT('%', #{cri.keyword}, '%')
 			</if>
 			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%') OR content
+				and ( title like CONCAT('%', #{cri.keyword}, '%') OR content
 				like
-				CONCAT('%', #{keyword}, '%'))
+				CONCAT('%', #{cri.keyword}, '%'))
 			</if>
 			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{keyword}, '%') OR writer
+				and ( content like CONCAT('%', #{cri.keyword}, '%') OR writer
 				like
-				CONCAT('%', #{keyword}, '%'))
+				CONCAT('%', #{cri.keyword}, '%'))
 			</if>
 			<if test="searchType == 'tcw'.toString()">
-				and ( title like CONCAT('%', #{keyword}, '%')
+				and ( title like CONCAT('%', #{cri.keyword}, '%')
 				OR
 				content
-				like CONCAT('%', #{keyword}, '%')
+				like CONCAT('%', #{cri.keyword}, '%')
 				OR
 				writer like CONCAT('%',
-				#{keyword}, '%'))
+				#{cri.keyword}, '%'))
 			</if>
 		</if>
 	</sql>
 
-	<select id="listSearch" resultType="ArticleVO">
+<!-- 	<select id="listSearch" resultType="ArticleVO"> -->
+<!-- 		<![CDATA[ -->
+<!-- 		select * -->
+<!-- 		from article -->
+<!-- 		where bno = 1 and ano > 0	 -->
+<!-- 		]]> -->
+
+<!-- 		<include refid="search"></include> -->
+		
+<!-- 		<![CDATA[	 -->
+<!-- 		order by bno desc, regdate desc -->
+<!-- 		limit #{pageStart} , #{perPageNum} -->
+<!-- 		]]> -->
+<!-- 	</select> -->
+	
+	<select id="boardName" resultType="String">
+		select name from board where bno = #{bno}
+	</select>
+	
+	<select id="listSearch" resultType="FreeBoardVO">
 		<![CDATA[
-		select *
-		from article
-		where bno = 1 and ano > 0	
+		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, f.liked 
+		from article a, free f
+		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
 		]]>
 
 		<include refid="search"></include>
 		
 		<![CDATA[	
-		order by bno desc, regdate desc
-		limit #{pageStart} , #{perPageNum}
+		order by a.ano desc
+		limit #{cri.pageStart} , #{cri.perPageNum}
 		]]>
 	</select>
 

@@ -31,12 +31,14 @@ public interface ArticleDAO {
 	public void referenceCreate(ArticleVO board) throws Exception;
 	
 	
+	// 자유게시판류 글 읽기
+	public List<ArticleVO> freeAll(Integer bno) throws Exception;
 	
 	// 게시글 읽기 (전체목록 read)
 	public List<ArticleVO> readAll(Integer bno) throws Exception;
 	
 	// 검색 결과 
-	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception;
+	public List<ArticleVO> listSearch(Integer bno, SearchCriteria cri) throws Exception;
 
 	// 검색 결과 개수
 	public int listSearchCount(SearchCriteria cri) throws Exception;
@@ -50,8 +52,8 @@ public interface ArticleDAO {
 	// 자료 게시글 조회
 	public ReferenceBoardVO referenceOne(Integer bno, Integer ano) throws Exception;	
 	
-	
-	
+	// 게시판 이름 가져오기
+	public String boardName(Integer bno) throws Exception;
 	
 	// 게시글 수정(update)
 	public void update(ArticleVO board) throws Exception;
@@ -71,8 +73,14 @@ public interface ArticleDAO {
 	// 게시글 삭제(delete)
 	public void delete(Integer bno, Integer ano) throws Exception;
 	
+	// 자유글 삭제
+	public void deleteFree(Integer bno, Integer ano) throws Exception;
 	
-
+	// 공지글 삭제
+	public void deleteNotice(Integer bno, Integer ano) throws Exception;
+	
+	// 자료글 삭제
+	public void deleteReference(Integer bno, Integer ano) throws Exception;
 
 	// 리플라이 카운터
 	public void updateReplyCnt(Integer ano, int amount) throws Exception;

@@ -52,12 +52,12 @@
 							<li class="dropdown"><a class="dropdown-toggle"
 								data-toggle="dropdown">게시판 <span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">공지게시판</a></li>
+									<li><a href="/boards/0">공지게시판</a></li>
                                     <li class="divider"></li>
-									<li><a href="/boards">자유게시판</a></li>
-									<li><a href="#">농구게시판</a></li>
+									<li><a href="/boards/1">자유게시판</a></li>
+									<li><a href="/boards/2">농구게시판</a></li>
 									<li class="divider"></li>
-									<li><a href="#">자료게시판</a></li>
+									<li><a href="/boards/100">자료게시판</a></li>
 								</ul>
 							</li>
 							

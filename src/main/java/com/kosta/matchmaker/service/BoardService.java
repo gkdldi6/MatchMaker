@@ -1,6 +1,7 @@
 package com.kosta.matchmaker.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.SearchCriteria;
@@ -14,7 +15,7 @@ public interface BoardService {
 	public List<ArticleVO> readAll(Integer bno) throws Exception;
 
 	//검색 결과 
-	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception;
+	public Map<String, Object> listSearch(int bno, SearchCriteria cri) throws Exception;
 	
 	//검색 결과  개수
 	public int listSearchCount(SearchCriteria cri) throws Exception;

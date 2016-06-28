@@ -3,7 +3,6 @@
 
 <jsp:include page="../include/header.jsp"></jsp:include>
 
-
 <style>
 .container {
 	padding-top: 30px;

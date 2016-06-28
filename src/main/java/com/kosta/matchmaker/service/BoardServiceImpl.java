@@ -1,6 +1,8 @@
 package com.kosta.matchmaker.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -24,21 +26,19 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void register(ArticleVO board) throws Exception {
 
-		int ano;
 		int bno = board.getBno();
 		Integer lano = dao.lastAno(bno);
 
 		if (lano != null) {
-			ano = lano + 1;
+			lano++;
 		} else {
-			ano = 1;
+			lano = 1;
 		}
 
-		board.setAno(ano);
+		board.setAno(lano);
 		dao.create(board);
-
+		System.out.println(board.toString());
 		String article_type = board.getArticle_type();
-		// String article_type = "F";
 
 		if (article_type.equals("F")) {
 			dao.freeCreate(board);
@@ -64,15 +64,19 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<ArticleVO> readAll(Integer bno) throws Exception {
 
-		return dao.readAll(bno);
+//		return dao.readAll(bno);
+		return dao.freeAll(bno);
 
 	}
 
 	@Override
-	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception {
-
-		return dao.listSearch(cri);
-
+	public Map<String, Object> listSearch(int bno, SearchCriteria cri) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("name", dao.boardName(bno));
+		map.put("list", dao.listSearch(bno, cri));
+		
+		return map;
 	}
 
 	@Override
@@ -87,19 +91,18 @@ public class BoardServiceImpl implements BoardService {
 	public ArticleVO readOne(Integer bno, Integer ano) throws Exception {
 		String type = dao.getType(bno, ano);
 
-		ArticleVO vo = null;
+		ArticleVO article = null;
 
 		if (type.equals("F")) {
-			vo = dao.freeOne(bno, ano);
+			article = dao.freeOne(bno, ano);
 		} else if (type.equals("N")) {
-			vo = dao.noticeOne(bno, ano);
+			article = dao.noticeOne(bno, ano);
 		} else if (type.equals("R")) {
-			vo = dao.referenceOne(bno, ano);
+			article = dao.referenceOne(bno, ano);
 		}
 
 		dao.updateHit(bno, ano);
-		return vo;
-
+		return article;
 	}
 
 	@Transactional
@@ -125,10 +128,19 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public void remove(Integer bno, Integer ano) throws Exception {
-
-		// dao.deleteAttach(ano);
+		
+		String type = dao.getType(bno, ano);
 		dao.delete(bno, ano);
-
+		
+		if (type.equals("F")) {
+			dao.deleteFree(bno, ano);
+		} else if (type.equals("N")) {
+			dao.deleteNotice(bno, ano);
+		} else if (type.equals("R")) {
+			dao.deleteReference(bno, ano);
+		}
+		
+		// dao.deleteAttach(ano);
 	}
 
 	@Override

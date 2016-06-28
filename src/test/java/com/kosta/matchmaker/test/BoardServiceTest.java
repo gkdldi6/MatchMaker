@@ -29,11 +29,11 @@ public class BoardServiceTest {
 //		NoticeBoardVO board = new NoticeBoardVO();
 //		ReferenceBoardVO board = new ReferenceBoardVO();
 		
-		board.setBno(1);
+		board.setBno(2);
 		board.setArticle_type("F");
-		board.setTitle("113122313");
-		board.setContent("222");
-		board.setWriter("2");
+		board.setTitle("dadasd");
+		board.setContent("asds");
+		board.setWriter("sasdasd");
 //		board.setLiked(100);
 //		board.setDeadline("1991.05.28");
 //		board.setBound("free");
@@ -47,16 +47,16 @@ public class BoardServiceTest {
 	@Test
 	public void testReadAll() throws Exception {
 
-		
 		List<ArticleVO> list = service.readAll(1);
 
-		if (list == null) {
+		if (list.isEmpty()) {
 			System.out.println("없다");
+			return;
 		}
 
 		for (ArticleVO board : list) {
 			System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
-					+ board.getRegdate() + "\t" + board.getHit());
+					+ board.getRegdate() + "\t" + board.getHit() + "\n" + board.toString());
 		}
 	}
 	

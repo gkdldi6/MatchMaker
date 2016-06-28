@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.FreeBoardVO;
 import com.kosta.matchmaker.domain.PageMaker;
 import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.service.BoardService;
@@ -26,10 +27,10 @@ public class BoardController {
 	private BoardService service;
 
 	/*게시판 글 목록 읽기*/
-	@RequestMapping(value = "", method=RequestMethod.GET)
-	public String listAll(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+	@RequestMapping(value = "/{bno}", method=RequestMethod.GET)
+	public String listAll(@PathVariable("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		
-		model.addAttribute("list", service.listSearch(cri));
+		model.addAttribute("map", service.listSearch(bno, cri));
 		
 		PageMaker pagemaker = new PageMaker();
 		pagemaker.setCri(cri);
@@ -41,9 +42,20 @@ public class BoardController {
 	}
 	
 	/*글 작성폼 열기*/
-	@RequestMapping(value="/new", method=RequestMethod.GET)
-	public String write() throws Exception {
-		return "boards/register";
+	@RequestMapping(value="/{bno}/new", method=RequestMethod.GET)
+	public String write(@PathVariable("bno") int bno) throws Exception {
+		return "boards/freeRegister";
+	}
+	
+	/*글 작성*/
+	@RequestMapping(value="/{bno}/new", method=RequestMethod.POST)
+	public String freeWrite(@PathVariable("bno") int bno, RedirectAttributes rttr, FreeBoardVO article) throws Exception {
+		article.setBno(bno);
+		service.register(article);
+		
+		rttr.addFlashAttribute("result", "success");
+		
+		return "redirect:/boards/" + bno;
 	}
 	
 	/*글 작성*/
@@ -61,18 +73,13 @@ public class BoardController {
 	public String readOne(@PathVariable("bno") int bno, @PathVariable("ano") int ano, 
 			@ModelAttribute("cri") SearchCriteria cri,
 						Model model) throws Exception {
-		
-		System.out.println(bno);
-		System.out.println(ano);
-		
+	
 		ArticleVO article = service.readOne(bno, ano);
 		
 		model.addAttribute("article", article);
 		
-		return "boards/read";
+		return "boards/freeArticle";
 	}
-	
-
 	
 	/*글 수정 폼 열기*/
 	@RequestMapping(value="/{bno}/{ano}/edit", method=RequestMethod.GET)
@@ -105,13 +112,14 @@ public class BoardController {
 			RedirectAttributes rttr) throws Exception {
 		
 		service.remove(bno, ano);
+		
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
 		rttr.addFlashAttribute("result", "success");
 		
-		return "redirect:/boards";
+		return "redirect:/boards/" + bno;
 	}
 	
 	/*첨부파일 목록 조회*/

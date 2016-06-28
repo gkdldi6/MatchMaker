@@ -80,11 +80,25 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		return session.selectList(namespace + ".readAll", bno);
 	}
+	
+	@Override
+	public List<ArticleVO> freeAll(Integer bno) throws Exception {
+
+		return session.selectList(namespace + ".freeAll", bno);
+	}
 
 	@Override
-	public List<ArticleVO> listSearch(SearchCriteria cri) throws Exception {
+	public String boardName(Integer bno) throws Exception {
+		return session.selectOne(namespace + ".boardName", bno);
+	}
+	
+	@Override
+	public List<ArticleVO> listSearch(Integer bno, SearchCriteria cri) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("cri", cri);
 
-		return session.selectList(namespace + ".listSearch", cri);
+		return session.selectList(namespace + ".listSearch", map);
 	}
 
 	@Override
@@ -94,20 +108,20 @@ public class ArticleDAOImpl implements ArticleDAO {
 	}
 
 	@Override
-	public FreeBoardVO freeOne(Integer ano, Integer bno) throws Exception {
+	public FreeBoardVO freeOne(Integer bno, Integer ano) throws Exception {
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("bno", bno);
 		map.put("ano", ano);
 
 		return session.selectOne(namespace + ".freeOne", map);
 	}
-
+	
 	@Override
 	public NoticeBoardVO noticeOne(Integer bno, Integer ano) throws Exception {
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("bno", bno);
 		map.put("ano", ano);
-
+		
 		return session.selectOne(namespace + ".noticeOne", map);
 	}
 
@@ -166,7 +180,33 @@ public class ArticleDAOImpl implements ArticleDAO {
 		map.put("ano", ano);
 
 		session.delete(namespace + ".delete", map);
+	}
+	
+	@Override
+	public void deleteFree(Integer bno, Integer ano) throws Exception {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
 
+		session.delete(namespace + ".deleteFree", map);
+	}
+
+	@Override
+	public void deleteNotice(Integer bno, Integer ano) throws Exception {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
+
+		session.delete(namespace + ".deleteNotice", map);
+	}
+
+	@Override
+	public void deleteReference(Integer bno, Integer ano) throws Exception {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
+
+		session.delete(namespace + ".deleteReference", map);
 	}
 
 	// 아래부터는 테스트 하지않은 미완성 코드..
@@ -179,7 +219,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 		paramMap.put("amount", amount);
 
 		session.update(namespace + ".updateReplyCnt", paramMap);
-
 	}
 
 	@Override
@@ -189,7 +228,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 		map.put("ano", ano);
 
 		session.update(namespace + ".updateHit", map);
-
 	}
 
 	@Override
@@ -202,7 +240,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 		// TODO Auto-generated method stub
 		// return session.selectList(namespace + ".getAttach", ano);
 		return null;
-
 	}
 
 	@Override
