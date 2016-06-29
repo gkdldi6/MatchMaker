@@ -29,15 +29,27 @@
                     <thead>
                       <tr>
                         <th width="10%">글번호</th>
-                        <th width="45%">제목</th>
+                        <th width="55%">제목</th>
                         <th width="10%">작성자</th>
                         <th width="15%">날짜</th>
                         <th width="10%">조회수</th>
-                        <th width="10%">추천수</th>
                       </tr>
                     </thead>
                     
                     <tbody>
+                    	<c:forEach items="${map.notice }" var="article">
+							<tr>
+								<td>${article.ano }</td>
+								<td class="title"><a
+									href='/boards/${article.bno}/${article.ano}${pageMaker.makeSearch(pageMaker.cri.page)}'>
+										${article.title }</a><span class="badge">${article.replycnt}</span>
+								</td>
+								<td>${article.writer }</td>
+								<td><fmt:formatDate pattern="yy-MM-dd HH:mm"
+										value="${article.regdate }" /></td>
+								<td><span class="badge">${article.hit }</span></td>
+							</tr>
+						</c:forEach>
 						<c:forEach items="${map.list }" var="article">
 							<tr>
 								<td>${article.ano }</td>
@@ -49,7 +61,6 @@
 								<td><fmt:formatDate pattern="yy-MM-dd HH:mm"
 										value="${article.regdate }" /></td>
 								<td><span class="badge">${article.hit }</span></td>
-								<td><span class="badge">${article.liked }</span></td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -133,76 +144,6 @@
             </div>
   
           </div>
- 		
- 		  <div class="col-xs-12 col-sm-4">
-           <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">최다 추천수</h3>
-              <div class="box-tools">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding" style="display: block;">
-              <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-              </ul>
-            </div>
-            <!-- /.box-body -->
-          </div>
-         </div>
-        
-          <div class="col-xs-12 col-sm-4">
-           <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">최다 조회수</h3>
-              <div class="box-tools">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding" style="display: block;">
-              <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-              </ul>
-            </div>
-            <!-- /.box-body -->
-          </div>
-         </div>
-        
-         <div class="col-xs-12 col-sm-4">
-           <div class="box box-solid">
-            <div class="box-header with-border">
-              <h3 class="box-title">최다 댓글수</h3>
-              <div class="box-tools">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                </button>
-              </div>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body no-padding" style="display: block;">
-              <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-              </ul>
-            </div>
-            <!-- /.box-body -->
-          </div>
-         </div>
-
         </div>
       </div>
 

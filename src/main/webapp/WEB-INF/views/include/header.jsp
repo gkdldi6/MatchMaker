@@ -56,6 +56,7 @@
                                     <li class="divider"></li>
 									<li><a href="/boards/1">자유게시판</a></li>
 									<li><a href="/boards/2">농구게시판</a></li>
+									<li><a href="/boards/3">게임게시판</a></li>
 									<li class="divider"></li>
 									<li><a href="/boards/100">자료게시판</a></li>
 								</ul>

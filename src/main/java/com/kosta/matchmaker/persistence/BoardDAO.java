@@ -3,6 +3,7 @@ package com.kosta.matchmaker.persistence;
 import java.util.List;
 
 import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.FreeBoardVO;
 import com.kosta.matchmaker.domain.SearchCriteria;
 
 public interface BoardDAO {
@@ -21,7 +22,7 @@ public interface BoardDAO {
 
 	// 게시글 읽기 (전체목록 read)
 	public List<ArticleVO> readAll() throws Exception;
-
+	
 	// 게시글 페이징처리중
 	// public List<BoardVO> listPage(int page) throws Exception;
 

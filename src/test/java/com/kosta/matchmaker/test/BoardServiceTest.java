@@ -44,21 +44,21 @@ public class BoardServiceTest {
 	}
 	
 
-	@Test
-	public void testReadAll() throws Exception {
-
-		List<ArticleVO> list = service.readAll(1);
-
-		if (list.isEmpty()) {
-			System.out.println("없다");
-			return;
-		}
-
-		for (ArticleVO board : list) {
-			System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
-					+ board.getRegdate() + "\t" + board.getHit() + "\n" + board.toString());
-		}
-	}
+//	@Test
+//	public void testReadAll() throws Exception {
+//
+//		List<ArticleVO> list = service.readAll(1);
+//
+//		if (list.isEmpty()) {
+//			System.out.println("없다");
+//			return;
+//		}
+//
+//		for (ArticleVO board : list) {
+//			System.out.println(board.getBno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
+//					+ board.getRegdate() + "\t" + board.getHit() + "\n" + board.toString());
+//		}
+//	}
 	
 	@Test
 	public void testReadOne() throws Exception {

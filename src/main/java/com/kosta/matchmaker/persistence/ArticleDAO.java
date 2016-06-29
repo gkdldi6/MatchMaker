@@ -1,6 +1,8 @@
 package com.kosta.matchmaker.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.FreeBoardVO;
@@ -28,7 +30,8 @@ public interface ArticleDAO {
 	public void noticeCreate(ArticleVO board) throws Exception;
 	
 	// 자료 게시글 등록
-	public void referenceCreate(ArticleVO board) throws Exception;
+	public void referenceCreate(Integer bno, Integer ano, String fullname) throws Exception;
+	
 	
 	
 	// 자유게시판류 글 읽기
@@ -37,11 +40,17 @@ public interface ArticleDAO {
 	// 게시글 읽기 (전체목록 read)
 	public List<ArticleVO> readAll(Integer bno) throws Exception;
 	
-	// 검색 결과 
+	// 글목록 조회 (검색 포함)
+	public List<ArticleVO> freeSearch(Integer bno, SearchCriteria cri) throws Exception;
+	
+	// 자료글 목록 조회 (검색 포함)
 	public List<ArticleVO> listSearch(Integer bno, SearchCriteria cri) throws Exception;
 
 	// 검색 결과 개수
-	public int listSearchCount(SearchCriteria cri) throws Exception;
+	public int listSearchCount(Integer bno, SearchCriteria cri) throws Exception;
+	
+	// 공지글 읽기
+	public List<FreeBoardVO> noticeList(Integer bno) throws Exception;
 	
 	// 자유 게시글 조회(selectOne)
 	public FreeBoardVO freeOne(Integer bno, Integer ano) throws Exception;
@@ -51,6 +60,9 @@ public interface ArticleDAO {
 	
 	// 자료 게시글 조회
 	public ReferenceBoardVO referenceOne(Integer bno, Integer ano) throws Exception;	
+	
+	// 게시글 조회
+	public ArticleVO articleOne(Integer bno, Integer ano) throws Exception;
 	
 	// 게시판 이름 가져오기
 	public String boardName(Integer bno) throws Exception;
@@ -91,13 +103,10 @@ public interface ArticleDAO {
 	// 첨부파일
 	public void addAttach(String fullName) throws Exception;
 
-	public List<String> getAttach(Integer ano) throws Exception;
+	public List<String> getAttach(Integer bno, Integer ano) throws Exception;
 
 	// 첨부파일 삭제
-	public void deleteAttach(Integer ano) throws Exception;
-
-	// 첨부파일 수정
-	public void replaceAttach(String fullName, Integer ano) throws Exception;
+	public void deleteAttach(Integer bno, Integer ano) throws Exception;
 
 	// 게시판 구분 메서드
 	public void selectBoard(Integer bno) throws Exception;

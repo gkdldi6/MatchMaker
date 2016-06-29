@@ -23,7 +23,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 	private static final String namespace = "com.kosta.matchmaker.mappers.BoardMapper";
 
-	// -------------------------- 게시판 구분 코드-------------------------
+	// -------------------------- 게시물 구분 코드-------------------------
 	@Override
 	public String getType(Integer bno, Integer ano) throws Exception {
 		HashMap<String, Integer> map = new HashMap<>();
@@ -38,8 +38,6 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		return session.selectOne(namespace + ".lastAno", bno);
 	}
-
-	// -------------------------- 게시판 구분 코드-------------------------
 
 	// -------------------------- 게시판 등록 -------------------------
 	@Override
@@ -66,15 +64,15 @@ public class ArticleDAOImpl implements ArticleDAO {
 		session.insert(namespace + ".noticeCreate", board);
 	}
 
-	@Override
-	public void referenceCreate(ArticleVO board) throws Exception {
-
-		session.insert(namespace + ".referenceCreate", board);
-	}
 	// -------------------------- 게시판 등록 -------------------------
 
 	// -------------------------- 게시판 목록 읽기, 글 하나 조회 -------------------------
 
+	@Override
+	public List<FreeBoardVO> noticeList(Integer bno) throws Exception {
+		return session.selectList(namespace + ".noticeList", bno);
+	}
+	
 	@Override
 	public List<ArticleVO> readAll(Integer bno) throws Exception {
 
@@ -93,6 +91,15 @@ public class ArticleDAOImpl implements ArticleDAO {
 	}
 	
 	@Override
+	public List<ArticleVO> freeSearch(Integer bno, SearchCriteria cri) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("cri", cri);
+
+		return session.selectList(namespace + ".freeSearch", map);
+	}
+	
+	@Override
 	public List<ArticleVO> listSearch(Integer bno, SearchCriteria cri) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("bno", bno);
@@ -102,9 +109,12 @@ public class ArticleDAOImpl implements ArticleDAO {
 	}
 
 	@Override
-	public int listSearchCount(SearchCriteria cri) throws Exception {
+	public int listSearchCount(Integer bno, SearchCriteria cri) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("cri", cri);
 
-		return session.selectOne(namespace + ".listSearchCount", cri);
+		return session.selectOne(namespace + ".listSearchCount", map);
 	}
 
 	@Override
@@ -125,6 +135,15 @@ public class ArticleDAOImpl implements ArticleDAO {
 		return session.selectOne(namespace + ".noticeOne", map);
 	}
 
+	@Override
+	public ArticleVO articleOne(Integer bno, Integer ano) throws Exception {
+		HashMap<String, Integer> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
+
+		return session.selectOne(namespace + ".articleOne", map);
+	}
+	
 	@Override
 	public ReferenceBoardVO referenceOne(Integer bno, Integer ano) throws Exception {
 		HashMap<String, Integer> map = new HashMap<>();
@@ -230,39 +249,46 @@ public class ArticleDAOImpl implements ArticleDAO {
 		session.update(namespace + ".updateHit", map);
 	}
 
+	
+	/*첨부파일*/
+	@Override
+	public void referenceCreate(Integer bno, Integer ano, String fullname) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
+		map.put("fullname", fullname);
+		
+		session.insert(namespace + ".referenceCreate", map);
+	}
+	
+	@Override
+	public List<String> getAttach(Integer bno, Integer ano) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
+		
+		return session.selectList(namespace + ".getAttach", map);
+	}
+
+	@Override
+	public void deleteAttach(Integer bno, Integer ano) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano); 
+		
+		session.delete(namespace + ".deleteAttach", map);
+	}
+
 	@Override
 	public void addAttach(String fullName) throws Exception {
-		// session.insert(namespace + ".addAttach", fullName);
-	}
-
-	@Override
-	public List<String> getAttach(Integer ano) throws Exception {
 		// TODO Auto-generated method stub
-		// return session.selectList(namespace + ".getAttach", ano);
-		return null;
-	}
-
-	@Override
-	public void deleteAttach(Integer ano) throws Exception {
-		// session.delete(namespace + ".deleteAttach", ano);
-
-	}
-
-	@Override
-	public void replaceAttach(String fullName, Integer ano) throws Exception {
-
-		// Map<String, Object> paramMap = new HashMap<String, Object>();
-		//
-		// paramMap.put("ano", ano);
-		// paramMap.put("fullName", fullName);
-		//
-		// session.insert(namespace + ".replaceAttach", paramMap);
-
+		
 	}
 
 	@Override
 	public void selectBoard(Integer bno) throws Exception {
-
+		// TODO Auto-generated method stub
+		
 	}
 
 }

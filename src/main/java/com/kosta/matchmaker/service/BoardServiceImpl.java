@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.ReferenceBoardVO;
 import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.persistence.ArticleDAO;
 
@@ -37,7 +38,7 @@ public class BoardServiceImpl implements BoardService {
 
 		board.setAno(lano);
 		dao.create(board);
-		System.out.println(board.toString());
+
 		String article_type = board.getArticle_type();
 
 		if (article_type.equals("F")) {
@@ -45,44 +46,43 @@ public class BoardServiceImpl implements BoardService {
 		} else if (article_type.equals("N")) {
 			dao.noticeCreate(board);
 		} else if (article_type.equals("R")) {
-			dao.referenceCreate(board);
+			
+			ReferenceBoardVO rarticle = (ReferenceBoardVO) board;
+			
+			String[] files = rarticle.getFiles();
+			
+			if(files == null){
+				return;
+			}
+			
+			for(String name : files){
+				dao.referenceCreate(bno, lano, name);
+			}
 		}
-
-		// String[] files = board.getFiles();
-		//
-		// if(files == null){
-		// return;
-		// }
-		//
-		// for(String fileName : files){
-		// dao.addAttach(fileName);
-		// }
 	}
 
 	// -------------------------- 게시판 등록 -------------------------
-
-	@Override
-	public List<ArticleVO> readAll(Integer bno) throws Exception {
-
-//		return dao.readAll(bno);
-		return dao.freeAll(bno);
-
-	}
 
 	@Override
 	public Map<String, Object> listSearch(int bno, SearchCriteria cri) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("name", dao.boardName(bno));
-		map.put("list", dao.listSearch(bno, cri));
+		map.put("notice", dao.noticeList(bno));
+		
+		if(bno == 100 || bno == 0) {
+			map.put("list", dao.listSearch(bno, cri));
+		} else {
+			map.put("list", dao.freeSearch(bno, cri));
+		}
 		
 		return map;
 	}
 
 	@Override
-	public int listSearchCount(SearchCriteria cri) throws Exception {
+	public int listSearchCount(Integer bno, SearchCriteria cri) throws Exception {
 
-		return dao.listSearchCount(cri);
+		return dao.listSearchCount(bno, cri);
 
 	}
 
@@ -98,7 +98,7 @@ public class BoardServiceImpl implements BoardService {
 		} else if (type.equals("N")) {
 			article = dao.noticeOne(bno, ano);
 		} else if (type.equals("R")) {
-			article = dao.referenceOne(bno, ano);
+			article = dao.articleOne(bno, ano);
 		}
 
 		dao.updateHit(bno, ano);
@@ -108,21 +108,28 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public void modify(ArticleVO board) throws Exception {
-
-		dao.update(board);
-
+		Integer bno = board.getBno();
 		Integer ano = board.getAno();
-		// dao.deleteAttach(ano);
+		
+		dao.update(board);
+		
+		String type = dao.getType(bno, ano);
 
-		// String[] files = board.getFiles();
-		//
-		// if (files == null) {
-		// return;
-		// }
-		//
-		// for (String fileName : files) {
-		// dao.replaceAttach(fileName, ano);
-		// }
+		if (type.equals("R")) {
+			ReferenceBoardVO rarticle = (ReferenceBoardVO) board;
+			
+			dao.deleteAttach(bno, ano);
+
+			String[] files = rarticle.getFiles();
+
+			if (files == null) {
+				return;
+			}
+
+			for (String name : files) {
+				dao.referenceCreate(bno, ano, name);
+			}
+		}
 	}
 
 	@Transactional
@@ -139,20 +146,12 @@ public class BoardServiceImpl implements BoardService {
 		} else if (type.equals("R")) {
 			dao.deleteReference(bno, ano);
 		}
-		
-		// dao.deleteAttach(ano);
 	}
 
 	@Override
-	public List<String> getAttach(Integer ano) throws Exception {
+	public List<String> getAttach(Integer bno, Integer ano) throws Exception {
 
-		return dao.getAttach(ano);
-	}
-
-	@Override
-	public void removeAttach(Integer ano) throws Exception {
-		dao.deleteAttach(ano);
-
+		return dao.getAttach(bno, ano);
 	}
 
 }

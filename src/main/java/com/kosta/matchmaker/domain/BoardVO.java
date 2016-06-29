@@ -2,28 +2,27 @@ package com.kosta.matchmaker.domain;
 
 public class BoardVO {
 
-	private int code;
-	private String code_intro;
-
-	public int getCode() {
-		return code;
+	private int bno;
+	private String name;
+	private String description;
+	
+	public int getBno() {
+		return bno;
 	}
-
-	public void setCode(int code) {
-		this.code = code;
+	public void setBno(int bno) {
+		this.bno = bno;
 	}
-
-	public String getCode_intro() {
-		return code_intro;
+	public String getName() {
+		return name;
 	}
-
-	public void setCode_intro(String code_intro) {
-		this.code_intro = code_intro;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	@Override
-	public String toString() {
-		return "BoardVO [code=" + code + ", code_intro=" + code_intro + "]";
+	public String getDescription() {
+		return description;
 	}
-
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 }

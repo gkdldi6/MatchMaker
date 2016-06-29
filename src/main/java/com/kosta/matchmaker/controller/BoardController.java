@@ -15,7 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.FreeBoardVO;
+import com.kosta.matchmaker.domain.NoticeBoardVO;
 import com.kosta.matchmaker.domain.PageMaker;
+import com.kosta.matchmaker.domain.ReferenceBoardVO;
 import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.service.BoardService;
 
@@ -34,16 +36,25 @@ public class BoardController {
 		
 		PageMaker pagemaker = new PageMaker();
 		pagemaker.setCri(cri);
-		pagemaker.setTotalCount(service.listSearchCount(cri));
+		pagemaker.setTotalCount(service.listSearchCount(bno, cri));
 		
 		model.addAttribute("pageMaker", pagemaker);
 		
-		return "boards/list";
+		if(bno == 100 || bno == 0) {
+			return "boards/list";
+		}
+		return "boards/freeList";
 	}
 	
 	/*글 작성폼 열기*/
 	@RequestMapping(value="/{bno}/new", method=RequestMethod.GET)
 	public String write(@PathVariable("bno") int bno) throws Exception {
+		if(bno == 100) {
+			return "boards/refRegister";
+		} else if(bno == 0) {
+			return "boards/adminRegister";
+		}
+		
 		return "boards/freeRegister";
 	}
 	
@@ -58,14 +69,26 @@ public class BoardController {
 		return "redirect:/boards/" + bno;
 	}
 	
-	/*글 작성*/
-	@RequestMapping(value="/new", method=RequestMethod.POST)
-	public String write(RedirectAttributes rttr, ArticleVO article) throws Exception {
+	/*자료글 작성*/
+	@RequestMapping(value="/{bno}/ref", method=RequestMethod.POST)
+	public String refWrite(@PathVariable("bno") int bno, RedirectAttributes rttr, ReferenceBoardVO article) throws Exception {
+		article.setBno(bno);
 		service.register(article);
 		
 		rttr.addFlashAttribute("result", "success");
 		
-		return "redirect:/boards";
+		return "redirect:/boards/" + bno;
+	}
+	
+	/*공지글 작성*/
+	@RequestMapping(value="/{bno}/notice", method=RequestMethod.POST)
+	public String noticeWrite(@PathVariable("bno") int bno, RedirectAttributes rttr, NoticeBoardVO article) throws Exception {
+		article.setBno(bno);
+		service.register(article);
+		
+		rttr.addFlashAttribute("result", "success");
+		
+		return "redirect:/boards/" + bno;
 	}
 	
 	/*글 조회*/
@@ -75,10 +98,15 @@ public class BoardController {
 						Model model) throws Exception {
 	
 		ArticleVO article = service.readOne(bno, ano);
+		String articleType = article.getArticle_type();
 		
 		model.addAttribute("article", article);
+
+		if(articleType.equals("R")) {
+			return "boards/refRead";
+		}
 		
-		return "boards/freeArticle";
+		return "boards/freeRead";
 	}
 	
 	/*글 수정 폼 열기*/
@@ -89,21 +117,42 @@ public class BoardController {
 		
 		model.addAttribute("article", article);
 		
-		return "/boards/edit";
+		if(bno == 100) {
+			return "boards/refEdit";
+		}
+		return "/boards/freeEdit";
 	}
 	
 	/*글 수정*/
 	@RequestMapping(value="/edit", method=RequestMethod.POST)
 	public String edit(ArticleVO board, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
+		int bno = board.getBno();
 		
 		service.modify(board);
+		
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
 		rttr.addAttribute("searchType", cri.getSearchType());
 		rttr.addAttribute("keyword", cri.getKeyword());
 		rttr.addFlashAttribute("result", "success");
 		
-		return "redirect:/boards";
+		return "redirect:/boards/" + bno;
+	}
+	
+	/*자료글 수정*/
+	@RequestMapping(value="/refEdit", method=RequestMethod.POST)
+	public String refEdit(ReferenceBoardVO board, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
+		int bno = board.getBno();
+		
+		service.modify(board);
+		
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		rttr.addFlashAttribute("result", "success");
+		
+		return "redirect:/boards/" + bno;
 	}
 	
 	/*글 삭제*/
@@ -124,14 +173,11 @@ public class BoardController {
 	
 	/*첨부파일 목록 조회*/
 	@ResponseBody
-	@RequestMapping("/getAttach/{ano}")
-	public List<String> getAttach(@PathVariable("ano") Integer ano)throws Exception{
+	@RequestMapping("/{bno}/{ano}/getAttach")
+	public List<String> getAttach(@PathVariable("bno") int bno, @PathVariable("ano") Integer ano)
+			throws Exception{
 		
-		return service.getAttach(ano);
+		return service.getAttach(bno, ano);
 	}
-	
-	/*새로운 게시판 시험*/
-	@RequestMapping("/test")
-	public void test() {}
 	
 }

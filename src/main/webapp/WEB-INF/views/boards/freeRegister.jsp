@@ -26,8 +26,7 @@
 			<div class="form-group">
 				<label for="inputEmail" class="col-lg-2 control-label">제목</label>
 				<div class="col-lg-10">
-					<input type="text" class="form-control" id="inputEmail"
-						placeholder="제목을 입력해주세요." name="title">
+					<input type="text" class="form-control" id="inputEmail" name="title">
 				</div>
 			</div>
 

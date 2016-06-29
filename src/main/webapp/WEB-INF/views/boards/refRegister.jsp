@@ -12,8 +12,9 @@
 
 <!-- 글쓰기 -->
 <div class="container">
-	<form class="form-horizontal" action="new" method="post">
+	<form class="form-horizontal" action="ref" method="post">
 		<fieldset>
+			<input type="hidden" name="article_type" value="R">
 			<legend class="col-lg-10 col-lg-offset-1">글쓰기</legend>
 			<div class="form-group">
 				<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
@@ -37,6 +38,12 @@
 				</div>
 			</div>
 			
+			<div class="col-lg-offset-2">
+				<div class="fileDrop" style="height:100px;background-color:gray">
+					<label>여기에 파일을 첨부하세요.</label>
+				</div>
+			</div>			
+			
 			<div class="form-group">
 				<label class="col-lg-2 control-label">첨부파일</label>
 				<div class="col-lg-10">
@@ -48,7 +55,7 @@
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
 					<button id="write" class="btn btn-primary btn-flat">작성</button>
-					<a href="/boards" class="btn btn-default btn-flat">취소</a>
+					<a href="/boards/${bno }" class="btn btn-default btn-flat">취소</a>
 				</div>
 			</div>
 

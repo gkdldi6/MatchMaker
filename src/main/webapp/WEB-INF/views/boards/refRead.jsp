@@ -26,8 +26,11 @@ input:read-only, #textArea:read-only {
 	background-color: white;
 }
 </style>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script type="text/javascript">
+var ano = ${ano};
+var bno = ${bno};
+</script>
 
 <div class="content-wrapper">
 
@@ -91,7 +94,7 @@ input:read-only, #textArea:read-only {
 				</div>
 
 				<!-- 페이징용 파라미터 저장 폼 -->
-				<form role="page" action="/boards" method="get">
+				<form role="page" action="/boards/${bno }" method="get">
 					<input type='hidden' name='page' value="${cri.page}"> <input
 						type='hidden' name='perPageNum' value="${cri.perPageNum}">
 					<input type='hidden' name='searchType' value="${cri.searchType}">
@@ -205,8 +208,6 @@ input:read-only, #textArea:read-only {
 
 <!-- 글 처리 스크립트 -->
 <script type="text/javascript">
-
-	var ano = ${article.ano};
 	var pageForm = $('form[role="page"]');
 	var content = '${article.content}';
 
@@ -248,8 +249,6 @@ input:read-only, #textArea:read-only {
 
 <!-- 댓글 처리 스크립트 -->
 <script type="text/javascript">
-	var ano = ${article.ano};
-	var bno = ${article.bno};
 	var replyPage = 1;
 
 	/* 템플릿 날짜 */
@@ -409,11 +408,9 @@ input:read-only, #textArea:read-only {
 <script type="text/javascript" src="/resources/js/upload.js"></script>
 
 <script>
-	var ano = ${article.ano};
-
 	var template = Handlebars.compile($("#templateAttach").html());
 
-	$.getJSON("/boards/getAttach/" + ano, function(list) {
+	$.getJSON("/boards/" + bno + "/" + ano + "/getAttach/", function(list) {
 		$(list).each(function() {
 			var fileInfo = getFileInfo(this);
 			var html = template(fileInfo);

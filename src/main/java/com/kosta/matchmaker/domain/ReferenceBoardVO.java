@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class ReferenceBoardVO extends ArticleVO {
 
-	private String fullname;
+	private String[] files;
 	private Date regdate;
 
-	public String getFullname() {
-		return fullname;
+	public String[] getFiles() {
+		return files;
 	}
 
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
+	public void setFiles(String[] files) {
+		this.files = files;
 	}
 
 	public Date getRegdate() {
@@ -25,7 +25,7 @@ public class ReferenceBoardVO extends ArticleVO {
 
 	@Override
 	public String toString() {
-		return "ReferenceBoardVO [fullname=" + fullname + ", regdate=" + regdate + "]";
+		return "ReferenceBoardVO [fullname=" + files + ", regdate=" + regdate + "]";
 	}
 
 }

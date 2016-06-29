@@ -178,9 +178,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="freeOne" resultType="FreeBoardVO">
-		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, f.liked 
+		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, a.article_type, f.liked 
 		from article a, free f
 		where a.bno = f.bno and a.ano = f.ano and a.ano = #{ano} and a.bno = #{bno}
+	</select>
+
+	<select id="articleOne" resultType="ArticleVO">
+		select * from article where bno = #{bno} and ano = #{ano}
 	</select>
 
 	<select id="noticeOne" resultType="NoticeBoardVO">
@@ -188,12 +192,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.bno = n.bno and a.ano = n.ano and a.ano = #{ano} and a.bno = #{bno}
 	</select>
 
-
-	<select id="referenceOne" resultType="ReferenceBoardVO">
-		select * from article a,
-		reference r
-		where a.bno = r.bno and a.ano = r.ano and a.ano = #{ano} and a.bno = #{bno}
-	</select>
 	<!-- R E A D -->
 
 
@@ -270,46 +268,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</if>
 	</sql>
-
-<!-- 	<select id="listSearch" resultType="ArticleVO"> -->
-<!-- 		<![CDATA[ -->
-<!-- 		select * -->
-<!-- 		from article -->
-<!-- 		where bno = 1 and ano > 0	 -->
-<!-- 		]]> -->
-
-<!-- 		<include refid="search"></include> -->
-		
-<!-- 		<![CDATA[	 -->
-<!-- 		order by bno desc, regdate desc -->
-<!-- 		limit #{pageStart} , #{perPageNum} -->
-<!-- 		]]> -->
-<!-- 	</select> -->
 	
-	<select id="boardName" resultType="String">
-		select name from board where bno = #{bno}
-	</select>
-	
-	<select id="listSearch" resultType="FreeBoardVO">
-		<![CDATA[
-		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, f.liked 
-		from article a, free f
-		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
-		]]>
-
+	<sql id="list">
 		<include refid="search"></include>
 		
 		<![CDATA[	
 		order by a.ano desc
 		limit #{cri.pageStart} , #{cri.perPageNum}
 		]]>
+	</sql>
+	
+	<select id="boardName" resultType="String">
+		select name from board where bno = #{bno}
+	</select>
+	
+	<select id="freeSearch" resultType="FreeBoardVO">
+		<![CDATA[
+ 		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, f.liked
+ 		from article a, free f
+ 		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
+ 		]]>
+		
+		<include refid="list"></include>
+	</select>
+	
+	<select id="listSearch" resultType="ArticleVO">
+		<![CDATA[
+ 		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt
+ 		from article a
+ 		where a.bno = #{bno}
+ 		]]>
+		
+		<include refid="list"></include>
+	</select>
+
+	<!-- 공지 목록 -->
+	<select id="noticeList" resultType="ArticeVO">
+		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt 
+		from notice n natural join article a where a.bno = #{bno}
+		order by a.ano desc
 	</select>
 
 	<select id="listSearchCount" resultType="int">
 		<![CDATA[
 			select count(bno) 
 			from article
-			where bno = 1 and ano > 0	
+			where bno = #{bno} and ano > 0	
 		]]>
 		<include refid="search"></include>
 	</select>
@@ -319,28 +323,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where bno = 1 and ano = #{ano}
 	</update>
 
-
-
 	<!-- 파일첨부 기능 자료게시판용 -->
 	<insert id="addAttach">
-		insert into reference(fullname, bno) values
-		(#{fullName}, LAST_INSERT_ID())
+		insert into reference(fullname, bno, ano) values
+		(#{fullName}, #{bno}, #{ano})
 	</insert>
 
-	<select id="getAttach" resultType="string">
+	<select id="getAttach" resultType="String">
 		select fullname from
 		reference
-		where bno = 1 and ano = #{ano}
-		order by regdate
+		where bno = #{bno} and ano = #{ano}
 	</select>
 
 	<delete id="deleteAttach">
-		delete from reference where bno = 1 and ano = #{ano}
+		delete from reference where bno = #{bno} and ano = #{ano}
 	</delete>
-
-	<insert id="replaceAttach">
-		insert into reference(fullname, ano) values
-		(#{fullName}, #{ano})
-	</insert>
 
 </mapper>
