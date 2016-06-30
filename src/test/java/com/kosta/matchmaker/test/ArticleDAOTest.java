@@ -1,6 +1,9 @@
 package com.kosta.matchmaker.test;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import javax.inject.Inject;
 
@@ -10,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.FreeBoardVO;
 import com.kosta.matchmaker.persistence.ArticleDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,15 +42,17 @@ public class ArticleDAOTest {
 	@Test
 	public void testList() throws Exception {
 
-		List<ArticleVO> list = dao.readAll(01);
+		List<ArticleVO> list = dao.readAll(1);
+
+		// System.out.println(list);
 
 		if (list == null) {
 			System.out.println("없다");
 		}
 
 		for (ArticleVO board : list) {
-			System.out.println(board.getBno() + "\t" + board.getAno() + "\t" + board.getTitle() + "\t" + board.getWriter() + "\t"
-					+ board.getRegdate() + "\t" + board.getHit());
+			System.out.println(board.getBno() + "\t" + board.getAno() + "\t" + board.getTitle() + "\t"
+					+ board.getWriter() + "\t" + board.getRegdate() + "\t" + board.getHit());
 		}
 	}
 
@@ -62,6 +68,45 @@ public class ArticleDAOTest {
 		board.setWriter("성공한자sssss");
 
 		dao.update(board);
+	}
+
+	// 베스트 게시글 선정(추천, 조회, 댓글)
+	@Test
+	public void testBestArticle() throws Exception {
+
+		List<FreeBoardVO> listL = dao.maximumLike(1);
+		List<FreeBoardVO> listH = dao.maximumHit(1);
+		List<FreeBoardVO> listR = dao.maximumReply(1);
+
+		System.out.println(listL);
+
+		if (listL == null) {
+			System.out.println("따봉에러");
+		} else {
+			System.out.println("따봉리스트 ㄱㄱ");
+			for (FreeBoardVO board : listL) {
+				System.out.println(board.getAno() + "\t" + board.getHit() + "\t" + board.getReplycnt());
+			}
+		}
+
+		if (listH == null) {
+			System.out.println("히트에러");
+		} else {
+			System.out.println("히트리스트 ㄱㄱ");
+			for (FreeBoardVO board : listH) {
+				System.out.println(board.getAno() + "\t" + board.getHit() + "\t" + board.getReplycnt());
+			}
+		}
+
+		if (listR == null) {
+			System.out.println("댓글에러");
+		} else {
+			System.out.println("댓글리스트 ㄱㄱ");
+			for (FreeBoardVO board : listR) {
+				System.out.println(board.getAno() + "\t" + board.getHit() + "\t" + board.getReplycnt());
+			}
+		}
+
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.FreeBoardVO;
 import com.kosta.matchmaker.domain.SearchCriteria;
 
 public interface BoardService {
@@ -29,4 +30,14 @@ public interface BoardService {
 	// 첨부파일 ㄱㄱ
 	public List<String> getAttach(Integer bno, Integer ano) throws Exception;
 
+	// 현재작성중..
+	// 베스트 게시글(추천, 조회, 댓글)
+	public List<FreeBoardVO> maximumLike(Integer bno) throws Exception;
+
+	public List<FreeBoardVO> maximumHit(Integer bno) throws Exception;
+
+	public List<FreeBoardVO> maximumReply(Integer bno) throws Exception;
+
+	
+	
 }

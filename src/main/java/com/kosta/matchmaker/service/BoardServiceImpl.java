@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.FreeBoardVO;
 import com.kosta.matchmaker.domain.ReferenceBoardVO;
 import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.persistence.ArticleDAO;
@@ -152,6 +153,24 @@ public class BoardServiceImpl implements BoardService {
 	public List<String> getAttach(Integer bno, Integer ano) throws Exception {
 
 		return dao.getAttach(bno, ano);
+	}
+
+	@Override
+	public List<FreeBoardVO> maximumLike(Integer bno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.maximumLike(bno);
+	}
+
+	@Override
+	public List<FreeBoardVO> maximumHit(Integer bno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.maximumHit(bno);
+	}
+
+	@Override
+	public List<FreeBoardVO> maximumReply(Integer bno) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.maximumReply(bno);
 	}
 
 }

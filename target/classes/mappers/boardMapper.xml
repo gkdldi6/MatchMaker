@@ -168,7 +168,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="readAll" resultType="ArticleVO">
 		select *
 		from article
-		where bno = #{bno}
+		where bno =
+		#{bno}
 		order by ano desc
 	</select>
 
@@ -178,18 +179,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="freeOne" resultType="FreeBoardVO">
-		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, a.article_type, f.liked 
+		select a.bno, a.ano, a.title,
+		a.writer, a.content, a.regdate, a.hit, a.replycnt, a.article_type,
+		f.liked
 		from article a, free f
-		where a.bno = f.bno and a.ano = f.ano and a.ano = #{ano} and a.bno = #{bno}
+		where a.bno = f.bno and a.ano = f.ano and
+		a.ano =
+		#{ano} and a.bno = #{bno}
 	</select>
 
 	<select id="articleOne" resultType="ArticleVO">
-		select * from article where bno = #{bno} and ano = #{ano}
+		select * from article where
+		bno = #{bno} and ano = #{ano}
 	</select>
 
 	<select id="noticeOne" resultType="NoticeBoardVO">
-		select * from article a, notice n
-		where a.bno = n.bno and a.ano = n.ano and a.ano = #{ano} and a.bno = #{bno}
+		select * from article a,
+		notice n
+		where a.bno = n.bno and a.ano = n.ano and a.ano = #{ano} and
+		a.bno = #{bno}
 	</select>
 
 	<!-- R E A D -->
@@ -198,13 +206,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- U P D A T E -->
 
 	<update id="update">
-		update article set title = #{title}, writer = #{writer}, content = #{content}, regdate = now()
-		where bno = #{bno} and ano = #{ano}
+		update article set title = #{title}, writer =
+		#{writer}, content = #{content}, regdate = now()
+		where bno = #{bno} and
+		ano = #{ano}
 	</update>
 
 	<update id="reference">
 		update reference set fullname = #{fullname}
-		where a.bno = r.bno and a.ano = r.ano and a.ano = #{ano}
+		where
+		a.bno = r.bno and a.ano = r.ano and a.ano = #{ano}
 		and a.bno = #{bno}
 	</update>
 
@@ -213,26 +224,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<delete id="delete">
 		delete from article
-		where bno = #{bno} and ano = #{ano}
+		where bno = #{bno} and ano =
+		#{ano}
 	</delete>
-	
+
 	<delete id="deleteFree">
 		delete from free
 		where bno = #{bno} and ano = #{ano}
 	</delete>
-	
+
 	<delete id="deleteNotice">
 		delete from notice
 		where bno = #{bno} and ano = #{ano}
 	</delete>
-	
+
 	<delete id="deleteReference">
 		delete from reference
-		where bno = #{bno} and ano = #{ano}
+		where bno = #{bno} and ano =
+		#{ano}
 	</delete>
-	
+
 	<update id="updateHit">
-		update article set hit = hit + 1 where bno = #{bno} and ano = #{ano}
+		update article set hit = hit + 1 where bno = #{bno}
+		and ano = #{ano}
 	</update>
 
 	<!-- 동적 SQL을 위한 부분 SQL -->
@@ -248,12 +262,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and writer like CONCAT('%', #{cri.keyword}, '%')
 			</if>
 			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{cri.keyword}, '%') OR content
+				and ( title like CONCAT('%', #{cri.keyword}, '%') OR
+				content
 				like
 				CONCAT('%', #{cri.keyword}, '%'))
 			</if>
 			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{cri.keyword}, '%') OR writer
+				and ( content like CONCAT('%', #{cri.keyword}, '%') OR
+				writer
 				like
 				CONCAT('%', #{cri.keyword}, '%'))
 			</if>
@@ -263,12 +279,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				content
 				like CONCAT('%', #{cri.keyword}, '%')
 				OR
-				writer like CONCAT('%',
+				writer like
+				CONCAT('%',
 				#{cri.keyword}, '%'))
 			</if>
 		</if>
 	</sql>
-	
+
 	<sql id="list">
 		<include refid="search"></include>
 		
@@ -277,36 +294,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		limit #{cri.pageStart} , #{cri.perPageNum}
 		]]>
 	</sql>
-	
+
 	<select id="boardName" resultType="String">
-		select name from board where bno = #{bno}
+		select name from board where
+		bno = #{bno}
 	</select>
-	
+
 	<select id="freeSearch" resultType="FreeBoardVO">
 		<![CDATA[
  		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, f.liked
  		from article a, free f
  		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
  		]]>
-		
+
 		<include refid="list"></include>
 	</select>
-	
+
 	<select id="listSearch" resultType="ArticleVO">
 		<![CDATA[
  		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt
  		from article a
  		where a.bno = #{bno}
  		]]>
-		
+
 		<include refid="list"></include>
 	</select>
 
 	<!-- 공지 목록 -->
 	<select id="noticeList" resultType="ArticleVO">
-		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt 
-		from notice n natural join article a where a.bno = #{bno}
-		order by a.ano desc
+		select a.bno, a.ano, a.title,
+		a.writer, a.content, a.regdate, a.hit, a.replycnt
+		from notice n natural
+		join article a where a.bno = #{bno}
+		order by a.ano
+		desc
 	</select>
 
 	<select id="listSearchCount" resultType="int">
@@ -336,7 +357,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<delete id="deleteAttach">
-		delete from reference where bno = #{bno} and ano = #{ano}
+		delete from reference where bno = #{bno} and ano =
+		#{ano}
 	</delete>
 
+
+	<!-- 구현중소스.. -->
+
+	<!-- Best Article(추천, 조회, 댓글) -->
+	<select id="maximumLike" resultType="FreeBoardVO">
+		select * from article a, free f
+		where a.bno = f.bno
+		and a.ano = f.ano and a.bno = #{bno}
+		order by f.liked desc
+		limit 0 , 5
+	</select>
+
+	<select id="maximumHit" resultType="FreeBoardVO">
+		select * from article a, free f
+		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
+		order by a.hit desc
+		limit 0 , 5
+	</select>
+
+	<select id="maximumReply" resultType="FreeBoardVO">
+		select * from article a, free f
+		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
+		order by a.replycnt desc
+		limit 0 , 5
+	</select>
 </mapper>

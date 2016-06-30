@@ -60,8 +60,6 @@ public class ReplyDAOTest {
 			System.out.println("없다");
 		}
 		
-		
-		
 		for (ReplyVO reply : list) {
 			System.out.println("-----");
 			System.out.println(reply.getBno());

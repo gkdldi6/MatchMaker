@@ -72,13 +72,13 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public List<FreeBoardVO> noticeList(Integer bno) throws Exception {
 		return session.selectList(namespace + ".noticeList", bno);
 	}
-	
+
 	@Override
 	public List<ArticleVO> readAll(Integer bno) throws Exception {
 
 		return session.selectList(namespace + ".readAll", bno);
 	}
-	
+
 	@Override
 	public List<ArticleVO> freeAll(Integer bno) throws Exception {
 
@@ -89,7 +89,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public String boardName(Integer bno) throws Exception {
 		return session.selectOne(namespace + ".boardName", bno);
 	}
-	
+
 	@Override
 	public List<ArticleVO> freeSearch(Integer bno, SearchCriteria cri) throws Exception {
 		Map<String, Object> map = new HashMap<>();
@@ -98,7 +98,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		return session.selectList(namespace + ".freeSearch", map);
 	}
-	
+
 	@Override
 	public List<ArticleVO> listSearch(Integer bno, SearchCriteria cri) throws Exception {
 		Map<String, Object> map = new HashMap<>();
@@ -125,13 +125,13 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		return session.selectOne(namespace + ".freeOne", map);
 	}
-	
+
 	@Override
 	public NoticeBoardVO noticeOne(Integer bno, Integer ano) throws Exception {
 		HashMap<String, Integer> map = new HashMap<>();
 		map.put("bno", bno);
 		map.put("ano", ano);
-		
+
 		return session.selectOne(namespace + ".noticeOne", map);
 	}
 
@@ -143,7 +143,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		return session.selectOne(namespace + ".articleOne", map);
 	}
-	
+
 	@Override
 	public ReferenceBoardVO referenceOne(Integer bno, Integer ano) throws Exception {
 		HashMap<String, Integer> map = new HashMap<>();
@@ -200,7 +200,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 
 		session.delete(namespace + ".delete", map);
 	}
-	
+
 	@Override
 	public void deleteFree(Integer bno, Integer ano) throws Exception {
 		HashMap<String, Integer> map = new HashMap<>();
@@ -249,24 +249,23 @@ public class ArticleDAOImpl implements ArticleDAO {
 		session.update(namespace + ".updateHit", map);
 	}
 
-	
-	/*첨부파일*/
+	/* 첨부파일 */
 	@Override
 	public void referenceCreate(Integer bno, Integer ano, String fullname) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("bno", bno);
 		map.put("ano", ano);
 		map.put("fullname", fullname);
-		
+
 		session.insert(namespace + ".referenceCreate", map);
 	}
-	
+
 	@Override
 	public List<String> getAttach(Integer bno, Integer ano) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("bno", bno);
 		map.put("ano", ano);
-		
+
 		return session.selectList(namespace + ".getAttach", map);
 	}
 
@@ -274,21 +273,38 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public void deleteAttach(Integer bno, Integer ano) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("bno", bno);
-		map.put("ano", ano); 
-		
+		map.put("ano", ano);
+
 		session.delete(namespace + ".deleteAttach", map);
 	}
 
 	@Override
 	public void addAttach(String fullName) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void selectBoard(Integer bno) throws Exception {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	// 베스트 게시글 선정(추천, 조회, 댓글)
+	@Override
+	public List<FreeBoardVO> maximumLike(Integer bno) throws Exception {
+		return session.selectList(namespace + ".maximumLike", bno);
+
+	}
+
+	public List<FreeBoardVO> maximumHit(Integer bno) throws Exception {
+		return session.selectList(namespace + ".maximumHit", bno);
+
+	}
+
+	public List<FreeBoardVO> maximumReply(Integer bno) throws Exception {
+		return session.selectList(namespace + ".maximumReply", bno);
+
 	}
 
 }
