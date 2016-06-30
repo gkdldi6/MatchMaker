@@ -50,7 +50,7 @@ public interface ArticleDAO {
 	public int listSearchCount(Integer bno, SearchCriteria cri) throws Exception;
 	
 	// 공지글 읽기
-	public List<FreeBoardVO> noticeList(Integer bno) throws Exception;
+	public List<ArticleVO> noticeList(Integer bno) throws Exception;
 	
 	// 자유 게시글 조회(selectOne)
 	public FreeBoardVO freeOne(Integer bno, Integer ano) throws Exception;

@@ -69,7 +69,7 @@ public class ArticleDAOImpl implements ArticleDAO {
 	// -------------------------- 게시판 목록 읽기, 글 하나 조회 -------------------------
 
 	@Override
-	public List<FreeBoardVO> noticeList(Integer bno) throws Exception {
+	public List<ArticleVO> noticeList(Integer bno) throws Exception {
 		return session.selectList(namespace + ".noticeList", bno);
 	}
 	

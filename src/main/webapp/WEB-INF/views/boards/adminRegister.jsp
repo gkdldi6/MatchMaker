@@ -36,7 +36,8 @@
 				<div class="form-group" id="bound" hidden>
 					<label for="bound" class="col-lg-2 control-label">게시범위</label>
 					<div class="col-lg-10">
-						<select class="form-control" id="sltBound" name="bound">
+						<select class="form-control" id="bound">
+							<option value="0">공지게시판</option>
 							<option value="1">자유게시판</option>
 							<option value="2">농구게시판</option>
 							<option value="3">게임게시판</option>
@@ -110,6 +111,8 @@
 
 <script type="text/javascript">
 var article_type = $('#article_type option:selected').val();
+var bound = $('#bound option:selected').val();
+var bno = ${bno};
 
 $( "#datepicker" ).datepicker();
 
@@ -119,18 +122,23 @@ $('#article_type').change(function() {
 		$('#deadline').hide();
 		$('#bound').hide();
 		$('#attachment').hide();
-		$('form').attr('action', 'new');
+		$('form').attr('action', '/boards/' + bno + '/new');
 	} else if(article_type === 'N') {
 		$('#deadline').show();
 		$('#bound').show();
 		$('#attachment').hide();
-		$('form').attr('action', 'notice');
+		$('form').attr('action', '/boards/' + bound + '/notice');
 	} else if(article_type === 'R') {
 		$('#attachment').show();
 		$('#deadline').hide();
 		$('#bound').hide();
-		$('form').attr('action', 'ref');
+		$('form').attr('action', '/boards/' + bno + '/ref');
 	}
+});
+
+$('#bound').change(function() {
+	bound = $('#bound option:selected').val();
+	$('form').attr('action', '/boards/' + bound + '/notice');
 });
 </script>
 

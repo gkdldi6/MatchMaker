@@ -38,6 +38,20 @@
                     </thead>
                     
                     <tbody>
+						<c:forEach items="${map.notice }" var="article">
+							<tr>
+								<td>공지</td>
+								<td class="title"><a
+									href='/boards/${article.bno}/${article.ano}${pageMaker.makeSearch(pageMaker.cri.page)}'>
+										${article.title }</a><span class="badge">${article.replycnt}</span>
+								</td>
+								<td>${article.writer }</td>
+								<td><fmt:formatDate pattern="yy-MM-dd HH:mm"
+										value="${article.regdate }" /></td>
+								<td><span class="badge">${article.hit }</span></td>
+								<td></td>
+							</tr>
+						</c:forEach>
 						<c:forEach items="${map.list }" var="article">
 							<tr>
 								<td>${article.ano }</td>

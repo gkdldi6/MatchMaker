@@ -152,8 +152,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<insert id="noticeCreate">
-		insert into notice(bno, ano, deadline, bound)
-		values(#{bno}, #{ano}, #{deadline}, #{bound})
+		insert into notice(bno, ano, deadline)
+		values(#{bno}, #{ano}, #{deadline})
 	</insert>
 
 	<insert id="referenceCreate">
@@ -296,7 +296,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[
  		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt
  		from article a
- 		where a.bno = #{bno}
+ 		where a.bno = #{bno} and not article_type = 'N'
  		]]>
 		
 		<include refid="list"></include>
