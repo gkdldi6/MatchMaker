@@ -305,7 +305,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 공지 목록 -->
 	<select id="noticeList" resultType="ArticleVO">
 		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt 
-		from notice n natural join article a where a.bno = #{bno}
+		from notice n natural join article a where a.bno = #{bno} and n.deadline > now()
 		order by a.ano desc
 	</select>
 
