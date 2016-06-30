@@ -109,7 +109,7 @@
 <!-- /datepicker -->
 
 <script type="text/javascript">
-var article_type = $('#select option:selected').val();
+var article_type = $('#article_type option:selected').val();
 
 $( "#datepicker" ).datepicker();
 
