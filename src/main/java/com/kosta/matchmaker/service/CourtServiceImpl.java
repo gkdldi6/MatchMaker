@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kosta.matchmaker.domain.CourtVO;
+import com.kosta.matchmaker.domain.MatchDTO;
 import com.kosta.matchmaker.persistence.CourtDAO;
 
 @Service
@@ -18,6 +19,11 @@ public class CourtServiceImpl implements CourtService {
 	@Override
 	public List<CourtVO> getAllCourts() throws Exception {
 		return dao.getAllCourts();
+	}
+
+	@Override
+	public List<MatchDTO> getAllMatches() throws Exception {
+		return dao.getAllMatches();
 	}
 
 }

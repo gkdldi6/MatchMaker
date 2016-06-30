@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kosta.matchmaker.domain.CourtVO;
+import com.kosta.matchmaker.domain.MatchDTO;
 import com.kosta.matchmaker.service.CourtService;
 
 @RestController
@@ -31,6 +32,22 @@ public class CourtController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<List<CourtVO>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	@RequestMapping(value="/games", method=RequestMethod.GET)
+	public ResponseEntity<List<MatchDTO>> games() {
+		
+		ResponseEntity<List<MatchDTO>> entity = null;
+		
+		try {
+			List<MatchDTO> list = service.getAllMatches();
+			entity = new ResponseEntity<List<MatchDTO>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<MatchDTO>>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

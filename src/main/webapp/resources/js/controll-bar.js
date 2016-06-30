@@ -42,11 +42,17 @@ function openSbar(cno, addr, cname, ccontent) {
 	$('#address').text(addr);
 	$('#cname').text(cname);
 	$('#ccontent').text(ccontent);
+	$('#map').css('width', $(window).width() - 385);
 	
 	courtNo = cno;
+	xsize = 385;
 };
 
 function closeSbar() {
 	$('.control-sidebar-bg, .control-sidebar').css('right', '-400px');
+	$('#map').css('width', $(window).width());
 	sidebar.attr('state', 'closed');
+	relayout();
+	
+	xsize = 0;
 };

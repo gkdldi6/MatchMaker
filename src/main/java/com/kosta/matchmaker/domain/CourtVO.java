@@ -1,27 +1,13 @@
 package com.kosta.matchmaker.domain;
 
-public class CourtVO {
-	
+public class CourtVO extends ArticleVO {
+
 	private int cno;
 	private String address;
+	private int liked;
 	private double lat;
 	private double lng;
-	private String cname;
-	private String ccontent;
 	
-	
-	public String getCname() {
-		return cname;
-	}
-	public void setCname(String cname) {
-		this.cname = cname;
-	}
-	public String getCcontent() {
-		return ccontent;
-	}
-	public void setCcontent(String ccontent) {
-		this.ccontent = ccontent;
-	}
 	public int getCno() {
 		return cno;
 	}
@@ -33,6 +19,12 @@ public class CourtVO {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public int getLiked() {
+		return liked;
+	}
+	public void setLiked(int liked) {
+		this.liked = liked;
 	}
 	public double getLat() {
 		return lat;
@@ -46,5 +38,5 @@ public class CourtVO {
 	public void setLng(double lng) {
 		this.lng = lng;
 	}
-	
+
 }

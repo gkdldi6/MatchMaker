@@ -1,12 +1,24 @@
 var list;
 var courtNo;
 var sidebar = $('#sidebar');
+var xsize = 400;
 
 
-/* 컨트롤러를 통해 DB에서 농구 코트 좌표를 가져온다. */
-$.getJSON('/courts/all', function(data) {
-	list = data;
+$('#map').css('width', $(window).width() - xsize);
+$('#map').css('height', $(window).height() - 50);
+
+$(window).resize(function() {
+	$('#map').css('width', $(window).width() - xsize);
+	$('#map').css('height', $(window).height() - 50);		
 });
+
+function relayout() {    
+    
+    // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
+    // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다 
+    // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
+    map.relayout();
+}
 
 // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 if (navigator.geolocation) {
@@ -61,35 +73,37 @@ var imageSrc = '/resources/img/myMarker.png', // 마커이미지의 주소입니
      
 // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
+/* 컨트롤러를 통해 DB에서 농구 코트 좌표를 가져온다. */
+$.getJSON('/courts/all', function(data) {
+	list = data;
+		for (var i = 0; i < list.length; i ++) {
+			var cno = list[i].cno;
+		    var addr = list[i].address;
+		    var cname = list[i].cname;
+		    var ccontent = list[i].ccontent;
+		    
 			
-$(function() {
-	for (var i = 0; i < list.length; i ++) {
-		var cno = list[i].cno;
-	    var addr = list[i].address;
-	    var cname = list[i].cname;
-	    var ccontent = list[i].ccontent;
-	    
+			// 마커를 생성합니다
+		    var marker = new daum.maps.Marker({
+		        map: map, // 마커를 표시할 지도
+		        position: new daum.maps.LatLng(list[i].lat, list[i].lng), // 마커의 위치
+		        image: markerImage
+		    });
 		
-		// 마커를 생성합니다
-	    var marker = new daum.maps.Marker({
-	        map: map, // 마커를 표시할 지도
-	        position: new daum.maps.LatLng(list[i].lat, list[i].lng), // 마커의 위치
-	        image: markerImage
-	    });
-	
-	    // 마커에 표시할 인포윈도우를 생성합니다 
-	    var infowindow = new daum.maps.InfoWindow({
-	        content: cno + ': ' + addr // 인포윈도우에 표시할 내용
-	    });
-	
-	    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
-	    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
-	    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-	    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-	    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-	    daum.maps.event.addListener(marker, 'click', openSidebar(cno, addr, cname, ccontent));
-	}
-})
+		    // 마커에 표시할 인포윈도우를 생성합니다 
+		    var infowindow = new daum.maps.InfoWindow({
+		        content: cno + ': ' + addr // 인포윈도우에 표시할 내용
+		    });
+		
+		    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+		    // 이벤트 리스너로는 클로저를 만들어 등록합니다 
+		    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+		    daum.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
+		    daum.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
+		    daum.maps.event.addListener(marker, 'click', openSidebar(cno, addr, cname, ccontent));
+		}
+});
 
 // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
 function makeOverListener(map, marker, infowindow) {
