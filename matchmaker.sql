@@ -62,14 +62,14 @@ delete from user;
 
 -- 쪽지 테이블
 create table message(
-	mid int not null auto_increment,
+	mno int not null auto_increment,
     targetid varchar(50) not null references user (userid),
     readpoint int NOT NULL default 0,
     sender varchar(50) not null references user (userid),
     message text not null,
     opendate timestamp,
     senddate timestamp not null default now(),
-    primary key (mid)
+    primary key (mno)
 );
 
 drop table message;

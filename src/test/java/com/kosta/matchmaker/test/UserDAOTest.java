@@ -118,8 +118,22 @@ public class UserDAOTest {
 	@Test
 	public void testDelete() throws Exception {
 		
-		dao.delete("1234", "1234");
+		String userid = "user00";
+		UserVO user = dao.selectId(userid);
 		
+		String userpw = "1234";
+		
+		String orgPass = userpw;
+        String shaPass = sha.getSha256(orgPass.getBytes());
+        
+        String dbpasswd= user.getUserpw();
+        
+        if(BCrypt.checkpw(shaPass,dbpasswd)){
+        	dao.delete(userid);
+        	System.out.println(userid + " 삭제 완료");
+        }else{
+        	System.out.println("비밀번호가 일치하지 않습니다.");
+        }
 	}
 	@Test
 	public void testUserIdCheck() throws Exception{
@@ -155,9 +169,10 @@ public class UserDAOTest {
 		UserVO user = dao.findPassword(username, userid, email);
 		
 		if(user != null){
-			System.out.println("비밀번호는... " + user.getUserpw());
+			System.out.println("아이디는... " + user.getUserpw());
 		}else{
 			System.out.println("일치하는 정보가 없습니다.");
 		}
 	}
+	
 }

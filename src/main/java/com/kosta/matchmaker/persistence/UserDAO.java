@@ -23,7 +23,7 @@ public interface UserDAO {
 	public void update(UserVO user);
 
 	// 회원 삭제
-	public void delete(String userid, String userpw);
+	public void delete(String userid);
 	
 	//아이디 하나 검사
 	public UserVO selectId(String userid);

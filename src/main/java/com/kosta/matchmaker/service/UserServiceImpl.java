@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.UserVO;
-import com.kosta.matchmaker.maill.MailSend;
-import com.kosta.matchmaker.maill.RandomNumber;
 import com.kosta.matchmaker.persistence.UserDAO;
 import com.kosta.matchmaker.util.work.crypt.BCrypt;
 import com.kosta.matchmaker.util.work.crypt.SHA256;
@@ -46,7 +44,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void join(UserVO user) throws Exception {
-		SHA256 sha = SHA256.getInsatnce();
 
 		String orgPass = user.getUserpw();
 		String shaPass = sha.getSha256(orgPass.getBytes());
@@ -79,8 +76,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(String userid, String userpw) {
-		dao.delete(userid, userpw);
+	public void delete(String userid)throws Exception {
+		UserVO user = dao.selectId(userid);
+		
+		String orgPass = user.getUserpw();
+		String shaPass = sha.getSha256(orgPass.getBytes());
+		String bcPass = BCrypt.hashpw(shaPass, BCrypt.gensalt());
+		
+		user.setUserpw(bcPass);
+		
+		dao.delete(userid);
 	}
 
 	@Override

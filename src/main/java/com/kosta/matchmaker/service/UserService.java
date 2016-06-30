@@ -25,7 +25,7 @@ public interface UserService {
 	public void update(UserVO user) throws Exception;
 
 	// 회원 삭제
-	public void delete(String userid, String userpw);
+	public void delete(String userid) throws Exception;
 	
 	//아이디 중복 검사
 	public int userIdCheck(String userid);

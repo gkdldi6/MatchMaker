@@ -54,13 +54,9 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void delete(String userid, String userpw) {
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("userid", userid);
-		map.put("userpw", userpw);
-
-		session.delete(namespace + ".delete", map);
+	public void delete(String userid) {
+		
+		session.delete(namespace + ".delete", userid);
 	}
 
 	@Override
