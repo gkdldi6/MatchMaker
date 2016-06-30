@@ -19,10 +19,10 @@ public interface UserService {
 	public List<UserVO> selectList() throws Exception;
 
 	// 회원 한명 조회
-	public UserVO selectOne(String userid, String userpw);
+	public UserVO selectId(String userid);
 
 	// 회원 정보 수정
-	public void update(UserVO user);
+	public void update(UserVO user) throws Exception;
 
 	// 회원 삭제
 	public void delete(String userid, String userpw);
@@ -33,4 +33,14 @@ public interface UserService {
 	//캡챠
 	public ReCaptchaImpl reCaptcha();
 	
+	//회원 인증(비밀번호 바꾸기전에 이전 비밀번호 확인)
+	public int userAuth(String userid, String userpw) throws Exception;
+	
+	//ID찾기 -> 이름,이메일
+	public UserVO findId(String username, String email) throws Exception;
+	
+	//Password찾기 -> 이름,아이디,이메일
+	public UserVO findPassword(String username, String userid, String email) throws Exception;
+	
+
 }

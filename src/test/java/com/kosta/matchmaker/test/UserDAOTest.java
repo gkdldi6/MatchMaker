@@ -62,16 +62,16 @@ public class UserDAOTest {
 	@Test
 	public void testSelectOne() throws Exception {
 		
-		UserVO user = dao.selectId("user01");
+		UserVO user = dao.selectId("1234");
 		
-		String passwd = "user01";
+		String passwd = "1234";
 		
 		String orgPass = passwd;
         String shaPass = sha.getSha256(orgPass.getBytes());
         
         String dbpasswd= user.getUserpw();
         
-        if(BCrypt.checkpw(shaPass,dbpasswd) && user.getUserid().equals("user01")){
+        if(BCrypt.checkpw(shaPass,dbpasswd) && user.getUserid().equals("1234")){
 	
 			System.out.print(user.getUserid() + "\t");
 			System.out.print(user.getUserpw() + "\t");
@@ -86,25 +86,31 @@ public class UserDAOTest {
 	
 	@Test
 	public void testUpdate() throws Exception {
-		UserVO user = dao.selectId("user01");
+		UserVO user = dao.selectId("1234");
 		
-		String passwd = "user01";
+		String passwd = "1234";
 		
 		String orgPass = passwd;
         String shaPass = sha.getSha256(orgPass.getBytes());
         
         String dbpasswd= user.getUserpw();
         
-        if(BCrypt.checkpw(shaPass,dbpasswd) && user.getUserid().equals("user01")){
-		
+        if(BCrypt.checkpw(shaPass,dbpasswd)){
+        	
+        	String newpw = "12345";
+        	
+        	orgPass = newpw;
+    	    shaPass = sha.getSha256(orgPass.getBytes());
+    		String bcPass = BCrypt.hashpw(shaPass, BCrypt.gensalt());
+    		
 			//아이디와 비밀번호로 나머지 수정 ->등록일과 유저 나이는 수정 x
-			user.setUserid("user01");
-			user.setUsername("수정된놈");
+			user.setUserid("1234");
+			user.setUserpw(bcPass);
 			user.setEmail("Update@update.com");
 			user.setUserinfo("수정된놈");
 			
 			dao.update(user);
-	     }else{
+	    }else{
 	    	 System.out.println("asdfs");
 	     }
 	}
@@ -123,6 +129,35 @@ public class UserDAOTest {
 			System.out.println("아이디 사용 불가");
 		}else{
 			System.out.println("아이디 사용 가능");
+		}
+	}
+	
+	@Test
+	public void findId(){
+		String username = "user00";
+		String email = "sunjoong91@naver.com";
+		
+		UserVO user = dao.findId(username, email);
+		
+		if(user != null){
+			System.out.println("아이디 : " + user.getUserid());
+		}else{
+			System.out.println("일치하는 정보가 없습니다.");
+		}
+	}
+	
+	@Test
+	public void findPassword(){
+		String username = "user00";
+		String userid = "user00";
+		String email = "sunjoong91@naver.com";
+		
+		UserVO user = dao.findPassword(username, userid, email);
+		
+		if(user != null){
+			System.out.println("비밀번호는... " + user.getUserpw());
+		}else{
+			System.out.println("일치하는 정보가 없습니다.");
 		}
 	}
 }

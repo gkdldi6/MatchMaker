@@ -31,4 +31,10 @@ public interface UserDAO {
 	//아이디 중복 검사
 	public int userIdCheck(String userid);
 	
+	//ID 찾기 -> 이름과 이메일로
+	public UserVO findId(String username, String email);
+	
+	//Password찾기 -> 이름과 아이디와 이메일로
+	public UserVO findPassword(String username, String userid, String email);
+	
 }

@@ -121,7 +121,7 @@ $(function(){
          
         $.ajax({
             type: "POST",
-            url: "/users/test/validateRecaptcha",
+            url: "/users/validateRecaptcha",
             async: false,
             data: {
                 host: host,
