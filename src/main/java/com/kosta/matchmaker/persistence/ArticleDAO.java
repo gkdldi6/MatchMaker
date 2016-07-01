@@ -110,5 +110,12 @@ public interface ArticleDAO {
 
 	// 게시판 구분 메서드
 	public void selectBoard(Integer bno) throws Exception;
+	
+	// 게시물 최다 추천, 조회, 댓글
+	public List<HashMap<String, Object>> maximumLike(Integer bno) throws Exception;
+
+	public List<HashMap<String, Object>> maximumHit(Integer bno) throws Exception;
+
+	public List<HashMap<String, Object>> maximumReply(Integer bno) throws Exception;
 
 }

@@ -290,5 +290,24 @@ public class ArticleDAOImpl implements ArticleDAO {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	// 베스트 게시글 선정(추천, 조회, 댓글)
+	@Override
+	public List<HashMap<String, Object>> maximumLike(Integer bno) throws Exception {
+		return session.selectList(namespace + ".maximumLike", bno);
+
+	}
+	
+	@Override
+	public List<HashMap<String, Object>> maximumHit(Integer bno) throws Exception {
+		return session.selectList(namespace + ".maximumHit", bno);
+
+	}
+
+	@Override
+	public List<HashMap<String, Object>> maximumReply(Integer bno) throws Exception {
+		return session.selectList(namespace + ".maximumReply", bno);
+
+	}
 
 }

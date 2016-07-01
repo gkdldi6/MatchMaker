@@ -5,127 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.kosta.matchmaker.mappers.BoardMapper">
 
-	<!-- 구버전 -->
-	<!-- <insert id="create"> -->
-	<!-- insert into freeboard (title, content, writer) -->
-	<!-- values(#{title}, #{content}, #{writer}) -->
-	<!-- </insert> -->
-
-	<!-- <select id="readAll" resultType="BoardVO"> -->
-	<!-- select bno, title, writer, -->
-	<!-- regdate, hit -->
-	<!-- from freeboard order by bno desc -->
-	<!-- </select> -->
-
-	<!-- <update id="update"> -->
-	<!-- update freeboard set title = #{title}, content = -->
-	<!-- #{content}, writer = #{writer}, regdate = now() -->
-	<!-- where bno = #{bno} -->
-	<!-- </update> -->
-
-	<!-- <delete id="delete"> -->
-	<!-- delete from freeboard -->
-	<!-- where bno = #{bno} -->
-	<!-- </delete> -->
-
-	<!-- <select id="readOne" resultType="BoardVO"> -->
-	<!-- select bno, title, content, -->
-	<!-- writer, regdate, hit -->
-	<!-- from freeboard -->
-	<!-- where bno = #{bno} -->
-	<!-- </select> -->
-
-	<!-- <sql id="search"> -->
-	<!-- <if test="searchType != null"> -->
-	<!-- <if test="searchType == 't'.toString()"> -->
-	<!-- and title like CONCAT('%', #{keyword}, '%') -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'c'.toString()"> -->
-	<!-- and content like CONCAT('%', #{keyword}, '%') -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'w'.toString()"> -->
-	<!-- and writer like CONCAT('%', #{keyword}, '%') -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'tc'.toString()"> -->
-	<!-- and ( title like CONCAT('%', #{keyword}, '%') OR content -->
-	<!-- like -->
-	<!-- CONCAT('%', #{keyword}, '%')) -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'cw'.toString()"> -->
-	<!-- and ( content like CONCAT('%', #{keyword}, '%') OR writer -->
-	<!-- like -->
-	<!-- CONCAT('%', #{keyword}, '%')) -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'tcw'.toString()"> -->
-	<!-- and ( title like CONCAT('%', #{keyword}, '%') -->
-	<!-- OR -->
-	<!-- content -->
-	<!-- like CONCAT('%', #{keyword}, '%') -->
-	<!-- OR -->
-	<!-- writer like CONCAT('%', -->
-	<!-- #{keyword}, '%')) -->
-	<!-- </if> -->
-	<!-- </if> -->
-	<!-- </sql> -->
-
-	<!-- <select id="listSearch" resultType="BoardVO"> -->
-	<!-- <![CDATA[ -->
-	<!-- select bno, title, content, writer, regdate, hit, replycnt -->
-	<!-- from freeboard -->
-	<!-- where bno > 0 -->
-	<!-- ]]> -->
-
-	<!-- <include refid="search"></include> -->
-
-	<!-- <![CDATA[ -->
-	<!-- order by bno desc, regdate desc -->
-	<!-- limit #{pageStart} , #{perPageNum} -->
-	<!-- ]]> -->
-	<!-- </select> -->
-
-	<!-- <select id="listSearchCount" resultType="int"> -->
-	<!-- <![CDATA[ -->
-	<!-- select count(bno) -->
-	<!-- from freeboard -->
-	<!-- where bno > 0 -->
-	<!-- ]]> -->
-	<!-- <include refid="search"></include> -->
-	<!-- </select> -->
-
-	<!-- <update id="updateReplyCnt"> -->
-	<!-- update freeboard set replycnt = replycnt + #{amount} -->
-	<!-- where bno = #{bno} -->
-	<!-- </update> -->
-
-	<!-- <update id="updateHit"> -->
-	<!-- update freeboard set hit = hit + 1 where bno = #{bno} -->
-	<!-- </update> -->
-
-
-	<!-- <insert id="addAttach"> -->
-	<!-- insert into boardattach(fullname, bno) values -->
-	<!-- (#{fullName}, LAST_INSERT_ID()) -->
-	<!-- </insert> -->
-
-	<!-- <select id="getAttach" resultType="string"> -->
-	<!-- select fullname from -->
-	<!-- boardattach where bno = #{bno} -->
-	<!-- order by regdate -->
-	<!-- </select> -->
-
-	<!-- <delete id="deleteAttach"> -->
-	<!-- delete from boardattach where bno = #{bno} -->
-	<!-- </delete> -->
-
-	<!-- <insert id="replaceAttach"> -->
-	<!-- insert into boardattach(fullname, bno) values -->
-	<!-- (#{fullName}, #{bno}) -->
-	<!-- </insert> -->
-
-	<!-- <select id="readOne" resultType="ArticleVO"> select * from article 
-		where bno = 1 and ano = #{ano} </select> -->
-
-	<!-- 신버전 맵퍼 -->
 
 	<select id="getType" resultType="String">
 		select article_type from article
@@ -338,5 +217,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteAttach">
 		delete from reference where bno = #{bno} and ano = #{ano}
 	</delete>
+	
+	<!-- Best Article(추천, 조회, 댓글) -->
+	<resultMap id="maximum" type="HashMap">
+		<result javaType="int" column="ano" property="ano" />
+		<result javaType="String" column="title" property="title" />
+	</resultMap> 
+	
+	<select id="maximumLike" resultMap="maximum">
+		select ano, title from article a natural join free f
+		where f.bno = #{bno}
+		order by f.liked desc
+		limit 5
+	</select>
+
+	<select id="maximumHit" resultMap="maximum">
+		select ano, title from article a natural join free f
+		where f.bno = #{bno}
+		order by a.hit desc
+		limit 5
+	</select>
+
+	<select id="maximumReply" resultMap="maximum">
+		select ano, title from article a natural join free f
+		where f.bno = #{bno}
+		order by a.replycnt desc
+		limit 5
+	</select>
 
 </mapper>

@@ -28,5 +28,8 @@ public interface BoardService {
 
 	// 첨부파일 ㄱㄱ
 	public List<String> getAttach(Integer bno, Integer ano) throws Exception;
+	
+	// 베스트 게시글(추천, 조회, 댓글)
+	public Map<String, Object> maximum(Integer bno) throws Exception;
 
 }

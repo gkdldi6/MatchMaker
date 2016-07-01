@@ -153,5 +153,18 @@ public class BoardServiceImpl implements BoardService {
 
 		return dao.getAttach(bno, ano);
 	}
+	
+	
+	// 최다 추천, 조회, 댓글
+	@Override
+	public Map<String, Object> maximum(Integer bno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("mHit", dao.maximumHit(bno));
+		map.put("mLike", dao.maximumLike(bno));
+		map.put("mReply", dao.maximumReply(bno));
+		
+		return map;
+	}
 
 }

@@ -160,11 +160,9 @@
             <!-- /.box-header -->
             <div class="box-body no-padding" style="display: block;">
               <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
+			  	<c:forEach items="${max.mLike}" var="article">
+					<li><a href='/boards/${bno}/${article.ano}${pageMaker.makeSearch(pageMaker.cri.page)}'>${article.title }</a></li>
+				</c:forEach>
               </ul>
             </div>
             <!-- /.box-body -->
@@ -183,11 +181,9 @@
             <!-- /.box-header -->
             <div class="box-body no-padding" style="display: block;">
               <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
+                <c:forEach items="${max.mHit}" var="article">
+					<li><a href='/boards/${bno}/${article.ano}${pageMaker.makeSearch(pageMaker.cri.page)}'>${article.title }</a></li>
+				</c:forEach>
               </ul>
             </div>
             <!-- /.box-body -->
@@ -206,11 +202,9 @@
             <!-- /.box-header -->
             <div class="box-body no-padding" style="display: block;">
               <ul class="nav nav-pills nav-stacked">
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
-                <li><a href="#">기부 권유를 받을 때 어떠신...</a></li>
+                <c:forEach items="${max.mReply}" var="article">
+					<li><a href='/boards/${bno}/${article.ano}${pageMaker.makeSearch(pageMaker.cri.page)}'>${article.title }</a></li>
+				</c:forEach>
               </ul>
             </div>
             <!-- /.box-body -->
