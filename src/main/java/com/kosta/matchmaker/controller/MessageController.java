@@ -27,17 +27,19 @@ public class MessageController {
 	@Inject
 	private MessageService service;
 
+	@RequestMapping("/write")
+	public String MessagesWrite() {
+		return "messages/write";
+	}
+	
 	@RequestMapping(value = "/send", method = RequestMethod.POST)
 	public String addMessage(RedirectAttributes rttr, MessageVO vo){
 		
-		//ResponseEntity<String> entity = null;
 		try{
 			service.addMessage(vo);
-			//entity = new ResponseEntity<String>("SUCCESSㅅㅅㅅㅅㅅㅅㅅㅅ", HttpStatus.OK);
 			rttr.addFlashAttribute("msg", "sendsuccess");
 		}catch(Exception e){
 			e.printStackTrace();
-			//entity = new ResponseEntity<String>("FAIL",HttpStatus.BAD_REQUEST);
 			rttr.addFlashAttribute("msg", "sendfail");
 		
 		}

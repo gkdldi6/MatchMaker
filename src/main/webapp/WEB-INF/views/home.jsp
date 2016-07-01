@@ -44,9 +44,12 @@
 	</div>
 <script type="text/javascript">
 	var result = '${result}';
+	console.log(result);
 
 	if (result === 'joinSuccess') {
 		alert('가입이 성공적으로 되었습니다.');
+	} else if (result == 'deletesuccess'){
+		alert('삭제에 성공 했습니다.');
 	}
 </script>
 

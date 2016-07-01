@@ -3,105 +3,104 @@
 
 <jsp:include page="../include/header.jsp"></jsp:include>
 
-
-<style type="text/css">
-.container {
-	margin-top: 50px;
-}
-</style>
-
-<!-- 회원 가입 -->
-<div class="container">
-	<form action="join" method="post" name="form" class="form-horizontal" onsubmit="return joinCheck();">
-		<fieldset>
-
-			<legend>회원 가입</legend>
-
-			<div class="form-group">
-				<label for="inputId" class="col-lg-2 control-label">아이디</label>
-				<div class="col-lg-8">
-					<input type="text" name="userid" class="form-control" id="userid"
-						placeholder="아이디를 입력해주세요." required></input>
-					<div id="messageidfail" style="color: #ff0000"></div>
-					<div id="messageidsuccess" style="color: #0000ff"></div>
+	
+<div class="content-wrapper">
+	<!-- 회원 가입 -->
+	<div class="container">	
+		<form action="join" method="post" name="form" class="form-horizontal" onsubmit="return joinCheck();">
+			<fieldset>
+	
+				<legend>회원 가입</legend>
+	
+				<div class="form-group">
+					<label for="inputId" class="col-lg-2 control-label">아이디</label>
+					<div class="col-lg-8">
+						<input type="text" name="userid" class="form-control" id="userid"
+							placeholder="아이디를 입력해주세요." required></input>
+						<div id="messageidfail" style="color: #ff0000"></div>
+						<div id="messageidsuccess" style="color: #0000ff"></div>
+					</div>
+					<div class="col-lg-2">
+						<a id="idcheck" class="btn btn-primary btn-flat">중복확인</a>
+					</div>
 				</div>
-				<div class="col-lg-2">
-					<a id="idcheck" class="btn btn-primary btn-flat">중복확인</a>
+	
+				<div class="form-group">
+					<label for="inputPassword" class="col-lg-2 control-label">비밀번호</label>
+					<div class="col-lg-10">
+						<input type="password" name="userpw" class="form-control"
+							id="userpw" placeholder="비밀번호를 입력해주세요." required>
+					</div>
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="inputPassword" class="col-lg-2 control-label">비밀번호</label>
-				<div class="col-lg-10">
-					<input type="password" name="userpw" class="form-control"
-						id="userpw" placeholder="비밀번호를 입력해주세요." required>
+	
+				<div class="form-group">
+					<label for="inputPasswordCheck" class="col-lg-2 control-label">비밀번호
+						확인</label>
+					<div class="col-lg-10">
+						<input type="password" name="userpwCheck" class="form-control"
+							id="userpwCheck" onblur="passwordCheck()"
+							placeholder="비밀번호를 다시 입력해주세요." required>
+						<div id="messagepwfail" style="color: #ff0000"></div>
+						<div id="messagepwsuccess" style="color: #0000ff"></div>
+					</div>
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="inputPasswordCheck" class="col-lg-2 control-label">비밀번호
-					확인</label>
-				<div class="col-lg-10">
-					<input type="password" name="userpwCheck" class="form-control"
-						id="userpwCheck" onblur="passwordCheck()"
-						placeholder="비밀번호를 다시 입력해주세요." required>
-					<div id="messagepwfail" style="color: #ff0000"></div>
-					<div id="messagepwsuccess" style="color: #0000ff"></div>
+	
+				<div class="form-group">
+					<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
+					<div class="col-lg-10">
+						<input type="email" name="email" class="form-control" id="email"
+							placeholder="이메일을 입력해주세요. ex)test@test.test" required> 
+					</div>
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
-				<div class="col-lg-10">
-					<input type="email" name="email" class="form-control" id="email"
-						placeholder="이메일을 입력해주세요. ex)test@test.test" required> 
+	
+				<div class="form-group">
+					<label for="inputName" class="col-lg-2 control-label">이름</label>
+					<div class="col-lg-10">
+						<input type="text" name="username" class="form-control"
+							id="username" placeholder="이름을 입력해주세요." required>
+					</div>
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="inputName" class="col-lg-2 control-label">이름</label>
-				<div class="col-lg-10">
-					<input type="text" name="username" class="form-control"
-						id="username" placeholder="이름을 입력해주세요." required>
+	
+				<div class="form-group">
+					<label for="inputAge" class="col-lg-2 control-label">나이</label>
+					<div class="col-lg-10">
+						<input type="number" name="userage" class="form-control"
+							id="userage" placeholder="나이를 입력해주세요." required>
+					</div>
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="inputAge" class="col-lg-2 control-label">나이</label>
-				<div class="col-lg-10">
-					<input type="number" name="userage" class="form-control"
-						id="userage" placeholder="나이를 입력해주세요." required>
+	
+				<div class="form-group">
+					<label for="textArea" class="col-lg-2 control-label">자기 소개</label>
+					<div class="col-lg-10">
+						<textarea class="form-control" name="userinfo" rows="3"
+							id="userinfo" placeholder="자신을 소개하세요." style="resize: none"></textarea>
+					</div>
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="textArea" class="col-lg-2 control-label">자기 소개</label>
-				<div class="col-lg-10">
-					<textarea class="form-control" name="userinfo" rows="3"
-						id="userinfo" placeholder="자신을 소개하세요." style="resize: none"></textarea>
+	
+				<div class="form-group">
+					<label for="textArea" class="col-lg-2 control-label">자동 가입 방지</label>
+					<div class="col-lg-10">
+						<div id="recaptcha"></div>
+						&nbsp; 
+						<input id="recaptchaCheck" type="button" value="인증 확인" class="btn btn-xs btn-danger">
+						<span id="capchafail" style="color:#ff0000"></span>			
+						<span id="capchasuccess" style="color:#0000ff"></span>
+					</div>
 				</div>
-			</div>
-
-			<div class="form-group">
-				<label for="textArea" class="col-lg-2 control-label">자동 가입 방지</label>
-				<div class="col-lg-10">
-					<div id="recaptcha"></div>
-					<input id="recaptchaCheck" type="button" value="Check" >
-					<div id="capchafail" style="color:#ff0000"></div>			
-					<div id="capchasuccess" style="color:#0000ff"></div>
+						
+				<div class="form-group">
+					<div class="col-lg-10 col-lg-offset-2">
+						<button type="submit" class="btn btn-primary btn-flat">가입</button>  
+						<a class="btn btn-default btn-flat" onclick="history.go(-1);">취소</a>
+					</div>
 				</div>
-			</div>
-					
-			<div class="form-group">
-				<div class="col-lg-10 col-lg-offset-2">
-					<button type="submit" class="btn btn-primary btn-flat">가입</button>  
-					<a class="btn btn-default btn-flat" onclick="history.go(-1);">취소</a>
-				</div>
-			</div>
-
-		</fieldset>
-	</form>
+	
+			</fieldset>
+		</form>
+	</div>
 </div>
+
+	
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script>

@@ -264,5 +264,15 @@
 	</div>
   </div>
 
+<script type="text/javascript">
+	var result = '${result}';
+
+	if(result =='success') {
+		alert('로그인에 성공했습니다.');
+	} else if (result == 'updatesuccess'){
+		alert('수정에 성공 했습니다.');
+	}
+</script>
+
 
 <jsp:include page="../include/footer.jsp"></jsp:include>

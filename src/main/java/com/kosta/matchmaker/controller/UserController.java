@@ -34,7 +34,7 @@ public class UserController {
 	
 	/*로그인*/
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
-	public void loginPost(LoginDTO dto, Model model)throws Exception{
+	public void loginPost(LoginDTO dto, Model model, RedirectAttributes rttr)throws Exception{
 		
 		UserVO user = service.login(dto);
 		
@@ -59,7 +59,7 @@ public class UserController {
 		service.join(user);
 		rttr.addFlashAttribute("result", "joinSuccess");
 			
-		return "redirect:/users/login";
+		return "redirect:/";
 		
 	}
 	
@@ -103,29 +103,56 @@ public class UserController {
 	    return check;
 	}
 	
-	
 	//로그 아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public String logout(HttpServletRequest request, HttpServletResponse response, @RequestParam("result") String result, RedirectAttributes rttr) throws Exception{
 		HttpSession session = request.getSession();
 		if(session.getAttribute("login") !=null){
 			session.removeAttribute("login");
 			session.invalidate();
 		}
-		return "home";
+		rttr.addFlashAttribute("result", result);
+		
+		return "redirect:/";
+	}
+
+	//비밀번호 확인 페이지
+	@RequestMapping(value = "/lock", method=RequestMethod.GET)
+	public void checkPw() throws Exception {}
+	
+	//비밀번호 확인
+	@RequestMapping(value = "/lock", method=RequestMethod.POST)
+	public String checkPw(LoginDTO dto, RedirectAttributes rttr) throws Exception {
+		if(service.login(dto) != null) {
+			return "redirect:/users/update";
+		}
+		rttr.addFlashAttribute("fail", "FAIL");
+		
+		return "redirect:/users/lock";
 	}
 	
-	//회원 정보 수정
+	//회원 정보 수정, 탈퇴 페이지
 	@RequestMapping(value = "/update", method=RequestMethod.GET)
 	public void updateGet() throws Exception {}
 	
+	//회원 정보 수정
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updatePost(UserVO user, RedirectAttributes rttr) throws Exception{
 		service.update(user);
 		rttr.addFlashAttribute("result", "updatesuccess");
 		
-		return "redirect:/users/login";
+		return "redirect:/users/profile";
 	}
+	
+	//회원 탈퇴
+		@RequestMapping(value = "/delete", method = RequestMethod.POST)
+		public String deletePost(UserVO user, RedirectAttributes rttr) throws Exception{
+			service.delete(user.getUserid());
+			
+			rttr.addAttribute("result", "deletesuccess");
+			
+			return "redirect:/users/logout";
+		}
 	
 	//회원 인증(비밀번호 바꾸기전에 이전 비밀번호 확인)
 	@ResponseBody

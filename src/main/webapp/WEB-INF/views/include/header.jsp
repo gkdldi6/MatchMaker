@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	
 <!DOCTYPE html>
 <html>
   <head>
@@ -69,15 +69,115 @@
 <!-- 							</div> -->
 <!-- 						</form> -->
 						
-						<div class="navbar-form navbar-right">
-							<a href="/users/update">${userid}</a>
-							<a href=# onClick="window.open('messages',
-								'new','resizable=no,scrollbars=no,width=800,height=600'); return false"> ${count} </a>
-							<a href="/users/logout">${logout}</a>
-							<button class="btn btn-default btn-flat">로그인</button>
-							<a class="btn btn-info btn-flat" href="/users/join">회원가입</a>
-						</div>
-			
+						<!-- 로그인 했을때 -->
+						<c:if test="${!empty login }">	
+							<div class="navbar-custom-menu">
+						      <ul class="nav navbar-nav">
+						        <!-- Messages: style can be found in dropdown.less-->
+						        <li class="dropdown messages-menu">
+						          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						            <i class="fa fa-envelope-o"></i>
+						            <span class="label label-success">4</span>
+						          </a>
+						          <ul class="dropdown-menu">
+						            <li class="header">You have 4 messages</li>
+						            <li>
+						              <!-- inner menu: contains the actual data -->
+						              <ul class="menu">
+						                <li><!-- start message -->
+						                  <a href="#">
+						                    <div class="pull-left">
+						                      <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+						                    </div>
+						                    <h4>
+						                      Sender Name
+						                      <small><i class="fa fa-clock-o"></i> 5 mins</small>
+						                    </h4>
+						                    <p>Message Excerpt</p>
+						                  </a>
+						                </li><!-- end message -->
+						                	<!-- 메시지들 -->
+						              </ul>
+						            </li>
+						            <li class="footer"><a href="#">모든 쪽지 보기</a></li>
+						          </ul>
+						        </li>
+						        <!-- Notifications: style can be found in dropdown.less -->
+						        <li class="dropdown notifications-menu">
+						          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						            <i class="fa fa-bell-o"></i>
+						            <span class="label label-warning">10</span>
+						          </a>
+						          <ul class="dropdown-menu">
+						            <li class="header">You have 10 notifications</li>
+						            <li>
+						              <!-- inner menu: contains the actual data -->
+						              <ul class="menu">
+						                <li>
+						                  <a href="#">
+						                    <i class="ion ion-ios-people info"></i> Notification title
+						                  </a>
+						                </li>
+						                	<!-- 예약된 게임 목록 -->
+						              </ul>
+						            </li>
+						            <li class="footer"><a href="#">모든 게임 보기</a></li>
+						          </ul>
+						        </li>
+						        <!-- User Account: style can be found in dropdown.less -->
+						        <li class="dropdown user user-menu">
+						          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+						            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+						            <span class="hidden-xs">${login.userid}</span>
+						          </a>
+						          <ul class="dropdown-menu">
+						            <!-- User image -->
+						            <li class="user-header">
+						              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+						              <p>
+						                ${login.userid } - ${login.username }
+						                <small>${login.regdate }</small>
+						              </p>
+						            </li>
+						            <!-- Menu Body -->
+<!-- 						            <li class="user-body"> -->
+<!-- 						              <div class="col-xs-4 text-center"> -->
+<!-- 						                <a href="#">Followers</a> -->
+<!-- 						              </div> -->
+<!-- 						              <div class="col-xs-4 text-center"> -->
+<!-- 						                <a href="#">Sales</a> -->
+<!-- 						              </div> -->
+<!-- 						              <div class="col-xs-4 text-center"> -->
+<!-- 						                <a href="#">Friends</a> -->
+<!-- 						              </div> -->
+<!-- 						            </li> -->
+						            <!-- Menu Footer-->
+						            <li class="user-footer">
+						              <div class="pull-left">
+						                <a href="/users/lock" class="btn btn-default btn-flat">내정보 변경</a>
+						              </div>
+						              <div class="pull-right">
+						                <a href="/users/logout" class="btn btn-default btn-flat">로그아웃</a>
+						              </div>
+						            </li>
+						          </ul>
+						        </li>
+						      </ul>
+						    </div>
+					   	</c:if>
+						
+						<!-- 로그인 안했을때 -->
+						<c:if test="${empty login }">
+							<div class="navbar-form navbar-right">
+	<%-- 							<a href="/users/update">${userid}</a> --%>
+	<!-- 							<a href=# onClick="window.open('messages', -->
+	<%-- 								'new','resizable=no,scrollbars=no,width=800,height=600'); return false"> ${count} </a> --%>
+	<%-- 							<a href="/users/logout">${logout}</a> --%>
+								<a class="btn btn-default btn-flat" href="/users/login">로그인</a>
+								<a class="btn btn-info btn-flat" href="/users/join">회원가입</a>
+							</div>
+						</c:if>
+						
 					</div>
 					<!-- /.navbar-collapse -->
 				</div>
@@ -86,7 +186,3 @@
 		</header>
 	</div>
 </body>
-		
-
-
-		
