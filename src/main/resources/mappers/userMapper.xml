@@ -16,16 +16,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectOne"  resultType="UserVO">
 		select * from user where userid = #{userid} 
-		<!-- and userpw = #{userpw} -->
 	</select>
 	
 	<update id="update">
-		update user set username = #{username}, email = #{email}
+		update user set userpw = #{userpw} , email = #{email}, userage = #{userage} , userinfo = #{userinfo} 
 		where userid = #{userid}
 	</update>
 	
 	<delete id="delete">
-		delete from user where userid = #{userid} and userpw = #{userpw}
+		delete from user where userid = #{userid} 
 	</delete>
 	
 	<select id="selectId" resultType="UserVO">
@@ -33,5 +32,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from user 
 		where userid = #{userid} 
 	</select>
+	
+	<select id="findId" resultType="UserVO">
+		select *
+		from user
+		where username = #{username} and email = #{email}
+	</select>
+	
+	<select id="findPassword" resultType="UserVO">
+		select *
+		from user
+		where username = #{username} and userid = #{userid} and email = #{email}
+	</select>
+	
 	
 </mapper>

@@ -1,3 +1,5 @@
+-- 쪽지 테이블 추가 --
+
 -- 스키마 생성
 create database matchmaker;
 use matchmaker;
@@ -63,6 +65,21 @@ update freeboard set replycnt =
 (select count (rno) from freereply where bno = freeboard.bno)
 where bno > 0;
 
--- 유저 추가
-insert into user(userid,userpw,username,email,regdate,userage,userinfo) values('1234','1234','김선중','sunjoong91@naver.com',now(),11,'ㅅㅅㅅㅅ');
-insert into user(userid,userpw,username,email,regdate,userage,userinfo) values('sunjoong91','1234','김선중','sunjoong91@naver.com',now(),11,'ㅅㅅㅅㅅ');
+SELECT * FROM USER;
+delete from user;
+
+
+-- 쪽지 테이블
+create table message(
+	mno int not null auto_increment,
+    targetid varchar(50) not null references user (userid),
+    readpoint int NOT NULL default 0,
+    sender varchar(50) not null references user (userid),
+    message text not null,
+    opendate timestamp,
+    senddate timestamp not null default now(),
+    primary key (mno)
+);
+
+drop table message;
+select * from message;

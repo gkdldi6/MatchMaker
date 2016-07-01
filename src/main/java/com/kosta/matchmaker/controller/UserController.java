@@ -3,6 +3,9 @@ package com.kosta.matchmaker.controller;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +41,6 @@ public class UserController {
 		if(user == null){
 			return;
 		}
-		
 		model.addAttribute("userVO", user);
 	}
 	
@@ -76,8 +78,11 @@ public class UserController {
 		
 	}
 	//캡차
+	@RequestMapping(value = "/recapcha", method=RequestMethod.GET)
+	public void validateRecaptcha() throws Exception {}
+	
 	@ResponseBody
-	@RequestMapping(value = "/test/validateRecaptcha", method = RequestMethod.POST)
+	@RequestMapping(value = "/validateRecaptcha", method = RequestMethod.POST)
 	public String validateRecaptcha(@RequestParam Map<String, String> paramMap) {
 	    
 		service.reCaptcha();
@@ -90,17 +95,60 @@ public class UserController {
 	    ReCaptchaResponse reCaptchaResponse = service.reCaptcha().checkAnswer(host, challenge, res);
 	 
 	    if (reCaptchaResponse.isValid()) {
-	        System.out.println("true");
 	        check = "Y";
 	    } else {
-	        System.out.println("false");
 	        check = "N";
 	    }
 	     
 	    return check;
 	}
 	
-	@RequestMapping(value = "/recapcha", method=RequestMethod.GET)
-	public void validateRecaptcha() throws Exception {}
 	
+	//로그 아웃
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		HttpSession session = request.getSession();
+		if(session.getAttribute("login") !=null){
+			session.removeAttribute("login");
+			session.invalidate();
+		}
+		return "home";
+	}
+	
+	//회원 정보 수정
+	@RequestMapping(value = "/update", method=RequestMethod.GET)
+	public void updateGet() throws Exception {}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updatePost(UserVO user, RedirectAttributes rttr) throws Exception{
+		service.update(user);
+		rttr.addFlashAttribute("result", "updatesuccess");
+		
+		return "redirect:/users/login";
+	}
+	
+	//회원 인증(비밀번호 바꾸기전에 이전 비밀번호 확인)
+	@ResponseBody
+	@RequestMapping(value = "/update/authCheck", method=RequestMethod.POST)
+	public String authCheck(RedirectAttributes rttr, @RequestParam("userid") String userid,
+					@RequestParam("userpw") String userpw) throws Exception{
+		int result = service.userAuth(userid, userpw);
+		if(result == 1){
+			return "authchecksuccess";
+		}else{ 
+			return "authcheckfail";
+		}
+		
+	}
+	
+	//비밀번호 찾기
+	@RequestMapping(value = "/findPassword", method =RequestMethod.GET)
+	public String findPassword(){
+		return "users/findPassword";
+	}
+	//아이디 찾기
+	@RequestMapping(value = "/findId", method =RequestMethod.GET)
+	public String findId(){
+		return "users/findId";
+	}
 }

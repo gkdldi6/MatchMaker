@@ -12,23 +12,30 @@
 
 <!-- 회원 가입 -->
 <div class="container">
-	<form action="join" method="post" name="form" class="form-horizontal" onsubmit="return joinCheck();">
+	<form action=update method="post" name="form" class="form-horizontal" onsubmit="return joinCheck();">
 		<fieldset>
 
-			<legend>회원 가입</legend>
+			<legend>회원 수정</legend>
 
 			<div class="form-group">
 				<label for="inputId" class="col-lg-2 control-label">아이디</label>
-				<div class="col-lg-8">
+				<div class="col-lg-10">
 					<input type="text" name="userid" class="form-control" id="userid"
-						placeholder="아이디를 입력해주세요." required></input>
-					<div id="messageidfail" style="color: #ff0000"></div>
-					<div id="messageidsuccess" style="color: #0000ff"></div>
-				</div>
-				<div class="col-lg-2">
-					<a id="idcheck" class="btn btn-primary btn-flat">중복확인</a>
+						value= "${login.userid}" readonly></input>
 				</div>
 			</div>
+
+			<div class="form-group">
+				<label for="inputPassword" class="col-lg-2 control-label">현재 비밀번호</label>
+				<div class="col-lg-10">
+					<input type="password" name="currentuserpw" class="form-control"
+						id="currentuserpw" placeholder="현재 비밀번호를 입력해주세요." 
+						onblur="authCheck()" required>
+					<div id="authcheckfail" style="color: #ff0000"></div>
+					<div id="authchecksuccess" style="color: #0000ff"></div>
+				</div>
+			</div>
+
 
 			<div class="form-group">
 				<label for="inputPassword" class="col-lg-2 control-label">비밀번호</label>
@@ -54,7 +61,7 @@
 				<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
 				<div class="col-lg-10">
 					<input type="email" name="email" class="form-control" id="email"
-						placeholder="이메일을 입력해주세요. ex)test@test.test" required> 
+						value= "${login.email}" required> 
 				</div>
 			</div>
 
@@ -62,7 +69,7 @@
 				<label for="inputName" class="col-lg-2 control-label">이름</label>
 				<div class="col-lg-10">
 					<input type="text" name="username" class="form-control"
-						id="username" placeholder="이름을 입력해주세요." required>
+						id="username" value="${login.username}" readonly>
 				</div>
 			</div>
 
@@ -70,7 +77,7 @@
 				<label for="inputAge" class="col-lg-2 control-label">나이</label>
 				<div class="col-lg-10">
 					<input type="number" name="userage" class="form-control"
-						id="userage" placeholder="나이를 입력해주세요." required>
+						id="userage" placeholder="${login.userage}" value="${login.userage}" required>
 				</div>
 			</div>
 
@@ -78,7 +85,7 @@
 				<label for="textArea" class="col-lg-2 control-label">자기 소개</label>
 				<div class="col-lg-10">
 					<textarea class="form-control" name="userinfo" rows="3"
-						id="userinfo" placeholder="자신을 소개하세요." style="resize: none"></textarea>
+						id="userinfo" style="resize: none">${login.userinfo}</textarea>
 				</div>
 			</div>
 
@@ -94,7 +101,7 @@
 					
 			<div class="form-group">
 				<div class="col-lg-10 col-lg-offset-2">
-					<button type="submit" class="btn btn-primary btn-flat">가입</button>  
+					<button type="submit" class="btn btn-primary btn-flat">수정</button>  
 					<a class="btn btn-default btn-flat" onclick="history.go(-1);">취소</a>
 				</div>
 			</div>
@@ -141,31 +148,27 @@ $(function(){
             }
         });
     });
-}); 
+});
 </script>
 <script type="text/javascript">
-	var idCheckNum = 0;
-	
-	$('#idcheck').click(function () {
-		$.ajax({
-			url:'/users/join/idCheck',		
-			type: 'POST',
-			data:{"userid" : $('#userid').val()},
-			success: function(data){
-				if(data == "idCheckSuccess" && $('#userid').val() != ""){
-					alert("사용 가능한 아이디 입니다.");
-					document.getElementById("messageidfail").innerHTML = "";
-					document.getElementById("messageidsuccess").innerHTML = "사용가능한 아이디 입니다.";
-				} else if(data =="idCheckFail" || $('#userid').val() == ""){
-					alert('사용 할 수 없는 아이디 입니다.');
-					document.getElementById("messageidsuccess").innerHTML = "";
-					document.getElementById("messageidfail").innerHTML = "사용 할 수 없는 아이디 입니다.";
+ 	function authCheck(){
+ 		$.ajax({
+			url : '/users/update/authCheck',
+			type : 'POST',
+			data : {"userid" : $('#userid').val(),
+				  "userpw" : $('#currentuserpw').val()},
+			success : function(data){
+				if(data == "authchecksuccess" && $('#currentuserpw').val() != ""){
+					document.getElementById("authchecksuccess").innerHTML = "인증 성공";
+    		 		document.getElementById("authcheckfail").innerHTML = "";
+				}else{
+					document.getElementById("authchecksuccess").innerHTML = "";
+    		 		document.getElementById("authcheckfail").innerHTML = "인증 실패";
 				}
-			}	
+			},
 		});
-		idCheckNum++;
-	});
-	
+ 	};
+ 
 	function passwordCheck(){
 		if($('#userpw').val() != $('#userpwCheck').val()){
 	 		alert("비밀번호가 서로 일치 하지 않습니다.");
@@ -187,26 +190,24 @@ $(function(){
 	 		alert("자동 방지 입력코드를 확인해 주세요");
 	 		return false;
 		}else{
-			var idsuccessField = $('#messageidsuccess').text();
+			var authField = $('#authcheckfail').text();
 			//아이디 체크
-			if(idCheckNum > 0 && idsuccessField == "사용가능한 아이디 입니다."){
-				if($('#userpw').val() != $('#userpwCheck').val()){
-					alert("비밀번호가 서로 일치 하지 않습니다.");
-					$('#userpw').focus();
-						document.getElementById("messagepwsuccess").innerHTML = "";
-						document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
-						return false;
+			if($('#userpw').val() != $('#userpwCheck').val()){
+				alert("비밀번호가 서로 일치 하지 않습니다.");
+				$('#userpw').focus();
+					document.getElementById("messagepwsuccess").innerHTML = "";
+					document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
+					return false;
+			}else{
+				document.getElementById("messagepwfail").innerHTML = "";
+				document.getElementById("messagepwsuccess").innerHTML = "비밀번호가 일치 합니다.";
+				
+				if(authField == "인증 실패"){
+					alert("현재 비밀번호를 확인해주세요");
+					return false;
 				}else{
-					document.getElementById("messagepwfail").innerHTML = "";
-					document.getElementById("messagepwsuccess").innerHTML = "비밀번호가 일치 합니다.";
 					return true;
 				}
-			}else if(idCheckNum > 0 && idsuccessField != "사용가능한 아이디 입니다."){
-				alert("아이디 검사를 다시 한 번 해주세요.");
-				return false;
-			}else{
-				alert("아이디 중복 검사를 해주세요");
-				return false;
 			}
 		}
 	}		

@@ -54,13 +54,9 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public void delete(String userid, String userpw) {
-
-		Map<String, Object> map = new HashMap<>();
-		map.put("userid", userid);
-		map.put("userpw", userpw);
-
-		session.delete(namespace + ".delete", map);
+	public void delete(String userid) {
+		
+		session.delete(namespace + ".delete", userid);
 	}
 
 	@Override
@@ -79,4 +75,22 @@ public class UserDAOImpl implements UserDAO {
 		return 1;
 	}
 
+	@Override
+	public UserVO findId(String username, String email) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("username", username);
+		map.put("email", email);
+		
+		return session.selectOne(namespace + ".findId", map);
+	}
+
+	@Override
+	public UserVO findPassword(String username, String userid, String email) {
+		Map<String,Object> map = new HashMap<>();
+		map.put("username", username);
+		map.put("userid", userid);
+		map.put("email", email);
+
+		return session.selectOne(namespace + ".findPassword",map);
+	}
 }

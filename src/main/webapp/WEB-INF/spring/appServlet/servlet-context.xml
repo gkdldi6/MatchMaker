@@ -50,6 +50,7 @@
 		
 		<interceptor>
 			<mapping path="/boards/new"/>
+			<mapping path="/messages"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>
 	</interceptors>
