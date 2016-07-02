@@ -171,9 +171,10 @@ socket.on('join', function(msg) {
 	room = msg;
 	$('#room-name').text(msg.rname);
 	$('a[href="#tab_2"]').parent('li').removeClass('active');
-	$('a[href="#tab_1"]').parent('li').addClass('active');
+	$('a[href="#tab_2"]').parent('li').css('display', 'none');
+	$('a[href="#tab_3"]').parent('li').addClass('active');
 	$('#tab_2').removeClass('active');
-	$('#tab_1').addClass('active');
+	$('#tab_3').addClass('active');
 	$('#exit-btn-group').show();
 	scrollAuto();
 });
@@ -186,9 +187,10 @@ $('#exit').click(function() {
 /*방 나가기 이벤트*/
 socket.on('exit', function(msg) {
 	$('#room-name').text('대기실');
-	$('a[href="#tab_1"]').parent('li').removeClass('active');
+	$('a[href="#tab_3"]').parent('li').removeClass('active');
 	$('a[href="#tab_2"]').parent('li').addClass('active');
-	$('#tab_1').removeClass('active');
+	$('a[href="#tab_2"]').parent('li').css('display', 'initial');
+	$('#tab_3').removeClass('active');
 	$('#tab_2').addClass('active');
 	$('#exit-btn-group').hide();
 	$('#reser-btn-group').hide();

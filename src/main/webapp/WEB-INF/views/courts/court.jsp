@@ -1,31 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<style>
+#datepicker {
+	background-color: #dd4b39 !important;
+	border: 0px;
+	width: 70px;
+}
+</style>
+
 
 
 <div class="nav-tabs-custom">
 	<ul class="nav nav-tabs">
-		<li class="active"><a href="#tab_1" data-toggle="tab">코트</a></li>
+	
+		<li class="active"><a href="#tab_1" data-toggle="tab">검색</a></li>
 		<li><a href="#tab_2" data-toggle="tab">대기방</a></li>
-		<li><a href="#tab_3" data-toggle="tab">게임</a></li>
-		<li class="dropdown"><a class="dropdown-toggle"
-			data-toggle="dropdown" href="#"> Dropdown <span class="caret"></span>
-		</a>
-			<ul class="dropdown-menu">
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="#">Action</a></li>
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="#">Another action</a></li>
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="#">Something else here</a></li>
-				<li role="presentation" class="divider"></li>
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-					href="#">Separated link</a></li>
-			</ul></li>
+		<li><a href="#tab_3" data-toggle="tab">대기실</a></li>
+		
 		<li class="pull-right"><a href="#" class="text-muted"><i
 				class="fa fa-gear"></i></a></li>
 	</ul>
-	<div class="tab-content">
-		<div class="tab-pane active" id="tab_1">
-
+	<div class="tab-content" style="height:100%">
+		<div class="tab-pane" id="tab_0">
 
 			<!-- Box Comment -->
 			<div class="box-widget">
@@ -133,22 +128,137 @@
 			</div>
 			<!-- /.box -->
 			
-			
 		</div>
 		<!-- /.tab-pane -->
+		
+		
+		<div class="tab-pane active" id="tab_1">
+			<div id="search-header">
+				<div class="col-xs-4" style="padding-right:5px">
+			      <select class="form-control">
+			        <option>전체</option>
+			        <option>코트</option>
+			        <option>열린방</option>
+			        <option>게임</option>
+			      </select>
+			    </div>
+			    
+			    <div class="col-xs-8" style="padding-left:0px">  
+			      <div class="input-group input-group-sm">
+			        <input type="text" class="form-control" style="height:34px">
+			        <span class="input-group-btn">
+			          <button type="button" class="btn btn-info btn-flat" style="height:34px">검색</button>
+			        </span>
+			      </div>
+			    </div>
+			</div>
+			<div id="search-body">
+			
+			
+			</div>
+		</div>
+		
+		
 		<div class="tab-pane" id="tab_2">
-			<ul class="timeline">
+			<!-- <ul class="timeline">
 			    <li class="time-label">
-       				 <span class="bg-red">날짜</span> <input type="text" id="datepicker">
+       				 <span class="bg-red"><input type="text" id="datepicker" value="전체"></span> 
     			</li>
     			
-    			<!-- ajax로 불러온 약속된 게임들이 들어가는 공간 -->
+    			ajax로 불러온 약속된 게임들이 들어가는 공간
     			
-			</ul>
+			</ul> -->
+			
+			<!-- 방 목록 시작 -->
+			<div class="box box-warning">
+				<div class="box-header">
+					<h3 class="box-title">생성된 방 목록</h3>
+					<button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+				</div>
+				<!-- /.box-header -->
+				
+				<!-- 방 생성 공간 -->
+				<div id="roomSpace" class="box-body" style="overflow-y:auto">
+				</div>
+				<!-- 방 생성 공간 끝 -->
+				
+				<div class="box-footer" style="border-top:0px">
+					<div style="float:right">
+						<button data-target="#createRoom" data-toggle="modal" type="button" class="btn btn-warning btn-flat">만들기</button>
+						<button id="select" type="button" class="btn btn-warning btn-flat">조회</button>
+					</div>
+				</div>
+			</div>
+			<!-- 방 목록 끝 -->
 		</div>
 		<!-- /.tab-pane -->
 		<div class="tab-pane" id="tab_3">
+			<!-- 채팅 공간 -->
+			<div class="box box-danger direct-chat direct-chat-danger">
+				<div class="box-header with-border">
+					<h3 id="room-name" class="box-title">대기실</h3>
+					
+					<div class="box-tools pull-right">
+						<!-- 접속한 인원 목록 버튼 -->
+						<button type="button" class="btn btn-box-tool"
+							data-toggle="tooltip" title="회원" data-widget="chat-pane-toggle">
+							<i class="fa fa-comments"></i>
+						</button>
+						<span id="reser-btn-group" style="display:none">
+							<button id="reserve" class="btn btn-primary btn-flat btn-xs">예약</button>
+						</span>						
+						<span id="exit-btn-group" style="display:none">
+							<button id=teamChange class="btn btn-success btn-flat btn-xs">팀 변경</button>
+							<button id="exit" class="btn btn-warning btn-flat btn-xs">나가기</button>
+						</span>
+					</div>
+				</div>
+				<!-- /.box-header -->
+			
+				<div id="msgbox" class="box-body">
 
+					<!-- 대화가 생성되는 곳 -->
+					<div class="direct-chat-messages"></div>
+					<!-- /대화가 생성되는 곳 -->
+
+					<!-- 접속한 인원들 -->
+					<div class="direct-chat-contacts">
+					  	<div id="waitUserlist"></div>
+						<div id="roomUserlist">
+							<div>
+								<span><b>Home</b></span>
+								<div class="home">
+								</div>
+							</div>							
+							<div>
+								<span><b>Away</b></span>
+								<div class="away">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /접속한 인원들 -->
+
+				</div>
+				<!-- /.box-body -->
+
+				<div class="box-footer">
+					<div class="input-group">
+
+						<!-- 메시지 입력 공간 -->
+						<input type="text" id="message" placeholder="메시지를 입력해주세요."
+							class="form-control">
+
+						<!-- 전송 버튼 -->
+						<span class="input-group-btn"> <a id="send"
+							class="btn btn-danger btn-flat">전송</a>
+						</span>
+
+					</div>
+				</div>
+				<!-- /.box-footer-->
+			</div>
+			<!-- 채팅 공간 끝 -->
 		</div>
 		<!-- /.tab-pane -->
 	</div>

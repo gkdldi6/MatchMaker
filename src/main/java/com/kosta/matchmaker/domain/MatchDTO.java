@@ -1,15 +1,16 @@
 package com.kosta.matchmaker.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class MatchDTO {
 	
 	private int mno;
 	private String mname;
-	private Date mbegintime;
-	private Date mendtime;
+	private String begintime;
+	private String endtime;
 	private int cno;
 	private String state;
+	
 	
 	public int getMno() {
 		return mno;
@@ -23,17 +24,17 @@ public class MatchDTO {
 	public void setMname(String mname) {
 		this.mname = mname;
 	}
-	public Date getMbegintime() {
-		return mbegintime;
+	public String getBegintime() {
+		return begintime;
 	}
-	public void setMbegintime(Date mbegintime) {
-		this.mbegintime = mbegintime;
+	public void setBegintime(String begintime) {
+		this.begintime = begintime;
 	}
-	public Date getMendtime() {
-		return mendtime;
+	public String getEndtime() {
+		return endtime;
 	}
-	public void setMendtime(Date mendtime) {
-		this.mendtime = mendtime;
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
 	}
 	public int getCno() {
 		return cno;

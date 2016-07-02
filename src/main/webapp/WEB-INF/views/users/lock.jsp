@@ -39,7 +39,7 @@
 	</div>
 </div>
 
-<script type="text/javascript">
+<script>
 	var fail = '${fail}';
 	if(fail) {
 		$('#msg').text('비밀번호가 틀렸습니다.');

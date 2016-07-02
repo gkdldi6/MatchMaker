@@ -57,7 +57,7 @@ var name = '${login.username}';		/* 회원 이름 */
 </style>
 
 
-<jsp:include page="chat.jsp"></jsp:include>
+<%-- <jsp:include page="chat.jsp"></jsp:include> --%>
 
 
 <!-- 사이드바 시작  -->
@@ -146,8 +146,8 @@ var name = '${login.username}';		/* 회원 이름 */
         	<i class="fa bg-blue">{{mno}}</i>
         	<div class="timeline-item">
             	<span class="time"><i class="fa fa-clock-o"></i> 
-					{{prettifyDate mbegintime}}~
-					{{prettifyDate mendtime}}
+					{{begintime}} ~ 
+					{{endtime}}
 				</span>
         	    <h3 class="timeline-header"><a href="#">{{mname}}</a></h3>
     	        <div class="timeline-body">

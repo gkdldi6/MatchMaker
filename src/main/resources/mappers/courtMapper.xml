@@ -10,7 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<select id="getAllMatches" resultType="MatchDTO">
-		select * from match_court
+		select mno, mname, 
+		DATE_FORMAT(begintime, '%m/%d %h:%i %p') begintime, 
+		DATE_FORMAT(endtime, '%m/%d %h:%i %p') endtime,
+		cno, state from match_court
 	</select>
 	
 </mapper>
