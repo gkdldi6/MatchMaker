@@ -20,7 +20,7 @@ public interface ReplyDAO {
 	public void delete(Integer rno) throws Exception;
 
 	//댓글수
-	public int count(Integer ano) throws Exception;
+	public int count(Integer bno, Integer ano) throws Exception;
 
 	// 본글번호 가져오기 
 	public int getAno(Integer rno) throws Exception;

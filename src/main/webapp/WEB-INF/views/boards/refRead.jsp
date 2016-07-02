@@ -28,8 +28,8 @@ input:read-only, #textArea:read-only {
 </style>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <script type="text/javascript">
-var ano = ${ano};
 var bno = ${bno};
+var ano = ${ano};
 </script>
 
 <div class="content-wrapper">
@@ -274,6 +274,8 @@ var bno = ${bno};
 		// 		$.getJSON('/replies/' + ano + "/" + replyPage, function(data) {
 		$.getJSON('/replies/' + bno + "/" + ano + "/" + replyPage, function(
 				data) {
+			console.log(data);
+					
 			printData(data.list, $('#reply-list'), $('#template'));
 			$("#modifyModal").modal('hide');
 			printPaging(data.pageMaker);
@@ -288,11 +290,13 @@ var bno = ${bno};
 		replyPage = $(this).attr("href");
 
 		getReply("/replies/" + bno + "/" + ano + "/" + replyPage);
+	
 	});
 
 	/* 댓글 페이징 처리 */
 	function printPaging(pageMaker) {
 		var str = "";
+		
 		if (pageMaker.prev) {
 			str += "<li><a href='" + (pageMaker.startPage - 1)
 					+ "'> << </a></li>";

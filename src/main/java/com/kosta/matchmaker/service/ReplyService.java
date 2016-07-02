@@ -17,7 +17,7 @@ public interface ReplyService {
 	public void removeReply(Integer rno) throws Exception;
 
 	// reply 글수 
-	public int count(Integer ano) throws Exception;
+	public int count(Integer bno, Integer ano) throws Exception;
 
 //	public List<ReplyVO> listReply(Integer bno) throws Exception;
 

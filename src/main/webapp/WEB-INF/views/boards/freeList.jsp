@@ -72,7 +72,7 @@
 										<li><a
 											href="${bno }${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
 									</c:if>
-
+		
 									<c:forEach begin="${pageMaker.startPage}"
 										end="${pageMaker.endPage}" var="idx">
 										<li
@@ -80,7 +80,7 @@
 											<a href="${bno }${pageMaker.makeSearch(idx)}">${idx}</a>
 										</li>
 									</c:forEach>
-
+									
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 										<li><a
 											href="${bno }${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
