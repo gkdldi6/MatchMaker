@@ -55,9 +55,11 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	// 댓글수 카운팅
 	@Override
-	public int count(Integer ano) throws Exception {
-		// TODO Auto-generated method stub
-		return session.selectOne(namespace + ".count", ano);
+	public int count(Integer bno, Integer ano) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
+		return session.selectOne(namespace + ".count", map);
 	}
 
 	// 본글번호 가져오기 

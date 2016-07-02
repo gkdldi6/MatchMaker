@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="../include/header.jsp"></jsp:include>
 
@@ -26,8 +27,8 @@ input:read-only, #textArea:read-only {
 	background-color: white;
 }
 </style>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <div class="content-wrapper">
 
@@ -88,8 +89,10 @@ input:read-only, #textArea:read-only {
 
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button class="btn btn-warning btn-flat" id="edit">수정</button>
-						<button class="btn btn-primary btn-flat" id="delete">삭제</button>
+						<c:if test="${login.username == article.writer}">
+							<button class="btn btn-warning btn-flat" id="edit">수정</button>
+							<button class="btn btn-primary btn-flat" id="delete">삭제</button>
+						</c:if>
 						<button class="btn btn-success btn-flat" id="list">목록</button>
 					</div>
 				</div>
@@ -148,7 +151,7 @@ input:read-only, #textArea:read-only {
 			<!-- Modal content-->
 			<div class="modal-content">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
 					<h4 class="modal-title" id="replyer-modal"></h4>
 				</div>
 				<div class="modal-body" data-rno>
@@ -182,7 +185,8 @@ input:read-only, #textArea:read-only {
 				<div class="panel-body">
 					<div id="replytext-list">{{replytext}}
 				</div>
-				<div><br><input type="button" class="btn btn-warning btn-xs btn-flat each-button"
+				<div><br>
+						<input type="button" class="btn btn-warning btn-xs btn-flat each-button"
 								value="수정" data-toggle="modal" data-target="#modifyModal"></div>
 				</div>
 			</div>
@@ -233,7 +237,6 @@ input:read-only, #textArea:read-only {
 	});
 </script>
 
-
 <!-- 댓글 처리 스크립트 -->
 <script type="text/javascript">
 	var ano = ${article.ano};
@@ -269,6 +272,7 @@ input:read-only, #textArea:read-only {
 			//printPaging(dat.pageMaker, $(".pagination"));
 		});
 	};
+
 
 	/* 댓글 페이징 이벤트 달기 */
 	$(".pagination").on("click", "li a", function(event) {

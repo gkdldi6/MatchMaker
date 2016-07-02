@@ -58,9 +58,9 @@ public class ReplyServiceImpl implements ReplyService {
 
 	// counter
 	@Override
-	public int count(Integer ano) throws Exception {
+	public int count(Integer bno, Integer ano) throws Exception {
 		
-		return dao.count(ano);
+		return dao.count(bno, ano);
 	}
 
 //	@Override

@@ -31,13 +31,10 @@ public class ReplyController {
 	@RequestMapping(value = "/{bno}/{ano}/{page}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> replies(@PathVariable Integer bno, @PathVariable Integer ano,
 			@PathVariable Integer page) {
-
-		System.out.println(67576);
 		
 		// ResponseEntity<List<ReplyVO>> entity = null;
 		ResponseEntity<Map<String, Object>> entity = null;
 
-		System.out.println("11의 정체가 궁그마다");
 		
 		try {
 			// List<ReplyVO> list = service.listReply(ano);
@@ -48,14 +45,11 @@ public class ReplyController {
 
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
-			System.out.println("???");
 			Map<String, Object> map = new HashMap<>();
 			List<ReplyVO> list = service.listReply(bno, ano, cri);
 			map.put("list", list);
 
-			System.out.println("kkkk");
-			int replyCount = service.count(ano);
-			System.out.println("uuuuu");
+			int replyCount = service.count(bno, ano);
 			pageMaker.setTotalCount(replyCount);
 
 			map.put("pageMaker", pageMaker);
