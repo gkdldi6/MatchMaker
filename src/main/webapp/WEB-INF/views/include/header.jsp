@@ -99,7 +99,7 @@
 						                	<!-- 메시지들 -->
 						              </ul>
 						            </li>
-						            <li class="footer"><a href="#">모든 쪽지 보기</a></li>
+						            <li class="footer"><a onClick="window.open('/messages', 'new', 'width=850, height=660'); return false">모든 쪽지 보기</a></li>
 						          </ul>
 						        </li>
 						        <!-- Notifications: style can be found in dropdown.less -->
@@ -157,7 +157,7 @@
 						                <a href="/users/lock" class="btn btn-default btn-flat">내정보 변경</a>
 						              </div>
 						              <div class="pull-right">
-						                <a href="/users/logout" class="btn btn-default btn-flat">로그아웃</a>
+						                <a href="/users/logout?result=logout" class="btn btn-default btn-flat">로그아웃</a>
 						              </div>
 						            </li>
 						          </ul>
@@ -169,10 +169,6 @@
 						<!-- 로그인 안했을때 -->
 						<c:if test="${empty login }">
 							<div class="navbar-form navbar-right">
-	<%-- 							<a href="/users/update">${userid}</a> --%>
-	<!-- 							<a href=# onClick="window.open('messages', -->
-	<%-- 								'new','resizable=no,scrollbars=no,width=800,height=600'); return false"> ${count} </a> --%>
-	<%-- 							<a href="/users/logout">${logout}</a> --%>
 								<a class="btn btn-default btn-flat" href="/users/login">로그인</a>
 								<a class="btn btn-info btn-flat" href="/users/join">회원가입</a>
 							</div>

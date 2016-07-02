@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <jsp:include page="../include/header.jsp"></jsp:include>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
@@ -57,7 +57,7 @@ var name = '${login.username}';		/* 회원 이름 */
 </style>
 
 
-<%-- <jsp:include page="chat.jsp"></jsp:include> --%>
+<jsp:include page="chat.jsp"></jsp:include>
 
 
 <!-- 사이드바 시작  -->
@@ -145,7 +145,10 @@ var name = '${login.username}';		/* 회원 이름 */
 		<li>
         	<i class="fa bg-blue">{{mno}}</i>
         	<div class="timeline-item">
-            	<span class="time"><i class="fa fa-clock-o"></i> {{mbegintime}}~{{mendtime}}</span>
+            	<span class="time"><i class="fa fa-clock-o"></i> 
+					{{prettifyDate mbegintime}}~
+					{{prettifyDate mendtime}}
+				</span>
         	    <h3 class="timeline-header"><a href="#">{{mname}}</a></h3>
     	        <div class="timeline-body">
  	               {{state}}

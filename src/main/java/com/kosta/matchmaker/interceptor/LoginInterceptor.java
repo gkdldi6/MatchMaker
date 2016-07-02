@@ -17,7 +17,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler
-			,ModelAndView modelAndView)throws Exception {
+			, ModelAndView modelAndView)throws Exception {
 		String dest = "/";
 		HttpSession session = request.getSession();
 		
@@ -28,6 +28,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			
 			logger.info("new login success");
 			session.setAttribute(LOGIN, userVO);
+			session.setAttribute("loginresult", "loginsuccess");
 			
 			dest = "/users/profile";
 //			Object dest = session.getAttribute("dest");

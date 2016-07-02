@@ -173,9 +173,11 @@ public class UserController {
 	public String findPassword(){
 		return "users/findPassword";
 	}
+	
 	//아이디 찾기
 	@RequestMapping(value = "/findId", method =RequestMethod.GET)
 	public String findId(){
 		return "users/findId";
 	}
+	
 }

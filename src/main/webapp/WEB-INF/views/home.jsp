@@ -49,7 +49,9 @@
 	if (result === 'joinSuccess') {
 		alert('가입이 성공적으로 되었습니다.');
 	} else if (result == 'deletesuccess'){
-		alert('삭제에 성공 했습니다.');
+		alert('회원탈퇴가 되었습니다.');
+	} else if (result == 'logout'){
+		alert('로그아웃되었습니다.');
 	}
 </script>
 

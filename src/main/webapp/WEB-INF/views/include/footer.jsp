@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <footer class="main-footer">
 	<div class="row">
@@ -33,6 +34,13 @@
 </footer>
 
 </div>
+
+<c:if test="${!empty loginresult }">
+	<script type="text/javascript">
+		alert('로그인되었습니다.');
+	</script>
+	<c:remove var="loginresult"/>
+</c:if>
 
 <script src="/resources/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- Bootstrap 3.3.2 JS -->

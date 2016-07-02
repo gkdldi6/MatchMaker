@@ -11,6 +11,16 @@
 
 getGames();
 
+/* 템플릿 날짜 */
+Handlebars.registerHelper("prettifyDate", function(timeValue) {
+	console.log(timeValue);
+	var dateObj = new Date(timeValue);
+	var year = dateObj.getFullYear();
+	var month = dateObj.getMonth() + 1;
+	var date = dateObj.getDate();
+	return year + "/" + month + "/" + date;
+});
+
 function getGames() {
 	$.getJSON('/courts/games', function(games) {
 		var templateObj = $('#gameTemplate');

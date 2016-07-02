@@ -33,19 +33,17 @@
 	
 	  </div>
 	  <!-- /.lockscreen-item -->
-	  <div class="help-block text-center">
+	  <div id="msg" class="help-block text-center">
 	    회원 정보를 수정하거나 탈퇴하려면 비밀번호를 입력해주세요.
 	  </div>
 	</div>
 </div>
 
 <script type="text/javascript">
-	$(function() {
-		var fail = '${fail}';
-		if(fail) {
-			alert('비밀번호가 틀렸습니다.');
-		}		
-	});
+	var fail = '${fail}';
+	if(fail) {
+		$('#msg').text('비밀번호가 틀렸습니다.');
+	}		
 </script>
 
 
