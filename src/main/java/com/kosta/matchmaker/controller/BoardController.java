@@ -57,6 +57,8 @@ public class BoardController {
 			return "boards/refRegister";
 		} else if(bno == 0) {
 			return "boards/adminRegister";
+		} else if(bno == 101) {
+			return "boards/locRegister";
 		}
 		
 		return "boards/freeRegister";

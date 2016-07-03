@@ -180,5 +180,3 @@
 				<!-- /.container-fluid -->
 			</nav>
 		</header>
-	</div>
-</body>
