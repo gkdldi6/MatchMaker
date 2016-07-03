@@ -3,7 +3,7 @@ var courtNo;
 var sidebar = $('#sidebar');
 var xsize = 400;
 
-
+/*화면 크기에 맞게 지도 크기 변경*/
 $('#map').css('width', $(window).width() - xsize);
 $('#map').css('height', $(window).height() - 50);
 

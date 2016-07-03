@@ -1,3 +1,12 @@
+/*화면 크기에 맞게 사이드바 및 내용 크기 변경*/
+$('.direct-chat-messages, #roomSpace').css('height', $(window).height() - 265);
+$('.control-sidebar, .control-sidebar-bg').css('width', $(window).width());
+
+$(window).resize(function() {
+	$('.direct-chat-messages, #roomSpace').css('height', $(window).height() - 265);
+	$('.control-sidebar, .control-sidebar-bg').css('width', $(window).width());
+});
+
 /* chatbar 조작 */
 var chatbar = $('.chatbar');
 var chatbtn = $('.chatbtn');

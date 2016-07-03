@@ -16,10 +16,11 @@
 		<li><a href="#tab_2" data-toggle="tab">대기방</a></li>
 		<li><a href="#tab_3" data-toggle="tab">대기실</a></li>
 		
-		<li class="pull-right"><a href="#" class="text-muted"><i
-				class="fa fa-gear"></i></a></li>
+		<li class="pull-right">
+			<i type="button" class="close" style="margin-top:8px;margin-right:8px" onclick="closeSbar()">&times;</i>
+		</li>
 	</ul>
-	<div class="tab-content" style="height:100%">
+	<div class="tab-content">
 		<div class="tab-pane" id="tab_0">
 
 			<!-- Box Comment -->
@@ -134,7 +135,7 @@
 		
 		<div class="tab-pane active" id="tab_1">
 			<div id="search-header">
-				<div class="col-xs-4" style="padding-right:5px">
+				<div class="col-sm-4" style="/* padding-right:5px */ padding-bottom:5px">
 			      <select class="form-control">
 			        <option>전체</option>
 			        <option>코트</option>
@@ -143,7 +144,7 @@
 			      </select>
 			    </div>
 			    
-			    <div class="col-xs-8" style="padding-left:0px">  
+			    <div class="col-sm-8" style="/* padding-left:0px */">  
 			      <div class="input-group input-group-sm">
 			        <input type="text" class="form-control" style="height:34px">
 			        <span class="input-group-btn">
@@ -178,7 +179,7 @@
 				<!-- /.box-header -->
 				
 				<!-- 방 생성 공간 -->
-				<div id="roomSpace" class="box-body" style="overflow-y:auto">
+				<div id="roomSpace" class="box-body" style="overflow-y:auto;min-height:220px">
 				</div>
 				<!-- 방 생성 공간 끝 -->
 				
@@ -215,10 +216,10 @@
 				</div>
 				<!-- /.box-header -->
 			
-				<div id="msgbox" class="box-body">
+				<div id="msgbox" class="box-body" style="overflow-y:hidden">
 
 					<!-- 대화가 생성되는 곳 -->
-					<div class="direct-chat-messages"></div>
+					<div class="direct-chat-messages" style="min-height:220px"></div>
 					<!-- /대화가 생성되는 곳 -->
 
 					<!-- 접속한 인원들 -->

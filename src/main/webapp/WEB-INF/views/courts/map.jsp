@@ -26,10 +26,6 @@ var name = '${login.username}';		/* 회원 이름 */
 /* 	height: 600px; */
 }
 
-.direct-chat-messages, #roomSpace {
-	height: 500px;
-}
-
 .chatbtn {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -45,7 +41,7 @@ var name = '${login.username}';		/* 회원 이름 */
 }
 
 .tab-content {
-    height: 100%;
+/* 	height: 500px; */
     margin-bottom: 0px;
 }
 
@@ -53,6 +49,10 @@ var name = '${login.username}';		/* 회원 이름 */
 	width: 50%;
 	height: 100%;
 	float: left;
+}
+
+#sidebar > aside {
+	padding-bottom: 0px !important;
 }
 </style>
 
@@ -62,7 +62,7 @@ var name = '${login.username}';		/* 회원 이름 */
 
 <!-- 사이드바 시작  -->
 <div id="sidebar" state="opened">
-	<aside class="control-sidebar control-sidebar-light" style="height:100%">
+	<aside class="control-sidebar control-sidebar-light">
 		<jsp:include page="court.jsp"></jsp:include>
 	</aside>
 	<!-- 사이드바 배경 : 없으면 안됨 -->
@@ -170,7 +170,7 @@ var name = '${login.username}';		/* 회원 이름 */
 <script>$('.datetimepicker').appendDtpicker({'locale':'ko'});</script>
 <!-- socket.io api -->
 <!-- 학원 -->
-<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script>
+<!-- <script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
 <!-- 집 -->
 <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <!-- socket.io client -->
@@ -196,6 +196,5 @@ var name = '${login.username}';		/* 회원 이름 */
 <script src="/resources/dist/js/app.min.js" type="text/javascript"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/resources/dist/js/demo.js" type="text/javascript"></script>
-
 </body>
 </html>
