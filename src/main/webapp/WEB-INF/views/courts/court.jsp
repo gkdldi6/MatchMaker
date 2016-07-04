@@ -27,8 +27,8 @@
 			<div class="box-widget">
 				<div class="box-header with-border">
 					<div class="user-block">
-						<img class="img-circle" src="/resources/img/court-icon.jpg"
-							alt="court Image"> <span id="cname" class="username"></span>
+						<img class="img-circle" src="/resources/img/court-icon.jpg"	alt="court Image"> 
+						<span id="cname" class="username"></span>
 						<span id="address" class="description"></span>
 					</div>
 					<!-- /.user-block -->
@@ -36,14 +36,15 @@
 				<!-- /.box-header -->
 				<div class="box-body">
 
-					<img alt="코트 사진" width="200" height="200"></img><br> <b>코트
-						상세</b>
+					<img alt="코트 사진" width="200" height="200"></img>
+					<div class="pull-right"><button id="back" type="button" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> 뒤로 </button></div>
+					<p><b>코트 상세</b></p>
 					<p id="ccontent"></p>
 					<!-- Social sharing buttons -->
-					<button type="button" class="btn btn-default btn-xs">
+					<button type="button" id="likeCourt" class="btn btn-default btn-xs">
 						<i class="fa fa-thumbs-o-up"></i> Like
 					</button>
-					<span class="pull-right text-muted">45 likes - 2 comments</span>
+					<span class="pull-right text-muted">Likes <span id="liked"></span> - Comments <span id="replycnt"></span></span>
 					
 				</div>
 				<!-- /.box-body -->
@@ -134,17 +135,16 @@
 		
 		
 		<div class="tab-pane active" id="tab_1">
-			<div id="search-header">
-				<div class="col-sm-4" style="/* padding-right:5px */ padding-bottom:5px">
-			      <select class="form-control">
-			        <option>전체</option>
-			        <option>코트</option>
-			        <option>열린방</option>
-			        <option>게임</option>
+			<div id="search-header" class="row" style="padding-left:15px;padding-right:15px">
+				<div style="/* padding-right:5px */ padding-bottom:5px">
+			      <select id="court-search" class="form-control">
+			        <option value="C" selected="selected">코트</option>
+			        <option value="R">열린방</option>
+			        <option value="G">게임</option>
 			      </select>
 			    </div>
 			    
-			    <div class="col-sm-8" style="/* padding-left:0px */">  
+			    <div style="/* padding-left:0px */padding-bottom:5px">  
 			      <div class="input-group input-group-sm">
 			        <input type="text" class="form-control" style="height:34px">
 			        <span class="input-group-btn">
@@ -154,7 +154,7 @@
 			    </div>
 			</div>
 			<div id="search-body">
-			
+				
 			
 			</div>
 		</div>

@@ -5,11 +5,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.kosta.matchmaker.mappers.CourtMapper">
 
-	<select id="getAllCourts" resultType="CourtVO">
-		select * from court
+	<!-- 코트 목록 조회 -->
+	<select id="getCourts" resultType="CourtVO">
+		select a.title, a.replycnt, c.lat, c.lng, c.liked, c.cno from court c natural join article a where c.approval = 'Y' 
 	</select>
 
-	<select id="getAllMatches" resultType="MatchDTO">
+	<!-- 코트 1개 조회 -->
+	<select id="getCourt" resultType="CourtVO">
+		select * from court natural join article where approval = 'Y' and cno = #{cno}
+	</select>
+
+	<!-- 코트 등록 -->
+	<insert id="regCourt">
+		insert into court(bno, ano, address, lat, lng, approval)
+		values(#{bno}, #{ano}, #{address}, #{lat}, #{lng}) 
+	</insert>
+
+	<!-- 코트 좋아요 올리기 -->
+	<update id="likeCourt">
+		update court set liked = liked + 1 where cno = #{cno}
+	</update>
+
+
+	<!-- 게임 목록 조회 -->
+	<select id="getMatches" resultType="MatchDTO">
 		select mno, mname, 
 		DATE_FORMAT(begintime, '%m/%d %h:%i %p') begintime, 
 		DATE_FORMAT(endtime, '%m/%d %h:%i %p') endtime,

@@ -323,7 +323,6 @@ input:read-only, #textArea:read-only {
 					alert('댓글이 등록되었습니다.');
 					replyPage = 1;
 					getReply("/replies/" + bno + "/" + ano + "/" + replyPage);
-					$('#replyer').val('');
 					$('#replytext').val('');
 				}
 			}

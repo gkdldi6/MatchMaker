@@ -17,13 +17,23 @@ public class CourtServiceImpl implements CourtService {
 	private CourtDAO dao;
 	
 	@Override
-	public List<CourtVO> getAllCourts() throws Exception {
-		return dao.getAllCourts();
+	public List<CourtVO> getCourts() throws Exception {
+		return dao.getCourts();
 	}
 
 	@Override
-	public List<MatchDTO> getAllMatches() throws Exception {
-		return dao.getAllMatches();
+	public List<MatchDTO> getMatches() throws Exception {
+		return dao.getMatches();
+	}
+
+	@Override
+	public CourtVO getCourt(int cno) throws Exception {
+		return dao.getCourt(cno);
+	}
+
+	@Override
+	public void likeCourt(int cno) throws Exception {
+		dao.likeCourt(cno);
 	}
 
 }

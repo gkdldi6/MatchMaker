@@ -7,7 +7,8 @@ public class CourtVO extends ArticleVO {
 	private int liked;
 	private double lat;
 	private double lng;
-	
+	private String approval;
+
 	public int getCno() {
 		return cno;
 	}
@@ -37,6 +38,12 @@ public class CourtVO extends ArticleVO {
 	}
 	public void setLng(double lng) {
 		this.lng = lng;
+	}
+	public String getApproval() {
+		return approval;
+	}
+	public void setApproval(String approval) {
+		this.approval = approval;
 	}
 
 }

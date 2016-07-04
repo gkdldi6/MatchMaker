@@ -53,6 +53,13 @@ var name = '${login.username}';		/* 회원 이름 */
 
 #sidebar > aside {
 	padding-bottom: 0px !important;
+	overflow-x: hidden !important;
+}
+
+.info-box-content:hover {
+	-webkit-box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.2);
+	cursor: pointer;
 }
 </style>
 
@@ -114,7 +121,24 @@ var name = '${login.username}';		/* 회원 이름 */
 	<!-- /.modal-dialog -->
 </div>
 
-
+<!-- 코트 템플릿 -->
+<script id="courtTemplate" type="text/x-handlebars-template">
+	{{#each .}}
+		<div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-flag-o"></i></span>
+            <div class="info-box-content" cno="{{cno}}">
+              <span class="info-box-text">{{title}}</span>
+              <span class="info-box-number">
+                <span style="font-weight:normal;font-size:15px">Likes</span>
+                <span>{{liked}}</span>
+				<span style="font-weight:normal;font-size:15px">Comments</span>
+				<span>{{replycnt}}</span>
+              </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+	{{/each}}
+</script>
 <!-- 방 템플릿 -->
 <script id="roomTemplate" type="text/x-handlebars-template">
 	{{#each .}}
@@ -170,9 +194,9 @@ var name = '${login.username}';		/* 회원 이름 */
 <script>$('.datetimepicker').appendDtpicker({'locale':'ko'});</script>
 <!-- socket.io api -->
 <!-- 학원 -->
-<!-- <script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
+<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script>
 <!-- 집 -->
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
 <!-- socket.io client -->
 <script src="/resources/js/socket.io.client.js"></script>
 <!-- 다음 지도 API -->

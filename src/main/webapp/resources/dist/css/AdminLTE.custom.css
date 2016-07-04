@@ -2315,7 +2315,7 @@ a:focus {
 
 .info-box {
     display: block;
-    min-height: 90px;
+    min-height: 45px;
     background: #fff;
     width: 100%;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -2349,11 +2349,11 @@ a:focus {
     border-bottom-left-radius: 2px;
     display: block;
     float: left;
-    height: 90px;
+    height: 55px;
     width: 90px;
     text-align: center;
-    font-size: 45px;
-    line-height: 90px;
+    font-size: 40px;
+    line-height: 55px;
     background: rgba(0, 0, 0, 0.2)
 }
 

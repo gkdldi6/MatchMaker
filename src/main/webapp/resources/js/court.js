@@ -9,20 +9,6 @@
 //	target.html(html);
 //});
 
-getGames();
-
-
-function getGames() {
-	$.getJSON('/courts/games', function(games) {
-		var templateObj = $('#gameTemplate');
-		var target = $('.timeline');
-		
-		var template = Handlebars.compile(templateObj.html());
-		var html = template(games);
-//		$('.eachRoom').remove();
-		target.append(html);
-	});
-}
 
 //
 ///* ajax로 받아온 댓글 목록들을 템플릿에 컴파일하는 함수 */

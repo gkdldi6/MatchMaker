@@ -16,7 +16,7 @@ public class HomeController {
 		return "matchmaker";
 	}
 	
-	@RequestMapping("/courts")
+	@RequestMapping("/map")
 	public String courts() {
 		return "courts/map";
 	}

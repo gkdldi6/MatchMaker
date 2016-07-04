@@ -19,13 +19,31 @@ public class CourtDAOImpl implements CourtDAO {
 	private static final String namespace = "com.kosta.matchmaker.mappers.CourtMapper";
 	
 	@Override
-	public List<CourtVO> getAllCourts() throws Exception {
-		return session.selectList(namespace + ".getAllCourts");
+	public List<CourtVO> getCourts() throws Exception {
+		return session.selectList(namespace + ".getCourts");
 	}
 
 	@Override
-	public List<MatchDTO> getAllMatches() throws Exception {
-		return session.selectList(namespace + ".getAllMatches");
+	public CourtVO getCourt(Integer cno) throws Exception {
+		return session.selectOne(namespace + ".getCourt", cno);
 	}
 
+	@Override
+	public void likeCourt(Integer cno) throws Exception {
+		session.update(namespace + ".likeCourt", cno);
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public List<MatchDTO> getMatches() throws Exception {
+		return session.selectList(namespace + ".getMatches");
+	}
 }
