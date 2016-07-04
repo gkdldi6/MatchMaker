@@ -2933,7 +2933,8 @@ a:focus {
     background: #fff;
     padding: 10px;
     border-bottom-right-radius: 3px;
-    border-bottom-left-radius: 3px
+    border-bottom-left-radius: 3px;
+    padding-bottom: 0px;
 }
 
 .nav-tabs-custom .dropdown.open>a:active,

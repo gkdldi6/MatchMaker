@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kosta.matchmaker.domain.CourtVO;
+import com.kosta.matchmaker.domain.LatLngDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
 
 @Repository
@@ -19,8 +20,8 @@ public class CourtDAOImpl implements CourtDAO {
 	private static final String namespace = "com.kosta.matchmaker.mappers.CourtMapper";
 	
 	@Override
-	public List<CourtVO> getCourts() throws Exception {
-		return session.selectList(namespace + ".getCourts");
+	public List<CourtVO> getCourts(LatLngDTO latlng) throws Exception {
+		return session.selectList(namespace + ".getSearchCourts", latlng);
 	}
 
 	@Override

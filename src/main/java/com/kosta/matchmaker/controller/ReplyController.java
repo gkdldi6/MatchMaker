@@ -32,13 +32,9 @@ public class ReplyController {
 	public ResponseEntity<Map<String, Object>> replies(@PathVariable Integer bno, @PathVariable Integer ano,
 			@PathVariable Integer page) {
 
-		System.out.println(67576);
-		
 		// ResponseEntity<List<ReplyVO>> entity = null;
 		ResponseEntity<Map<String, Object>> entity = null;
 
-		System.out.println("11의 정체가 궁그마다");
-		
 		try {
 			// List<ReplyVO> list = service.listReply(ano);
 			// entity = new ResponseEntity<>(list, HttpStatus.OK);

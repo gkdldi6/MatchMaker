@@ -8,12 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.CourtVO;
+import com.kosta.matchmaker.domain.LatLngDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
 import com.kosta.matchmaker.service.CourtService;
 
@@ -24,12 +26,14 @@ public class CourtController {
 	private CourtService service;
 	
 	@RequestMapping(value="/courts", method=RequestMethod.GET)
-	public ResponseEntity<List<CourtVO>> getCourts() {
+	public ResponseEntity<List<CourtVO>> getCourts(LatLngDTO latlng) {
 		
+		System.out.println("==================TEST=====================");
+		System.out.println(latlng);
 		ResponseEntity<List<CourtVO>> entity = null;
 		
 		try {
-			List<CourtVO> list = service.getCourts();
+			List<CourtVO> list = service.getCourts(latlng);
 			entity = new ResponseEntity<List<CourtVO>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -200,7 +200,7 @@ var name = '${login.username}';		/* 회원 이름 */
 <!-- socket.io client -->
 <script src="/resources/js/socket.io.client.js"></script>
 <!-- 다음 지도 API -->
-<script	src="//apis.daum.net/maps/maps3.js?apikey=55e0d519a9b6c3ce803115407c5ce276"></script>
+<script	src="//apis.daum.net/maps/maps3.js?apikey=55e0d519a9b6c3ce803115407c5ce276&libraries=services"></script>
 <!-- 다음 지도 API 구현 -->
 <script src="/resources/js/daumMap.js"></script>
 <!-- 사이드 바 조작 -->
