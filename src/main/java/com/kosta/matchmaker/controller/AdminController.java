@@ -56,19 +56,22 @@ public class AdminController {
 	@RequestMapping(value = "/adminview", method = RequestMethod.GET)
 	public void admin(Model model) throws Exception {
 
-		List<UserVO> userlist = service.selectList();
-		int usercount = service.countUser();
 		Criteria cri = new Criteria();
-		cri.setPage(100);
+		cri.setPage(1);
+		cri.setPerPageNum(100);
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		// map.put("userlist", userlist);
+		model.addAttribute("cri", cri);
+		
+		List<UserVO> userlist = service.selectList(cri);
+		int usercount = service.countUser();
 
 		model.addAttribute("userlist", userlist);
 		model.addAttribute("usercount", usercount);
 		model.addAttribute("pageMaker", pageMaker);
 
+		// map.put("userlist", userlist);
 		// model.addAttribute("userinfo", service.selectOne(userid));
 		// model.addAttribute("userdelete", service.remove(userid));
 

@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kosta.matchmaker.domain.AdminVO;
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.persistence.AdminDAO;
 
@@ -39,8 +40,13 @@ public class AdminDAOTest {
 	// 전체유저 목록
 	@Test
 	public void testSelectList() throws Exception {
+		System.out.println("11");
+		Criteria cri = new Criteria();
+		cri.setPage(1);
+		cri.setPerPageNum(10);
+		System.out.println("22");
 
-		List<UserVO> list = dao.selectList();
+		List<UserVO> list = dao.selectList(cri);
 
 		for (UserVO user : list) {
 			System.out.print(user.getUserid() + "\t");

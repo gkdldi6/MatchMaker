@@ -291,7 +291,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 		<![CDATA[	
 		order by a.ano desc
-		limit #{cri.pageStart} , #{cri.perPageNum}
+		limit #{cri.pageStart}, #{cri.perPageNum}
 		]]>
 	</sql>
 

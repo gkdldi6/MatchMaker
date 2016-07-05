@@ -76,14 +76,14 @@
 
 									<c:if test="${pageMaker.prev }">
 										<li><a
-											href="${usercount}${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+											href="${pageMaker.startPage}"></a></li>
 									</c:if>
 
 									<c:forEach begin="${pageMaker.startPage}"
 										end="${pageMaker.endPage}" var="idx">
 										<li
 											<c:out value="${pageMaker.cri.page == idx ? 'class =active' : ''}"/>>
-											<a href="${usercount}${pageMaker.makeSearch(idx)}">${idx}</a>
+											<a href="${pageMaker.makeQuery(idx)}">${idx}</a>
 										</li>
 									</c:forEach>
 

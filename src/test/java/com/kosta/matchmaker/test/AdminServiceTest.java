@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kosta.matchmaker.domain.AdminVO;
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.service.AdminService;
 
@@ -40,7 +41,11 @@ public class AdminServiceTest {
 	@Test
 	public void testSelectList() throws Exception {
 
-		List<UserVO> list = service.selectList();
+		Criteria cri = new Criteria();
+		cri.setPage(1);
+		cri.setPerPageNum(1);
+
+		List<UserVO> list = service.selectList(cri);
 
 		for (UserVO user : list) {
 			System.out.print(user.getUserid() + "\t");
