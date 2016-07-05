@@ -24,38 +24,48 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	
-	<beans:bean id="loginInterceptor" 
+
+	<beans:bean id="loginInterceptor"
 		class="com.kosta.matchmaker.interceptor.LoginInterceptor">
 	</beans:bean>
-	
+
 	<beans:bean id="homeInterceptor"
 		class="com.kosta.matchmaker.interceptor.HomeInterceptor">
 	</beans:bean>
 
-	<beans:bean id="authInterceptor" 
+	<beans:bean id="authInterceptor"
 		class="com.kosta.matchmaker.interceptor.AuthInterceptor">
 	</beans:bean>
-	
+
+	<beans:bean id="adminInterceptor"
+		class="com.kosta.matchmaker.interceptor.AdminInterceptor">
+	</beans:bean>
+
 	<interceptors>
 		<interceptor>
-			<mapping path="/users/loginPost"/>
-			<beans:ref bean="loginInterceptor"/>		
+			<mapping path="/users/loginPost" />
+			<beans:ref bean="loginInterceptor" />
 		</interceptor>
-		
+
 		<interceptor>
-			<mapping path="/"/>
-			<beans:ref bean="homeInterceptor"/>		
+			<mapping path="/" />
+			<beans:ref bean="homeInterceptor" />
 		</interceptor>
-		
+
 		<interceptor>
-			<mapping path="/boards/new"/>
-			<beans:ref bean="authInterceptor"/>
+			<mapping path="/boards/new" />
+			<beans:ref bean="authInterceptor" />
+		</interceptor>
+
+		<!-- 관리저 인터셉터 추가 -->
+		<interceptor>
+			<mapping path="/admin/loginPost" />
+			<beans:ref bean="adminInterceptor" />
 		</interceptor>
 	</interceptors>
 
 	<context:component-scan base-package="com.kosta.matchmaker.controller" />
-	
+
 	<!-- 파일업로드 용량설정 -->
 	<beans:bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

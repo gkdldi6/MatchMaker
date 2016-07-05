@@ -4,6 +4,7 @@
 <jsp:include page="include/header.jsp"></jsp:include>
 
 
+
 	<div id="bg">
 
 		<!-- 로그인 폼 -->
@@ -35,11 +36,14 @@
 				
 				<br>
 				<a href="#">비밀번호를 잃어버렸어요.</a><br> 
-				<a href="register.html" class="text-center">아이디를 잃어버렸어요.</a>
-
+				<a href="register.html" class="text-center">아이디를 잃어버렸어요.</a><br>
+<!-- 				<a href="https://analytics.google.com/analytics/web/template?uid=RJ2O31JfQxau3Kh0lmKaRg"> -->
+<!-- 					대시보드 연결테스트 </a> -->
 			</div>
 		</div>
 		<!-- 로그인 폼 끝 -->
+
+
 
 	</div>
 <script type="text/javascript">
@@ -50,5 +54,16 @@
 	}
 </script>
 
+<!-- 구글 통계 -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80197055-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <jsp:include page="include/footer.jsp"></jsp:include>

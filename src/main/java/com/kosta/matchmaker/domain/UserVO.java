@@ -11,7 +11,9 @@ public class UserVO {
 	private Date regdate;
 	private int userage;
 	private String userinfo;
-	
+	private String usercode;
+	private int userpoint;
+
 	public String getUserid() {
 		return userid;
 	}
@@ -68,10 +70,27 @@ public class UserVO {
 		this.userinfo = userinfo;
 	}
 
+	public String getUsercode() {
+		return usercode;
+	}
+
+	public void setUsercode(String usercode) {
+		this.usercode = usercode;
+	}
+
+	public int getUserpoint() {
+		return userpoint;
+	}
+
+	public void setUserpoint(int userpoint) {
+		this.userpoint = userpoint;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [userid=" + userid + ", userpw=" + userpw + ", username=" + username + ", email=" + email
-				+ ", regdate=" + regdate + ", userage=" + userage + ", userinfo=" + userinfo + "]";
+				+ ", regdate=" + regdate + ", userage=" + userage + ", userinfo=" + userinfo + ", usercode=" + usercode
+				+ ", userpoint=" + userpoint + "]";
 	}
 
 }

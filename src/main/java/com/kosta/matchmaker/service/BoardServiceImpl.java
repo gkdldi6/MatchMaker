@@ -47,16 +47,16 @@ public class BoardServiceImpl implements BoardService {
 		} else if (article_type.equals("N")) {
 			dao.noticeCreate(board);
 		} else if (article_type.equals("R")) {
-			
+
 			ReferenceBoardVO rarticle = (ReferenceBoardVO) board;
-			
+
 			String[] files = rarticle.getFiles();
-			
-			if(files == null){
+
+			if (files == null) {
 				return;
 			}
-			
-			for(String name : files){
+
+			for (String name : files) {
 				dao.referenceCreate(bno, lano, name);
 			}
 		}
@@ -67,16 +67,16 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Map<String, Object> listSearch(int bno, SearchCriteria cri) throws Exception {
 		Map<String, Object> map = new HashMap<>();
-		
+
 		map.put("name", dao.boardName(bno));
 		map.put("notice", dao.noticeList(bno));
-		
-		if(bno == 100 || bno == 0) {
+
+		if (bno == 100 || bno == 0) {
 			map.put("list", dao.listSearch(bno, cri));
 		} else {
 			map.put("list", dao.freeSearch(bno, cri));
 		}
-		
+
 		return map;
 	}
 
@@ -111,14 +111,14 @@ public class BoardServiceImpl implements BoardService {
 	public void modify(ArticleVO board) throws Exception {
 		Integer bno = board.getBno();
 		Integer ano = board.getAno();
-		
+
 		dao.update(board);
-		
+
 		String type = dao.getType(bno, ano);
 
 		if (type.equals("R")) {
 			ReferenceBoardVO rarticle = (ReferenceBoardVO) board;
-			
+
 			dao.deleteAttach(bno, ano);
 
 			String[] files = rarticle.getFiles();
@@ -136,10 +136,10 @@ public class BoardServiceImpl implements BoardService {
 	@Transactional
 	@Override
 	public void remove(Integer bno, Integer ano) throws Exception {
-		
+
 		String type = dao.getType(bno, ano);
 		dao.delete(bno, ano);
-		
+
 		if (type.equals("F")) {
 			dao.deleteFree(bno, ano);
 		} else if (type.equals("N")) {
@@ -155,6 +155,7 @@ public class BoardServiceImpl implements BoardService {
 		return dao.getAttach(bno, ano);
 	}
 
+	// 베스트 게시물용 메서드들..
 	@Override
 	public List<FreeBoardVO> maximumLike(Integer bno) throws Exception {
 		// TODO Auto-generated method stub

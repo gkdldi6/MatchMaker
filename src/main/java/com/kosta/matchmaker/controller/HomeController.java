@@ -22,9 +22,9 @@ public class HomeController {
 		return "courts/map";
 	}
 
-	@RequestMapping("/admin")
-	public String admin() {
-		return "adminhome";
-	}
+//	@RequestMapping("/admin")
+//	public String admin() {
+//		return "adminhome";
+//	}
 
 }

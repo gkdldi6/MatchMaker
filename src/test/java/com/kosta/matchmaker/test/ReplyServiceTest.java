@@ -18,7 +18,7 @@ import com.kosta.matchmaker.service.ReplyService;
 public class ReplyServiceTest {
 
 	private int bno = 1;
-	private int ano = 1;
+	private int ano = 10;
 	private int rno;
 	private int page = 1;
 	private int perPageNum = 5;

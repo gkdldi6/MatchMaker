@@ -28,13 +28,13 @@ public class AdminServiceImpl implements AdminService {
 
 		return null;
 	}
-	
+
 	// 회원 전체조회
 	@Override
 	public List<UserVO> selectList() throws Exception {
 		return dao.selectList();
 	}
-	
+
 	// 회원수 카운트
 	@Override
 	public int countUser() throws Exception {
@@ -48,12 +48,10 @@ public class AdminServiceImpl implements AdminService {
 		return dao.selectOne(userid);
 	}
 
-
+	// 회원 삭제
 	@Override
 	public void remove(String userid) {
 		dao.delete(userid);
 	}
-
-
 
 }

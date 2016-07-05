@@ -79,7 +79,7 @@ input:read-only, #textArea:read-only {
 				</div>
 
 				<!-- 페이징용 파라미터 저장 폼 -->
-				<form role="page" action="/boards/${bno }" method="get">
+				<form role="page" action="/boards/${bno}" method="get">
 					<input type='hidden' name='page' value="${cri.page}"> <input
 						type='hidden' name='perPageNum' value="${cri.perPageNum}">
 					<input type='hidden' name='searchType' value="${cri.searchType}">
@@ -193,7 +193,6 @@ input:read-only, #textArea:read-only {
 
 <!-- 글 처리 스크립트 -->
 <script type="text/javascript">
-
 	var ano = ${article.ano};
 	var pageForm = $('form[role="page"]');
 	var content = '${article.content}';
@@ -236,8 +235,8 @@ input:read-only, #textArea:read-only {
 
 <!-- 댓글 처리 스크립트 -->
 <script type="text/javascript">
-	var ano = ${article.ano};
 	var bno = ${article.bno};
+	var ano = ${article.ano};
 	var replyPage = 1;
 
 	/* 템플릿 날짜 */
@@ -265,8 +264,9 @@ input:read-only, #textArea:read-only {
 				data) {
 			printData(data.list, $('#reply-list'), $('#template'));
 			$("#modifyModal").modal('hide');
+
 			printPaging(data.pageMaker);
-			//printPaging(dat.pageMaker, $(".pagination"));
+			// printPaging(data.pageMaker, $(".pagination"));
 		});
 	};
 
@@ -282,22 +282,31 @@ input:read-only, #textArea:read-only {
 	/* 댓글 페이징 처리 */
 	function printPaging(pageMaker) {
 		var str = "";
+		// 		alert(pageMaker.prev);
+		alert(pageMaker.endPage);
+		// 		alert(pageMaker.next);
+
 		if (pageMaker.prev) {
+			// 			alert(1);
 			str += "<li><a href='" + (pageMaker.startPage - 1)
 					+ "'> << </a></li>";
 		}
 
 		for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+			alert(2);
 			var strClass = pageMaker.cri.page == i ? 'class=active' : '';
 			str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
 		}
 
 		if (pageMaker.next) {
+			// 			alert(3);
 			str += "<li><a href='" + (pageMaker.endPage + 1)
 					+ "'> >> </a></li>";
 		}
 		//target.html(str);
+// 		alert(4);
 		$('.pagination').html(str);
+// 		alert(5);
 	};
 
 	getReply();

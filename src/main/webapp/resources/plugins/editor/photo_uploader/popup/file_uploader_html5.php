@@ -1,5 +1,5 @@
 <?php
- 	$sFileInfo = '';
+ 	$sFileInfo = 'C:\\uploadfiles';
 	$headers = array();
 	 
 	foreach($_SERVER as $k => $v) {
