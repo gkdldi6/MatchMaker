@@ -21,7 +21,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		String dest = "/";
 		HttpSession session = request.getSession();
 		
-		ModelMap modelMap =modelAndView.getModelMap();
+		ModelMap modelMap = modelAndView.getModelMap();
 		Object userVO = modelMap.get("userVO");
 
 		if(userVO != null) {
@@ -42,7 +42,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			)throws Exception {
 	
 		HttpSession session = request.getSession();
-		if(session.getAttribute(LOGIN) !=null){
+		if(session.getAttribute(LOGIN) != null){
 			logger.info("clear login data before");
 			session.removeAttribute(LOGIN);
 		}

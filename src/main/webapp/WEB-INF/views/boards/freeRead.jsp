@@ -230,7 +230,7 @@ input:read-only, #textArea:read-only {
 		pageForm.submit();
 	});
 
-	/* 편집 버튼 클릭 */
+	/* 수정버튼 클릭 */
 	$('#edit').click(function() {
 		pageForm.attr('action', ano + '/edit');
 		pageForm.submit();

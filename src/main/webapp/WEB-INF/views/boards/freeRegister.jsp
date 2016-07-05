@@ -26,14 +26,14 @@
 			<div class="form-group">
 				<label for="inputEmail" class="col-lg-2 control-label">제목</label>
 				<div class="col-lg-10">
-					<input type="text" class="form-control" id="inputEmail" name="title">
+					<input type="text" class="form-control" id="inputEmail" name="title" required="required">
 				</div>
 			</div>
 
 			<div class="form-group">
 				<label for="textArea" class="col-lg-2 control-label">내용</label>
 				<div class="col-lg-10">
-					<textarea class="form-control textarea" rows="14" id="textArea" name="content"></textarea>
+					<textarea class="form-control textarea" rows="14" id="textArea" name="content" required="required"></textarea>
 				</div>
 			</div>
 			
