@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="radius != null">
 			and c.lat between #{swlat} and #{nelat} and c.lng between #{swlng} and #{nelng}
 		</if>
-		<if test="full != null">
+		<if test="detail != null">
 			<choose>
 				<when test="full == 'Y'.toString()">
 					and a.content like '%풀코트%'
@@ -77,8 +77,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					and a.content like '%하프코트%'
 				</when>
 			</choose>
-		</if>
-		<if test="shower != null">
 			<choose>
 				<when test="shower == 'Y'.toString()">
 					and a.content like '%샤워가능%'
@@ -87,8 +85,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					and a.content like '%샤워불가%'
 				</when>
 			</choose>
-		</if>
-		<if test="parking != null">
 			<choose>
 				<when test="parking == 'Y'.toString()">
 					and a.content like '%주차가능%'
@@ -97,8 +93,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					and a.content like '%주차불가%'
 				</when>
 			</choose>
-		</if>
-		<if test="outer != null">	
 			<choose>
 				<when test="outer == 'Y'.toString()">
 					and a.content like '%야외%'
@@ -107,8 +101,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					and a.content like '%실내%'
 				</when>
 			</choose>
-		</if>
-		<if test="free != null">
 			<choose>
 				<when test="free == 'Y'.toString()">
 					and a.content like '%무료%'
@@ -117,8 +109,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					and a.content like '%유료%'
 				</when>
 			</choose>
-		</if>
-		<if test="ground != null">
 			<choose>
 				<when test="ground == 'A'.toString()">
 					and a.content like '%아스팔트%'

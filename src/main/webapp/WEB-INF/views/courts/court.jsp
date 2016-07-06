@@ -150,29 +150,29 @@
 			   	
 			   	<button id="detail">상세 검색</button>
 			   	
-			   	<div id="detail-space">
+			   	<div id="detail-space" hidden>
 			   		<form id="radio-free">
-			   			<input name="free" checked="checked" type="radio" value="Y"> 무료
+			   			<input name="free" type="radio" value="Y"> 무료
 			   			<input name="free" type="radio" value="N"> 유료
 			   		</form>
 			   		<form id="radio-full">
-			   			<input name="full" checked="checked" type="radio"  value="Y"> 풀코트
+			   			<input name="full" type="radio"  value="Y"> 풀코트
 			   			<input name="full" type="radio"  value="N"> 하프코트
 			   		</form>
 			   		<form id="radio-park">
-			   			<input name="park" checked="checked" type="radio" value="Y" class="radio"> 주차가능
-			   			<input name="park" type="radio" value="N" class="radio"> 주차불가
+			   			<input name="parking" type="radio" value="Y"> 주차가능
+			   			<input name="parking" type="radio" value="N"> 주차불가
 			   		</form> 
 			   		<form id="radio-shower">
-			   			<input name="shower" checked="checked" type="radio" value="Y"> 샤워가능 
+			   			<input name="shower" type="radio" value="Y"> 샤워가능 
 			   			<input name="shower" type="radio" value="N"> 샤워불가
 			   		</form>
 			   		<form id="radio-outer">
-			   			<input name="outer" checked="checked" type="radio" value="Y"> 야외
+			   			<input name="outer" type="radio" value="Y"> 야외
 			   			<input name="outer" type="radio" value="N"> 실내
 			   		</form>
 			   		<form id="radio-ground">
-			   			<input name="ground" checked="checked" type="radio" value="D"> 흙
+			   			<input name="ground" type="radio" value="D"> 흙
 			   			<input name="ground" type="radio" value="U"> 우레탄
 			   			<input name="ground" type="radio" value="A"> 아스팔트
 			   			<input name="ground" type="radio" value="R"> 고무
@@ -312,23 +312,3 @@
 	</div>
 	<!-- /.tab-content -->
 </div>
-<script type="text/javascript">
-   	$('#detail').click(function() {
-   		console.log($('#radio-free input:checked').val());
-   		console.log($('#radio-full input:checked').val());
-   		console.log($('#radio-outer input:checked').val());
-   		console.log($('#radio-ground input:checked').val());
-   		console.log($('#radio-shower input:checked').val());
-   		console.log($('#radio-park input:checked').val());
-   	});
-   	
-   	$('#distance').change(function() {
-   		var selectval = $('#distance option:selected').val();
-   		console.log(selectval);
-   		if(selectval === 'input') {
-   			$('#dis-input').attr('type', 'text');
-   		} else {
-   			$('#dis-input').attr('type', 'hidden');
-   		}
-   	});
-</script>

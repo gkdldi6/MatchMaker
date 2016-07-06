@@ -6,8 +6,7 @@ var activeTab = '#tab_1';
 var position = $('.main-header').offset();
 var myPosition;
 var myLocation;
-var courtList = { pageidx: 0 };
-function CourtList() { this.pageidx = 0 }
+var courtList = {};
 
 /*화면 크기에 맞게 지도 크기 변경*/
 $('#map').css('width', $(window).width() - xsize);
@@ -310,7 +309,7 @@ function searchPlaces() {
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 function placesSearchCB(status, data, pagination) {
     if (status === daum.maps.services.Status.OK) {
-    
+    		
     	// 초기화
         initCourtList();
     	
@@ -384,7 +383,8 @@ function getCourtList() {
 
 // 검색 결과 초기화
 function initCourtList() {
-	courtList = new CourtList();
+	courtList.pageidx = 0;
+	courtList.radius = undefined;
 	removeMarker();
 	$('#search-body').text('');
 	$('#moreCourts').show();
@@ -397,5 +397,49 @@ $('#getAll').click(function() {
 	getCourtList();
 });
 
+// 상세 검색 상태
+var detailState = 0;
+
+// 상세 검색 열고 닫기 구현 및 열고 닫을때 검색 가능 여부 변경
 $('#detail').click(function() {
+	if(detailState === 0) {
+		$('#detail-space').show();
+		courtList.detail = 'Y';
+		detailState = 1;
+	} else {
+		$('#detail-space').hide();
+		$('#detail-space input:checked').removeAttr('checked');
+		courtList.detail = undefined;
+		detailState = 0;
+	}
 });
+
+// 거리 직접입력이면 input 생성
+$('#distance').change(function() {
+	var selectval = $('#distance option:selected').val();
+
+	if(selectval === 'input') {
+		$('#dis-input').attr('type', 'text');
+	} else {
+		$('#dis-input').attr('type', 'hidden');
+	}
+});
+
+// 상세검색 라디오버튼 값 추적
+$('#detail-space input:radio').change(function() {
+    var radioname =  $(this).attr('name');
+    
+	if(radioname === 'free') {
+		courtList.free = $(this).val();
+	} else if(radioname === 'full') {
+		courtList.full = $(this).val();
+	} else if(radioname === 'outer') {
+		courtList.outer = $(this).val();
+	} else if(radioname === 'ground') {
+		courtList.ground = $(this).val();
+	} else if(radioname === 'shower') {
+		courtList.shower = $(this).val();
+	} else if(radioname === 'parking') {
+		courtList.parking = $(this).val();
+	}
+  });

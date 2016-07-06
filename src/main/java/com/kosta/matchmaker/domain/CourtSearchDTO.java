@@ -2,11 +2,12 @@ package com.kosta.matchmaker.domain;
 
 public class CourtSearchDTO {
 	
+	private String radius;
 	private double swlat;
 	private double swlng;
 	private double nelat;
 	private double nelng;
-	private String radius;
+	private String detail;
 	private String outer;
 	private String free;
 	private String full;
@@ -15,6 +16,12 @@ public class CourtSearchDTO {
 	private String ground;
 	private int pageidx;
 	
+	public String getRadius() {
+		return radius;
+	}
+	public void setRadius(String radius) {
+		this.radius = radius;
+	}
 	public double getSwlat() {
 		return swlat;
 	}
@@ -39,11 +46,11 @@ public class CourtSearchDTO {
 	public void setNelng(double nelng) {
 		this.nelng = nelng;
 	}
-	public String getRadius() {
-		return radius;
+	public String getDetail() {
+		return detail;
 	}
-	public void setRadius(String radius) {
-		this.radius = radius;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 	public String getOuter() {
 		return outer;
@@ -90,9 +97,9 @@ public class CourtSearchDTO {
 	
 	@Override
 	public String toString() {
-		return "CourtSearchDTO [swlat=" + swlat + ", swlng=" + swlng + ", nelat=" + nelat + ", nelng=" + nelng
-				+ ", radius=" + radius + ", outer=" + outer + ", free=" + free + ", full=" + full + ", shower=" + shower
-				+ ", parking=" + parking + ", ground=" + ground + ", pageidx=" + pageidx + "]";
+		return "CourtSearchDTO [radius=" + radius + ", swlat=" + swlat + ", swlng=" + swlng + ", nelat=" + nelat
+				+ ", nelng=" + nelng + ", detail=" + detail + ", outer=" + outer + ", free=" + free + ", full=" + full
+				+ ", shower=" + shower + ", parking=" + parking + ", ground=" + ground + ", pageidx=" + pageidx + "]";
 	}
 	
 }
