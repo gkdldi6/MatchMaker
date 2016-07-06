@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kosta.matchmaker.domain.AdminVO;
 import com.kosta.matchmaker.domain.Criteria;
+import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.persistence.AdminDAO;
 
@@ -32,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
 
 	// 회원 전체조회
 	@Override
-	public List<UserVO> selectList(Criteria cri) throws Exception {
+	public List<UserVO> selectList(SearchCriteria cri) throws Exception {
 		return dao.selectList(cri);
 	}
 

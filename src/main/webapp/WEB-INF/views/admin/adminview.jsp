@@ -10,6 +10,9 @@
 }
 </style>
 
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+
 
 <div class="content-wrapper">
 	<div class="container">
@@ -38,20 +41,16 @@
 							aria-expanded="true">유저목록[${usercount}]</a></li>
 						<li class=""><a href="#userinfo" data-toggle="tab"
 							aria-expanded="false">유저상세정보</a></li>
-						<li class=""><a href="#userdelete" data-toggle="tab"
-							aria-expanded="false">유저아이디 삭제</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="userlist">
 							<table class="table table-hover table-striped">
 								<thead>
 									<tr>
-										<th width="15%">userid</th>
-										<th width="15%">username</th>
-										<th width="25%">email</th>
-										<th width="15%">regdate</th>
-										<th width="15%">usercode</th>
-										<th width="15%">userpoint</th>
+										<th width="25%">userid</th>
+										<th width="25%">username</th>
+										<th width="25%">userpoint</th>
+										<th width="25%">상세정보</th>
 									</tr>
 								</thead>
 
@@ -60,11 +59,10 @@
 										<tr>
 											<td>${user.userid }</td>
 											<td>${user.username }</td>
-											<td>${user.email }</td>
-											<td><fmt:formatDate pattern="yy-MM-dd HH:mm"
-													value="${user.regdate }" /></td>
-											<td><span class="badge">${user.usercode }</span></td>
 											<td><span class="badge">${user.userpoint }</span></td>
+											<td><input type="button" id="button_1"
+												class="btn btn-warning btn-xs btn-flat each-button"
+												value="수정" data-toggle="modal" data-target="#userInfoModal"></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -76,32 +74,103 @@
 
 									<c:if test="${pageMaker.prev }">
 										<li><a
-											href="${pageMaker.startPage}"></a></li>
+											href="${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
 									</c:if>
 
 									<c:forEach begin="${pageMaker.startPage}"
 										end="${pageMaker.endPage}" var="idx">
 										<li
-											<c:out value="${pageMaker.cri.page == idx ? 'class =active' : ''}"/>>
-											<a href="${pageMaker.makeQuery(idx)}">${idx}</a>
+											<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+											<a href="${pageMaker.makeSearch(idx)}">${idx}</a>
 										</li>
 									</c:forEach>
 
 									<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-										<li><a href="${pageMaker.endPage}+1"></a></li>
+										<li><a
+											href="${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
 									</c:if>
 
-
 								</ul>
+								console.log(${pageMaker.startPage});
+								console.log(${pageMaker.endPage});
+								console.log(${pageMaker.cri.page});
+
+
+
 							</div>
 
 						</div>
 						<!--               /.tab-pane -->
 
-						<div class="tab-pane" id="userinfo">선중아 여기 부탁해 이 회원이 쓴 게시글
-							출력해줘 그리고 여기에서 이 회원정보 불러올때 세션쓰면 안되</div>
+						<!-- 회원정보 창 -->
+						<div id="userInfoModal" class="modal modal-primary fade"
+							role="dialog" >
+							<div class="modal-dialog">
+								<!-- Modal content-->
+								<div class="modal-content" >
 
-						<div class="tab-pane" id="userdelete">xxxxx</div>
+
+									<!-- 유저상세정보 -->
+									<form action="" ></form>
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+										<h4 class="modal-title">ID</h4>
+									</div>
+									<div class="modal-body" data-selectuser>
+										<label id="selectedid" class="form-control">${user.userid}
+											id긁기</label>
+									</div>
+
+									<div class="modal-header">
+										<h4 class="modal-title">이름</h4>
+									</div>
+									<div class="modal-body" data-rno>
+										<label id="selectedname" class="form-control">${user.username}
+											이름긁기</label>
+									</div>
+
+									<div class="modal-header">
+										<h4 class="modal-title" id="usersid-modal">가입일</h4>
+									</div>
+									<div class="modal-body" data-rno>
+										<label id="selectedemail" class="form-control">${user.email}
+											이메일긁기</label>
+									</div>
+
+									<div class="modal-header">
+										<h4 class="modal-title" id="usersid-modal">가입일</h4>
+									</div>
+									<div class="modal-body" data-rno>
+										<label id="selectedregdate" class="form-control">${user.regdate}
+											가입일긁기</label>
+									</div>
+
+									<div class="modal-header">
+										<h4 class="modal-title" id="usersid-modal">나이</h4>
+									</div>
+									<div class="modal-body" data-rno>
+										<label id="selectedage" class="form-control">${user.userage}
+											나이긁기</label>
+									</div>
+
+									<!-- 									<div class="modal-header"> -->
+									<!-- 										<h4 class="modal-title" id="usersid-modal">소개</h4> -->
+									<!-- 									</div> -->
+									<!-- 									<div class="modal-body" data-rno> -->
+									<%-- 										<label id="selectedage" class="form-control">${user.age} --%>
+									<!-- 											소개긁기</label> -->
+									<!-- 									</div> -->
+
+									<!-- 템플릿 -->
+									<div class="modal-footer eacch-" data-selectuser={{userid}}>
+										<button type="button" class="btn btn-danger btn-flat"
+											id="userRemoveBtn">삭제</button>
+										<button type="button" class="btn btn-default btn-flat"
+											data-dismiss="modal">닫기</button>
+									</div>
+								</div>
+							</div>
+						</div>
 						<!-- 						/.tab-pane -->
 					</div>
 					<!-- 					/.tab-content -->
@@ -112,6 +181,47 @@
 		</div>
 	</div>
 </div>
+
+<script type="text/javascript">
+	var userid = ${user.userid};
+
+	$('#userInfoModal').on('click', function() {
+		
+		console.log(userid);
+		
+// 		var user = $(this).parents();
+// 		var selectuser = user.attr('data-selectuser');
+		
+// 		$('.modal-body').attr('data-selectuser', selectuser);
+
+// 		$('#replyer-modal').val(user.find('#selectedid').text());
+// 		$('#replyer-modal').text(user.find('#selectedname').text());
+// 		$('#replyer-modal').text(user.find('#selectedemail').text());
+// 		$('#replyer-modal').text(user.find('#selectedregdate').text());
+// 		$('#replyer-modal').text(user.find('#selectedage').text());
+	});
+</script>
+<script type="text/javascript">
+	$('#button_1').on('click', function(){
+		var id = ${user.userid};
+		alert("클릭 ㅅㅅ");
+		$.ajax({
+			type : "POST",
+			url : "/adminview",
+			data : {userid : id},
+			success : function(data){
+				alert(id);
+				alert("id전송성공");
+			},
+			error :function(data){
+				alert("사망 ㅅㅅㅅ");
+			}
+			
+		});
+	});
+
+</script>
+
 
 
 <jsp:include page="../include/footer.jsp"></jsp:include>

@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kosta.matchmaker.domain.AdminVO;
-import com.kosta.matchmaker.domain.Criteria;
+import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.service.AdminService;
 
@@ -41,7 +41,7 @@ public class AdminServiceTest {
 	@Test
 	public void testSelectList() throws Exception {
 
-		Criteria cri = new Criteria();
+		SearchCriteria cri = new SearchCriteria();
 		cri.setPage(1);
 		cri.setPerPageNum(1);
 
@@ -62,16 +62,16 @@ public class AdminServiceTest {
 	@Test
 	public void testSelectOne() throws Exception {
 
-		UserVO user = service.selectOne("1");
+		UserVO user = service.selectOne("12");
 
-		if (user.getUserid().equals("1")) {
+		if (user.getUserid().equals("12")) {
 			System.out.print(user.getUserid() + "\t");
 			System.out.print(user.getUserpw() + "\t");
 			System.out.print(user.getUsername() + "\t");
 			System.out.print(user.getEmail() + "\t");
 			System.out.print(user.getRegdate() + "\t");
-			System.out.print(user.getUserage() + "\t");
-			System.out.println(user.getUserinfo());
+//			System.out.print(user.getUserage() + "\t");
+//			System.out.println(user.getUserinfo());
 		}
 	}
 

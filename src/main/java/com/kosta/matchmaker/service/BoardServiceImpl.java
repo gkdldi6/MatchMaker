@@ -62,8 +62,9 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
-	// -------------------------- 게시판 등록 -------------------------
 
+	
+	
 	@Override
 	public Map<String, Object> listSearch(int bno, SearchCriteria cri) throws Exception {
 		Map<String, Object> map = new HashMap<>();
@@ -158,19 +159,16 @@ public class BoardServiceImpl implements BoardService {
 	// 베스트 게시물용 메서드들..
 	@Override
 	public List<FreeBoardVO> maximumLike(Integer bno) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.maximumLike(bno);
 	}
 
 	@Override
 	public List<FreeBoardVO> maximumHit(Integer bno) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.maximumHit(bno);
 	}
 
 	@Override
 	public List<FreeBoardVO> maximumReply(Integer bno) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.maximumReply(bno);
 	}
 

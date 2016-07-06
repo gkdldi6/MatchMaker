@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kosta.matchmaker.domain.AdminVO;
-import com.kosta.matchmaker.domain.Criteria;
+import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.domain.UserVO;
 
 @Repository
@@ -33,15 +33,16 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public List<UserVO> selectList(Criteria criteria) throws Exception {
+	public List<UserVO> selectList(SearchCriteria criteria) throws Exception {
 		
-		Map<String, Object> cri = new HashMap<>();
-		cri.put("cri", criteria);
+		Map<String, Object> listCri = new HashMap<>();
+		listCri.put("cri", criteria);
+		
 		
 //		List<UserVO> list = session.selectList(namespace + ".selectList");
 //		return list;
 		
-		return session.selectList(namespace + ".selectList", cri);
+		return session.selectList(namespace + ".selectList", listCri);
 		
 	}
 

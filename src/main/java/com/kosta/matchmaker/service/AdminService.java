@@ -3,7 +3,7 @@ package com.kosta.matchmaker.service;
 import java.util.List;
 
 import com.kosta.matchmaker.domain.AdminVO;
-import com.kosta.matchmaker.domain.Criteria;
+import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.domain.UserVO;
 
 public interface AdminService {
@@ -12,7 +12,7 @@ public interface AdminService {
 	public AdminVO login(String id, String pw) throws Exception;
 
 	// 회원 전체조회
-	public List<UserVO> selectList(Criteria cri) throws Exception;
+	public List<UserVO> selectList(SearchCriteria cri) throws Exception;
 
 	// 회원수 카운트
 	public int countUser() throws Exception;

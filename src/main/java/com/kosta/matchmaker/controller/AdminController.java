@@ -6,13 +6,14 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kosta.matchmaker.domain.AdminVO;
-import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.PageMaker;
+import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.service.AdminService;
 
@@ -29,9 +30,6 @@ public class AdminController {
 		return "adminhome";
 	}
 
-	// @RequestMapping(value = "/", method = RequestMethod.GET)
-	// public void loginGet() {}
-
 	/* 로그인 */
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPost(@RequestParam("id") String id, @RequestParam("pw") String pw, Model model) throws Exception {
@@ -46,35 +44,47 @@ public class AdminController {
 		System.out.println("post사용");
 	}
 
-	// /* admin 페이지로 이동 */
-	// @RequestMapping(value = "/adminview", method = RequestMethod.GET)
-	// public void getProfile() throws Exception {
-	//
-	// }
-
-	/* Admin 페이지 유저목록 및 카운터 */
+	/* Admin 페이지 */
 	@RequestMapping(value = "/adminview", method = RequestMethod.GET)
-	public void admin(Model model) throws Exception {
-
-		Criteria cri = new Criteria();
-		cri.setPage(1);
-		cri.setPerPageNum(100);
+	public void admin(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
-		model.addAttribute("cri", cri);
-		
+		model.addAttribute("pageMaker", pageMaker);
+
 		List<UserVO> userlist = service.selectList(cri);
 		int usercount = service.countUser();
 
 		model.addAttribute("userlist", userlist);
 		model.addAttribute("usercount", usercount);
-		model.addAttribute("pageMaker", pageMaker);
+
+		selectedUser("userid", model);
+		
+		// UserVO userid = service.selectOne(id);
+		// model.addAttribute("userid", userid);
 
 		// map.put("userlist", userlist);
-		// model.addAttribute("userinfo", service.selectOne(userid));
 		// model.addAttribute("userdelete", service.remove(userid));
 
 	}
+
+	// 유저 조회
+	public void selectedUser(@RequestParam String userid, Model model) {
+
+		UserVO userVO = service.selectOne(userid);
+		model.addAttribute("user", userVO);
+
+	}
+
+	// public void userRemove(@RequestParam String userid, SearchCriteria cri,
+	// Model model) throws Exception {
+	//
+	// Boolean del = false;
+	//
+	// if (del == true) {
+	// service.remove(userid);
+	// }
+	//
+	// }
 
 }
