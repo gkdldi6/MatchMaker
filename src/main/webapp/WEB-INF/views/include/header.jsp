@@ -47,7 +47,7 @@
 							
 							<li><a href="/matchmaker">소개</a></li>
 							
-							<li><a href="/courts">코트 찾기</a></li>
+							<li><a href="/map">코트 찾기</a></li>
 							
 							<li class="dropdown"><a class="dropdown-toggle"
 								data-toggle="dropdown">게시판 <span class="caret"></span></a>

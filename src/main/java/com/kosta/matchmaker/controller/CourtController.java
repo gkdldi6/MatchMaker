@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.CourtVO;
-import com.kosta.matchmaker.domain.LatLngDTO;
+import com.kosta.matchmaker.domain.CourtSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
 import com.kosta.matchmaker.service.CourtService;
 
@@ -26,10 +26,10 @@ public class CourtController {
 	private CourtService service;
 	
 	@RequestMapping(value="/courts", method=RequestMethod.GET)
-	public ResponseEntity<List<CourtVO>> getCourts(LatLngDTO latlng) {
+	public ResponseEntity<List<CourtVO>> getCourts(CourtSearchDTO latlng) {
 		
 		System.out.println("==================TEST=====================");
-		System.out.println(latlng);
+		System.out.println(latlng.toString());
 		ResponseEntity<List<CourtVO>> entity = null;
 		
 		try {

@@ -19,7 +19,7 @@ public class CourtServiceTest {
 	@Inject
 	private CourtService service;
 	
-	@Test
+	/*@Test
 	public void courtTest() throws Exception {
 		List<CourtVO> list = service.getAllCourts();
 		
@@ -27,6 +27,6 @@ public class CourtServiceTest {
 			System.out.println("cno: " + courtVO.getCno() + "\tlat: " + courtVO.getLat() + "\tlng: " +  courtVO.getLng()
 					 			+ "\taddress: " + courtVO.getAddress());
 		}
-	}
+	}*/
 	
 }

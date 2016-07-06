@@ -14,14 +14,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		limit #{pageidx}, 10
 	</select>
 	
-	<!-- 코트 검색 목록 조회 -->
+	<!-- 코트 검색 목록 조회
 	<select id="getSearchCourts" resultType="CourtVO">
 		select a.title, a.replycnt, c.lat, c.lng, c.liked, c.cno 
 		from court c natural join article a 
 		where c.approval = 'Y' and c.lat between #{swlat} and #{nelat} and c.lng between #{swlng} and #{nelng}
 		order by c.cno desc 
 		limit #{pageidx}, 10
-	</select>
+	</select> -->
 
 	<!-- 코트 1개 조회 -->
 	<select id="getCourt" resultType="CourtVO">
@@ -39,7 +39,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update court set liked = liked + 1 where cno = #{cno}
 	</update>
 
-
 	<!-- 게임 목록 조회 -->
 	<select id="getMatches" resultType="MatchDTO">
 		select mno, mname, 
@@ -48,58 +47,94 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		cno, state from match_court
 	</select>
 	
-	
-	
-	
-	
-	
-	<!-- <![CDATA[
- 		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt
- 		from article a
- 		where a.bno = #{bno} and not article_type = 'N'
- 		]]>
-	
-	
-	<![CDATA[	
-		order by a.ano desc
-		limit #{cri.pageStart} , #{cri.perPageNum}
+	<!-- 코트 검색 목록 조회 -->
+	<select id="getSearchCourts" resultType="CourtVO">
+		<![CDATA[
+		select a.title, a.replycnt, c.lat, c.lng, c.liked, c.cno 
+		from court c natural join article a 
+		where c.approval = 'Y'
 		]]>
+		
+		<include refid="search"></include>
+		
+		<![CDATA[
+		order by c.cno desc 
+		limit #{pageidx}, 10
+		]]>
+	</select>
 	
-	
-	동적 SQL을 위한 부분 SQL
+	<!-- 동적 SQL 사용 -->
 	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 't'.toString()">
-				and title like CONCAT('%', #{cri.keyword}, '%')
-			</if>
-			<if test="searchType == 'c'.toString()">
-				and content like CONCAT('%', #{cri.keyword}, '%')
-			</if>
-			<if test="searchType == 'w'.toString()">
-				and writer like CONCAT('%', #{cri.keyword}, '%')
-			</if>
-			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{cri.keyword}, '%') OR content
-				like
-				CONCAT('%', #{cri.keyword}, '%'))
-			</if>
-			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{cri.keyword}, '%') OR writer
-				like
-				CONCAT('%', #{cri.keyword}, '%'))
-			</if>
-			<if test="searchType == 'tcw'.toString()">
-				and ( title like CONCAT('%', #{cri.keyword}, '%')
-				OR
-				content
-				like CONCAT('%', #{cri.keyword}, '%')
-				OR
-				writer like CONCAT('%',
-				#{cri.keyword}, '%'))
-			</if>
+		<if test="radius != null">
+			and c.lat between #{swlat} and #{nelat} and c.lng between #{swlng} and #{nelng}
 		</if>
-	</sql> -->
-	
+		<if test="full != null">
+			<choose>
+				<when test="full == 'Y'.toString()">
+					and a.content like '%풀코트%'
+				</when>
+				<when test="full == 'N'.toString()">
+					and a.content like '%하프코트%'
+				</when>
+			</choose>
+		</if>
+		<if test="shower != null">
+			<choose>
+				<when test="shower == 'Y'.toString()">
+					and a.content like '%샤워가능%'
+				</when>
+				<when test="shower == 'N'.toString()">
+					and a.content like '%샤워불가%'
+				</when>
+			</choose>
+		</if>
+		<if test="parking != null">
+			<choose>
+				<when test="parking == 'Y'.toString()">
+					and a.content like '%주차가능%'
+				</when>
+				<when test="parking == 'N'.toString()">
+					and a.content like '%주차불가%'
+				</when>
+			</choose>
+		</if>
+		<if test="outer != null">	
+			<choose>
+				<when test="outer == 'Y'.toString()">
+					and a.content like '%야외%'
+				</when>
+				<when test="outer == 'N'.toString()">
+					and a.content like '%실내%'
+				</when>
+			</choose>
+		</if>
+		<if test="free != null">
+			<choose>
+				<when test="free == 'Y'.toString()">
+					and a.content like '%무료%'
+				</when>
+				<when test="free == 'N'.toString()">
+					and a.content like '%유료%'
+				</when>
+			</choose>
+		</if>
+		<if test="ground != null">
+			<choose>
+				<when test="ground == 'A'.toString()">
+					and a.content like '%아스팔트%'
+				</when>
+				<when test="ground == 'D'.toString()">
+					and a.content like '%흙%'
+				</when>
+				<when test="ground == 'R'.toString()">
+					and a.content like '%고무%'
+				</when>
+				<when test="ground == 'U'.toString()">
+					and a.content like '%우레탄%'
+				</when>
+			</choose>
+		</if>
+	</sql>
 	
 	
 </mapper>

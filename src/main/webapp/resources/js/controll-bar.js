@@ -34,6 +34,7 @@ chatbtn.click(function() {
 /* 사이드바 조작 */
 function openSidebar(cno) {
 	return function() {
+		console.log(cno);
 		openSbar();
 		getCourt(cno);
 	};
@@ -42,9 +43,7 @@ function openSidebar(cno) {
 function openSbar() {
 	$('.control-sidebar-bg, .control-sidebar').css('right', '0px');
 	sidebar.attr('state', 'opened');
-	console.log($('#map').css('width'));
 	$('#map').css('width', $(window).width() - 385);
-	console.log($('#map').css('width'));
 	relayout();
 	courtNo = cno;
 	xsize = 385;

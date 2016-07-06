@@ -3,9 +3,11 @@ var courtNo;
 var sidebar = $('#sidebar');
 var xsize = 400;
 var activeTab = '#tab_1';
-var pageidx = 0;
 var position = $('.main-header').offset();
-
+var myPosition;
+var myLocation;
+var courtList = { pageidx: 0 };
+function CourtList() { this.pageidx = 0 }
 
 /*화면 크기에 맞게 지도 크기 변경*/
 $('#map').css('width', $(window).width() - xsize);
@@ -53,28 +55,21 @@ var markers = [];
 //지도 범위 객체 생성
 var bounds = new daum.maps.LatLngBounds(); 
 
-//HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-/*if (navigator.geolocation) {
-	
+//HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+if (navigator.geolocation) {
 	// GeoLocation을 이용해서 접속 위치를 얻어옵니다
     navigator.geolocation.getCurrentPosition(function(position) {
-    	
         var lat = position.coords.latitude, // 위도
             lng = position.coords.longitude; // 경도
         
         var latlng = new daum.maps.LatLng(lat, lng);
-
-    	// 생성된 마커를 지웁니다.
-    	removeMarker();	
+        myPosition = latlng;
         
-       	// 마커를 사용자 위치에 표시
-       	displayMarker(latlng, 'user');
-       	
-       	map.setCenter(latlng);
-      });
+        console.log(myPosition);
+    });
 } else {
     alert('위치 정보를 얻어오지 못했습니다.');
-}*/
+}
 
 // 지도 클릭 이벤트를 등록한다 (좌클릭 : click, 우클릭 : rightclick, 더블클릭 : dblclick)
 daum.maps.event.addListener(map, 'click', function () {
@@ -145,9 +140,17 @@ function displayMarker(position, content, cno) {
         position: position, // 마커의 위치
         image: markerImage
     });
-	
-	marker.cno = cno;
+
+	// 배열에 마커 등록
 	markers.push(marker);
+
+	// 내위치 마커는 여기까지 하고 나감
+	if(content === 'user') {
+		return;
+	}
+	
+	// 마커 객체에 cno속성 추가
+	marker.cno = cno;
 	
 	// 마커에 등록할 클릭 이벤트
 	daum.maps.event.addListener(marker, 'click', openSidebar(cno));
@@ -242,7 +245,7 @@ function getCourts(data) {
 	
 	var template = Handlebars.compile(templateObj.html());
 	var html = template(data);
-//			$('.eachRoom').remove();
+
 	target.append(html);
 }
 
@@ -258,7 +261,8 @@ function getCourts(data) {
 
 // 코트 목록에 있는 더보기 기능입니다.
 $('#moreCourts').click(function() {
-	 printCourts('/courts?pageidx=' + pageidx);
+	courtList.pageidx += 10;
+	getCourtList();
 });
 
 //지도에 표시할 원을 생성합니다
@@ -280,25 +284,20 @@ var ps = new daum.maps.services.Places();
 function searchPlaces() {
 
 	var keyword = $('#keyword').val();
-	var courtSearch = $('#court-search option:selected').val();
-	var distance = $('#distance option:selected').val();
+	if(keyword === '내위치') {
+		myLocation = 1;
+	}
 	
+	var distance = $('#distance option:selected').val();
+	if(distance === 'input') {
+		distance = $('#dis-input').val();
+	}
+
 	// 반경을 설정
 	circle.setOptions({
 	    radius: distance
 	});
 	
-	if(courtSearch === 'C') {
-		
-	} else if(courtSearch === 'R') {
-		
-	} else if(courtSearch === 'G') {
-		
-	}
-	
-	console.log(distance);
-	console.log(courtSearch);
-  
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
         alert('키워드를 입력해주세요!');
         return false;
@@ -311,14 +310,32 @@ function searchPlaces() {
 // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
 function placesSearchCB(status, data, pagination) {
     if (status === daum.maps.services.Status.OK) {
+    
+    	// 초기화
+        initCourtList();
     	
-        var center = new daum.maps.LatLng(data.places[0].latitude, data.places[0].longitude);
-        
-        // 중심 좌표를 설정
-        circle.setOptions({
-        	center: center
-        });
-
+    	var center;
+    	
+    	if(myLocation === 1) {
+    		center = myPosition;
+    		
+    		circle.setOptions({
+	        	center: center
+	        });
+    		
+    		// 내위치
+            displayMarker(center, 'user');
+    		
+    		myLocation = 0;
+    	} else {
+    		center = new daum.maps.LatLng(data.places[0].latitude, data.places[0].longitude);
+            
+            // 중심 좌표를 설정
+            circle.setOptions({
+            	center: center
+            });
+    	}
+    	
         // 지도에 원을 표시합니다 
         circle.setMap(map); 
         
@@ -326,41 +343,15 @@ function placesSearchCB(status, data, pagination) {
         var sw = cbounds.getSouthWest();
         var ne = cbounds.getNorthEast();
         
-//        var obj = {
-//		    	pageidx:pageidx,
-//		    	swlat:sw.getLat(),
-//		    	swlng:sw.getLng(),
-//		    	nelat:ne.getLat(),
-//		    	nelng:ne.getLng(),
-//		    	type:'C'
-//		    };
-//        
-//        $.ajax('/courts', obj, function(data) {
-//        	console.log('x');
-//        	getCourts(data);
-//        	printCourts(data);
-//        });
+        // 검색값 세팅
+        courtList.radius = 'Y';
+        courtList.swlat = sw.getLat();
+        courtList.swlng = sw.getLng();
+        courtList.nelat = ne.getLat();
+        courtList.nelng = ne.getLng();
         
-        $.ajax({
-        	url: '/courts',
-        	type: 'get',
-        	headers: {
-				"Content-Type" : "application/json;charset=utf-8",
-				"X-HTTP-Method-Override" : "GET"
-			},
-			data: {
-		    	pageidx: pageidx,
-		    	swlat: sw.getLat(),
-		    	swlng: sw.getLng(),
-		    	nelat: ne.getLat(),
-		    	nelng: ne.getLng(),
-		    	type: 'C'
-		    },
-		    success: function(data) {
-		    	getCourts(data);
-	        	printCourts(data);
-		    }
-        });
+        // 세팅된 값으로 불러오기
+        getCourtList();
         
         // 검색된 장소 위치를 기준으로 지도 중심 좌표를 설정
         map.setCenter(center);
@@ -377,3 +368,34 @@ function placesSearchCB(status, data, pagination) {
 
     }
 }
+
+// 코트 검색 함수
+function getCourtList() {
+	$.getJSON('/courts', courtList, function(data) {
+		getCourts(data);
+		printCourts(data);
+		
+		if(data.length < 10) {
+			alert('마지막 페이지입니다.');
+			$('#moreCourts').hide();
+		}
+	});
+};
+
+// 검색 결과 초기화
+function initCourtList() {
+	courtList = new CourtList();
+	removeMarker();
+	$('#search-body').text('');
+	$('#moreCourts').show();
+};
+
+// 전체 코트 검색
+$('#getAll').click(function() {
+	circle.setMap(null);
+	initCourtList();
+	getCourtList();
+});
+
+$('#detail').click(function() {
+});

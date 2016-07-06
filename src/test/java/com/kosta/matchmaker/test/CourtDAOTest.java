@@ -19,9 +19,9 @@ public class CourtDAOTest {
 	@Inject
 	private CourtDAO dao;
 	
-	@Test
+	/*@Test
 	public void courtTest() throws Exception {
-		List<CourtVO> list = dao.getAllCourts();
+		List<CourtVO> list = dao.getCourts();
 		
 		for (CourtVO courtVO : list) {
 			System.out.println("cno: " + courtVO.getCno() + "\tlat: " + courtVO.getLat() + "\tlng: " +  courtVO.getLng()
@@ -29,6 +29,6 @@ public class CourtDAOTest {
 		}
 		
 		
-	}
+	}*/
 	
 }
