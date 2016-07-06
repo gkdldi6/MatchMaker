@@ -55,16 +55,75 @@
 								</thead>
 
 								<tbody>
-									<c:forEach items="${userlist }" var="user">
+									<c:forEach items="${userlist}" var="user">
 										<tr>
 											<td>${user.userid }</td>
 											<td>${user.username }</td>
-											<td><span class="badge">${user.userpoint }</span></td>
-											<td><input type="button" id="button_1"
+											<td><span class="badge">${user.userpoint}</span></td>
+											<td><input type="button" id="button"
 												class="btn btn-warning btn-xs btn-flat each-button"
 												value="수정" data-toggle="modal" data-target="#userInfoModal"></td>
 										</tr>
-									</c:forEach>
+										<div id="userInfoModal" class="modal modal-primary fade"
+											role="dialog">
+											<div class="modal-dialog">
+												<!-- Modal content-->
+												<div class="modal-content">
+
+													<!-- 유저상세정보 -->
+
+													<form action=""></form>
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h4 class="modal-title">ID</h4>
+													</div>
+													<div class="modal-body" data-selectuser>
+														<label id="selectedid" class="form-control">${user.userid}
+														</label>
+													</div>
+
+													<div class="modal-header">
+														<h4 class="modal-title">이름</h4>
+													</div>
+													<div class="modal-body" data-rno>
+														<label id="selectedname" class="form-control">${user.username}
+														</label>
+													</div>
+
+													<div class="modal-header">
+														<h4 class="modal-title" id="usersid-modal">가입일</h4>
+													</div>
+													<div class="modal-body" data-rno>
+														<label id="selectedemail" class="form-control">${user.email}
+														</label>
+													</div>
+
+													<div class="modal-header">
+														<h4 class="modal-title" id="usersid-modal">가입일</h4>
+													</div>
+													<div class="modal-body" data-rno>
+														<label id="selectedregdate" class="form-control">${user.regdate}
+														</label>
+													</div>
+
+													<div class="modal-header">
+														<h4 class="modal-title" id="usersid-modal">나이</h4>
+													</div>
+													<div class="modal-body" data-rno>
+														<label id="selectedage" class="form-control">${user.userage}
+														</label>
+													</div>
+													<!-- 템플릿 -->
+													<div class="modal-footer eacch-" data-selectuser={{userid}}>
+														<button type="button" class="btn btn-danger btn-flat"
+															id="userRemoveBtn">삭제</button>
+														<button type="button" class="btn btn-default btn-flat"
+															data-dismiss="modal">닫기</button>
+													</div>
+												</div>
+											</div>
+										</div>
+s									</c:forEach>
 								</tbody>
 							</table>
 
@@ -94,134 +153,56 @@
 								console.log(${pageMaker.startPage});
 								console.log(${pageMaker.endPage});
 								console.log(${pageMaker.cri.page});
-
-
-
-							</div>
-
-						</div>
-						<!--               /.tab-pane -->
-
-						<!-- 회원정보 창 -->
-						<div id="userInfoModal" class="modal modal-primary fade"
-							role="dialog" >
-							<div class="modal-dialog">
-								<!-- Modal content-->
-								<div class="modal-content" >
-
-
-									<!-- 유저상세정보 -->
-									<form action="" ></form>
-									<div class="modal-header">
-										<button type="button" class="close" data-dismiss="modal">&times;</button>
-										<h4 class="modal-title">ID</h4>
-									</div>
-									<div class="modal-body" data-selectuser>
-										<label id="selectedid" class="form-control">${user.userid}
-											id긁기</label>
-									</div>
-
-									<div class="modal-header">
-										<h4 class="modal-title">이름</h4>
-									</div>
-									<div class="modal-body" data-rno>
-										<label id="selectedname" class="form-control">${user.username}
-											이름긁기</label>
-									</div>
-
-									<div class="modal-header">
-										<h4 class="modal-title" id="usersid-modal">가입일</h4>
-									</div>
-									<div class="modal-body" data-rno>
-										<label id="selectedemail" class="form-control">${user.email}
-											이메일긁기</label>
-									</div>
-
-									<div class="modal-header">
-										<h4 class="modal-title" id="usersid-modal">가입일</h4>
-									</div>
-									<div class="modal-body" data-rno>
-										<label id="selectedregdate" class="form-control">${user.regdate}
-											가입일긁기</label>
-									</div>
-
-									<div class="modal-header">
-										<h4 class="modal-title" id="usersid-modal">나이</h4>
-									</div>
-									<div class="modal-body" data-rno>
-										<label id="selectedage" class="form-control">${user.userage}
-											나이긁기</label>
-									</div>
-
-									<!-- 									<div class="modal-header"> -->
-									<!-- 										<h4 class="modal-title" id="usersid-modal">소개</h4> -->
-									<!-- 									</div> -->
-									<!-- 									<div class="modal-body" data-rno> -->
-									<%-- 										<label id="selectedage" class="form-control">${user.age} --%>
-									<!-- 											소개긁기</label> -->
-									<!-- 									</div> -->
-
-									<!-- 템플릿 -->
-									<div class="modal-footer eacch-" data-selectuser={{userid}}>
-										<button type="button" class="btn btn-danger btn-flat"
-											id="userRemoveBtn">삭제</button>
-										<button type="button" class="btn btn-default btn-flat"
-											data-dismiss="modal">닫기</button>
-									</div>
-								</div>
 							</div>
 						</div>
-						<!-- 						/.tab-pane -->
 					</div>
-					<!-- 					/.tab-content -->
 				</div>
-				<!-- 				/.nav-tabs-custom -->
 			</div>
-			<!-- /.col -->
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-	var userid = ${user.userid};
+	var userid = $
+	{
+		user.userid
+	};
 
 	$('#userInfoModal').on('click', function() {
-		
-		console.log(userid);
-		
-// 		var user = $(this).parents();
-// 		var selectuser = user.attr('data-selectuser');
-		
-// 		$('.modal-body').attr('data-selectuser', selectuser);
 
-// 		$('#replyer-modal').val(user.find('#selectedid').text());
-// 		$('#replyer-modal').text(user.find('#selectedname').text());
-// 		$('#replyer-modal').text(user.find('#selectedemail').text());
-// 		$('#replyer-modal').text(user.find('#selectedregdate').text());
-// 		$('#replyer-modal').text(user.find('#selectedage').text());
+		console.log(userid);
+
+		// 		var user = $(this).parents();
+		// 		var selectuser = user.attr('data-selectuser');
+
+		// 		$('.modal-body').attr('data-selectuser', selectuser);
+
+		// 		$('#replyer-modal').val(user.find('#selectedid').text());
+		// 		$('#replyer-modal').text(user.find('#selectedname').text());
+		// 		$('#replyer-modal').text(user.find('#selectedemail').text());
+		// 		$('#replyer-modal').text(user.find('#selectedregdate').text());
+		// 		$('#replyer-modal').text(user.find('#selectedage').text());
 	});
 </script>
 <script type="text/javascript">
-	$('#button_1').on('click', function(){
-		var id = ${user.userid};
+	/* $('#button').on('click', function() {
+		//var id = ${user.userid};
 		alert("클릭 ㅅㅅ");
 		$.ajax({
 			type : "POST",
 			url : "/adminview",
-			data : {userid : id},
-			success : function(data){
+			data : {
+				userid : id
+			},
+			success : function(data) {
 				alert(id);
 				alert("id전송성공");
 			},
-			error :function(data){
+			error : function(data) {
 				alert("사망 ㅅㅅㅅ");
 			}
-			
+
 		});
-	});
-
+	}); */
 </script>
-
-
-
 <jsp:include page="../include/footer.jsp"></jsp:include>
