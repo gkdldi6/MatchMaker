@@ -33,15 +33,6 @@ public class CourtDAOImpl implements CourtDAO {
 	public void likeCourt(Integer cno) throws Exception {
 		session.update(namespace + ".likeCourt", cno);
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	public List<MatchDTO> getMatches() throws Exception {

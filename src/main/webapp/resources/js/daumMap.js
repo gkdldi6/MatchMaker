@@ -404,12 +404,18 @@ var detailState = 0;
 $('#detail').click(function() {
 	if(detailState === 0) {
 		$('#detail-space').show();
-		courtList.detail = 'Y';
 		detailState = 1;
 	} else {
 		$('#detail-space').hide();
 		$('#detail-space input:checked').removeAttr('checked');
-		courtList.detail = undefined;
+		
+		courtList.free = undefined;
+		courtList.outer = undefined;
+		courtList.full = undefined;
+		courtList.ground = undefined;
+		courtList.shower = undefined;
+		courtList.parking = undefined;
+		
 		detailState = 0;
 	}
 });
