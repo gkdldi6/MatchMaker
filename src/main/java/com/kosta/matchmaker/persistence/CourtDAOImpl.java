@@ -1,14 +1,16 @@
 package com.kosta.matchmaker.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.CourtSearchDTO;
+import com.kosta.matchmaker.domain.CourtVO;
+import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
 
 @Repository
@@ -20,8 +22,8 @@ public class CourtDAOImpl implements CourtDAO {
 	private static final String namespace = "com.kosta.matchmaker.mappers.CourtMapper";
 	
 	@Override
-	public List<CourtVO> getCourts(CourtSearchDTO CourtSearchDTO) throws Exception {
-		return session.selectList(namespace + ".getSearchCourts", CourtSearchDTO);
+	public List<CourtVO> getCourts(CourtSearchDTO dto) throws Exception {
+		return session.selectList(namespace + ".getSearchCourts", dto);
 	}
 
 	@Override
@@ -35,7 +37,12 @@ public class CourtDAOImpl implements CourtDAO {
 	}
 	
 	@Override
-	public List<MatchDTO> getMatches() throws Exception {
-		return session.selectList(namespace + ".getMatches");
+	public List<MatchDTO> getMatches(GameSearchDTO dto) throws Exception {
+		return session.selectList(namespace + ".getMatches", dto);
+	}
+
+	@Override
+	public List<Map<String, Object>> getMatchCourts(GameSearchDTO dto) throws Exception {
+		return session.selectList(namespace + ".getMatchCourts", dto);
 	}
 }

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style>
 #datepicker {
-	background-color: #dd4b39 !important;
+	/* background-color: #dd4b39 !important;
 	border: 0px;
-	width: 70px;
+	width: 70px; */
 }
 </style>
 
@@ -13,8 +13,8 @@
 	<ul class="nav nav-tabs">
 	
 		<li class="active"><a href="#tab_1" data-toggle="tab">검색</a></li>
-		<li><a href="#tab_2" data-toggle="tab">대기방</a></li>
-		<li><a href="#tab_3" data-toggle="tab">대기실</a></li>
+		<li><a href="#tab_2" data-toggle="tab">방목록</a></li>
+		<li><a href="#tab_3" data-toggle="tab">대화방</a></li>
 		
 		<li class="pull-right">
 			<i type="button" class="close" style="margin-top:8px;margin-right:8px" onclick="closeSbar()">&times;</i>
@@ -139,16 +139,19 @@
 				<div style="padding-bottom:5px">
 			      <select id="court-search" class="form-control">
 			        <option value="C" selected="selected">코트</option>
-			        <option value="R">열린방</option>
 			        <option value="G">게임</option>
 			      </select>
 			    </div>
 			    
-			    <button>내 위치</button>
-			    
 			   	<button id="getAll">전체 검색</button>
 			   	
 			   	<button id="detail">상세 검색</button>
+			   	
+			   	<button id="date-search">날짜 검색</button>
+			   	
+			   	<div id="date-space" hidden>
+					<p>예약기간: <input type="text" id="datepicker1"> ~ <input type="text" id="datepicker2"></p> 			   	
+			   	</div>
 			   	
 			   	<div id="detail-space" hidden>
 			   		<form id="radio-free">
@@ -186,7 +189,7 @@
 			        <option value="3000">3km</option>
 			        <option value="input">직접 입력</option>
 			      </select>
-			      <input type="hidden" id="dis-input" placeholder="단위: m">
+			      <input type="hidden" id="dis-input" placeholder="단위: km">
 			    </div>
 			    
 			    <div style="padding-bottom:5px">  
@@ -198,9 +201,11 @@
 			      </div>
 			    </div>
 			</div>
+			
 			<div id="search-body">
 				<!-- 코트 목록이 들어가는 공간 -->
 			</div>
+			
 			<div class="box-footer" style="padding:0px">
 				<button id="moreCourts" type="button" class="btn btn-default btn-block btn-sm" style="display:none">더 보기</button>
 			</div>
@@ -208,14 +213,6 @@
 		
 		
 		<div class="tab-pane" id="tab_2">
-			<!-- <ul class="timeline">
-			    <li class="time-label">
-       				 <span class="bg-red"><input type="text" id="datepicker" value="전체"></span> 
-    			</li>
-    			
-    			ajax로 불러온 약속된 게임들이 들어가는 공간
-    			
-			</ul> -->
 			
 			<!-- 방 목록 시작 -->
 			<div class="box box-warning">

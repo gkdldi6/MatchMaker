@@ -10,6 +10,7 @@ var id = '${login.userid}';			/* 회원 아이디 */
 var name = '${login.username}';		/* 회원 이름 */
 </script>
 <link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <style>
 .chatbar, .chatbtn {
 	position: fixed;
@@ -166,8 +167,8 @@ var name = '${login.username}';		/* 회원 이름 */
 <!-- 게임 템플릿 -->
 <script id="gameTemplate" type="text/x-handlebars-template">
 	{{#each .}}
-		<li>
-        	<i class="fa bg-blue">{{mno}}</i>
+		<li class="eachGame">
+        	<i class="fa bg-red">{{mno}}</i>
         	<div class="timeline-item">
             	<span class="time"><i class="fa fa-clock-o"></i> 
 					{{begintime}} ~ 
@@ -175,18 +176,24 @@ var name = '${login.username}';		/* 회원 이름 */
 				</span>
         	    <h3 class="timeline-header"><a href="#">{{mname}}</a></h3>
     	        <div class="timeline-body">
- 	               {{state}}
+ 	               상태: {{state}}
             	</div>
             	<div class="timeline-footer">
-                	<a class="btn btn-primary btn-xs">{{cno}}</a>
+                	<a cno="{{cno}}" class="match-court btn btn-success btn-xs btn-flat">코트 보기</a>
             	</div>
         	</div>
     	</li>
 	{{/each}}
 </script>
+<script>
+$(function() {
+  $( "#datepicker1, #datepicker2" ).datepicker({
+    dateFormat: 'yy-mm-dd'
+  });
+});
+</script>
 <script src="//code.jquery.com/jquery.min.js"></script>
 <!-- datepicker -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">$( "#datepicker" ).datepicker();</script>
 <!-- datetimepicker -->

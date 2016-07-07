@@ -1,5 +1,4 @@
 var list;
-var courtNo;
 var sidebar = $('#sidebar');
 var xsize = 400;
 var activeTab = '#tab_1';
@@ -7,6 +6,9 @@ var position = $('.main-header').offset();
 var myPosition;
 var myLocation;
 var courtList = {};
+var matchList = {};
+var selected = 'C';
+var cnoArr = [];
 
 /*화면 크기에 맞게 지도 크기 변경*/
 $('#map').css('width', $(window).width() - xsize);
@@ -77,13 +79,23 @@ daum.maps.event.addListener(map, 'click', function () {
 });
 
 /* 농구 코트 마커를 생성 */
-function printCourts(data) {
+function printCourts(data, content) {
 	for (var i = 0; i < data.length; i ++) {
+		
+		var cno = data[i].cno;
+		
+		if(content === 'game') {
+			if($.inArray(cno, cnoArr) !== -1) {
+				console.log('중복');
+				continue;
+			} 
+		}
+		
 	    var position = new daum.maps.LatLng(data[i].lat, data[i].lng);
-	    var cno = data[i].cno;
+	    
 	    
 		// 마커를 생성합니다
-	    displayMarker(position, 'court', cno);
+	    displayMarker(position, content, cno);
 	    
 	    // 좌표를 범위에 추가
 	    bounds.extend(position);
@@ -124,7 +136,7 @@ function displayMarker(position, content, cno) {
 		imageSrc = '/resources/img/user-on-map.png',    
 	    imageSize = new daum.maps.Size(60, 54),
 	    imageOption = {offset: new daum.maps.Point(27, 69)};
-	} else if(content === 'court') {
+	} else if(content === 'court' || content === 'game') {
 		imageSrc = '/resources/img/myMarker.png',
 	    imageSize = new daum.maps.Size(35, 38),
 	    imageOption = {offset: new daum.maps.Point(27, 69)};
@@ -142,6 +154,11 @@ function displayMarker(position, content, cno) {
 
 	// 배열에 마커 등록
 	markers.push(marker);
+	
+	// 중복 방지를 위해서 cno등록
+	if(content === 'game') {
+		cnoArr.push(cno);
+	}
 
 	// 내위치 마커는 여기까지 하고 나감
 	if(content === 'user') {
@@ -151,9 +168,13 @@ function displayMarker(position, content, cno) {
 	// 마커 객체에 cno속성 추가
 	marker.cno = cno;
 	
-	// 마커에 등록할 클릭 이벤트
-	daum.maps.event.addListener(marker, 'click', openSidebar(cno));
-    
+	if(content === 'court') {
+		// 마커에 등록할 클릭 이벤트
+		daum.maps.event.addListener(marker, 'click', openSidebar(cno));
+	} else {
+		daum.maps.event.addListener(marker, 'click', openGamebar(cno));
+	}
+	
     /*var infowindow = new daum.maps.InfoWindow({
         content: '현재 위치'
     });*/
@@ -223,20 +244,6 @@ function displayMarker(position, content, cno) {
 			infowindow.close();
 		}
 	}*/
-	
-/*getGames();
-
-function getGames() {
-	$.getJSON('/courts/games', function(games) {
-		var templateObj = $('#gameTemplate');
-		var target = $('.timeline');
-		
-		var template = Handlebars.compile(templateObj.html());
-		var html = template(games);
-//			$('.eachRoom').remove();
-		target.append(html);
-	});
-}*/
 
 function getCourts(data) {
 	var templateObj = $('#courtTemplate');
@@ -260,8 +267,13 @@ function getCourts(data) {
 
 // 코트 목록에 있는 더보기 기능입니다.
 $('#moreCourts').click(function() {
-	courtList.pageidx += 10;
-	getCourtList();
+	if(selected === 'C') {
+		courtList.pageidx += 10;
+		getCourtList();
+	} else if(selected === 'G') {
+		matchList.pageidx += 10;
+		getGameList();
+	}
 });
 
 //지도에 표시할 원을 생성합니다
@@ -289,7 +301,7 @@ function searchPlaces() {
 	
 	var distance = $('#distance option:selected').val();
 	if(distance === 'input') {
-		distance = $('#dis-input').val();
+		distance = $('#dis-input').val() * 1000;
 	}
 
 	// 반경을 설정
@@ -310,8 +322,13 @@ function searchPlaces() {
 function placesSearchCB(status, data, pagination) {
     if (status === daum.maps.services.Status.OK) {
     		
-    	// 초기화
-        initCourtList();
+    	if(selected === 'C') {
+    		// 코트 목록 및 마커 초기화
+            initCourtList();
+    	} else if(selected === 'G') {
+    		// 게임 목록 및 마커 초기화
+    		initGameList();
+    	}
     	
     	var center;
     	
@@ -342,15 +359,25 @@ function placesSearchCB(status, data, pagination) {
         var sw = cbounds.getSouthWest();
         var ne = cbounds.getNorthEast();
         
-        // 검색값 세팅
-        courtList.radius = 'Y';
-        courtList.swlat = sw.getLat();
-        courtList.swlng = sw.getLng();
-        courtList.nelat = ne.getLat();
-        courtList.nelng = ne.getLng();
-        
         // 세팅된 값으로 불러오기
-        getCourtList();
+        if(selected === 'C') {
+            courtList.radius = 'Y';
+            courtList.swlat = sw.getLat();
+            courtList.swlng = sw.getLng();
+            courtList.nelat = ne.getLat();
+            courtList.nelng = ne.getLng();
+            
+            
+        	getCourtList();
+        } else if(selected === 'G') {
+        	matchList.radius = 'Y';
+        	matchList.swlat = sw.getLat(); 
+        	matchList.swlng = sw.getLng();
+        	matchList.nelat = ne.getLat();
+        	matchList.nelng = ne.getLng();
+        	
+        	getGameList();
+        }
         
         // 검색된 장소 위치를 기준으로 지도 중심 좌표를 설정
         map.setCenter(center);
@@ -372,11 +399,13 @@ function placesSearchCB(status, data, pagination) {
 function getCourtList() {
 	$.getJSON('/courts', courtList, function(data) {
 		getCourts(data);
-		printCourts(data);
+		printCourts(data, 'court');
 		
 		if(data.length < 10) {
 			alert('마지막 페이지입니다.');
 			$('#moreCourts').hide();
+		} else {
+			$('#moreCourts').show();
 		}
 	});
 };
@@ -387,14 +416,19 @@ function initCourtList() {
 	courtList.radius = undefined;
 	removeMarker();
 	$('#search-body').text('');
-	$('#moreCourts').show();
 };
 
 // 전체 코트 검색
 $('#getAll').click(function() {
 	circle.setMap(null);
-	initCourtList();
-	getCourtList();
+	
+	if(selected === 'G') {
+		initGameList();
+		getGameList();
+	} else if(selected === 'C') {
+		initCourtList();
+		getCourtList();
+	}
 });
 
 // 상세 검색 상태
@@ -449,3 +483,97 @@ $('#detail-space input:radio').change(function() {
 		courtList.parking = $(this).val();
 	}
   });
+
+//게임 검색 결과 초기화
+function initGameList() {
+	if(dateState === 1) {
+		matchList.begintime = new Date($('#datepicker1').val());
+		matchList.endtime = new Date($('#datepicker2').val());
+	} else {
+		matchList.begintime = undefined;
+		matchList.endtime = undefined;
+	}
+
+	matchList.radius = undefined;
+	matchList.pageidx = 0;
+	matchList.cno = 0;
+	removeMarker();
+	cnoArr = new Array();
+	$('#search-body').html('<ul class="timeline"></ul>');
+};
+
+// 예약된 게임 목록 불러오기
+function getGames(data) {
+	var templateObj = $('#gameTemplate');
+	var target = $('#search-body .timeline');
+	
+	var template = Handlebars.compile(templateObj.html());
+	var html = template(data);
+	
+	target.append(html);
+}
+
+// 게임 검색 함수
+function getGameList() {
+	$.getJSON('/courts/games', matchList, function(data) {
+		getGames(data);
+		printCourts(data, 'game');
+		
+		if(data.length < 10) {
+			alert('마지막 페이지입니다.');
+			$('#moreCourts').hide();
+		} else {
+			$('#moreCourts').show();
+		}
+	});
+};
+
+// 예약된 게임에서 코트 찾기
+$('#search-body').on('click', '.match-court', function() {
+	var cno = $(this).attr('cno');
+	console.log(cno);
+	getCourt(cno);
+});
+
+// 게임 열기
+function getGame() {
+	
+}
+
+/*게임 예약 창 열기*/
+function openGamebar(cno) {
+	return function() {
+		console.log(cno);
+		openSbar();
+		courtGameList(cno);
+	}
+}
+
+// 검색 타입 추적
+$('#court-search').change(function() {
+	selected = $('#court-search option:selected').val();
+});
+
+// 코트에 예약된 게임 목록 가져오기
+function courtGameList(cno) {
+	matchList.pageidx = 0;
+	matchList.cno = cno;
+	
+	cnoArr = new Array();
+	$('#search-body').html('<ul class="timeline"></ul>');
+	getGameList();
+};
+
+// 날짜 검색 상태
+var dateState = 0;
+
+// 날짜 검색 열었다 닫기
+$('#date-search').click(function() {
+	if(dateState === 0) {
+		$('#date-space').show();
+		dateState = 1;
+	} else if(dateState === 1) {
+		$('#date-space').hide();
+		dateState = 0;
+	}
+});

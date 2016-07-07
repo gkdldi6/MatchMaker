@@ -5,48 +5,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.kosta.matchmaker.mappers.CourtMapper">
 
-	<!-- 코트 목록 조회 -->
-	<!-- <select id="getCourts" resultType="CourtVO">
-		select a.title, a.replycnt, c.lat, c.lng, c.liked, c.cno 
-		from court c natural join article a 
-		where c.approval = 'Y'
-		order by c.cno desc 
-		limit #{pageidx}, 10
-	</select> -->
-	
-	<!-- 코트 검색 목록 조회
-	<select id="getSearchCourts" resultType="CourtVO">
-		select a.title, a.replycnt, c.lat, c.lng, c.liked, c.cno 
-		from court c natural join article a 
-		where c.approval = 'Y' and c.lat between #{swlat} and #{nelat} and c.lng between #{swlng} and #{nelng}
-		order by c.cno desc 
-		limit #{pageidx}, 10
-	</select> -->
-
-	<!-- 코트 1개 조회 -->
-	<select id="getCourt" resultType="CourtVO">
-		select * from court natural join article where approval = 'Y' and cno = #{cno}
-	</select>
-
-	<!-- 코트 등록 -->
-	<insert id="regCourt">
-		insert into court(bno, ano, address, lat, lng, approval)
-		values(#{bno}, #{ano}, #{address}, #{lat}, #{lng}) 
-	</insert>
-
-	<!-- 코트 좋아요 올리기 -->
-	<update id="likeCourt">
-		update court set liked = liked + 1 where cno = #{cno}
-	</update>
-
-	<!-- 게임 목록 조회 -->
-	<select id="getMatches" resultType="MatchDTO">
-		select mno, mname, 
-		DATE_FORMAT(begintime, '%m/%d %h:%i %p') begintime, 
-		DATE_FORMAT(endtime, '%m/%d %h:%i %p') endtime,
-		cno, state from match_court
-	</select>
-	
 	<!-- 코트 검색 목록 조회 -->
 	<select id="getSearchCourts" resultType="CourtVO">
 		<![CDATA[
@@ -55,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where c.approval = 'Y'
 		]]>
 		
-		<include refid="search"></include>
+		<include refid="searchCourts"></include>
 		
 		<![CDATA[
 		order by c.cno desc 
@@ -63,8 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</select>
 	
-	<!-- 동적 SQL 사용 -->
-	<sql id="search">
+	<!-- 코트 상세 검색 조건: 동적 SQL 사용 -->
+	<sql id="searchCourts">
 		<if test="radius != null">
 			and c.lat between #{swlat} and #{nelat} and c.lng between #{swlng} and #{nelng}
 		</if>
@@ -135,6 +93,52 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</choose>
 		</if>
 	</sql>
+
+	<!-- 코트 1개 조회 -->
+	<select id="getCourt" resultType="CourtVO">
+		select * from court natural join article where approval = 'Y' and cno = #{cno}
+	</select>
+
+	<!-- 코트 등록 -->
+	<insert id="regCourt">
+		insert into court(bno, ano, address, lat, lng, approval)
+		values(#{bno}, #{ano}, #{address}, #{lat}, #{lng}) 
+	</insert>
+
+	<!-- 코트 좋아요 올리기 -->
+	<update id="likeCourt">
+		update court set liked = liked + 1 where cno = #{cno}
+	</update>
+
+	<!-- endtime > now() -->
+	<!-- 게임 목록 조회 -->
+	<select id="getMatches" resultType="MatchDTO">
+		<![CDATA[
+		select m.mno, m.mname, DATE_FORMAT(m.begintime, '%m/%d %h:%i %p') begintime, DATE_FORMAT(m.endtime, '%m/%d %h:%i %p') endtime, m.cno, m.state, c.lat, c.lng 
+		from match_court m natural join court c where m.cno > 0
+		]]>
+		
+		<include refid="searchMatches"></include>
+		
+		<![CDATA[
+		order by m.mno desc
+		limit #{pageidx}, 10
+		]]>
+	</select>
 	
+	<!-- 코트에 예약된 게임 목록 조회 -->
+	<sql id="searchMatches">
+		<if test="cno != 0">
+			and m.cno = #{cno}
+		</if>
+		<if test="radius != null">
+			and c.lat between #{swlat} and #{nelat} and c.lng between #{swlng} and #{nelng}
+		</if>
+		<if test="begintime != null">
+			<![CDATA[
+			and m.begintime > #{begintime} and m.endtime < #{endtime}
+			]]>
+		</if>
+	</sql>
 	
 </mapper>

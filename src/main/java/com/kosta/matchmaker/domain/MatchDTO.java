@@ -1,7 +1,5 @@
 package com.kosta.matchmaker.domain;
 
-import java.sql.Date;
-
 public class MatchDTO {
 	
 	private int mno;
@@ -10,7 +8,8 @@ public class MatchDTO {
 	private String endtime;
 	private int cno;
 	private String state;
-	
+	private double lat;
+	private double lng;
 	
 	public int getMno() {
 		return mno;
@@ -47,6 +46,24 @@ public class MatchDTO {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	public double getLat() {
+		return lat;
+	}
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
+	public double getLng() {
+		return lng;
+	}
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
+	
+	@Override
+	public String toString() {
+		return "MatchDTO [mno=" + mno + ", mname=" + mname + ", begintime=" + begintime + ", endtime=" + endtime
+				+ ", cno=" + cno + ", state=" + state + ", lat=" + lat + ", lng=" + lng + "]";
 	}
 	
 }

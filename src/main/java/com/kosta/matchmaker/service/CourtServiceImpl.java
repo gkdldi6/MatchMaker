@@ -6,8 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.CourtSearchDTO;
+import com.kosta.matchmaker.domain.CourtVO;
+import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
 import com.kosta.matchmaker.persistence.CourtDAO;
 
@@ -18,22 +19,13 @@ public class CourtServiceImpl implements CourtService {
 	private CourtDAO dao;
 	
 	@Override
-	public List<CourtVO> getCourts(CourtSearchDTO CourtSearchDTO) throws Exception {
-		
-		/*if(type.equals("C")) {
-			
-		} else if(type.equals("G")) {
-			
-		} else if(type.equals("R")) {
-			
-		}*/
-		
-		return dao.getCourts(CourtSearchDTO);
+	public List<CourtVO> getCourts(CourtSearchDTO dto) throws Exception {
+		return dao.getCourts(dto);
 	}
 
 	@Override
-	public List<MatchDTO> getMatches() throws Exception {
-		return dao.getMatches();
+	public List<MatchDTO> getMatches(GameSearchDTO dto) throws Exception {
+		return dao.getMatches(dto);
 	}
 
 	@Override
