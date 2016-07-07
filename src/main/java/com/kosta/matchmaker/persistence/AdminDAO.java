@@ -22,5 +22,7 @@ public interface AdminDAO {
 
 	// 회원 삭제
 	public void delete(String userid);
+	
+	//아이디로 회원정보 받아오기
 
 }

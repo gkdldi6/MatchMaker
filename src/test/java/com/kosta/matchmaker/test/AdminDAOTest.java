@@ -64,9 +64,8 @@ public class AdminDAOTest {
 	@Test
 	public void testSelectOne() throws Exception {
 
-		UserVO user = dao.selectOne("2");
+		UserVO user = dao.selectOne("1234");
 
-		if (user.getUserid().equals("2")) {
 			System.out.print(user.getUserid() + "\t");
 			System.out.print(user.getUserpw() + "\t");
 			System.out.print(user.getUsername() + "\t");
@@ -74,7 +73,6 @@ public class AdminDAOTest {
 			System.out.print(user.getRegdate() + "\t");
 			System.out.print(user.getUserage() + "\t");
 			System.out.println(user.getUserinfo());
-		}
 	}
 
 	// 유저 삭제
@@ -84,5 +82,4 @@ public class AdminDAOTest {
 		dao.delete("2");
 
 	}
-
 }

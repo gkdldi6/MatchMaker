@@ -60,7 +60,7 @@
 											<td>${user.userid }</td>
 											<td>${user.username}</td>
 											<td><span class="badge">${user.userpoint}</span></td>
-											<td><a href="adminview?${user.userid}" id="button"
+											<td><a href="adminview?userid=${user.userid}" id="button"
 												class="btn btn-warning btn-xs btn-flat each-button">수정</a></td>
 										</tr>
 									</c:forEach>
@@ -70,7 +70,7 @@
 							<div align="center">
 								<ul class="pagination">
 
-									<c:if test="${pageMaker.prev }">
+									<c:if test="${pageMaker.prev}">
 										<li><a
 											href="${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
 									</c:if>
@@ -93,17 +93,16 @@
 								console.log(${pageMaker.cri.page});
 						</div>
 					</div>
-					<div class="tab-pane" id="userUpdate">
+					<div class="tab-pane" id="userinfo">
 						<!-- 회원 가입 -->
 						<form action=update method="post" name="form"
 							class="form-horizontal" onsubmit="return joinCheck();">
-							<legend>내 정보</legend>
 
 							<div class="form-group">
 								<label for="inputId" class="col-lg-2 control-label">아이디</label>
 								<div class="col-lg-10">
 									<input type="text" name="userid" class="form-control"
-										id="userid" value="${login.userid}" readonly></input>
+										id="userid" value="${user.userid}" readonly></input>
 								</div>
 							</div>
 
@@ -131,7 +130,7 @@
 								<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
 								<div class="col-lg-10">
 									<input type="email" name="email" class="form-control"
-										id="email" value="${login.email}">
+										id="email" value="${user.email}">
 								</div>
 							</div>
 
@@ -139,7 +138,7 @@
 								<label for="inputName" class="col-lg-2 control-label">이름</label>
 								<div class="col-lg-10">
 									<input type="text" name="username" class="form-control"
-										id="username" value="${login.username}">
+										id="username" value="${user.username}">
 								</div>
 							</div>
 
@@ -147,7 +146,7 @@
 								<label for="inputAge" class="col-lg-2 control-label">나이</label>
 								<div class="col-lg-10">
 									<input type="number" name="userage" class="form-control"
-										id="userage" value="${login.userage}">
+										id="userage" value="${user.userage}">
 								</div>
 							</div>
 
@@ -156,7 +155,7 @@
 									소개</label>
 								<div class="col-lg-10">
 									<textarea class="form-control" name="userinfo" rows="3"
-										id="userinfo" style="resize: none">${login.userinfo}</textarea>
+										id="userinfo" style="resize: none">${user.userinfo}</textarea>
 								</div>
 							</div>
 
@@ -201,6 +200,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 <script type="text/javascript">
