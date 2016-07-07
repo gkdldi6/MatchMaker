@@ -58,75 +58,14 @@
 									<c:forEach items="${userlist}" var="user">
 										<tr>
 											<td>${user.userid }</td>
-											<td>${user.username }</td>
+											<td>${user.username}</td>
 											<td><span class="badge">${user.userpoint}</span></td>
-											<td><input type="button" id="button"
-												class="btn btn-warning btn-xs btn-flat each-button"
-												value="수정" data-toggle="modal" data-target="#userInfoModal"></td>
+											<td><a href="adminview?${user.userid}" id="button"
+												class="btn btn-warning btn-xs btn-flat each-button">수정</a></td>
 										</tr>
-										<div id="userInfoModal" class="modal modal-primary fade"
-											role="dialog">
-											<div class="modal-dialog">
-												<!-- Modal content-->
-												<div class="modal-content">
-
-													<!-- 유저상세정보 -->
-
-													<form action=""></form>
-													<div class="modal-header">
-														<button type="button" class="close" data-dismiss="modal">&times;</button>
-														<h4 class="modal-title">ID</h4>
-													</div>
-													<div class="modal-body" data-selectuser>
-														<label id="selectedid" class="form-control">${user.userid}
-														</label>
-													</div>
-
-													<div class="modal-header">
-														<h4 class="modal-title">이름</h4>
-													</div>
-													<div class="modal-body" data-rno>
-														<label id="selectedname" class="form-control">${user.username}
-														</label>
-													</div>
-
-													<div class="modal-header">
-														<h4 class="modal-title" id="usersid-modal">가입일</h4>
-													</div>
-													<div class="modal-body" data-rno>
-														<label id="selectedemail" class="form-control">${user.email}
-														</label>
-													</div>
-
-													<div class="modal-header">
-														<h4 class="modal-title" id="usersid-modal">가입일</h4>
-													</div>
-													<div class="modal-body" data-rno>
-														<label id="selectedregdate" class="form-control">${user.regdate}
-														</label>
-													</div>
-
-													<div class="modal-header">
-														<h4 class="modal-title" id="usersid-modal">나이</h4>
-													</div>
-													<div class="modal-body" data-rno>
-														<label id="selectedage" class="form-control">${user.userage}
-														</label>
-													</div>
-													<!-- 템플릿 -->
-													<div class="modal-footer eacch-" data-selectuser={{userid}}>
-														<button type="button" class="btn btn-danger btn-flat"
-															id="userRemoveBtn">삭제</button>
-														<button type="button" class="btn btn-default btn-flat"
-															data-dismiss="modal">닫기</button>
-													</div>
-												</div>
-											</div>
-										</div>
-s									</c:forEach>
+									</c:forEach>
 								</tbody>
 							</table>
-
 							<!-- 페이징 -->
 							<div align="center">
 								<ul class="pagination">
@@ -148,15 +87,117 @@ s									</c:forEach>
 										<li><a
 											href="${pageMaker.makeSearch(pageMaker.endPage + 1)}">&raquo;</a></li>
 									</c:if>
-
 								</ul>
 								console.log(${pageMaker.startPage});
 								console.log(${pageMaker.endPage});
 								console.log(${pageMaker.cri.page});
-							</div>
 						</div>
 					</div>
+					<div class="tab-pane" id="userUpdate">
+						<!-- 회원 가입 -->
+						<form action=update method="post" name="form"
+							class="form-horizontal" onsubmit="return joinCheck();">
+							<legend>내 정보</legend>
+
+							<div class="form-group">
+								<label for="inputId" class="col-lg-2 control-label">아이디</label>
+								<div class="col-lg-10">
+									<input type="text" name="userid" class="form-control"
+										id="userid" value="${login.userid}" readonly></input>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputPassword" class="col-lg-2 control-label">비밀번호</label>
+								<div class="col-lg-10">
+									<input type="password" name="userpw" class="form-control"
+										id="userpw" placeholder="변경할 비밀번호를 입력해주세요." required>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputPasswordCheck" class="col-lg-2 control-label">비밀번호
+									확인</label>
+								<div class="col-lg-10">
+									<input type="password" name="userpwCheck" class="form-control"
+										id="userpwCheck" onblur="passwordCheck()"
+										placeholder="변경할 비밀번호를 다시 입력해주세요." required>
+									<div id="messagepwfail" style="color: #ff0000"></div>
+									<div id="messagepwsuccess" style="color: #0000ff"></div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
+								<div class="col-lg-10">
+									<input type="email" name="email" class="form-control"
+										id="email" value="${login.email}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputName" class="col-lg-2 control-label">이름</label>
+								<div class="col-lg-10">
+									<input type="text" name="username" class="form-control"
+										id="username" value="${login.username}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="inputAge" class="col-lg-2 control-label">나이</label>
+								<div class="col-lg-10">
+									<input type="number" name="userage" class="form-control"
+										id="userage" value="${login.userage}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="textArea" class="col-lg-2 control-label">자기
+									소개</label>
+								<div class="col-lg-10">
+									<textarea class="form-control" name="userinfo" rows="3"
+										id="userinfo" style="resize: none">${login.userinfo}</textarea>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-lg-10 col-lg-offset-2">
+									<button class="btn btn-warning btn-flat">수정</button>
+									<a id="delete" class="btn btn-danger btn-flat">탈퇴</a>
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
+				<script>
+					$('#delete').click(function() {
+						$('form').attr('action', 'delete');
+						$('form').submit();
+					});
+					function passwordCheck() {
+						if ($('#userpw').val() != $('#userpwCheck').val()) {
+							alert("비밀번호가 서로 일치 하지 않습니다.");
+							$('#userpw').focus();
+							document.getElementById("messagepwsuccess").innerHTML = "";
+							document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
+							return false;
+						} else {
+							document.getElementById("messagepwfail").innerHTML = "";
+							document.getElementById("messagepwsuccess").innerHTML = "비밀번호가 일치 합니다.";
+							return true;
+						}
+					}
+
+					function joinCheck() {
+						if ($('#userpw').val() != $('#userpwCheck').val()) {
+							alert("비밀번호가 서로 일치 하지 않습니다.");
+							$('#userpw').focus();
+							document.getElementById("messagepwsuccess").innerHTML = "";
+							document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
+							return false;
+						}
+					}
+				</script>
 			</div>
 		</div>
 	</div>
@@ -186,13 +227,15 @@ s									</c:forEach>
 </script>
 <script type="text/javascript">
 	/* $('#button').on('click', function() {
-		//var id = ${user.userid};
+		inputObjArr = document.getElementsByTagName("input");
+		inputObjArr.getAttribute("type") == "text"
+		var id = ${user.userid};
 		alert("클릭 ㅅㅅ");
 		$.ajax({
 			type : "POST",
 			url : "/adminview",
 			data : {
-				userid : id
+				"userid" : id.val()
 			},
 			success : function(data) {
 				alert(id);

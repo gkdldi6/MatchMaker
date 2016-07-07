@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import com.kosta.matchmaker.domain.PageMaker;
 import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.service.AdminService;
+import com.kosta.matchmaker.service.UserService;
 
 @Controller
 @RequestMapping("/admin")
@@ -23,6 +25,9 @@ public class AdminController {
 
 	@Inject
 	private AdminService service;
+	
+	@Inject
+	private UserService service2;
 
 	/* 관리자 로그인 페이지로 이동 */
 	@RequestMapping("/")
@@ -86,5 +91,12 @@ public class AdminController {
 	// }
 	//
 	// }
-
+	
+	//회원 수정
+	@RequestMapping(value = "/adminview?{userid}", method=RequestMethod.GET)
+	public String postProfile(Model model,@PathVariable("userid") String userid, UserVO user) throws Exception {
+		
+		
+		return "admin/adminview";
+	}
 }
