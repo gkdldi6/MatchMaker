@@ -32,7 +32,7 @@ public class BoardController {
 	@RequestMapping(value = "/{bno}", method=RequestMethod.GET)
 	public String listAll(@PathVariable("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 		
-		model.addAttribute("map", service.listSearch(bno, cri));
+		model.addAttribute("map", service.readAll(bno, cri));
 		
 		PageMaker pagemaker = new PageMaker();
 		pagemaker.setCri(cri);

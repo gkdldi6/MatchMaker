@@ -12,7 +12,7 @@ public interface BoardService {
 	public void register(ArticleVO board) throws Exception;
 
 	//검색 결과 
-	public Map<String, Object> listSearch(int bno, SearchCriteria cri) throws Exception;
+	public Map<String, Object> readAll(int bno, SearchCriteria cri) throws Exception;
 	
 	//검색 결과  개수
 	public int listSearchCount(Integer bno, SearchCriteria cri) throws Exception;

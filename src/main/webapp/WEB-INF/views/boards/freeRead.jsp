@@ -180,7 +180,7 @@ input:read-only, #textArea:read-only {
 		<div class="col-lg-10 col-lg-offset-2 each-reply" data-rno={{rno}}>
 			<div class="panel panel-warning">
 				<div class="panel-heading">
-   					<h3 class="panel-title" id="replyer-list">{{replyer}}</h3>
+   					<h3 class="panel-title" id="replyer-list"><strong>{{replyer}}</strong></h3>
 				</div>
 				<div class="panel-body">
 					<div id="replytext-list">{{replytext}}

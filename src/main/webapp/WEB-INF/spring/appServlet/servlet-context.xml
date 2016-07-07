@@ -49,7 +49,7 @@
 		</interceptor>
 		
 		<interceptor>
-			<mapping path="/boards/new"/>
+			<mapping path="/boards/freeRegister"/>
 			<mapping path="/messages"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>

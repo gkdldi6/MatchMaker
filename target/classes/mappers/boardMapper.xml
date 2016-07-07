@@ -181,6 +181,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="list"></include>
 	</select>
 
+	<select id="noticeSearch" resultType="ArticleVO">
+		<![CDATA[
+ 		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt
+ 		from article a
+ 		where a.bno = #{bno} and article_type = 'N'
+ 		]]>
+		
+		<include refid="list"></include>
+	</select>
+
+
 	<!-- 공지 목록 -->
 	<select id="noticeList" resultType="ArticleVO">
 		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt 

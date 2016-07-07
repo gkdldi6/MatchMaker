@@ -61,14 +61,14 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
-	// -------------------------- 게시판 등록 -------------------------
-
+	// -------------------------- 게시판 목록 -------------------------
 	@Override
-	public Map<String, Object> listSearch(int bno, SearchCriteria cri) throws Exception {
+	public Map<String, Object> readAll(int bno, SearchCriteria cri) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("name", dao.boardName(bno));
 		map.put("notice", dao.noticeList(bno));
+		
 		
 		if(bno == 100 || bno == 0) {
 			map.put("list", dao.listSearch(bno, cri));
@@ -79,6 +79,8 @@ public class BoardServiceImpl implements BoardService {
 		return map;
 	}
 
+	
+	
 	@Override
 	public int listSearchCount(Integer bno, SearchCriteria cri) throws Exception {
 
