@@ -82,38 +82,38 @@ public class CourtController {
 		return entity;
 	}
 	
-	/*코트에 예약된 게임 목록 조회*/
-	@RequestMapping(value="/{cno}/games", method=RequestMethod.GET)
-	public ResponseEntity<List<MatchDTO>> getCourtGames() {
-		
-		ResponseEntity<List<MatchDTO>> entity = null;
-		
-		try {
-			/*entity = new ResponseEntity<List<MatchDTO>>(list, HttpStatus.OK);*/
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<List<MatchDTO>>(HttpStatus.BAD_REQUEST);
-		}
-		
-		return entity;
-	}
-	
 	/*1개의 게임 조회*/
 	@RequestMapping(value="/games/{mno}", method=RequestMethod.GET)
-	public ResponseEntity<List<MatchDTO>> getGame() {
+	public ResponseEntity<MatchDTO> getGame(@PathVariable("mno") int mno) {
 		
-		ResponseEntity<List<MatchDTO>> entity = null;
+		ResponseEntity<MatchDTO> entity = null;
 		
 		try {
-			/*entity = new ResponseEntity<List<MatchDTO>>(list, HttpStatus.OK);*/
+			MatchDTO dto = service.getMatch(mno);
+			entity = new ResponseEntity<MatchDTO>(dto, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<List<MatchDTO>>(HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<MatchDTO>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;
 	}
 	
-	
+	/*1개의 게임에 속한 선수들 조회*/
+	@RequestMapping(value="/games/{mno}/{team}", method=RequestMethod.GET)
+	public ResponseEntity<List<Map<String, Object>>> getTeam(@PathVariable("mno") int mno, @PathVariable("team") String team) {
+		
+		ResponseEntity<List<Map<String, Object>>> entity = null;
+		
+		try {
+			List<Map<String, Object>> list = service.getTeam(mno, team);
+			entity = new ResponseEntity<List<Map<String, Object>>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<Map<String, Object>>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 	
 }

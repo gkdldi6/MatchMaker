@@ -21,14 +21,60 @@
 		</li>
 	</ul>
 	<div class="tab-content">
-		<div class="tab-pane" id="tab_0">
+		
+		<div class="tab-pane" id="tab_4">
+		  <div class="box">
+            <div class="box-header">
+              <h3 id="mname" class="box-title"></h3> <small id="state" class="label bg-green"></small>
+              <div>
+              	<span id="begintime"></span> ~ <span id="endtime"></span> 
+              	<a class="pull-right">
+              		<button type="button" class="back btn btn-default btn-xs"><i class="fa fa-reply"></i> 뒤로 </button>
+              	</a>
+              </div>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+              <table class="table table-condensed" >
+                <thead>
+                  <tr>
+                    <th width="20%">홈</th>
+                    <th width="20%">역활</th>
+                    <th width="20%">상태</th>
+                    <th width="20%">농구점수</th>
+                    <th width="20%">신뢰점수</th>
+                  </tr>
+                </thead>
+                <tbody id="home">
+                </tbody>
+              </table>
+              <br>
+              <table class="table table-condensed" >
+                <thead>
+                  <tr>
+                    <th width="20%">어웨이</th>
+                    <th width="20%"></th>
+                    <th width="20%"></th>
+                    <th width="20%"></th>
+                    <th width="20%"></th>
+                  </tr>
+                </thead>
+                <tbody id="away">
+                </tbody>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+		</div>
 
+		<div class="tab-pane" id="tab_0">
 			<!-- Box Comment -->
 			<div class="box-widget">
 				<div class="box-header with-border">
 					<div class="user-block">
 						<img class="img-circle" src="/resources/img/court-icon.jpg"	alt="court Image"> 
 						<span id="cname" class="username"></span>
+						<span id="cno" class="pull-right badge bg-green"></span>
 						<span id="address" class="description"></span>
 					</div>
 					<!-- /.user-block -->
@@ -37,7 +83,7 @@
 				<div class="box-body">
 
 					<!-- <img alt="코트 사진" width="200" height="200"></img> -->
-					<div class="pull-right"><button id="back" type="button" class="btn btn-default btn-xs"><i class="fa fa-reply"></i> 뒤로 </button></div>
+					<div class="pull-right"><button type="button" class="back btn btn-default btn-xs"><i class="fa fa-reply"></i> 뒤로 </button></div>
 					<p><b>코트 상세</b></p>
 					<p id="ccontent"></p>
 					<!-- Social sharing buttons -->
@@ -50,86 +96,10 @@
 				<!-- /.box-body -->
 
 				<div class="box-footer box-comments">
-
-					<div class="box-comment">
-						<!-- User image -->
-						<img class="img-circle img-sm" src="/resources/img/user.jpg" alt="User Image">
-						<div class="comment-text">
-							<span class="username"> Maria Gonzales <span
-								class="text-muted pull-right">8:03 PM Today</span>
-							</span>
-							<!-- /.username -->
-							It is a long established fact that a reader will be distracted by
-							the readable content of a page when looking at its layout.
-						</div>
-						<!-- /.comment-text -->
-					</div>
-					<!-- /.box-comment -->
-					
-					<div class="box-comment">
-						<!-- User image -->
-						<img class="img-circle img-sm" src="/resources/img/user.jpg" alt="User Image">
-						<div class="comment-text">
-							<span class="username"> Maria Gonzales <span
-								class="text-muted pull-right">8:03 PM Today</span>
-							</span>
-							<!-- /.username -->
-							It is a long established fact that a reader will be distracted by
-							the readable content of a page when looking at its layout.
-						</div>
-						<!-- /.comment-text -->
-					</div>
-					<!-- /.box-comment -->
-					
-					<div class="box-comment">
-						<!-- User image -->
-						<img class="img-circle img-sm" src="/resources/img/user.jpg" alt="User Image">
-						<div class="comment-text">
-							<span class="username"> Maria Gonzales <span
-								class="text-muted pull-right">8:03 PM Today</span>
-							</span>
-							<!-- /.username -->
-							It is a long established fact that a reader will be distracted by
-							the readable content of a page when looking at its layout.
-						</div>
-						<!-- /.comment-text -->
-					</div>
-					<!-- /.box-comment -->
-					
-					<div class="box-comment">
-						<!-- User image -->
-						<img class="img-circle img-sm" src="/resources/img/user.jpg" alt="User Image">
-						<div class="comment-text">
-							<span class="username"> Maria Gonzales <span
-								class="text-muted pull-right">8:03 PM Today</span>
-							</span>
-							<!-- /.username -->
-							It is a long established fact that a reader will be distracted by
-							the readable content of a page when looking at its layout.
-						</div>
-						<!-- /.comment-text -->
-					</div>
-					<!-- /.box-comment -->
-					
-					<div class="box-comment">
-						<!-- User image -->
-						<img class="img-circle img-sm" src="/resources/img/user.jpg" alt="User Image">
-						<div class="comment-text">
-							<span class="username"> Maria Gonzales <span
-								class="text-muted pull-right">8:03 PM Today</span>
-							</span>
-							<!-- /.username -->
-							It is a long established fact that a reader will be distracted by
-							the readable content of a page when looking at its layout.
-						</div>
-						<!-- /.comment-text -->
-					</div>
-					<!-- /.box-comment -->
-
+					<!-- 댓글들이 들어가는 공간 -->
 				</div>
 			</div>
 			<!-- /.box -->
-			
 		</div>
 		<!-- /.tab-pane -->
 		

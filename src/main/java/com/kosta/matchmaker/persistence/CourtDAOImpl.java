@@ -1,5 +1,6 @@
 package com.kosta.matchmaker.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -45,4 +46,34 @@ public class CourtDAOImpl implements CourtDAO {
 	public List<Map<String, Object>> getMatchCourts(GameSearchDTO dto) throws Exception {
 		return session.selectList(namespace + ".getMatchCourts", dto);
 	}
+
+	@Override
+	public void checkMatch1() throws Exception {
+		session.update(namespace + ".checkMatch1");
+	}
+
+	@Override
+	public void checkMatch2() throws Exception {
+		session.update(namespace + ".checkMatch2");
+	}
+
+	@Override
+	public void checkMatch3() throws Exception {
+		session.update(namespace + ".checkMatch3");
+	}
+
+	@Override
+	public List<Map<String, Object>> getTeam(Integer mno, String team) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("mno", mno);
+		map.put("team", team);
+		
+		return session.selectList(namespace + ".getTeam", map);
+	}
+
+	@Override
+	public MatchDTO getMatch(Integer mno) throws Exception {
+		return session.selectOne(namespace + ".getMatch", mno);
+	}
+
 }

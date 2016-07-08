@@ -1,12 +1,29 @@
 package com.kosta.matchmaker.util;
 
+import javax.inject.Inject;
+
 import org.springframework.scheduling.annotation.Scheduled;
+
+import com.kosta.matchmaker.persistence.CourtDAO;
 
 public class DummyTask {
 	
-	@Scheduled(cron="0/1 * * * * ?")
+	@Inject
+	private CourtDAO dao;
+	
+	@Scheduled(cron="0/60 * * * * ?")
     public void print() {
-        System.out.println("스케줄러 TEST");      
+        
+        try {
+			dao.checkMatch1();
+			dao.checkMatch2();
+	        dao.checkMatch3();
+	        
+	        System.out.println("게임 상태 확인중...");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        
     }
  
 }

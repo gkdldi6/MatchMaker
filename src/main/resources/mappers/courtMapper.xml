@@ -110,7 +110,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update court set liked = liked + 1 where cno = #{cno}
 	</update>
 
-	<!-- endtime > now() -->
+	<!-- 게임 1개 조회 -->
+	<select id="getMatch" resultType="MatchDTO">
+		select mname, DATE_FORMAT(begintime, '%m/%d %h:%i %p') begintime, DATE_FORMAT(endtime, '%m/%d %h:%i %p') endtime, state from match_court where mno = #{mno}
+	</select>
+
 	<!-- 게임 목록 조회 -->
 	<select id="getMatches" resultType="MatchDTO">
 		<![CDATA[
@@ -140,5 +144,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			]]>
 		</if>
 	</sql>
+	
+	<!-- 게임 대기 상태에서 시작 시간 지나면 시작 상태로 변경 -->
+	<update id="checkMatch1">
+		<![CDATA[
+		update match_court set state = '시작' where state = 'wait' and begintime <= now()
+		]]>
+	</update>
+	
+	<!-- 시작 상태에서 게임 종료후 평가 상태로 변경 -->
+	<update id="checkMatch2">
+		<![CDATA[
+		update match_court set state = '평가' where state = '시작' and endtime < now()
+		]]>
+	</update>
+	
+	<!-- 게임 종료후 30분 지나면 평가 상태에서 종료 상태로 변경 -->	
+	<update id="checkMatch3">
+		<![CDATA[
+		update match_court set state = '종료' where state = '평가' and endtime + INTERVAL 30 day_minute < now()
+		]]>
+	</update>
+	
+	<!-- 팀 선수들을 가져옴 -->
+	<select id="getTeam" resultMap="playerDTO">
+		select id, role, state from match_player where mno = #{mno} and team = #{team}
+	</select>
+	
+	<!-- 팀에 해당하는 선수들 가져갈때 사용할 Map -->
+	<resultMap type="HashMap" id="playerDTO">
+		<result javaType="String" column="id" property="id"/>
+		<result javaType="String" column="role" property="role"/>
+		<result javaType="String" column="state" property="state"/>
+	</resultMap>
 	
 </mapper>

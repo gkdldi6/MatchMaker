@@ -134,6 +134,7 @@ var name = '${login.username}';		/* 회원 이름 */
                 <span>{{liked}}</span>
 				<span style="font-weight:normal;font-size:15px">Comments</span>
 				<span>{{replycnt}}</span>
+				<span class="pull-right badge bg-green">{{cno}}</span>
               </span>
             </div>
             <!-- /.info-box-content -->
@@ -171,7 +172,7 @@ var name = '${login.username}';		/* 회원 이름 */
         	<i class="fa bg-red">{{mno}}</i>
         	<div class="timeline-item">
         	    <h3 class="timeline-header">
-					<a href="#">{{mname}}</a>
+					<a mno="{{mno}}">{{mname}}</a>
 				</h3>
 				<span class="time"><i class="fa fa-clock-o"></i> 
 					{{begintime}} ~ {{endtime}}
@@ -184,6 +185,32 @@ var name = '${login.username}';		/* 회원 이름 */
             	</div>
         	</div>
     	</li>
+	{{/each}}
+</script>
+<!-- 선수 템플릿 -->
+<script id="playerTemplate" type="text/x-handlebars-template">
+	{{#each .}}
+		<tr id="{{id}}">
+        	<td>{{id}}</td>
+            <td>{{role}}</td>
+            <td>{{state}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+	{{/each}}
+</script>
+<!-- 댓글 템플릿 -->
+<script id="replyTemplate" type="text/x-handlebars-template">
+	{{#each .}}
+		<div class="box-comment">
+			<img class="img-circle img-sm" src="/resources/img/user.jpg" alt="User Image">
+			<div class="comment-text">
+				<span class="username"> 유저 아이디
+					<span class="text-muted pull-right">등록일</span>
+				</span>						
+				내용
+			</div>
+		</div>
 	{{/each}}
 </script>
 <script>

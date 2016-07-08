@@ -196,9 +196,10 @@ function displayMarker(position, content, cno) {
 	});
 	
 	// 뒤로 버튼
-	$('#back').click(function() {
+	$('.back').click(function() {
 		$(activeTab).addClass('active');
 		$('#tab_0').removeClass('active');
+		$('#tab_4').removeClass('active');
 	});
 	
 	// ajax로 RestController에서 코트 정보를 호출
@@ -209,6 +210,7 @@ function displayMarker(position, content, cno) {
 			} else {
 				$('#cname').text(data.writer);
 			}*/
+			$('#cno').text(data.cno);
 			$('#cname').text(data.title);
 			$('#address').text(data.address);
 			$('#ccontent').text(data.content);
@@ -484,7 +486,7 @@ $('#detail-space input:radio').change(function() {
 	}
   });
 
-//게임 검색 결과 초기화
+// 게임 검색 결과 초기화
 function initGameList() {
 	if(dateState === 1) {
 		matchList.begintime = new Date($('#datepicker1').val());
@@ -535,12 +537,48 @@ $('#search-body').on('click', '.match-court', function() {
 	getCourt(cno);
 });
 
-// 게임 열기
-function getGame() {
+//예약된 게임에서 게임 정보 보기
+$('#search-body').on('click', '.timeline-header a', function() {
+	var mno = $(this).attr('mno');
+	getGame(mno);
+	console.log(mno);
+});
+
+// 게임 예약 정보 보기
+function getGame(mno) {
+	var team1 = 'home';
+	var team2 = 'away';
 	
+	$('#tab_4').addClass('active');
+	$(activeTab).removeClass('active');
+	
+	$.getJSON('/courts/games/' + mno, function(data) {
+		$('#mname').text(data.mname);
+		$('#begintime').text(data.begintime);
+		$('#endtime').text(data.endtime);
+		$('#state').text(data.state);
+	});
+	$.getJSON('/courts/games/' + mno + '/' + team1, function(data) {
+		var templateObj = $('#playerTemplate');
+		var target = $('#home');
+		
+		var template = Handlebars.compile(templateObj.html());
+		var html = template(data);
+		
+		target.html(html);
+	});
+	$.getJSON('/courts/games/' + mno + '/' + team2, function(data) {
+		var templateObj = $('#playerTemplate');
+		var target = $('#away');
+		
+		var template = Handlebars.compile(templateObj.html());
+		var html = template(data);
+		
+		target.html(html);
+	});
 }
 
-/*게임 예약 창 열기*/
+// 코트에 예약된 게임 목록 보기
 function openGamebar(cno) {
 	return function() {
 		console.log(cno);
@@ -602,22 +640,15 @@ $('#getRooms').click(function() {
 	socket.emit('getRooms');
 });
 
+// 댓글 가져오기
+function getReplies(data) {
+	var templateObj = $('#replyTemplate');
+	var target = $('.box-comments');
+	
+	var template = Handlebars.compile(templateObj.html());
+	var html = template(data);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	target.append(html);
+}
 
 

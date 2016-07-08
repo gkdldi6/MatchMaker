@@ -1,6 +1,7 @@
 package com.kosta.matchmaker.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -36,6 +37,16 @@ public class CourtServiceImpl implements CourtService {
 	@Override
 	public void likeCourt(int cno) throws Exception {
 		dao.likeCourt(cno);
+	}
+
+	@Override
+	public List<Map<String, Object>> getTeam(Integer mno, String team) throws Exception {
+		return dao.getTeam(mno, team);
+	}
+
+	@Override
+	public MatchDTO getMatch(int mno) throws Exception {
+		return dao.getMatch(mno);
 	}
 
 }
