@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kosta.matchmaker.domain.AdminVO;
 import com.kosta.matchmaker.domain.PageMaker;
@@ -64,20 +65,11 @@ public class AdminController {
 	 * 
 	 * }
 	 */
-
-	@RequestMapping(value = "/adminview", method = RequestMethod.POST)
-	public void postAdmin(@RequestParam("userid") String userid, Model model) {
-		
-		// 유저정보 조회
-		UserVO userVO = service.selectOne(userid);
-		model.addAttribute("userInfo", userVO);
-
-	}
-
+	
 	@RequestMapping(value = "/adminview", method = RequestMethod.GET)
 	public void getAdmin(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("userid") String userid,
 			Model model) throws Exception {
-		System.out.println("호날두ㅅㅅ");
+		//System.out.println("호날두ㅅㅅ");
 		List<UserVO> userlist = service.selectList(cri);
 		int usercount = service.countUser();
 
@@ -89,8 +81,17 @@ public class AdminController {
 		model.addAttribute("usercount", usercount);
 		
 		// 유저정보 조회
-		UserVO userVO = service.selectOne(userid);
-		model.addAttribute("user", userVO);
+		/*UserVO userVO = service.selectOne(userid);
+		model.addAttribute("user", userVO);*/
+	}
+	
+	// 진규가 작성한거 
+	@RequestMapping(value = "/{userid}", method = RequestMethod.GET)
+	public @ResponseBody UserVO getUser(@PathVariable("userid") String userid) throws Exception {
+		//System.out.println(userid);
+		UserVO user = service.selectOne(userid);
+		//System.out.println(user);
+		return user;
 	}
 
 	public void userInfo() {

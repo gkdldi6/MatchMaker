@@ -59,10 +59,8 @@
 											<td>${user.userid }</td>
 											<td>${user.username}</td>
 											<td><span class="badge">${user.userpoint}</span></td>
-											<td><button type="button" class="btn btn-warning btn-xs btn-flat each-button abc" 
-												onclick ="userInfo('${user.userid}')">상세정보</button></td>
-											<%-- <td><a href="adminview?userid=${user.userid}" id="button" --%>
-											<!-- class="btn btn-warning btn-xs btn-flat each-button abc"> 상세보기</a></td> -->
+											<td><input userid="${user.userid }" type="button" class="btn btn-warning btn-xs btn-flat each-button"
+												value="수정" <%-- onclick ="userInfo('${user.userid}' --%>)"></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -94,7 +92,7 @@
 								console.log(${pageMaker.cri.page});
 							</div>
 						</div>
-						<div class="tab-pane" id="userinfo">
+						<div class="tab-pane" id="userinfo1">
 
 							<!-- 회원 정보 -->
 							<form action=update method="post" name="form"
@@ -104,7 +102,7 @@
 									<label for="inputId" class="col-lg-2 control-label">아이디</label>
 									<div class="col-lg-10">
 										<input type="text" name="userid" class="form-control"
-											id="userid" value="${user.userid}" readonly></input>
+											id="userid"></input>
 									</div>
 								</div>
 
@@ -112,7 +110,7 @@
 									<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
 									<div class="col-lg-10">
 										<input type="email" name="email" class="form-control"
-											id="email" value="${user.email}" readonly>
+											id="email">
 									</div>
 								</div>
 
@@ -120,7 +118,7 @@
 									<label for="inputName" class="col-lg-2 control-label">이름</label>
 									<div class="col-lg-10">
 										<input type="text" name="username" class="form-control"
-											id="username" value="${user.username}" readonly>
+											id="username">
 									</div>
 								</div>
 
@@ -128,7 +126,7 @@
 									<label for="inputAge" class="col-lg-2 control-label">나이</label>
 									<div class="col-lg-10">
 										<input type="number" name="userage" class="form-control"
-											id="userage" value="${user.userage}" readonly>
+											id="userage" readonly>
 									</div>
 								</div>
 
@@ -137,7 +135,7 @@
 										소개</label>
 									<div class="col-lg-10">
 										<textarea class="form-control" name="userinfo" rows="3"
-											id="userinfo" style="resize: none" readonly>${user.userinfo}</textarea>
+											id="userinfo" style="resize: none" readonly></textarea>
 									</div>
 								</div>
 
@@ -148,42 +146,32 @@
 								</div>
 							</form>
 						</div>
+						<!-- 회원정보 창 -->
 					</div>
-					<script>
-						$('#delete').click(function() {
-							$('form').attr('action', 'delete');
-							$('form').submit();
-						});
-						function passwordCheck() {
-							if ($('#userpw').val() != $('#userpwCheck').val()) {
-								alert("비밀번호가 서로 일치 하지 않습니다.");
-								$('#userpw').focus();
-								document.getElementById("messagepwsuccess").innerHTML = "";
-								document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
-								return false;
-							} else {
-								document.getElementById("messagepwfail").innerHTML = "";
-								document.getElementById("messagepwsuccess").innerHTML = "비밀번호가 일치 합니다.";
-								return true;
-							}
-						}
-
-						function joinCheck() {
-							if ($('#userpw').val() != $('#userpwCheck').val()) {
-								alert("비밀번호가 서로 일치 하지 않습니다.");
-								$('#userpw').focus();
-								document.getElementById("messagepwsuccess").innerHTML = "";
-								document.getElementById("messagepwfail").innerHTML = "비밀번호가 일치 하지 않습니다.";
-								return false;
-							}
-						}
-					</script>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
+<script type="text/javascript">
+	$('tbody').on('click', 'input', function() {
+		var userid = $(this).attr('userid');
+		$.getJSON('/admin/' + userid, function(data) {
+			console.log(data);
+			
+			$('#userid').val(data.userid);
+			$('#email').val(data.email);
+			$('#userinfo').val(data.userinfo);
+			$('#userage').val(data.userage);
+			$('#username').val(data.username);
+			
+			$('#userinfo1').addClass('active');
+			$('#userlist').removeClass('active');
+			$('#userTab li:last').addClass('active');
+			$('#userTab li:first').removeClass('active');
+		});
+	});
+</script>
 <script type="text/javascript">
 	/* var id = user.userid; */
 	
@@ -200,27 +188,14 @@
 		
 		/*alert(userid.val());
 	});  */
-
+/* 
 	function userInfo(userid){
-		$.ajax({
-			type : "POST",
-			URI : "/admin/adminview",
-			data : {
-				"userid" : userid 
-			},
-			success : function (data){
-				alert("ㅅㅅㅅㅅㅅ");
-				alert(userid);
-			},
-			error : function(data){
-				alert("ㅠㅠㅠ");
-				
-			}
-		});
-		
-		$('#userTab [href="#userinfo"]').tab('show');
-	}
+		self.location = ("adminview?userid="+userid);
+		$('#userinfo1').addClass('active');
+		$('#userlist').removeClass('active');
+		$('#userTab li:last').addClass('active');
+		$('#userTab li:first').removeClass('active');
+	}	  */
 
-	
 </script>
 <jsp:include page="../include/footer.jsp"></jsp:include>
