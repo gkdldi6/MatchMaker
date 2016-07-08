@@ -1,6 +1,8 @@
 package com.kosta.matchmaker.test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -12,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.FreeBoardVO;
 import com.kosta.matchmaker.domain.NoticeBoardVO;
-import com.kosta.matchmaker.domain.ReferenceBoardVO;
+import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.service.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -61,9 +63,23 @@ public class BoardServiceTest {
 	// }
 	
 	@Test
-	public void testList() throws Exception {
+	public void testlistSearch() throws Exception {
+
+			SearchCriteria cri = new SearchCriteria();
+			cri.setSearchType("t");
+			cri.setKeyword("광진");
+			
+			int bno = 1;
+			
+			List<ArticleVO> list = service.listSearch(bno, cri);
+			
+			
+			for (ArticleVO board : map) {
+				System.out.println(board.getBno() + "\t" + board.getAno() + "\t" + board.getTitle() + "\t"
+							+ board.getWriter() + "\t" + board.getRegdate() + "\t" + board.getHit());
+			}
 		
-	}
+		}
 	
 
 	@Test

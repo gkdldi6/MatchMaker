@@ -53,7 +53,7 @@
 		</interceptor>
 
 		<interceptor>
-			<mapping path="/boards/new" />
+			<mapping path="/boards/freeRegister" />
 			<beans:ref bean="authInterceptor" />
 		</interceptor>
 

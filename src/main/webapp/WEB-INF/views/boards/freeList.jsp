@@ -124,8 +124,8 @@
 								</select>
 
 								<div class="input-group input-group-sm">
-									<input type="text" class="form-control"> <span
-										class="input-group-btn">
+									<input type="text" class="form-control" id="keywordInput" value="${cri.keyword}"> 
+									<span class="input-group-btn">
 										<button id="search" type="button"
 											class="btn btn-info btn-flat">검색</button>
 									</span>
@@ -300,16 +300,10 @@
 	$('#search').on(
 			"click",
 			function(event) {
-				self.location = "boards" + '${pageMaker.makeQuery(1)}'
-						+ "&searchType="
-						+ $("#searchType option:selected").val() + "&keyword="
-						+ $('#keywordInput').val();
+				self.location ='${pageMaker.makeQuery(1)}'
+								+ "&searchType=" + $("#searchType option:selected").val() 
+								+ "&keyword=" + $('#keywordInput').val();
 			});
 </script>
-
-<script>
-	
-</script>
-
 
 <jsp:include page="../include/footer.jsp"></jsp:include>

@@ -35,9 +35,8 @@
                         <th width="10%">조회수</th>
                       </tr>
                     </thead>
-                    
                     <tbody>
-						<c:forEach items="${map.list }" var="article">
+						<c:forEach items="${map.list}" var="article">
 							<tr>
 								<td>${article.ano }</td>
 								<td class="title"><a
@@ -91,7 +90,6 @@
 	                  </div>
 	                  
 					  <div class="col-sm-offset-6 col-sm-4 col-md-offset-7 col-md-3 col-xs-9">
-					  
 						<select id="searchType" name="searchType">
 							<option value="tcw"
 								<c:out value="${cri.searchType eq 'tcw'?'selected':''}"/>>
@@ -117,7 +115,7 @@
 						</select>
 						
 						<div class="input-group input-group-sm">
-	                		<input type="text" class="form-control">
+	                		<input type="text" class="form-control" id="keywordInput" value="${cri.keyword}">
 	                    	<span class="input-group-btn">
 	                      		<button id="search" type="button" class="btn btn-info btn-flat">검색</button>
 	                    	</span>
@@ -152,8 +150,7 @@
 	
 	/* 검색 버튼 클릭 */
 	$('#search').on("click", function(event) {
-		self.location = "boards"
-						+ '${pageMaker.makeQuery(1)}'
+		self.location = '${pageMaker.makeQuery(1)}'
 						+ "&searchType="
 						+ $("#searchType option:selected").val()
 						+ "&keyword=" + $('#keywordInput').val();

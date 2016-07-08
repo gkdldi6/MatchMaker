@@ -67,6 +67,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public Map<String, Object> listSearch(int bno, SearchCriteria cri) throws Exception {
+		
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("name", dao.boardName(bno));

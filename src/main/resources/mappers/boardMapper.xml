@@ -6,92 +6,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.kosta.matchmaker.mappers.BoardMapper">
 
 	<!-- 구버전 -->
-	<!-- <insert id="create"> -->
-	<!-- insert into freeboard (title, content, writer) -->
-	<!-- values(#{title}, #{content}, #{writer}) -->
-	<!-- </insert> -->
-
-	<!-- <select id="readAll" resultType="BoardVO"> -->
-	<!-- select bno, title, writer, -->
-	<!-- regdate, hit -->
-	<!-- from freeboard order by bno desc -->
-	<!-- </select> -->
-
-	<!-- <update id="update"> -->
-	<!-- update freeboard set title = #{title}, content = -->
-	<!-- #{content}, writer = #{writer}, regdate = now() -->
-	<!-- where bno = #{bno} -->
-	<!-- </update> -->
-
-	<!-- <delete id="delete"> -->
-	<!-- delete from freeboard -->
-	<!-- where bno = #{bno} -->
-	<!-- </delete> -->
-
-	<!-- <select id="readOne" resultType="BoardVO"> -->
-	<!-- select bno, title, content, -->
-	<!-- writer, regdate, hit -->
-	<!-- from freeboard -->
-	<!-- where bno = #{bno} -->
-	<!-- </select> -->
-
-	<!-- <sql id="search"> -->
-	<!-- <if test="searchType != null"> -->
-	<!-- <if test="searchType == 't'.toString()"> -->
-	<!-- and title like CONCAT('%', #{keyword}, '%') -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'c'.toString()"> -->
-	<!-- and content like CONCAT('%', #{keyword}, '%') -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'w'.toString()"> -->
-	<!-- and writer like CONCAT('%', #{keyword}, '%') -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'tc'.toString()"> -->
-	<!-- and ( title like CONCAT('%', #{keyword}, '%') OR content -->
-	<!-- like -->
-	<!-- CONCAT('%', #{keyword}, '%')) -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'cw'.toString()"> -->
-	<!-- and ( content like CONCAT('%', #{keyword}, '%') OR writer -->
-	<!-- like -->
-	<!-- CONCAT('%', #{keyword}, '%')) -->
-	<!-- </if> -->
-	<!-- <if test="searchType == 'tcw'.toString()"> -->
-	<!-- and ( title like CONCAT('%', #{keyword}, '%') -->
-	<!-- OR -->
-	<!-- content -->
-	<!-- like CONCAT('%', #{keyword}, '%') -->
-	<!-- OR -->
-	<!-- writer like CONCAT('%', -->
-	<!-- #{keyword}, '%')) -->
-	<!-- </if> -->
-	<!-- </if> -->
-	<!-- </sql> -->
-
-	<!-- <select id="listSearch" resultType="BoardVO"> -->
-	<!-- <![CDATA[ -->
-	<!-- select bno, title, content, writer, regdate, hit, replycnt -->
-	<!-- from freeboard -->
-	<!-- where bno > 0 -->
-	<!-- ]]> -->
-
-	<!-- <include refid="search"></include> -->
-
-	<!-- <![CDATA[ -->
-	<!-- order by bno desc, regdate desc -->
-	<!-- limit #{pageStart} , #{perPageNum} -->
-	<!-- ]]> -->
-	<!-- </select> -->
-
-	<!-- <select id="listSearchCount" resultType="int"> -->
-	<!-- <![CDATA[ -->
-	<!-- select count(bno) -->
-	<!-- from freeboard -->
-	<!-- where bno > 0 -->
-	<!-- ]]> -->
-	<!-- <include refid="search"></include> -->
-	<!-- </select> -->
-
 	<!-- <update id="updateReplyCnt"> -->
 	<!-- update freeboard set replycnt = replycnt + #{amount} -->
 	<!-- where bno = #{bno} -->
@@ -128,27 +42,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 신버전 맵퍼 -->
 
 	<select id="getType" resultType="String">
-		select article_type from article
+		select article_type 
+		from article
 		where bno = #{bno} and ano = #{ano}
 	</select>
 
 	<select id="lastAno" resultType="Integer">
-		select ano from article where
-		bno = #{bno} order by ano desc limit 1;
+		select ano 
+		from article 
+		where bno = #{bno} order by ano desc limit 1;
 	</select>
 
 
 	<!-- I N S E R T -->
 	<insert id="create">
-		insert into article (bno, ano, title, content,
-		writer, article_type)
-		values(#{bno}, #{ano}, #{title}, #{content},
-		#{writer}, #{article_type})
+		insert into article (bno, ano, title, content, writer, article_type)
+		values(#{bno}, #{ano}, #{title}, #{content}, #{writer}, #{article_type})
 	</insert>
 
 	<insert id="freeCreate">
-		insert into free(bno, ano, liked) values(#{bno},
-		#{ano}, #{liked})
+		insert into free(bno, ano, liked) 
+		values(#{bno}, #{ano}, #{liked})
 	</insert>
 
 	<insert id="noticeCreate">
@@ -161,75 +75,112 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values(#{bno}, #{ano}, #{fullname})
 	</insert>
 
-	<!-- I N S E R T -->
-
 
 	<!-- R E A D -->
 	<select id="readAll" resultType="ArticleVO">
 		select *
 		from article
-		where bno =
-		#{bno}
+		where bno = #{bno}
 		order by ano desc
 	</select>
 
 	<select id="freeAll" resultType="FreeBoardVO">
-		select * from article a, free f
+		select *
+		from article a, free f
 		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
 	</select>
 
 	<select id="freeOne" resultType="FreeBoardVO">
-		select a.bno, a.ano, a.title,
-		a.writer, a.content, a.regdate, a.hit, a.replycnt, a.article_type,
-		f.liked
+		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, a.article_type, f.liked
 		from article a, free f
-		where a.bno = f.bno and a.ano = f.ano and
-		a.ano =
-		#{ano} and a.bno = #{bno}
+		where a.bno = f.bno and a.ano = f.ano and a.ano = #{ano} and a.bno = #{bno}
 	</select>
 
 	<select id="articleOne" resultType="ArticleVO">
-		select * from article where
-		bno = #{bno} and ano = #{ano}
+		select * 
+		from article 
+		where bno = #{bno} and ano = #{ano}
 	</select>
 
 	<select id="noticeOne" resultType="NoticeBoardVO">
-		select * from article a,
-		notice n
-		where a.bno = n.bno and a.ano = n.ano and a.ano = #{ano} and
-		a.bno = #{bno}
+		select * 
+		from article a, notice n
+		where a.bno = n.bno and a.ano = n.ano and a.ano = #{ano} and a.bno = #{bno}
+	</select>
+	
+	<select id="boardName" resultType="String">
+		select name 
+		from board 
+		where bno = #{bno}
 	</select>
 
-	<!-- R E A D -->
+	<select id="freeSearch" resultType="FreeBoardVO">
+		<![CDATA[
+  			select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, f.liked 
+	 		from article a, free f 
+			where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno} 
+		]]>
+
+		<include refid="list"></include>
+	</select>
+
+	<select id="listSearch" resultType="ArticleVO">
+		<![CDATA[
+ 		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt
+ 		from article a
+ 		where a.bno = #{bno} 
+ 		]]>
+ 		
+		<include refid="list"></include>
+	</select>
+
+	<select id="listSearchCount" resultType="int">
+		<![CDATA[
+			select count(ano) 
+			from article
+			where bno = #{bno} and ano > 0	
+		]]>
+		<include refid="search"></include>
+	</select>
+
+	<!-- 공지 목록 -->
+	<select id="noticeList" resultType="ArticleVO">
+		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt
+		from notice n natural
+		join article a where a.bno = #{bno}
+		order by a.ano desc
+	</select>
+
 
 
 	<!-- U P D A T E -->
 
 	<update id="update">
-		update article set title = #{title}, writer =
-		#{writer}, content = #{content}, regdate = now()
-		where bno = #{bno} and
-		ano = #{ano}
+		update article set title = #{title}, writer = #{writer}, content = #{content}, regdate = now()
+		where bno = #{bno} and ano = #{ano}
 	</update>
 
 	<update id="reference">
 		update reference set fullname = #{fullname}
-		where
-		a.bno = r.bno and a.ano = r.ano and a.ano = #{ano}
-		and a.bno = #{bno}
+		where a.bno = r.bno and a.ano = r.ano and a.ano = #{ano} and a.bno = #{bno}
 	</update>
 
-	<!-- U P D A T E -->
+	<!-- 댓글 갯수 업데이트 -->
+	<update id="updateReplyCnt">
+		update article set replycnt = replycnt + #{amount}
+		where bno = #{bno} and ano = #{ano}
+	</update>
+	
+	<!-- 조회수 업데이트 -->
+	<update id="updateHit">
+		update article set hit = hit + 1 
+		where bno = #{bno} and ano = #{ano}
+	</update>
 
 
+	<!-- D E L E T E  -->
 	<delete id="delete">
 		delete from article
-		where bno = #{bno} and ano =
-		#{ano}
-	</delete>
-
-	<delete id="deleteFree">
-		delete from free
 		where bno = #{bno} and ano = #{ano}
 	</delete>
 
@@ -238,52 +189,89 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where bno = #{bno} and ano = #{ano}
 	</delete>
 
-	<delete id="deleteReference">
-		delete from reference
-		where bno = #{bno} and ano =
-		#{ano}
+	<delete id="deleteFree">
+		delete from free
+		where bno = #{bno} and ano = #{ano}
 	</delete>
 
-	<update id="updateHit">
-		update article set hit = hit + 1 where bno = #{bno}
-		and ano = #{ano}
-	</update>
+	<delete id="deleteReference">
+		delete from reference
+		where bno = #{bno} and ano = #{ano}
+	</delete>
 
+
+	<!-- 파일첨부 기능 자료게시판용 -->
+	<insert id="addAttach">
+		insert into reference(fullname, bno, ano) 
+		values (#{fullName}, #{bno}, #{ano})
+	</insert>
+
+	<select id="getAttach" resultType="String">
+		select fullname 
+		from reference
+		where bno = #{bno} and ano = #{ano}
+	</select>
+
+	<delete id="deleteAttach">
+		delete from reference 
+		where bno = #{bno} and ano = #{ano}
+	</delete>
+	
+
+	<!-- Best Article(추천, 조회, 댓글) -->
+	<select id="maximumLike" resultType="FreeBoardVO">
+		select * 
+		from article a, free f
+		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
+		order by f.liked desc
+		limit 0 , 5
+	</select>
+
+	<select id="maximumHit" resultType="FreeBoardVO">
+		select * 
+		from article a, free f
+		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
+		order by a.hit desc
+		limit 0 , 5
+	</select>
+
+	<select id="maximumReply" resultType="FreeBoardVO">
+		select * 
+		from article a, free f
+		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
+		order by a.replycnt desc
+		limit 0 , 5
+	</select>
+
+	
 	<!-- 동적 SQL을 위한 부분 SQL -->
 	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 't'.toString()">
+		<if test="cri.searchType != null">
+			<if test="cri.searchType == 't'.toString()">
 				and title like CONCAT('%', #{cri.keyword}, '%')
 			</if>
-			<if test="searchType == 'c'.toString()">
+			<if test="cri.searchType == 'c'.toString()">
 				and content like CONCAT('%', #{cri.keyword}, '%')
 			</if>
-			<if test="searchType == 'w'.toString()">
+			<if test="cri.searchType == 'w'.toString()">
 				and writer like CONCAT('%', #{cri.keyword}, '%')
 			</if>
-			<if test="searchType == 'tc'.toString()">
-				and ( title like CONCAT('%', #{cri.keyword}, '%') OR
-				content
-				like
+			<if test="cri.searchType == 'tc'.toString()">
+				and ( title like CONCAT('%', #{cri.keyword}, '%') OR content like
 				CONCAT('%', #{cri.keyword}, '%'))
 			</if>
-			<if test="searchType == 'cw'.toString()">
-				and ( content like CONCAT('%', #{cri.keyword}, '%') OR
-				writer
-				like
+			<if test="cri.searchType == 'cw'.toString()">
+				and ( content like CONCAT('%', #{cri.keyword}, '%') OR writer like
 				CONCAT('%', #{cri.keyword}, '%'))
 			</if>
-			<if test="searchType == 'tcw'.toString()">
+			<if test="cri.searchType == 'tcw'.toString()">
 				and ( title like CONCAT('%', #{cri.keyword}, '%')
 				OR
-				content
-				like CONCAT('%', #{cri.keyword}, '%')
+				content like CONCAT('%', #{cri.keyword}, '%')
 				OR
-				writer like
-				CONCAT('%',
-				#{cri.keyword}, '%'))
+				writer like CONCAT('%', #{cri.keyword}, '%'))
 			</if>
-		</if>
+		</if>	
 	</sql>
 
 	<sql id="list">
@@ -294,96 +282,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		limit #{cri.pageStart}, #{cri.perPageNum}
 		]]>
 	</sql>
-
-	<select id="boardName" resultType="String">
-		select name from board where
-		bno = #{bno}
-	</select>
-
-	<select id="freeSearch" resultType="FreeBoardVO">
-		<![CDATA[
- 		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt, f.liked
- 		from article a, free f
- 		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
- 		]]>
-
-		<include refid="list"></include>
-	</select>
-
-	<select id="listSearch" resultType="ArticleVO">
-		<![CDATA[
- 		select a.bno, a.ano, a.title, a.writer, a.content, a.regdate, a.hit, a.replycnt
- 		from article a
- 		where a.bno = #{bno}
- 		]]>
-
-		<include refid="list"></include>
-	</select>
-
-	<!-- 공지 목록 -->
-	<select id="noticeList" resultType="ArticleVO">
-		select a.bno, a.ano, a.title,
-		a.writer, a.content, a.regdate, a.hit, a.replycnt
-		from notice n natural
-		join article a where a.bno = #{bno}
-		order by a.ano
-		desc
-	</select>
-
-	<select id="listSearchCount" resultType="int">
-		<![CDATA[
-			select count(bno) 
-			from article
-			where bno = #{bno} and ano > 0	
-		]]>
-		<include refid="search"></include>
-	</select>
-
-	<update id="updateReplyCnt">
-		update article set replycnt = replycnt + #{amount}
-		where bno = 1 and ano = #{ano}
-	</update>
-
-	<!-- 파일첨부 기능 자료게시판용 -->
-	<insert id="addAttach">
-		insert into reference(fullname, bno, ano) values
-		(#{fullName}, #{bno}, #{ano})
-	</insert>
-
-	<select id="getAttach" resultType="String">
-		select fullname from
-		reference
-		where bno = #{bno} and ano = #{ano}
-	</select>
-
-	<delete id="deleteAttach">
-		delete from reference where bno = #{bno} and ano =
-		#{ano}
-	</delete>
-
-
-	<!-- 구현중소스.. -->
-
-	<!-- Best Article(추천, 조회, 댓글) -->
-	<select id="maximumLike" resultType="FreeBoardVO">
-		select * from article a, free f
-		where a.bno = f.bno
-		and a.ano = f.ano and a.bno = #{bno}
-		order by f.liked desc
-		limit 0 , 5
-	</select>
-
-	<select id="maximumHit" resultType="FreeBoardVO">
-		select * from article a, free f
-		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
-		order by a.hit desc
-		limit 0 , 5
-	</select>
-
-	<select id="maximumReply" resultType="FreeBoardVO">
-		select * from article a, free f
-		where a.bno = f.bno and a.ano = f.ano and a.bno = #{bno}
-		order by a.replycnt desc
-		limit 0 , 5
-	</select>
+	
 </mapper>

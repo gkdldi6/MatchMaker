@@ -28,14 +28,14 @@ public class BoardController {
 	@Inject
 	private BoardService service;
 
+	
+	//------------------------------------Read-------------------------------------------
 	/* 게시판 글 목록 읽기 */
 	@RequestMapping(value = "/{bno}", method = RequestMethod.GET)
 	public String listAll(@PathVariable("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, Model model)
 			throws Exception {
 
 		model.addAttribute("map", service.listSearch(bno, cri));
-
-
 
 		PageMaker pagemaker = new PageMaker();
 		pagemaker.setCri(cri);
@@ -54,6 +54,37 @@ public class BoardController {
 		}
 
 		return "boards/freeList";
+	}
+	
+	/* 글 조회 */
+	@RequestMapping(value = "/{bno}/{ano}", method = RequestMethod.GET)
+	public String readOne(@PathVariable("bno") int bno, @PathVariable("ano") int ano,
+			@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+
+		ArticleVO article = service.readOne(bno, ano);
+		String articleType = article.getArticle_type();
+
+		model.addAttribute("article", article);
+
+		if (articleType.equals("R")) {
+			return "boards/refRead";
+		}
+
+		return "boards/freeRead";
+	}
+	
+	
+	// --------------------------Create ------------------------------------------------
+	/* 공지글 작성 */
+	@RequestMapping(value = "/{bno}/notice", method = RequestMethod.POST)
+	public String noticeWrite(@PathVariable("bno") int bno, RedirectAttributes rttr, NoticeBoardVO article)
+			throws Exception {
+		article.setBno(bno);
+		service.register(article);
+		
+		rttr.addFlashAttribute("result", "success");
+		
+		return "redirect:/boards/" + bno;
 	}
 
 	/* 글 작성폼 열기 */
@@ -92,35 +123,7 @@ public class BoardController {
 		return "redirect:/boards/" + bno;
 	}
 
-	/* 공지글 작성 */
-	@RequestMapping(value = "/{bno}/notice", method = RequestMethod.POST)
-	public String noticeWrite(@PathVariable("bno") int bno, RedirectAttributes rttr, NoticeBoardVO article)
-			throws Exception {
-		article.setBno(bno);
-		service.register(article);
-
-		rttr.addFlashAttribute("result", "success");
-
-		return "redirect:/boards/" + bno;
-	}
-
-	/* 글 조회 */
-	@RequestMapping(value = "/{bno}/{ano}", method = RequestMethod.GET)
-	public String readOne(@PathVariable("bno") int bno, @PathVariable("ano") int ano,
-			@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
-
-		ArticleVO article = service.readOne(bno, ano);
-		String articleType = article.getArticle_type();
-
-		model.addAttribute("article", article);
-
-		if (articleType.equals("R")) {
-			return "boards/refRead";
-		}
-
-		return "boards/freeRead";
-	}
-
+	//----------------------- Update---------------------------------
 	/* 글 수정 폼 열기 */
 	@RequestMapping(value = "/{bno}/{ano}/edit", method = RequestMethod.GET)
 	public String editForm(@PathVariable("bno") int bno, @PathVariable("ano") int ano, Model model,
@@ -168,6 +171,8 @@ public class BoardController {
 		return "redirect:/boards/" + bno;
 	}
 
+	
+	//----------------------- Delete---------------------------------
 	/* 글 삭제 */
 	@RequestMapping(value = "/{bno}/{ano}/delete", method = RequestMethod.POST)
 	public String delete(@PathVariable("bno") int bno, @PathVariable("ano") int ano, SearchCriteria cri,
@@ -184,6 +189,7 @@ public class BoardController {
 		return "redirect:/boards/" + bno;
 	}
 
+	
 	/* 첨부파일 목록 조회 */
 	@ResponseBody
 	@RequestMapping("/{bno}/{ano}/getAttach")

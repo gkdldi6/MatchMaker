@@ -1,9 +1,7 @@
 package com.kosta.matchmaker.test;
 
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.Scanner;
 
 import javax.inject.Inject;
 
@@ -14,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.FreeBoardVO;
+import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.persistence.ArticleDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -39,22 +38,6 @@ public class ArticleDAOTest {
 
 	}
 
-	@Test
-	public void testList() throws Exception {
-
-		List<ArticleVO> list = dao.readAll(1);
-
-		// System.out.println(list);
-
-		if (list == null) {
-			System.out.println("없다");
-		}
-
-		for (ArticleVO board : list) {
-			System.out.println(board.getBno() + "\t" + board.getAno() + "\t" + board.getTitle() + "\t"
-					+ board.getWriter() + "\t" + board.getRegdate() + "\t" + board.getHit());
-		}
-	}
 
 	@Test
 	public void testUpdate() throws Exception {
@@ -69,7 +52,34 @@ public class ArticleDAOTest {
 
 		dao.update(board);
 	}
+	
+	@Test
+	public void testlistSearch() throws Exception {
+		
+		SearchCriteria cri = new SearchCriteria();
+		cri.setSearchType("t");
+		cri.setKeyword("ㅅㅅ");
+		List<ArticleVO> list = dao.listSearch(1, cri);
+		
+		
+		for (ArticleVO board : list) {
+			System.out.println(board.getBno() + "\t" + board.getAno() + "\t" + board.getTitle() + "\t"
+						+ board.getWriter() + "\t" + board.getRegdate() + "\t" + board.getHit());
+		}
+		
+	}
+	
+	//------------------안댐-----------------------
+	@Test
+	public void testaddAttach() throws Exception {
 
+		Scanner sc = new Scanner(System.in);
+		System.out.println("파일명 입력하시오");
+		String fullName = sc.next();
+		dao.addAttach(fullName);
+		sc.close();
+	}
+	
 	// 베스트 게시글 선정(추천, 조회, 댓글)
 	@Test
 	public void testBestArticle() throws Exception {

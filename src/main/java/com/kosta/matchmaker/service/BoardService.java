@@ -30,7 +30,6 @@ public interface BoardService {
 	// 첨부파일 ㄱㄱ
 	public List<String> getAttach(Integer bno, Integer ano) throws Exception;
 
-	// 현재작성중..
 	// 베스트 게시글(추천, 조회, 댓글)
 	public List<FreeBoardVO> maximumLike(Integer bno) throws Exception;
 
