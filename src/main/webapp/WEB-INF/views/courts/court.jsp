@@ -150,7 +150,7 @@
 			   	<button id="date-search">날짜 검색</button>
 			   	
 			   	<div id="date-space" hidden>
-					<p>예약기간: <input type="text" id="datepicker1"> ~ <input type="text" id="datepicker2"></p> 			   	
+					<p>예약기간: <input type="text" id="datepicker1"> ~ <input type="text" id="datepicker2"></p>
 			   	</div>
 			   	
 			   	<div id="detail-space" hidden>
@@ -218,7 +218,10 @@
 			<div class="box box-warning">
 				<div class="box-header">
 					<h3 class="box-title">생성된 방 목록</h3>
-					<button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+					<button id="getRooms" type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
+					<div class="pull-right">
+						<button data-target="#createRoom" data-toggle="modal" type="button" class="btn btn-warning btn-flat">만들기</button>
+					</div>
 				</div>
 				<!-- /.box-header -->
 				
@@ -228,9 +231,22 @@
 				<!-- 방 생성 공간 끝 -->
 				
 				<div class="box-footer" style="border-top:0px">
-					<div style="float:right">
-						<button data-target="#createRoom" data-toggle="modal" type="button" class="btn btn-warning btn-flat">만들기</button>
-						<button id="select" type="button" class="btn btn-warning btn-flat">조회</button>
+					<div>
+						<select id="detail-room">
+							<option value="rname" selected="selected">방 이름</option>
+							<option value="ruser">접속 회원</option>
+							<option value="cno">코트 번호</option>
+							<option value="usercnt">게임 종류</option>
+							<option value="time">기간</option>										
+						</select>
+						<div>기간: <input type="text" id="datepicker3"> ~ <input type="text" id="datepicker4"></div>
+					</div>
+					<div class="input-group">
+						<div class="input-group-btn">
+							<button id="search-room" type="button" class="btn btn-danger">검색</button>
+						</div>
+						<!-- /btn-group -->
+						<input id="room-keyword" type="text" class="form-control">
 					</div>
 				</div>
 			</div>

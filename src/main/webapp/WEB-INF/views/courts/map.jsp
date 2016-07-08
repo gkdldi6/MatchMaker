@@ -170,13 +170,14 @@ var name = '${login.username}';		/* 회원 이름 */
 		<li class="eachGame">
         	<i class="fa bg-red">{{mno}}</i>
         	<div class="timeline-item">
-            	<span class="time"><i class="fa fa-clock-o"></i> 
-					{{begintime}} ~ 
-					{{endtime}}
+        	    <h3 class="timeline-header">
+					<a href="#">{{mname}}</a>
+				</h3>
+				<span class="time"><i class="fa fa-clock-o"></i> 
+					{{begintime}} ~ {{endtime}}
 				</span>
-        	    <h3 class="timeline-header"><a href="#">{{mname}}</a></h3>
     	        <div class="timeline-body">
- 	               상태: {{state}}
+					<span class="label label-warning pull-left">{{state}}</span> 	              
             	</div>
             	<div class="timeline-footer">
                 	<a cno="{{cno}}" class="match-court btn btn-success btn-xs btn-flat">코트 보기</a>
@@ -187,7 +188,7 @@ var name = '${login.username}';		/* 회원 이름 */
 </script>
 <script>
 $(function() {
-  $( "#datepicker1, #datepicker2" ).datepicker({
+  $( "#datepicker1, #datepicker2, #datepicker3, #datepicker4" ).datepicker({
     dateFormat: 'yy-mm-dd'
   });
 });

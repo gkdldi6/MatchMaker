@@ -6,7 +6,7 @@ public class DummyTask {
 	
 	@Scheduled(cron="0/1 * * * * ?")
     public void print() {
-        System.out.println("Spring 4.0 + Quartz 2.2 ");        
+        System.out.println("스케줄러 TEST");      
     }
  
 }

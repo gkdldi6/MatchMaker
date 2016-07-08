@@ -577,3 +577,47 @@ $('#date-search').click(function() {
 		dateState = 0;
 	}
 });
+
+// 방 검색
+$('#search-room').click(function() {
+	var selected = $('#detail-room option:selected').val();
+	console.log(selected);
+	var keyword = $('#room-keyword').val();
+	console.log(keyword);
+	if(selected === 'rname') {
+		socket.emit('searchRname', keyword);
+	} else if(selected === 'ruser') {
+		socket.emit('searchRuser', keyword);
+	} else if(selected === 'cno') {
+		socket.emit('searchCno', keyword);
+	} else if(selected === 'usercnt') {
+		socket.emit('searchUsercnt', keyword);
+	} else if(selected === 'time') {
+		socket.emit('searchTime', { begintime: $('#datepicker3').val(), endtime: $('#datepicker4').val() })
+	}
+});
+
+// 모든 방 가져오기: 새로고침
+$('#getRooms').click(function() {
+	socket.emit('getRooms');
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
