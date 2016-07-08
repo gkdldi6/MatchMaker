@@ -24,7 +24,7 @@ public class AdminController {
 
 	@Inject
 	private AdminService service;
-	
+
 	/* 관리자 로그인 페이지로 이동 */
 	@RequestMapping("/")
 	public String admin() {
@@ -46,69 +46,75 @@ public class AdminController {
 	}
 
 	/* Admin 페이지 */
-	/*@RequestMapping(value = "/adminview", method=RequestMethod.GET)
-	public void adminfirst(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+	/*
+	 * @RequestMapping(value = "/adminview", method=RequestMethod.GET) public
+	 * void adminfirst(@ModelAttribute("cri") SearchCriteria cri, Model model)
+	 * throws Exception {
+	 * 
+	 * PageMaker pageMaker = new PageMaker(); pageMaker.setCri(cri);
+	 * model.addAttribute("pageMaker", pageMaker);
+	 * 
+	 * List<UserVO> userlist = service.selectList(cri); int usercount =
+	 * service.countUser();
+	 * 
+	 * model.addAttribute("userlist", userlist); model.addAttribute("usercount",
+	 * usercount);
+	 * 
+	 * selectedUser("userid", model);
+	 * 
+	 * }
+	 */
+
+	@RequestMapping(value = "/adminview", method = RequestMethod.POST)
+	public void postAdmin(@RequestParam("userid") String userid, Model model) {
+		
+		// 유저정보 조회
+		UserVO userVO = service.selectOne(userid);
+		model.addAttribute("userInfo", userVO);
+
+	}
+
+	@RequestMapping(value = "/adminview", method = RequestMethod.GET)
+	public void getAdmin(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("userid") String userid,
+			Model model) throws Exception {
+		System.out.println("호날두ㅅㅅ");
+		List<UserVO> userlist = service.selectList(cri);
+		int usercount = service.countUser();
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		model.addAttribute("pageMaker", pageMaker);
 
-		List<UserVO> userlist = service.selectList(cri);
-		int usercount = service.countUser();
-
 		model.addAttribute("userlist", userlist);
 		model.addAttribute("usercount", usercount);
-
-		selectedUser("userid", model);
 		
-	}*/
-	
-	@RequestMapping(value = "/adminview", method=RequestMethod.GET)
-	public void admin(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("userid") String userid, Model model) throws Exception {
-
-		List<UserVO> userlist = service.selectList(cri);
-		int usercount = service.countUser();
-		
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		model.addAttribute("pageMaker", pageMaker);
-
-		model.addAttribute("userlist", userlist);
-		model.addAttribute("usercount", usercount);
-
-		selectedUser("userid", model);
-		
-		//유저정보 조회
+		// 유저정보 조회
 		UserVO userVO = service.selectOne(userid);
 		model.addAttribute("user", userVO);
 	}
 
-	// 유저 조회
-	public void selectedUser(@RequestParam String userid, Model model) {
-
-		UserVO userVO = service.selectOne(userid);
-		model.addAttribute("user", userVO);
+	public void userInfo() {
 
 	}
+
 	/*
-	//회원 한명 정보 불러오기
-	@RequestMapping(value = "/adminview?{userid}", method=RequestMethod.GET)
-	public String getProfile(Model model,@RequestParam String userid) throws Exception {
-		System.out.println("메시 ㅅㅅ");
-		UserVO userVO = service.selectOne(userid);
-		model.addAttribute("user", userVO);
-		System.out.println("메시 ㅅㅅ");
-		System.out.println(userVO.getUserid());
-		
-		return "admin/adminview";
-	}
-	*/
+	 * //회원 한명 정보 불러오기
+	 * 
+	 * @RequestMapping(value = "/adminview?{userid}", method=RequestMethod.GET)
+	 * public String getProfile(Model model,@RequestParam String userid) throws
+	 * Exception { System.out.println("메시 ㅅㅅ"); UserVO userVO =
+	 * service.selectOne(userid); model.addAttribute("user", userVO);
+	 * System.out.println("메시 ㅅㅅ"); System.out.println(userVO.getUserid());
+	 * 
+	 * return "admin/adminview"; }
+	 */
 	/*
-	@RequestMapping(value = "/adminview?{userid}", method=RequestMethod.POST)
-	public String postProfile(Model model,@PathVariable("userid") String userid, UserVO user) throws Exception {
-		
-		
-		
-		return "admin/adminview";
-	}*/
+	 * @RequestMapping(value = "/adminview?{userid}", method=RequestMethod.POST)
+	 * public String postProfile(Model model,@PathVariable("userid") String
+	 * userid, UserVO user) throws Exception {
+	 * 
+	 * 
+	 * 
+	 * return "admin/adminview"; }
+	 */
 }
