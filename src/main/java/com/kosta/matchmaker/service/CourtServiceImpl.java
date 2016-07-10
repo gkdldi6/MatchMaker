@@ -11,6 +11,7 @@ import com.kosta.matchmaker.domain.CourtSearchDTO;
 import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
+import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.persistence.CourtDAO;
 
 @Service
@@ -47,6 +48,19 @@ public class CourtServiceImpl implements CourtService {
 	@Override
 	public MatchDTO getMatch(int mno) throws Exception {
 		return dao.getMatch(mno);
+	}
+
+	@Override
+	public PlayerVO readPlayer(String userid) throws Exception {
+		return dao.getPlayer(userid);
+	}
+
+	@Override
+	public void chkGameState() throws Exception {
+		dao.checkMatch0();
+		dao.checkMatch1();
+		dao.checkMatch2();
+		dao.checkMatch3();
 	}
 
 }

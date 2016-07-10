@@ -3,6 +3,7 @@ package com.kosta.matchmaker.persistence;
 import java.util.List;
 
 import com.kosta.matchmaker.domain.LoginDTO;
+import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
 
 public interface UserDAO {
@@ -12,6 +13,9 @@ public interface UserDAO {
 
 	// 회원 가입
 	public void join(UserVO user) throws Exception;
+	
+	// 선수 가입
+	public void playerJoin(PlayerVO player) throws Exception;
 
 	// 회원 전체조회
 	public List<UserVO> selectList() throws Exception;

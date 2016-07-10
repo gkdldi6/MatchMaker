@@ -31,8 +31,6 @@ public class UserDAOTest {
 		user.setUserpw("user01");
 		user.setUsername("user01");
 		user.setEmail("user00@user.com");
-		user.setUserage(25);
-		user.setUserinfo("테스트");
 		
 		String orgPass = user.getUserpw();
 	    String shaPass = sha.getSha256(orgPass.getBytes());
@@ -54,8 +52,6 @@ public class UserDAOTest {
 			System.out.print(user.getUsername() + "\t");
 			System.out.print(user.getEmail() + "\t");
 			System.out.print(user.getRegdate() + "\t");
-			System.out.print(user.getUserage() + "\t");
-			System.out.println(user.getUserinfo() + "\t");
 		}
 		
 	}
@@ -78,8 +74,6 @@ public class UserDAOTest {
 			System.out.print(user.getUsername() + "\t");
 			System.out.print(user.getEmail() + "\t");
 			System.out.print(user.getRegdate() + "\t");
-			System.out.print(user.getUserage() + "\t");
-			System.out.println(user.getUserinfo());
         }
 	}
 	
@@ -107,7 +101,6 @@ public class UserDAOTest {
 			user.setUserid("1234");
 			user.setUserpw(bcPass);
 			user.setEmail("Update@update.com");
-			user.setUserinfo("수정된놈");
 			
 			dao.update(user);
 	    }else{

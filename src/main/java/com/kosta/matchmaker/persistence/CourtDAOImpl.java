@@ -13,6 +13,7 @@ import com.kosta.matchmaker.domain.CourtSearchDTO;
 import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
+import com.kosta.matchmaker.domain.PlayerVO;
 
 @Repository
 public class CourtDAOImpl implements CourtDAO {
@@ -48,6 +49,11 @@ public class CourtDAOImpl implements CourtDAO {
 	}
 
 	@Override
+	public void checkMatch0() throws Exception {
+		session.update(namespace + ".checkMatch0");
+	}
+	
+	@Override
 	public void checkMatch1() throws Exception {
 		session.update(namespace + ".checkMatch1");
 	}
@@ -74,6 +80,11 @@ public class CourtDAOImpl implements CourtDAO {
 	@Override
 	public MatchDTO getMatch(Integer mno) throws Exception {
 		return session.selectOne(namespace + ".getMatch", mno);
+	}
+
+	@Override
+	public PlayerVO getPlayer(String userid) throws Exception {
+		return session.selectOne(namespace + ".getPlayer", userid);
 	}
 
 }

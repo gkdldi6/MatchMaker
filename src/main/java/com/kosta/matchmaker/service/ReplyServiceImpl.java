@@ -34,6 +34,11 @@ public class ReplyServiceImpl implements ReplyService {
 
 	// 페이징 v1
 
+	public List<ReplyVO> listCReply(int bno, int ano, int page) throws Exception {
+
+		return dao.creplyList(bno, ano, page);
+	}
+	
 	public List<ReplyVO> listReply(Integer bno, Integer ano, Criteria cri) throws Exception {
 
 		return dao.list(bno, ano, cri);
@@ -58,9 +63,9 @@ public class ReplyServiceImpl implements ReplyService {
 
 	// counter
 	@Override
-	public int count(Integer ano) throws Exception {
+	public int count(Integer bno, Integer ano) throws Exception {
 		
-		return dao.count(ano);
+		return dao.count(bno, ano);
 	}
 
 //	@Override

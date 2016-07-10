@@ -130,7 +130,7 @@
 						</select>
 						
 						<div class="input-group input-group-sm">
-	                		<input type="text" class="form-control">
+	                		<input id="keywordInput" type="text" class="form-control">
 	                    	<span class="input-group-btn">
 	                      		<button id="search" type="button" class="btn btn-info btn-flat">검색</button>
 	                    	</span>
@@ -165,7 +165,7 @@
 	
 	/* 검색 버튼 클릭 */
 	$('#search').on("click", function(event) {
-		self.location = "boards"
+		self.location = bno
 						+ '${pageMaker.makeQuery(1)}'
 						+ "&searchType="
 						+ $("#searchType option:selected").val()

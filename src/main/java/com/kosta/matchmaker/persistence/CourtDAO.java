@@ -7,6 +7,7 @@ import com.kosta.matchmaker.domain.CourtSearchDTO;
 import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
+import com.kosta.matchmaker.domain.PlayerVO;
 
 public interface CourtDAO {
 	
@@ -29,9 +30,12 @@ public interface CourtDAO {
 	public List<Map<String, Object>> getMatchCourts(GameSearchDTO dto) throws Exception;
 	
 	// 게임 시작후 대기 -> 시작
+	public void checkMatch0() throws Exception;
+
+	// 시작 -> 진행
 	public void checkMatch1() throws Exception;
 	
-	// 게임 종료후 시작 -> 평가
+	// 게임 종료후 진행 -> 평가
 	public void checkMatch2() throws Exception;
 	
 	// 게임 종료 + 30분후 평가 -> 종료
@@ -39,5 +43,8 @@ public interface CourtDAO {
 	
 	// 게임에 참여한 팀 회원들을 가져오기
 	public List<Map<String, Object>> getTeam(Integer mno, String team) throws Exception;
+	
+	// 회원 아이디로 선수 정보 가져오기
+	public PlayerVO getPlayer(String userid) throws Exception;
 	
 }

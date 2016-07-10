@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kosta.matchmaker.domain.LoginDTO;
+import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
 
 @Repository
@@ -92,5 +93,10 @@ public class UserDAOImpl implements UserDAO {
 		map.put("email", email);
 
 		return session.selectOne(namespace + ".findPassword",map);
+	}
+
+	@Override
+	public void playerJoin(PlayerVO player) throws Exception {
+		session.insert(namespace + ".playerJoin", player);
 	}
 }

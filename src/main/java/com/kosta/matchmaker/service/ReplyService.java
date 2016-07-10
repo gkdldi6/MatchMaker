@@ -11,13 +11,16 @@ public interface ReplyService {
 
 	// 페이징 v1
 	public List<ReplyVO> listReply(Integer bno, Integer ano, Criteria cri) throws Exception;
-
+	
+	// 코트 댓글 목록
+	public List<ReplyVO> listCReply(int bno, int ano, int page) throws Exception;
+	
 	public void modifyReply(ReplyVO reply) throws Exception;
 
 	public void removeReply(Integer rno) throws Exception;
 
 	// reply 글수 
-	public int count(Integer ano) throws Exception;
+	public int count(Integer bno, Integer ano) throws Exception;
 
 //	public List<ReplyVO> listReply(Integer bno) throws Exception;
 

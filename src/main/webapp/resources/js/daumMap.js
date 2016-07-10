@@ -9,6 +9,8 @@ var courtList = {};
 var matchList = {};
 var selected = 'C';
 var cnoArr = [];
+var ano;
+var replyPage = 1;
 
 /*화면 크기에 맞게 지도 크기 변경*/
 $('#map').css('width', $(window).width() - xsize);
@@ -136,8 +138,12 @@ function displayMarker(position, content, cno) {
 		imageSrc = '/resources/img/user-on-map.png',    
 	    imageSize = new daum.maps.Size(60, 54),
 	    imageOption = {offset: new daum.maps.Point(27, 69)};
-	} else if(content === 'court' || content === 'game') {
+	} else if(content === 'court') {
 		imageSrc = '/resources/img/myMarker.png',
+	    imageSize = new daum.maps.Size(35, 38),
+	    imageOption = {offset: new daum.maps.Point(27, 69)};
+	} else if(content === 'game') {
+		imageSrc = '/resources/img/marker-noPlaying.png',
 	    imageSize = new daum.maps.Size(35, 38),
 	    imageOption = {offset: new daum.maps.Point(27, 69)};
 	}
@@ -210,6 +216,11 @@ function displayMarker(position, content, cno) {
 			} else {
 				$('#cname').text(data.writer);
 			}*/
+			
+			ano = data.ano;
+			replyPage = 1;
+			getReply();
+			
 			$('#cno').text(data.cno);
 			$('#cname').text(data.title);
 			$('#address').text(data.address);
@@ -578,6 +589,31 @@ function getGame(mno) {
 	});
 }
 
+// 선수 정보 모달 숨기기
+$('#playerChk').click(function() {
+	$('#playerInfo').modal('hide');
+});
+
+// 게임에 예약한 선수 정보 보기
+$('#home, #away').on('click', 'tr', function() {
+	var id = $(this).attr('id');
+
+	$.getJSON('/courts/players/' + id, function(data) {
+		$('#pid').text(data.userid);
+		$('#pname').text(data.name);
+		$('#page').text(data.age);
+		$('#psex').text(data.sex);
+		$('#pheight').text(data.height);
+		$('#pweight').text(data.weight);
+		$('#pposition').text(data.position);
+		$('#pgamecnt').text(data.gamecnt);
+		$('#pgrade').text(data.grade);
+		$('#ppoint').text(data.point);
+		$('#ptrust').text(data.trust);
+		$('#pinfo').text(data.info);
+	});
+});
+
 // 코트에 예약된 게임 목록 보기
 function openGamebar(cno) {
 	return function() {
@@ -640,15 +676,88 @@ $('#getRooms').click(function() {
 	socket.emit('getRooms');
 });
 
-// 댓글 가져오기
-function getReplies(data) {
+//댓글 목록 가져오기
+function printReplies(replies) {
 	var templateObj = $('#replyTemplate');
 	var target = $('.box-comments');
 	
 	var template = Handlebars.compile(templateObj.html());
-	var html = template(data);
-
+	var html = template(replies);
+	$('.box-comment').remove();
 	target.append(html);
-}
+};
+
+// 댓글 입력 버튼 클릭
+$('#inputReply').click(function() {
+	var reply = {
+			bno: 101,
+			ano: ano,
+			replyer: id,
+			replytext: $('#replyText').val() 
+	}
+	
+	$.ajax({
+		url: '/replies',
+		type: 'post',
+		headers : {
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "POST"
+		},
+		data: JSON.stringify(reply),
+		success: function(data) {
+			if(data === 'success') {
+				alert('댓글이 작성되었습니다.');
+				replyPage = 1;
+				getReply();
+				$('#replyText').val('');
+			}
+		}
+	});
+});
+
+/* 템플릿 날짜 */
+Handlebars.registerHelper("prettifyDate", function(timeValue) {
+	var dateObj = new Date(timeValue);
+	var year = dateObj.getFullYear();
+	var month = dateObj.getMonth() + 1;
+	var date = dateObj.getDate();
+	return year + "/" + month + "/" + date;
+});
 
 
+/* 댓글 목록 및 페이지 가져오기 */
+function getReply() {
+	$.getJSON('/replies/101/' + ano + '/' + replyPage, function(data) {
+		printReplies(data.list);
+		printPaging(data.pageMaker);
+	});
+};
+
+/* 댓글 페이징 이벤트 달기 */
+$(".pagination").on("click", "li a", function(event) {
+	event.preventDefault();
+
+	replyPage = $(this).attr("href");
+
+	getReply("/replies/101/" + ano + "/" + replyPage);
+});
+
+/* 댓글 페이징 처리 */
+function printPaging(pageMaker) {
+	var str = "";
+	if (pageMaker.prev) {
+		str += "<li><a href='" + (pageMaker.startPage - 1)
+				+ "'> << </a></li>";
+	}
+
+	for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+		var strClass = pageMaker.cri.page == i ? 'class=active' : '';
+		str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+	}
+
+	if (pageMaker.next) {
+		str += "<li><a href='" + (pageMaker.endPage + 1)
+				+ "'> >> </a></li>";
+	}
+	$('.pagination').html(str);
+};

@@ -16,6 +16,7 @@ import com.kosta.matchmaker.domain.CourtSearchDTO;
 import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
+import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.service.CourtService;
 
 @RestController
@@ -115,5 +116,24 @@ public class CourtController {
 		
 		return entity;
 	}
+	
+	/*회원 아이디로 선수 정보 가져오기*/ 
+	@RequestMapping(value="/players/{userid}", method=RequestMethod.GET)
+	public ResponseEntity<PlayerVO> readPlayer(@PathVariable("userid") String userid) {
+		
+		ResponseEntity<PlayerVO> entity = null;
+		
+		try {
+			PlayerVO player = service.readPlayer(userid);
+			entity = new ResponseEntity<PlayerVO>(player, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<PlayerVO>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	
 	
 }

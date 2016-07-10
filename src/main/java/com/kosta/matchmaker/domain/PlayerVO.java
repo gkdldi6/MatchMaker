@@ -1,26 +1,36 @@
 package com.kosta.matchmaker.domain;
 
-import java.util.Date;
-
 public class PlayerVO extends UserVO {
 	
-	private Date birthdate;
+	private String name;
+	private int age;
 	private String sex;
 	private int height;
 	private int weight;
 	private String position;
 	private int gamecnt;
-	private int wincnt;
-	private String basketcode;
-	private int basketpoint;
-	private int trustpoint;
+	private String grade;
+	private int point;
+	private int trust;
+	private String info;
 	
-	
-	public Date getBirthdate() {
-		return birthdate;
+	public String getInfo() {
+		return info;
 	}
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
+	public void setInfo(String info) {
+		this.info = info;
+	}
+	public String getName() {
+		return name;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getSex() {
 		return sex;
@@ -52,29 +62,30 @@ public class PlayerVO extends UserVO {
 	public void setGamecnt(int gamecnt) {
 		this.gamecnt = gamecnt;
 	}
-	public int getWincnt() {
-		return wincnt;
+	public String getGrade() {
+		return grade;
 	}
-	public void setWincnt(int wincnt) {
-		this.wincnt = wincnt;
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
-	public String getBasketcode() {
-		return basketcode;
+	public int getPoint() {
+		return point;
 	}
-	public void setBasketcode(String basketcode) {
-		this.basketcode = basketcode;
+	public void setPoint(int point) {
+		this.point = point;
 	}
-	public int getBasketpoint() {
-		return basketpoint;
+	public int getTrust() {
+		return trust;
 	}
-	public void setBasketpoint(int basketpoint) {
-		this.basketpoint = basketpoint;
+	public void setTrust(int trust) {
+		this.trust = trust;
 	}
-	public int getTrustpoint() {
-		return trustpoint;
-	}
-	public void setTrustpoint(int trustpoint) {
-		this.trustpoint = trustpoint;
+	
+	@Override
+	public String toString() {
+		return "PlayerVO [name=" + name + ", age=" + age + ", sex=" + sex + ", height=" + height + ", weight=" + weight
+				+ ", position=" + position + ", gamecnt=" + gamecnt + ", grade=" + grade + ", point=" + point
+				+ ", trust=" + trust + ", info=" + info + "]";
 	}
 	
 }

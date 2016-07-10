@@ -67,13 +67,6 @@ input:read-only, #textArea:read-only {
 						<div id="content" style="padding:20px;min-height:300px"></div>
 					</div>
 				</div>
-				
-				<div align="center">
-					<a class="btn btn-app">
-		                <span class="badge bg-red">${article.liked }</span>
-		                <i class="fa fa-heart-o"></i> Likes
-		            </a>
-		        </div>
 
 				<div class="form-group">
 					<label for="regdate" class="col-lg-2 control-label">작성 날짜</label>

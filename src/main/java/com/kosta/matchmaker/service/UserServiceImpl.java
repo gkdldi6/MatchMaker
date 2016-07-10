@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kosta.matchmaker.domain.LoginDTO;
+import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.persistence.UserDAO;
 import com.kosta.matchmaker.util.work.crypt.BCrypt;
@@ -50,8 +51,21 @@ public class UserServiceImpl implements UserService {
 		String bcPass = BCrypt.hashpw(shaPass, BCrypt.gensalt());
 
 		user.setUserpw(bcPass);
-
+		
 		dao.join(user);
+	}
+	
+	@Override
+	public void playerJoin(PlayerVO player) throws Exception {
+
+		String orgPass = player.getUserpw();
+		String shaPass = sha.getSha256(orgPass.getBytes());
+		String bcPass = BCrypt.hashpw(shaPass, BCrypt.gensalt());
+
+		player.setUserpw(bcPass);
+		
+		dao.join(player);
+		dao.playerJoin(player);
 	}
 
 	@Override

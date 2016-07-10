@@ -145,24 +145,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</sql>
 	
-	<!-- 게임 대기 상태에서 시작 시간 지나면 시작 상태로 변경 -->
+	<!-- 게임 대기 상태에서 시간 지나면 시작 상태로 변경 -->
+	<update id="checkMatch0">
+		<![CDATA[
+		update match_court set state = '시작' where state = '대기' and begintime <= now()
+		]]>
+	</update>
+	
+	<!-- 시작 상태에서 시간 지나면 진행 상태로 변경 -->
 	<update id="checkMatch1">
 		<![CDATA[
-		update match_court set state = '시작' where state = 'wait' and begintime <= now()
+		update match_court set state = '진행' where state = '시작' and begintime + INTERVAL 10 day_minute < now()
 		]]>
 	</update>
 	
 	<!-- 시작 상태에서 게임 종료후 평가 상태로 변경 -->
 	<update id="checkMatch2">
 		<![CDATA[
-		update match_court set state = '평가' where state = '시작' and endtime < now()
+		update match_court set state = '평가' where state = '진행' and endtime < now()
 		]]>
 	</update>
 	
 	<!-- 게임 종료후 30분 지나면 평가 상태에서 종료 상태로 변경 -->	
 	<update id="checkMatch3">
 		<![CDATA[
-		update match_court set state = '종료' where state = '평가' and endtime + INTERVAL 30 day_minute < now()
+		update match_court set state = '종료' where state = '평가' and endtime + INTERVAL 10 day_minute < now()
 		]]>
 	</update>
 	
@@ -177,5 +184,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result javaType="String" column="role" property="role"/>
 		<result javaType="String" column="state" property="state"/>
 	</resultMap>
+	
+	<!-- 아이디로 선수 하나 가져옴 -->
+	<select id="getPlayer" resultType="PlayerVO">
+		select * from player where userid = #{userid}
+	</select>
 	
 </mapper>

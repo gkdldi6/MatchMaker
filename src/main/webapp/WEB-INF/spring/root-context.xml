@@ -18,7 +18,7 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
 	<!-- 주기적으로 작업하는 스케쥴러 : 예약 종료 처리 -->
-	<bean id="careerAlarmService" class="com.kosta.matchmaker.util.DummyTask" />
+	<bean id="careerAlarmService" class="com.kosta.matchmaker.util.MatchMakerTask" />
 	<task:scheduler id="gsScheduler" pool-size="10" />
 	<task:executor id="gsTaskExecutor" pool-size="10" />
 	<task:annotation-driven executor="gsTaskExecutor" scheduler="gsScheduler" />

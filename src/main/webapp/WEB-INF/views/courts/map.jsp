@@ -12,27 +12,18 @@ var name = '${login.username}';		/* 회원 이름 */
 <link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <style>
-.chatbar, .chatbtn {
-	position: fixed;
+.chatbtn {
+   	position: fixed;
 	z-index: 1000;
 	top: 100px;
-	-webkit-transition: left 0.3s ease-in-out;
-	-o-transition: left 0.3s ease-in-out;
-	transition: left 0.3s ease-in-out;
-}
-
-.chatbar {
-	left: -400px;
-	width: 400px;
-/* 	height: 600px; */
-}
-
-.chatbtn {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+	-webkit-transition: right 0.3s ease-in-out;
+	-o-transition: right 0.3s ease-in-out;
+	transition: right 0.3s ease-in-out;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
     display: block;
     float: left;
-    left: 0px;
+    right: 400px;
     height: 40px;
     width: 40px;
     text-align: center;
@@ -42,7 +33,6 @@ var name = '${login.username}';		/* 회원 이름 */
 }
 
 .tab-content {
-/* 	height: 500px; */
     margin-bottom: 0px;
 }
 
@@ -65,19 +55,21 @@ var name = '${login.username}';		/* 회원 이름 */
 </style>
 
 
-<%-- <jsp:include page="chat.jsp"></jsp:include> --%>
-
-
 <!-- 사이드바 시작  -->
 <div id="sidebar" state="opened">
 	<aside class="control-sidebar control-sidebar-light">
+		
+		<!-- 사이드바에 보여지는 내용 -->
 		<jsp:include page="court.jsp"></jsp:include>
+		
 	</aside>
 	<!-- 사이드바 배경 : 없으면 안됨 -->
 	<div class="control-sidebar-bg"></div>
 </div>
 <!-- 사이드바 끝 -->
 
+<!-- 사이드바 버튼 -->
+<span class="info-box-icon bg-red chatbtn"><i class="fa fa-comments-o"></i></span>
 
 <!-- 지도가 표시될 공간 -->
 <div id="map"></div>
@@ -96,19 +88,19 @@ var name = '${login.username}';		/* 회원 이름 */
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-                  <input type="number" class="form-control" id="cno" placeholder="사용할 코트를 입력해주세요.">
+                  <input type="number" class="form-control" id="inputCno" placeholder="사용할 코트를 입력해주세요.">
                 </div>
 				<div class="form-group">
-                  <input type="text" class="form-control" id="rname" placeholder="생성할 게임방의 이름을 입력해주세요.">
+                  <input type="text" class="form-control" id="inputRname" placeholder="생성할 게임방의 이름을 입력해주세요.">
                 </div>
                 <div class="form-group">
-                  <input type="number" class="form-control" id="usercnt" placeholder="최대 인원을 입력해주세요.">
+                  <input type="number" class="form-control" id="inputUsercnt" placeholder="최대 인원을 입력해주세요.">
                 </div>
                 <div class="form-group">
-                	<input type="text" class='datetimepicker form-control' id="begintime" placeholder="예약 날짜 및 시간을 선택해주세요.">
+                	<input type="text" class='datetimepicker form-control' id="inputBegintime" placeholder="예약 날짜 및 시간을 선택해주세요.">
                 </div>
                 <div class="form-group">
-					<input type="number" class="form-control" id="endtime" placeholder="사용 시간을 입력해주세요.">                	
+					<input type="number" class="form-control" id="inputEndtime" placeholder="사용 시간을 입력해주세요.">                	
                 </div>
 			</div>
 			<div class="modal-footer">
@@ -122,6 +114,39 @@ var name = '${login.username}';		/* 회원 이름 */
 	<!-- /.modal-dialog -->
 </div>
 
+<!-- 선수 정보 뜨는 모달 -->
+<div id="playerInfo" class="modal">
+ <div class="modal-dialog">
+   <div class="modal-content">
+     <div class="modal-header">
+       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         <span aria-hidden="true">×</span></button>
+       <h4 class="modal-title">선수 정보</h4>
+     	</div>
+	      <div class="modal-body">
+	        <dl class="dl-horizontal">
+	          
+	          <dt>아이디</dt><dd id="pid"></dd>
+	          <dt>이름</dt><dd id="pname"></dd>
+	          <dt>나이</dt><dd id="page"></dd>
+	          <dt>성별</dt><dd id="psex"></dd>
+	          <dt>키</dt><dd id="pheight"></dd>
+	          <dt>몸무게</dt><dd id="pweight"></dd>
+	          <dt>포지션</dt><dd id="pposition"></dd>
+	          <dt>게임수</dt><dd id="pgamecnt"></dd>
+	          <dt>등급</dt><dd id="pgrade"></dd>
+	          <dt>농구점수</dt><dd id="ppoint"></dd>
+	          <dt>신뢰점수</dt><dd id="ptrust"></dd>
+	          <dt>자기소개</dt><dd id="pinfo"></dd>
+	          
+	        </dl>
+	   	  </div>
+	     <div class="modal-footer">
+	       <button id="playerChk" type="button" class="btn btn-primary">확인</button>
+	     </div>
+     </div>
+   </div>
+</div>
 <!-- 코트 템플릿 -->
 <script id="courtTemplate" type="text/x-handlebars-template">
 	{{#each .}}
@@ -181,7 +206,7 @@ var name = '${login.username}';		/* 회원 이름 */
 					<span class="label label-warning pull-left">{{state}}</span> 	              
             	</div>
             	<div class="timeline-footer">
-                	<a cno="{{cno}}" class="match-court btn btn-success btn-xs btn-flat">코트 보기</a>
+                	<a cno="{{cno}}" class="match-court btn btn-success btn-xs">코트 보기</a>
             	</div>
         	</div>
     	</li>
@@ -190,7 +215,7 @@ var name = '${login.username}';		/* 회원 이름 */
 <!-- 선수 템플릿 -->
 <script id="playerTemplate" type="text/x-handlebars-template">
 	{{#each .}}
-		<tr id="{{id}}">
+		<tr id="{{id}}" data-target="#playerInfo" data-toggle="modal">
         	<td>{{id}}</td>
             <td>{{role}}</td>
             <td>{{state}}</td>
@@ -205,10 +230,10 @@ var name = '${login.username}';		/* 회원 이름 */
 		<div class="box-comment">
 			<img class="img-circle img-sm" src="/resources/img/user.jpg" alt="User Image">
 			<div class="comment-text">
-				<span class="username"> 유저 아이디
-					<span class="text-muted pull-right">등록일</span>
+				<span class="username"> {{replyer}}
+					<span class="text-muted pull-right">{{prettifyDate regdate}}</span>
 				</span>						
-				내용
+				{{replytext}}
 			</div>
 		</div>
 	{{/each}}
@@ -240,8 +265,6 @@ $(function() {
 <script src="/resources/js/daumMap.js"></script>
 <!-- 사이드 바 조작 -->
 <script src="/resources/js/controll-bar.js"></script>
-<!-- 사이드 바 페이지 내용 -->
-<script src="/resources/js/court.js"></script>
 
 <!-- footer -->
 </div>

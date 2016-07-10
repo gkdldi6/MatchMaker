@@ -67,7 +67,7 @@ var bno = ${bno};
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">내용</label>
 					<div class="col-lg-10">
-						<div id="content" style="padding: 20px;"></div>
+						<div id="content" style="padding:20px;min-height:300px"></div>
 					</div>
 				</div>
 

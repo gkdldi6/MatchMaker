@@ -9,8 +9,8 @@ public interface ReplyDAO {
 	
 	public void create(ReplyVO reply) throws Exception;
 
-	// 페이징 이전
-	// public List<ReplyVO> list(Integer bno) throws Exception;
+	// 코트 댓글 목록
+	public List<ReplyVO> creplyList(Integer bno, Integer ano, Integer page) throws Exception;
 
 	// 페이징 처리 v1
 	public List<ReplyVO> list(Integer bno, Integer ano, Criteria cri) throws Exception;
@@ -20,7 +20,7 @@ public interface ReplyDAO {
 	public void delete(Integer rno) throws Exception;
 
 	//댓글수
-	public int count(Integer ano) throws Exception;
+	public int count(Integer bno, Integer ano) throws Exception;
 
 	// 본글번호 가져오기 
 	public int getAno(Integer rno) throws Exception;

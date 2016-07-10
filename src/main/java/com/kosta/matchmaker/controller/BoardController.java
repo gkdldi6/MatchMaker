@@ -43,9 +43,7 @@ public class BoardController {
 		if(bno == 100 || bno == 0) {
 			return "boards/list";
 		} else {
-			// best게시물용 추가코드
 			model.addAttribute("max", service.maximum(bno));
-			// ----------------
 		}
 		return "boards/freeList";
 	}
@@ -110,6 +108,8 @@ public class BoardController {
 
 		if(articleType.equals("R")) {
 			return "boards/refRead";
+		} else if(articleType.equals("N")) {
+			return "boards/articleRead";
 		}
 		
 		return "boards/freeRead";

@@ -6,6 +6,10 @@
 .container {
 	padding-top: 25px;
 }
+
+.tab-pane {
+            min-height: 640px
+         }
 </style>
 
 
@@ -37,7 +41,7 @@
                   <b>승률</b> <a class="pull-right">50%</a>
                 </li>
               </ul>
-              <button class="btn btn-primary btn-sm">쪽지 보내기</button> <button class="btn btn-success btn-sm">친구 추가</button>
+              <button class="btn btn-success btn-sm">쪽지 보내기</button>
             </div>
             <!-- /.box-body -->
           </div>
@@ -89,11 +93,76 @@
               <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">선수 정보</a></li>
             </ul>
             <div class="tab-content">
-              <div class="tab-pane active" id="activity">
-                여긴 내가 할게
+              		<div class="tab-pane active" id="activity">
+							
+							<fieldset>
+								<legend>농구</legend>
+							</fieldset>
+							<div style="height: 100px">
+								<div class="col-md-6">
+									<span class="label bg-blue" style="font-size: 15px"> 농구 등급 </span>
+									<div style="margin-top: 10px">
+										<img src="http://localhost:8080//resources/img/silver.png"
+											width="135" style="padding: 10px">
+									</div>
+									<div class="progress">
+										<div
+											class="progress-bar progress-bar-primary progress-bar-striped"
+											role="progressbar" aria-valuenow="40" aria-valuemin="0"
+											aria-valuemax="100" style="width: 30%">
+											<span class="sr-only">40% Complete (success)</span>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="box box-danger">
+										<div class="box-header with-border">
+											<h3 class="box-title">농구 점수</h3>
+										</div>
+										<!-- /.box-header -->
+										<div class="box-body">The body of the box</div>
+										<!-- /.box-body -->
+									</div>
+									<div class="box box-warning">
+										<div class="box-header with-border">
+											<h3 class="box-title">신뢰 점수</h3>
+										</div>
+										<!-- /.box-header -->
+										<div class="box-body">The body of the box</div>
+										<!-- /.box-body -->
+									</div>
+								</div>
+								<fieldset>
+									<legend>회원</legend>								
+								</fieldset>
+								<div>
+									<span class="label bg-green" style="font-size: 15px"> 회원
+										등급 </span>
 
-             
-              </div>
+									<div style="margin-top: 10px">
+										<img src="http://localhost:8080//resources/img/level3.png"
+											width="250" style="padding: 10px">
+									</div>
+									<div class="info-box bg-green" style="margin-top: 20px">
+										<span class="info-box-icon"><i
+											class="ion ion-ios-heart-outline"></i></span>
+
+										<div class="info-box-content">
+											<span class="info-box-text">회원 점수</span> <span
+												class="info-box-number">92,050</span>
+
+											<div class="progress">
+												<div class="progress-bar" style="width: 100%"></div>
+											</div>
+											<span class="progress-description"> 20% Increase in 30
+												Days </span>
+										</div>
+										<!-- /.info-box-content -->
+									</div>
+								</div>
+							</div>
+
+						</div>
               <!-- /.tab-pane -->
               
               <div class="tab-pane" id="timeline">

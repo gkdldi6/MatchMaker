@@ -114,29 +114,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update article set hit = hit + 1 where bno = #{bno} and ano = #{ano}
 	</update>
 
+	
+	<sql id="list">
+		<include refid="search"></include>
+		
+		<![CDATA[	
+		order by a.ano desc
+		limit #{cri.pageStart} , #{cri.perPageNum}
+		]]>
+	</sql>
+	
+	
 	<!-- 동적 SQL을 위한 부분 SQL -->
 	<sql id="search">
-		<if test="searchType != null">
-			<if test="searchType == 't'.toString()">
+		<if test="cri.searchType != null">
+			<if test="cri.searchType == 't'.toString()">
 				and title like CONCAT('%', #{cri.keyword}, '%')
 			</if>
-			<if test="searchType == 'c'.toString()">
+			<if test="cri.searchType == 'c'.toString()">
 				and content like CONCAT('%', #{cri.keyword}, '%')
 			</if>
-			<if test="searchType == 'w'.toString()">
+			<if test="cri.searchType == 'w'.toString()">
 				and writer like CONCAT('%', #{cri.keyword}, '%')
 			</if>
-			<if test="searchType == 'tc'.toString()">
+			<if test="cri.searchType == 'tc'.toString()">
 				and ( title like CONCAT('%', #{cri.keyword}, '%') OR content
 				like
 				CONCAT('%', #{cri.keyword}, '%'))
 			</if>
-			<if test="searchType == 'cw'.toString()">
+			<if test="cri.searchType == 'cw'.toString()">
 				and ( content like CONCAT('%', #{cri.keyword}, '%') OR writer
 				like
 				CONCAT('%', #{cri.keyword}, '%'))
 			</if>
-			<if test="searchType == 'tcw'.toString()">
+			<if test="cri.searchType == 'tcw'.toString()">
 				and ( title like CONCAT('%', #{cri.keyword}, '%')
 				OR
 				content
@@ -146,15 +157,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				#{cri.keyword}, '%'))
 			</if>
 		</if>
-	</sql>
-	
-	<sql id="list">
-		<include refid="search"></include>
-		
-		<![CDATA[	
-		order by a.ano desc
-		limit #{cri.pageStart} , #{cri.perPageNum}
-		]]>
 	</sql>
 	
 	<select id="boardName" resultType="String">
@@ -192,7 +194,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<![CDATA[
 			select count(bno) 
 			from article
-			where bno = #{bno} and ano > 0	
+			where bno = #{bno} and not article_type = 'N'
 		]]>
 		<include refid="search"></include>
 	</select>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosta.matchmaker.domain.LoginDTO;
+import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.service.UserService;
 
@@ -28,13 +29,17 @@ public class UserController {
 	@Inject
 	private UserService service;
 	
+	/*선수 가입 폼 가져오기*/
+	@RequestMapping(value = "/playerForm")
+	public void playerForm() {}
+	
 	/*로그인 페이지로 이동*/
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGet() {}
 	
 	/*로그인*/
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
-	public void loginPost(LoginDTO dto, Model model, RedirectAttributes rttr)throws Exception{
+	public void loginPost(LoginDTO dto, Model model, RedirectAttributes rttr) throws Exception{
 		
 		UserVO user = service.login(dto);
 		
@@ -60,7 +65,16 @@ public class UserController {
 		rttr.addFlashAttribute("result", "joinSuccess");
 			
 		return "redirect:/";
-		
+	}
+	
+	/*선수 정보 가입*/
+	@RequestMapping(value = "/playerJoin", method=RequestMethod.POST)
+	public String playerJoin(RedirectAttributes rttr, PlayerVO player) throws Exception {
+	
+		service.playerJoin(player);
+		rttr.addFlashAttribute("result", "joinSuccess");
+			
+		return "redirect:/";
 	}
 	
 	/*아이디 중복 확인*/
@@ -75,8 +89,8 @@ public class UserController {
 		}else{ 
 			return "idCheckFail";
 		}
-		
 	}
+	
 	//캡차
 	@RequestMapping(value = "/recapcha", method=RequestMethod.GET)
 	public void validateRecaptcha() throws Exception {}

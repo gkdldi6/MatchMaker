@@ -98,18 +98,18 @@ socket.on('userlist', function(userlist) {
 
 /*방 만들기 */
 $('#create').click(function() {
-	var begintime = new Date($('#begintime').val());
-	var endtime = new Date($('#begintime').val());
-	endtime.setMinutes($('#endtime').val());
+	var begintime = new Date($('#inputBegintime').val());
+	var endtime = new Date(begintime);
+	endtime.setMinutes($('#inputEndtime').val());
 	endtime.setMinutes(begintime.getMinutes() + endtime.getMinutes())
 	
 	room = {
-		rname: $('#rname').val(),
-		usercnt: $('#usercnt').val(),
+		rname: $('#inputRname').val(),
+		usercnt: $('#inputUsercnt').val(),
 		userid: id,
 		begintime: begintime,
 		endtime:  endtime,
-		cno: $('#cno').val()
+		cno: $('#inputCno').val()
 	};
 	
 	socket.emit('create', room);

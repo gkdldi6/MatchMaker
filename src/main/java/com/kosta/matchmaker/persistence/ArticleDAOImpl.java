@@ -95,8 +95,10 @@ public class ArticleDAOImpl implements ArticleDAO {
 		Map<String, Object> map = new HashMap<>();
 		map.put("bno", bno);
 		map.put("cri", cri);
-
-		return session.selectList(namespace + ".freeSearch", map);
+		
+		List<ArticleVO> freeSearch = session.selectList(namespace + ".freeSearch", map);
+		
+		return freeSearch;
 	}
 	
 	@Override

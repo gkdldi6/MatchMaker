@@ -62,20 +62,14 @@
 				</div>
 	
 				<div class="form-group">
-					<label for="inputAge" class="col-lg-2 control-label">나이</label>
-					<div class="col-lg-10">
-						<input type="number" name="userage" class="form-control"
-							id="userage" placeholder="나이를 입력해주세요." required>
-					</div>
-				</div>
-	
-				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">자기 소개</label>
 					<div class="col-lg-10">
 						<textarea class="form-control" name="userinfo" rows="3"
 							id="userinfo" placeholder="자신을 소개하세요." style="resize: none"></textarea>
 					</div>
 				</div>
+
+				<fieldset id="playerForm"></fieldset>
 	
 				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">자동 가입 방지</label>
@@ -87,10 +81,11 @@
 						<span id="capchasuccess" style="color:#0000ff"></span>
 					</div>
 				</div>
-						
+			
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
 						<button type="submit" class="btn btn-primary btn-flat">가입</button>  
+						<a id="getPlayer" class="btn btn-info btn-flat">선수 정보 입력</a>
 						<a class="btn btn-default btn-flat" onclick="history.go(-1);">취소</a>
 					</div>
 				</div>
@@ -104,6 +99,12 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script>
+/* 선수 정보 가져오기 */
+$('#getPlayer').click(function() {
+	$('#playerForm').load('playerForm');
+	$('#getPlayer').hide();
+	$('form').attr('action', 'playerJoin');
+});
 
 /* 캡챠 */
 $(function(){
@@ -152,11 +153,9 @@ $(function(){
 			data:{"userid" : $('#userid').val()},
 			success: function(data){
 				if(data == "idCheckSuccess" && $('#userid').val() != ""){
-					alert("사용 가능한 아이디 입니다.");
 					document.getElementById("messageidfail").innerHTML = "";
 					document.getElementById("messageidsuccess").innerHTML = "사용가능한 아이디 입니다.";
 				} else if(data =="idCheckFail" || $('#userid').val() == ""){
-					alert('사용 할 수 없는 아이디 입니다.');
 					document.getElementById("messageidsuccess").innerHTML = "";
 					document.getElementById("messageidfail").innerHTML = "사용 할 수 없는 아이디 입니다.";
 				}

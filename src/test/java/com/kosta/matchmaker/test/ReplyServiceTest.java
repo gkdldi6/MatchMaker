@@ -38,24 +38,6 @@ public class ReplyServiceTest {
 	}
 
 	@Test
-	public void testList() throws Exception {
-
-		Criteria cri = new Criteria();
-		cri.setPage(page);
-		cri.setPerPageNum(perPageNum);
-
-		List<ReplyVO> list = service.listReply(bno, ano, cri);
-
-		// 댓글 수
-		System.out.println(ano + "의 전체 댓글수 : " + service.count(ano));
-
-		for (ReplyVO reply : list) {
-			System.out.println(reply.toString());
-		}
-
-	}
-
-	@Test
 	public void modify() throws Exception {
 		ReplyVO reply = new ReplyVO();
 		reply.setRno(7);

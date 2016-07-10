@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kosta.matchmaker.domain.Criteria;
@@ -27,31 +28,24 @@ public class ReplyController {
 	private ReplyService service;
 
 	// 페이징 v1 : List<replyVO> => Map<String, Object>, @PathVariable 추가..
-//	@RequestMapping(value = "/{ano}/{page}", method = RequestMethod.GET)
 	@RequestMapping(value = "/{bno}/{ano}/{page}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String, Object>> replies(@PathVariable Integer bno, @PathVariable Integer ano,
 			@PathVariable Integer page) {
 
-		// ResponseEntity<List<ReplyVO>> entity = null;
 		ResponseEntity<Map<String, Object>> entity = null;
-
+		
 		try {
-			// List<ReplyVO> list = service.listReply(ano);
-			// entity = new ResponseEntity<>(list, HttpStatus.OK);
-
+			Map<String, Object> map = new HashMap<>();
+			
 			Criteria cri = new Criteria();
 			cri.setPage(page);
 
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
-			System.out.println("???");
-			Map<String, Object> map = new HashMap<>();
 			List<ReplyVO> list = service.listReply(bno, ano, cri);
 			map.put("list", list);
 
-			System.out.println("kkkk");
-			int replyCount = service.count(ano);
-			System.out.println("uuuuu");
+			int replyCount = service.count(bno, ano);
 			pageMaker.setTotalCount(replyCount);
 
 			map.put("pageMaker", pageMaker);

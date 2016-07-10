@@ -1,12 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style>
-#datepicker {
-	/* background-color: #dd4b39 !important;
-	border: 0px;
-	width: 70px; */
-}
-</style>
-
 
 
 <div class="nav-tabs-custom">
@@ -34,7 +26,7 @@
               </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body no-padding">
+            <div class="box-body no-padding table-responsive">
               <table class="table table-condensed" >
                 <thead>
                   <tr>
@@ -92,11 +84,27 @@
 					</button>
 					<span class="pull-right text-muted">Likes <span id="liked"></span> - Comments <span id="replycnt"></span></span>
 					
+					<!-- 댓글 입력 공간 -->
+					<div style="padding-top:10px">
+                      <div class="col-xs-12">
+                        <div class="input-group">
+                          <div class="input-group-btn">
+                            <button id="inputReply" class="btn btn-success">입력</button>
+                          </div>
+                          <!-- /btn-group -->
+                          <input id="replyText" type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    
 				</div>
 				<!-- /.box-body -->
 
 				<div class="box-footer box-comments">
 					<!-- 댓글들이 들어가는 공간 -->
+				</div>
+				<div align="center">
+					<div class="pagination"></div>
 				</div>
 			</div>
 			<!-- /.box -->

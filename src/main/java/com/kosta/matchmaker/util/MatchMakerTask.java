@@ -4,22 +4,21 @@ import javax.inject.Inject;
 
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.kosta.matchmaker.persistence.CourtDAO;
+import com.kosta.matchmaker.service.CourtService;
 
-public class DummyTask {
+public class MatchMakerTask {
 	
 	@Inject
-	private CourtDAO dao;
+	private CourtService service;
 	
 	@Scheduled(cron="0/60 * * * * ?")
     public void print() {
         
         try {
-			dao.checkMatch1();
-			dao.checkMatch2();
-	        dao.checkMatch3();
-	        
+        	service.chkGameState();
 	        System.out.println("게임 상태 확인중...");
+	        
+	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

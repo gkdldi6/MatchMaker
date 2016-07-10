@@ -42,33 +42,6 @@ public class ReplyDAOTest {
 
 	// 리플라이 등록까지만 테스트 완료..ㅜ
 
-	// 페이징 버전1
-	@Test
-	public void testList() throws Exception {
-
-		Criteria cri = new Criteria();
-		cri.setPage(page);
-		cri.setPerPageNum(perPageNum);
-
-		List<ReplyVO> list = dao.list(bno, ano, cri);
-
-		// 댓글 수
-		System.out.println(ano + "의 전체 댓글수 : " + dao.count(ano));
-
-		System.out.println(list);
-		if (list == null) {
-			System.out.println("없다");
-		}
-		
-		
-		
-		for (ReplyVO reply : list) {
-			System.out.println("-----");
-			System.out.println(reply.getBno());
-		}
-
-	}
-
 	@Test
 	public void testUpdate() throws Exception {
 

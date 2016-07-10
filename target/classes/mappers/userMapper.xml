@@ -6,8 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.kosta.matchmaker.mappers.UserMapper">
 
 	<insert id="join">
-		insert into user(userid, userpw, username, email, regdate, userage, userinfo)
-		 values(#{userid}, #{userpw}, #{username}, #{email}, now(), #{userage}, #{userinfo});
+		insert into user(userid, userpw, username, email, regdate, userinfo)
+		 values(#{userid}, #{userpw}, #{username}, #{email}, now(), #{userinfo});
+	</insert>
+	
+	<insert id="playerJoin">
+		insert into player(userid, name, age, sex, height, weight, position, info)
+		 values(#{userid}, #{name}, #{age}, #{sex}, #{height}, #{weight}, #{position}, #{info});
 	</insert>
 	
 	<select id="selectList" resultType="UserVO">
@@ -19,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="update">
-		update user set userpw = #{userpw} , email = #{email}, userage = #{userage} , userinfo = #{userinfo} 
+		update user set userpw = #{userpw} , email = #{email} 
 		where userid = #{userid}
 	</update>
 	
