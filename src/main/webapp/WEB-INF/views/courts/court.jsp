@@ -27,7 +27,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding table-responsive">
-              <table class="table table-condensed" >
+              <table class="table" >
                 <thead>
                   <tr>
                     <th width="20%">홈</th>
@@ -41,7 +41,7 @@
                 </tbody>
               </table>
               <br>
-              <table class="table table-condensed" >
+              <table class="table" >
                 <thead>
                   <tr>
                     <th width="20%">어웨이</th>
@@ -56,6 +56,10 @@
               </table>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer">
+				<button id="getStart" class="btn btn-success" style="/* display:none */">시작</button>
+				<button team="home" id="getEnd" class="btn btn-primary" style="/* display:none */">평가</button>
+			</div>
           </div>
 		</div>
 

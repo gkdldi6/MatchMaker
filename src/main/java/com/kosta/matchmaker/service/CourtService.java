@@ -7,6 +7,7 @@ import com.kosta.matchmaker.domain.CourtSearchDTO;
 import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
+import com.kosta.matchmaker.domain.MatchResultDTO;
 import com.kosta.matchmaker.domain.PlayerVO;
 
 public interface CourtService {
@@ -29,12 +30,19 @@ public interface CourtService {
 	// 예약된 게임 상태 확인
 	public void chkGameState() throws Exception;
 	
-	
-	
+	// 선수 상태 변경
+	public void stateChange(String id, int mno, String state) throws Exception;
 	
 	// 게임에 참가한 선수들을 가져오기
 	public List<Map<String, Object>> getTeam(Integer mno, String team) throws Exception;
 	
 	// 회원 아이디로 선수 정보 가져오기
 	public PlayerVO readPlayer(String userid) throws Exception;
+	
+	// 선수 초기화
+	public void initPlayer(int mno, String id) throws Exception;
+	
+	// 선수 점수 주기
+	public void ratePlayer(MatchResultDTO dto) throws Exception;
+	
 }

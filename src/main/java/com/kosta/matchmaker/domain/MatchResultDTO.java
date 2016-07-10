@@ -4,10 +4,8 @@ public class MatchResultDTO {
 	
 	private int mno;
 	private String id;
-	private int score;
-	private int basketpoint;
-	private int trustpoint;
-	private String result;
+	private int point;
+	private int trust;
 	
 	public int getMno() {
 		return mno;
@@ -21,29 +19,22 @@ public class MatchResultDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public int getScore() {
-		return score;
+	public int getPoint() {
+		return point;
 	}
-	public void setScore(int score) {
-		this.score = score;
+	public void setPoint(int point) {
+		this.point = point;
 	}
-	public int getBasketpoint() {
-		return basketpoint;
+	public int getTrust() {
+		return trust;
 	}
-	public void setBasketpoint(int basketpoint) {
-		this.basketpoint = basketpoint;
+	public void setTrust(int trust) {
+		this.trust = trust;
 	}
-	public int getTrustpoint() {
-		return trustpoint;
-	}
-	public void setTrustpoint(int trustpoint) {
-		this.trustpoint = trustpoint;
-	}
-	public String getResult() {
-		return result;
-	}
-	public void setResult(String result) {
-		this.result = result;
+	
+	@Override
+	public String toString() {
+		return "MatchResultDTO [mno=" + mno + ", id=" + id + ", point=" + point + ", trust=" + trust + "]";
 	}
 
 }

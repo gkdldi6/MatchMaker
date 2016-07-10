@@ -215,12 +215,12 @@ var name = '${login.username}';		/* 회원 이름 */
 <!-- 선수 템플릿 -->
 <script id="playerTemplate" type="text/x-handlebars-template">
 	{{#each .}}
-		<tr id="{{id}}" data-target="#playerInfo" data-toggle="modal">
+		<tr id="{{id}}" data-target="" data-toggle="modal">
         	<td>{{id}}</td>
             <td>{{role}}</td>
             <td>{{state}}</td>
-            <td></td>
-            <td></td>
+            <td><input class="point" type="number" style="width:40px"></td>
+            <td><input class="trust" type="number" style="width:40px"></td>
         </tr>
 	{{/each}}
 </script>

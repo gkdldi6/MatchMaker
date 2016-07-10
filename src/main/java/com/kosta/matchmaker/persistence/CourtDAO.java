@@ -7,6 +7,7 @@ import com.kosta.matchmaker.domain.CourtSearchDTO;
 import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
+import com.kosta.matchmaker.domain.MatchResultDTO;
 import com.kosta.matchmaker.domain.PlayerVO;
 
 public interface CourtDAO {
@@ -47,4 +48,16 @@ public interface CourtDAO {
 	// 회원 아이디로 선수 정보 가져오기
 	public PlayerVO getPlayer(String userid) throws Exception;
 	
+	// 선수 상태 참가로 변경
+	public void stateStart(String id, Integer mno) throws Exception;
+	
+	// 선수 상태 종료로 변경
+	public void stateEnd(String id, Integer mno) throws Exception;
+	
+	// 선수 점수 초기화
+	public void initPlayer(Integer mno, String id) throws Exception;
+	
+	// 선수 점수 평가
+	public void ratePlayer(MatchResultDTO dto) throws Exception;
+
 }

@@ -13,6 +13,7 @@ import com.kosta.matchmaker.domain.CourtSearchDTO;
 import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
+import com.kosta.matchmaker.domain.MatchResultDTO;
 import com.kosta.matchmaker.domain.PlayerVO;
 
 @Repository
@@ -85,6 +86,38 @@ public class CourtDAOImpl implements CourtDAO {
 	@Override
 	public PlayerVO getPlayer(String userid) throws Exception {
 		return session.selectOne(namespace + ".getPlayer", userid);
+	}
+
+	@Override
+	public void stateStart(String id, Integer mno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("mno", mno);
+		
+		session.update(namespace + ".stateStart", map);
+	}
+
+	@Override
+	public void stateEnd(String id, Integer mno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("mno", mno);
+		
+		session.update(namespace + ".stateEnd", map);
+	}
+
+	@Override
+	public void initPlayer(Integer mno, String id) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("mno", mno);
+		
+		session.insert(namespace + ".initPlayer", map);
+	}
+
+	@Override
+	public void ratePlayer(MatchResultDTO dto) throws Exception {
+		session.update(namespace + ".ratePlayer", dto);
 	}
 
 }

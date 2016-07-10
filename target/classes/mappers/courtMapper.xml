@@ -190,4 +190,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from player where userid = #{userid}
 	</select>
 	
+	<!-- 선수의 게임 상태 대기에서 참가로 변경 -->
+	<update id="stateStart">
+		update match_player set state = '참가' where id = #{id} and mno = #{mno}
+	</update>
+	
+	<!-- 선수의 게임 상태 참가에서 종료로 변경 -->
+	<update id="stateEnd">
+		update match_player set state = '종료' where id = #{id} and mno = #{mno}
+	</update>
+	
+	<!-- 선수 점수 생성 -->
+	<insert id="initPlayer">
+		insert into match_result(mno, id) values(#{mno}, #{id})
+	</insert>
+	
+	<!-- 선수 평가 -->
+	<update id="ratePlayer">
+		update match_result set point = point + #{point}, trust = trust + #{trust}
+		where mno = #{mno} and id = #{id}
+	</update>
+	
 </mapper>

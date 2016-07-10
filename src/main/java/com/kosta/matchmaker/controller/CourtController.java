@@ -10,12 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kosta.matchmaker.domain.CourtSearchDTO;
 import com.kosta.matchmaker.domain.CourtVO;
 import com.kosta.matchmaker.domain.GameSearchDTO;
 import com.kosta.matchmaker.domain.MatchDTO;
+import com.kosta.matchmaker.domain.MatchResultDTO;
 import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.service.CourtService;
 
@@ -134,6 +136,56 @@ public class CourtController {
 		return entity;
 	}
 	
+	/*선수 상태 업데이트*/ 
+	@RequestMapping(value="/games/{mno}/{id}/{state}", method=RequestMethod.PUT)
+	public ResponseEntity<String> stateChange(@PathVariable("id") String id, @PathVariable("state") String state, @PathVariable("mno") int mno) {
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			service.stateChange(id, mno, state);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 	
+	/*선수 점수 초기화*/
+	@RequestMapping(value="/players", method=RequestMethod.POST)
+	public ResponseEntity<String> initPlayer(@RequestParam("mno") int mno, @RequestParam("id") String id) {
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			service.initPlayer(mno, id);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	/*선수 평가*/
+	@RequestMapping(value="/players/point", method=RequestMethod.PUT)
+	public ResponseEntity<String> ratePlayer(MatchResultDTO dto) {
+		System.out.println(dto);
+		
+		ResponseEntity<String> entity = null;
+		
+		try {
+			service.ratePlayer(dto);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
 	
 }

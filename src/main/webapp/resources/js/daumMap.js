@@ -10,6 +10,7 @@ var matchList = {};
 var selected = 'C';
 var cnoArr = [];
 var ano;
+var mno;
 var replyPage = 1;
 
 /*화면 크기에 맞게 지도 크기 변경*/
@@ -550,7 +551,8 @@ $('#search-body').on('click', '.match-court', function() {
 
 //예약된 게임에서 게임 정보 보기
 $('#search-body').on('click', '.timeline-header a', function() {
-	var mno = $(this).attr('mno');
+	var mno1 = $(this).attr('mno');
+	mno = mno1;
 	getGame(mno);
 	console.log(mno);
 });
@@ -559,6 +561,7 @@ $('#search-body').on('click', '.timeline-header a', function() {
 function getGame(mno) {
 	var team1 = 'home';
 	var team2 = 'away';
+	var state;
 	
 	$('#tab_4').addClass('active');
 	$(activeTab).removeClass('active');
@@ -568,7 +571,10 @@ function getGame(mno) {
 		$('#begintime').text(data.begintime);
 		$('#endtime').text(data.endtime);
 		$('#state').text(data.state);
+		
+		state = data.state;
 	});
+	
 	$.getJSON('/courts/games/' + mno + '/' + team1, function(data) {
 		var templateObj = $('#playerTemplate');
 		var target = $('#home');
@@ -577,7 +583,24 @@ function getGame(mno) {
 		var html = template(data);
 		
 		target.html(html);
+		
+		if(state === '시작' && state === '평가') {
+			for(i in data) {
+				if(id === data[i].id) {
+					if(state === '시작' && data[i].state === '대기') {
+						$('#getStart').show();
+						return;
+					} else if(state === '평가' && data[i].state === '참가') {
+						$('#away input').show();
+						$('#getEnd').show();
+						$('#getEnd').attr('team', 'away');
+						return;
+					}
+				}
+			}
+		}
 	});
+	
 	$.getJSON('/courts/games/' + mno + '/' + team2, function(data) {
 		var templateObj = $('#playerTemplate');
 		var target = $('#away');
@@ -586,8 +609,106 @@ function getGame(mno) {
 		var html = template(data);
 		
 		target.html(html);
+		
+		if(state === '시작' && state === '평가') {
+			for(i in data) {
+				if(id === data[i].id) {
+					if(state === '시작' && data[i].state === '대기') {
+						$('#getStart').show();
+						return;
+					} else if(state === '평가' && data[i].state === '참가') {
+						$('#home input').show();
+						$('#getEnd').show();
+						$('#getEnd').attr('team', 'home');
+						return;
+					}
+				}
+			}
+		}
 	});
 }
+
+// 참가 버튼 클릭
+$('#getStart').click(function() {
+	changeState('start');
+	$('#getStart').hide();
+	
+	// 점수 초기화
+	$.ajax({
+		url: '/courts/players?mno=' + mno + '&id=' + id,
+		type: 'post',
+		headers : {
+			/*"Content-Type" : "application/json",*/
+			"X-HTTP-Method-Override" : "POST"
+		},
+		success: function(data) {
+			if(data === 'success') {
+				alert('성공적으로 수행되었습니다.');
+			}
+		}
+	});
+});
+
+// 평가 버튼 클릭
+$('#getEnd').click(function() {
+	var team = $('#getEnd').attr('team');
+	
+	$.ajax({
+		url: '/courts/players/point',
+		type: 'put',
+		headers : {
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "PUT"
+		},
+		data: {
+			mno: mno,
+			id: 'player02',
+			point: $(this).find('.point').val(),
+			trust: $(this).find('.trust').val() 
+		},
+		success: function(data) {
+			if(data === 'success') {
+				alert('점수가 등록되었습니다.');
+			}
+		}
+	});
+	
+	
+	if(team === 'home') {
+		$('#home tr').each(function(i) {
+			if($(this).find('td:nth-child(3)').text() === '참가') {
+				
+			}
+		});
+	} else {
+		
+	}
+	
+	/*changeState('end');
+	$('#getEnd').hide();*/
+});
+
+// 상태 변경
+function changeState(state) {
+	$.ajax({
+		url: '/courts/games/' + mno + '/' + id + '/' + state,
+		type: 'put',
+		headers : {
+			/*"Content-Type" : "application/json",*/
+			"X-HTTP-Method-Override" : "PUT"
+		},
+		success: function(data) {
+			if(data === 'success') {
+				alert('성공적으로 수행되었습니다.');
+			}
+		}
+	});
+};
+
+// 어웨이팀 평가
+function getScoreBtn() {
+	
+};
 
 // 선수 정보 모달 숨기기
 $('#playerChk').click(function() {
@@ -595,7 +716,7 @@ $('#playerChk').click(function() {
 });
 
 // 게임에 예약한 선수 정보 보기
-$('#home, #away').on('click', 'tr', function() {
+/*$('#home, #away').on('click', 'tr', function() {
 	var id = $(this).attr('id');
 
 	$.getJSON('/courts/players/' + id, function(data) {
@@ -612,7 +733,7 @@ $('#home, #away').on('click', 'tr', function() {
 		$('#ptrust').text(data.trust);
 		$('#pinfo').text(data.info);
 	});
-});
+});*/
 
 // 코트에 예약된 게임 목록 보기
 function openGamebar(cno) {
