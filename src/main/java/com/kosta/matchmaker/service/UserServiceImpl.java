@@ -6,6 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
@@ -35,11 +37,13 @@ public class UserServiceImpl implements UserService {
 			String dbpasswd = user.getUserpw();
 
 			if (BCrypt.checkpw(shaPass, dbpasswd)) {
+				String userid = dto.getUserid();
+				int point = 10;
+				dao.userPoint(userid, point);
 				return dao.login(dto);
 			}
-		} else {
-			return null;
 		}
+		
 		return null;
 	}
 
@@ -51,10 +55,10 @@ public class UserServiceImpl implements UserService {
 		String bcPass = BCrypt.hashpw(shaPass, BCrypt.gensalt());
 
 		user.setUserpw(bcPass);
-		
+
 		dao.join(user);
 	}
-	
+
 	@Override
 	public void playerJoin(PlayerVO player) throws Exception {
 
@@ -67,7 +71,7 @@ public class UserServiceImpl implements UserService {
 		dao.join(player);
 		dao.playerJoin(player);
 	}
-
+	
 	@Override
 	public List<UserVO> selectList() throws Exception {
 		return dao.selectList();
@@ -154,6 +158,24 @@ public class UserServiceImpl implements UserService {
 		}
 		return null;
 	}
+	/*
+	@Override
+	public List<ArticleVO> articleList(String userid) throws Exception {
+		return dao.articleList(userid);
+	}*/
 
+	@Override
+	public List<ArticleVO> articleList(String userid, Criteria cri) throws Exception {
+		return dao.articleList(userid, cri);
+	}
 
+	@Override
+	public int articleCount(String userid) {
+		return dao.articleCount(userid);
+	}
+
+	@Override
+	public void userPoint(String userid, int point) throws Exception {
+		dao.userPoint(userid, point);
+	}
 }

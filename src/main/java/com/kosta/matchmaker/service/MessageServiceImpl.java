@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.MessageVO;
 import com.kosta.matchmaker.persistence.MessageDAO;
+import com.kosta.matchmaker.persistence.UserDAO;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -17,10 +18,18 @@ public class MessageServiceImpl implements MessageService {
 	@Inject
 	private MessageDAO messageDAO;
 	
+	@Inject
+	private UserDAO userdao;
+	
 	@Transactional
 	@Override
 	public void addMessage(MessageVO vo) throws Exception {
 		messageDAO.create(vo);
+		
+		String userid = vo.getSender();
+		int point = 30;
+		
+		userdao.userPoint(userid, point);
 	}
 
 	@Override
@@ -56,6 +65,11 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public List<MessageVO> idReadListCriteria(String targetid, Criteria cri) throws Exception {
 		return messageDAO.idReadListCriteria(targetid, cri);
+	}
+
+	@Override
+	public int notReadMessageCount(String targetid) throws Exception {
+		return messageDAO.notReadMessageCount(targetid);
 	}
 	
 	

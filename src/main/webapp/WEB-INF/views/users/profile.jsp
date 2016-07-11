@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <jsp:include page="../include/header.jsp"></jsp:include>
 <style>
@@ -262,9 +265,73 @@
               <!-- /.tab-pane -->
               
               <div class="tab-pane" id="board">
-                선중아 여기 부탁해 이 회원이 쓴 게시글 출력해줘
-                그리고 여기에서 이 회원정보 불러올때 세션쓰면 안되
-
+	                
+				  <table class="table table-hover table-striped">
+                     <thead>
+                      <tr>
+                        <th width="10%">게시판종류</th>
+                        <th width="10%">글번호</th>
+                        <th width="35%">제목</th>
+                        <th width="10%">작성자</th>
+                        <th width="15%">날짜</th>
+                        <th width="10%">조회수</th>
+                      </tr>
+                    </thead>
+                    
+                    <tbody>
+						<c:forEach items="${list}" var="article">
+							<tr>
+								<td>
+									<c:if test="${article.bno eq 0}">
+										공지게시판
+									</c:if>
+									<c:if test="${article.bno eq 1}">
+										자유게시판
+									</c:if>
+									<c:if test="${article.bno eq 2}">
+										농구게시판
+									</c:if>
+									<c:if test="${article.bno eq 3}">
+										게임게시판
+									</c:if>
+									<c:if test="${article.bno eq 100}">
+										자료게시판
+									</c:if>
+								</td>
+								<td>${article.ano}</td>
+								<td class="title"><a
+									href='/boards/${article.bno}/${article.ano}'>
+										${article.title}</a>
+								</td>
+								<td>${article.writer}</td>
+								<td><fmt:formatDate pattern="yy-MM-dd HH:mm"
+										value="${article.regdate }" /></td>
+								<td><span class="badge">${article.hit }</span></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+					</table>
+					<div align="center">
+						<ul class="pagination">
+			
+							<c:if test="${pageMaker.prev}">
+								<li><a href="?userid=${userid}&page=${pageMaker.startPage - 1}">&laquo;</a></li>
+							</c:if>
+			
+							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
+								var="idx">
+								<li
+									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+									<a href="?userid=${userid}&page=${idx}">${idx}</a>
+								</li>
+							</c:forEach>
+			
+							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+								<li><a href="?userid=${userid}&page=${pageMaker.endPage + 1}">&raquo;</a></li>
+							</c:if>
+			
+						</ul>
+					</div>
              
               </div>
               <!-- /.tab-pane -->

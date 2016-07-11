@@ -13,4 +13,9 @@ public class NoticeBoardVO extends ArticleVO {
 		this.deadline = deadline;
 	}
 	
+	@Override
+	public String toString() {
+		return "NoticeBoardVO [deadline=" + deadline + "]";
+	}
+	
 }

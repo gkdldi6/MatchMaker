@@ -76,5 +76,10 @@ public class MessageDAOImpl implements MessageDAO{
 		return session.selectList(namespace + ".listCriteria", map);
 	}
 
+	@Override
+	public int notReadMessageCount(String targetid) throws Exception {
+		return session.selectOne(namespace + ".notReadMessageCount", targetid);
+	}
+
 	
 }

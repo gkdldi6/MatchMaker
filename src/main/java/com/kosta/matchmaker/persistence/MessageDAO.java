@@ -32,4 +32,7 @@ public interface MessageDAO {
 	//페이징 처리
 	public List<MessageVO> idReadListCriteria(String targetid, Criteria cri) throws Exception;
 	
+	//읽지않은 쪽지 확인
+	public int notReadMessageCount (String targetid) throws Exception;
+	
 }

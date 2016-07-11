@@ -2,6 +2,8 @@ package com.kosta.matchmaker.service;
 
 import java.util.List;
 
+import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
@@ -22,7 +24,7 @@ public interface UserService {
 	// 회원 전체조회
 	public List<UserVO> selectList() throws Exception;
 
-	// 회원 한명 조회
+	// 아이디로 회원정보 불러오기
 	public UserVO selectId(String userid);
 
 	// 회원 정보 수정
@@ -46,5 +48,16 @@ public interface UserService {
 	//Password찾기 -> 이름,아이디,이메일
 	public UserVO findPassword(String username, String userid, String email) throws Exception;
 	
+	/*//아이디로 글쓴정보 불러오기
+	public List<ArticleVO> articleList(String userid) throws Exception;
+*/
+	//아이디로 글쓴정보 불러온후 페이징
+	public List<ArticleVO> articleList(String userid, Criteria cri) throws Exception;
+	
+	//글쓴 개수 확인
+	public int articleCount(String userid);
+	
+	//회원 포인트 관리
+	public void userPoint(String userid, int point) throws Exception;
 
 }

@@ -50,5 +50,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where username = #{username} and userid = #{userid} and email = #{email}
 	</select>
 	
+	<select id="articleList" resultType="ArticleVO">
+		select *
+		from article
+		where ano > 0 and writer = #{userid}
+		limit #{pageStart}, #{perPageNum}
+	</select>
+	
+	<select id="articleCount" resultType="Integer">
+		select count(*)
+		from article
+		where writer = #{userid}
+	</select>
+	
+	<select id="userPoint" resultType="UserVO">
+		UPDATE user
+		SET userpoint = userpoint + #{point}
+		WHERE userid = #{userid};
+	</select>
 	
 </mapper>

@@ -9,6 +9,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kosta.matchmaker.domain.ArticleVO;
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
@@ -29,6 +31,11 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public void join(UserVO user) throws Exception {
 		session.insert(namespace + ".join", user);
+	}
+	
+	@Override
+	public void playerJoin(PlayerVO player) throws Exception {
+		session.insert(namespace + ".playerJoin", player);
 	}
 
 	@Override
@@ -95,8 +102,33 @@ public class UserDAOImpl implements UserDAO {
 		return session.selectOne(namespace + ".findPassword",map);
 	}
 
+	/*
 	@Override
-	public void playerJoin(PlayerVO player) throws Exception {
-		session.insert(namespace + ".playerJoin", player);
+	public List<ArticleVO> articleList(String userid) throws Exception {
+		List<ArticleVO> list = session.selectList(namespace + ".articleList", userid);
+		return list;
+	}*/
+
+	@Override
+	public List<ArticleVO> articleList(String userid, Criteria cri) throws Exception {
+		Map<String,Object> map = new HashMap<>();
+		map.put("userid", userid);
+		map.put("pageStart", cri.getPageStart());
+		map.put("perPageNum", cri.getPerPageNum());
+		
+		return session.selectList(namespace + ".articleList", map);
+	}
+
+	@Override
+	public int articleCount(String userid) {
+		return session.selectOne(namespace + ".articleCount", userid);
+	}
+
+	@Override
+	public void userPoint(String userid, int point) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("userid", userid);
+		map.put("point", point);
+		session.update(namespace + ".userPoint", map);
 	}
 }

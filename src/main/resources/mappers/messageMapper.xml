@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.kosta.matchmaker.mappers.MessageMapper">
 
 	<insert id="create">
-		insert into message(targetid, sender, message)
-		values (#{targetid}, #{sender}, #{message})
+		insert into message(targetid, sendid, msgtext)
+		values (#{targetid}, #{sendid}, #{msgtext})
 	</insert>
 	
 	<select id="readMessage" resultType="MessageVO">
@@ -54,6 +54,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by mno desc
 		limit #{pageStart}, #{perPageNum}
 	]]>
+	</select>
+	
+	<select id="notReadMessageCount" resultType="Integer">
+		select count(*)
+		from message
+		where targetid = #{targetid} and opendate is null
 	</select>
 	
 </mapper>

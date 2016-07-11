@@ -9,28 +9,21 @@ public class PlayerVO extends UserVO {
 	private int weight;
 	private String position;
 	private int gamecnt;
-	private String grade;
 	private int point;
 	private int trust;
 	private String info;
 	
-	public String getInfo() {
-		return info;
-	}
-	public void setInfo(String info) {
-		this.info = info;
-	}
 	public String getName() {
 		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public int getAge() {
 		return age;
 	}
 	public void setAge(int age) {
 		this.age = age;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getSex() {
 		return sex;
@@ -62,12 +55,6 @@ public class PlayerVO extends UserVO {
 	public void setGamecnt(int gamecnt) {
 		this.gamecnt = gamecnt;
 	}
-	public String getGrade() {
-		return grade;
-	}
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
 	public int getPoint() {
 		return point;
 	}
@@ -80,12 +67,18 @@ public class PlayerVO extends UserVO {
 	public void setTrust(int trust) {
 		this.trust = trust;
 	}
+	public String getInfo() {
+		return info;
+	}
+	public void setInfo(String info) {
+		this.info = info;
+	}
 	
 	@Override
 	public String toString() {
 		return "PlayerVO [name=" + name + ", age=" + age + ", sex=" + sex + ", height=" + height + ", weight=" + weight
-				+ ", position=" + position + ", gamecnt=" + gamecnt + ", grade=" + grade + ", point=" + point
-				+ ", trust=" + trust + ", info=" + info + "]";
+				+ ", position=" + position + ", gamecnt=" + gamecnt + ", point=" + point + ", trust=" + trust
+				+ ", info=" + info + "]";
 	}
 	
 }
