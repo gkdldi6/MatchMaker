@@ -155,7 +155,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 시작 상태에서 시간 지나면 진행 상태로 변경 -->
 	<update id="checkMatch1">
 		<![CDATA[
-		update match_court set state = '진행' where state = '시작' and begintime + INTERVAL 10 day_minute < now()
+		update match_court set state = '진행' where state = '시작' and begintime + INTERVAL 3 day_minute < now()
 		]]>
 	</update>
 	
@@ -169,7 +169,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 게임 종료후 30분 지나면 평가 상태에서 종료 상태로 변경 -->	
 	<update id="checkMatch3">
 		<![CDATA[
-		update match_court set state = '종료' where state = '평가' and endtime + INTERVAL 10 day_minute < now()
+		update match_court set state = '종료' where state = '평가' and endtime + INTERVAL 3 day_minute < now()
 		]]>
 	</update>
 	

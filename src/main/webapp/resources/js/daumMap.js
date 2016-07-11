@@ -584,7 +584,7 @@ function getGame(mno) {
 		
 		target.html(html);
 		
-		if(state === '시작' && state === '평가') {
+		if(state === '시작' || state === '평가') {
 			for(i in data) {
 				if(id === data[i].id) {
 					if(state === '시작' && data[i].state === '대기') {
@@ -610,7 +610,7 @@ function getGame(mno) {
 		
 		target.html(html);
 		
-		if(state === '시작' && state === '평가') {
+		if(state === '시작' || state === '평가') {
 			for(i in data) {
 				if(id === data[i].id) {
 					if(state === '시작' && data[i].state === '대기') {
@@ -643,7 +643,7 @@ $('#getStart').click(function() {
 		},
 		success: function(data) {
 			if(data === 'success') {
-				alert('성공적으로 수행되었습니다.');
+				alert('성공적으로 참가 신청이 되었습니다.');
 			}
 		}
 	});
@@ -653,39 +653,62 @@ $('#getStart').click(function() {
 $('#getEnd').click(function() {
 	var team = $('#getEnd').attr('team');
 	
-	$.ajax({
-		url: '/courts/players/point',
-		type: 'put',
-		headers : {
-			"Content-Type" : "application/json",
-			"X-HTTP-Method-Override" : "PUT"
-		},
-		data: {
-			mno: mno,
-			id: 'player02',
-			point: $(this).find('.point').val(),
-			trust: $(this).find('.trust').val() 
-		},
-		success: function(data) {
-			if(data === 'success') {
-				alert('점수가 등록되었습니다.');
-			}
-		}
-	});
-	
-	
 	if(team === 'home') {
 		$('#home tr').each(function(i) {
-			if($(this).find('td:nth-child(3)').text() === '참가') {
-				
+			var id = $(this).attr('id');
+			
+			if($(this).find('td:nth-child(3)').text() === '참가' || $(this).find('td:nth-child(3)').text() === '종료') {
+				$.ajax({
+					url: '/courts/players/point',
+					type: 'put',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "PUT"
+					},
+					data: JSON.stringify({
+						mno: mno,
+						id: id,
+						point: $(this).find('.point').val(),
+						trust: $(this).find('.trust').val() 
+					}),
+					success: function(data) {
+						if(data === 'success') {
+							alert(id + '의 점수가 등록되었습니다.');
+						}
+					}
+				});
 			}
 		});
 	} else {
-		
+		$('#away tr').each(function(i) {
+			var id = $(this).attr('id');
+			
+			if($(this).find('td:nth-child(3)').text() === '참가' || $(this).find('td:nth-child(3)').text() === '종료') {
+				$.ajax({
+					url: '/courts/players/point',
+					type: 'put',
+					headers : {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "PUT"
+					},
+					data: JSON.stringify({
+						mno: mno,
+						id: id,
+						point: $(this).find('.point').val(),
+						trust: $(this).find('.trust').val() 
+					}),
+					success: function(data) {
+						if(data === 'success') {
+							alert(id + '의 점수가 등록되었습니다.');
+						}
+					}
+				});
+			}
+		});
 	}
 	
-	/*changeState('end');
-	$('#getEnd').hide();*/
+	changeState('end');
+	$('#getEnd').hide();
 });
 
 // 상태 변경
@@ -699,15 +722,10 @@ function changeState(state) {
 		},
 		success: function(data) {
 			if(data === 'success') {
-				alert('성공적으로 수행되었습니다.');
+				console.log(state + ' 상태로 변경');
 			}
 		}
 	});
-};
-
-// 어웨이팀 평가
-function getScoreBtn() {
-	
 };
 
 // 선수 정보 모달 숨기기

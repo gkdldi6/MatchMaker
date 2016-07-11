@@ -7,10 +7,6 @@ $(window).resize(function() {
 	$('.control-sidebar, .control-sidebar-bg').css('width', $(window).width());
 });
 
-/* chatbar 조작 */
-/*var chatbar = $('.chatbar');*/
-var sidebtn = $('.chatbtn');
-
 /*function chatbarOpen() {
 	chatbar.css('left', '0px');
 	chatbtn.css('left', '400px');
@@ -22,6 +18,9 @@ var sidebtn = $('.chatbtn');
 	chatbtn.css('left', '0px');
 	chatbar.attr('state', 'closed');
 };*/
+
+// 사이드바 버튼
+var sidebtn = $('.chatbtn');
 
 // 사이드바 버튼 클릭
 sidebtn.click(function() {

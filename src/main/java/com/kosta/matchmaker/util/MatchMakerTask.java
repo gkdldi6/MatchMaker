@@ -16,7 +16,7 @@ public class MatchMakerTask {
         
         try {
         	service.chkGameState();
-	        System.out.println("게임 상태 확인중...");
+	        System.out.println("예약 상태 확인중...");
 	        
 	        
 		} catch (Exception e) {

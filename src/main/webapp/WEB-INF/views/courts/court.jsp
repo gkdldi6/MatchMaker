@@ -57,8 +57,8 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-				<button id="getStart" class="btn btn-success" style="/* display:none */">시작</button>
-				<button team="home" id="getEnd" class="btn btn-primary" style="/* display:none */">평가</button>
+				<button id="getStart" class="btn btn-success" style="display:none">시작</button>
+				<button team="home" id="getEnd" class="btn btn-primary" style="display:none">평가</button>
 			</div>
           </div>
 		</div>
