@@ -26,8 +26,8 @@
               </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body no-padding table-responsive">
-              <table class="table" >
+            <div class="box-body">
+              <table class="table table-hover" >
                 <thead>
                   <tr>
                     <th width="20%">홈</th>
@@ -41,7 +41,7 @@
                 </tbody>
               </table>
               <br>
-              <table class="table" >
+              <table class="table table-hover" >
                 <thead>
                   <tr>
                     <th width="20%">어웨이</th>
@@ -56,7 +56,7 @@
               </table>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer">
+            <div class="box-footer" style="border-top:0px">
 				<button id="getStart" class="btn btn-success" style="display:none">시작</button>
 				<button team="home" id="getEnd" class="btn btn-primary" style="display:none">평가</button>
 			</div>

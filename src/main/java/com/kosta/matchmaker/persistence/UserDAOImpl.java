@@ -102,13 +102,6 @@ public class UserDAOImpl implements UserDAO {
 		return session.selectOne(namespace + ".findPassword",map);
 	}
 
-	/*
-	@Override
-	public List<ArticleVO> articleList(String userid) throws Exception {
-		List<ArticleVO> list = session.selectList(namespace + ".articleList", userid);
-		return list;
-	}*/
-
 	@Override
 	public List<ArticleVO> articleList(String userid, Criteria cri) throws Exception {
 		Map<String,Object> map = new HashMap<>();
@@ -130,5 +123,10 @@ public class UserDAOImpl implements UserDAO {
 		map.put("userid", userid);
 		map.put("point", point);
 		session.update(namespace + ".userPoint", map);
+	}
+
+	@Override
+	public PlayerVO selectPlayer(String userid) throws Exception {
+		return session.selectOne(namespace + ".selectPlayer", userid);
 	}
 }

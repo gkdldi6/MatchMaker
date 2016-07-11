@@ -9,13 +9,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kosta.matchmaker.domain.Criteria;
 import com.kosta.matchmaker.domain.LoginDTO;
+import com.kosta.matchmaker.domain.PageMaker;
 import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
 import com.kosta.matchmaker.service.UserService;
@@ -49,9 +52,25 @@ public class UserController {
 		model.addAttribute("userVO", user);
 	}
 	
-	/*프로파일 페이지로 이동*/ 
-	@RequestMapping(value = "/profile", method=RequestMethod.GET)
-	public void getProfile() throws Exception {}
+	/*프로파일 페이지로 이동*/
+	@RequestMapping(value = "/{userid}", method=RequestMethod.GET)
+	public String getProfile(Model model, @PathVariable("userid") String userid, Criteria cri) throws Exception {
+		
+		System.out.println(userid);
+		
+		model.addAttribute("list", service.articleList(userid, cri));
+		model.addAttribute("user", service.selectPlayer(userid));
+		
+		System.out.println(service.articleList(userid, cri));
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		
+		pageMaker.setTotalCount(service.articleCount(userid));
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "users/profile";
+	}
 	
 	/*회원가입 페이지로 이동*/ 
 	@RequestMapping(value = "/join", method=RequestMethod.GET)

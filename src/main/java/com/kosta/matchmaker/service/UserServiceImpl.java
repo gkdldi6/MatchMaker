@@ -178,4 +178,9 @@ public class UserServiceImpl implements UserService {
 	public void userPoint(String userid, int point) throws Exception {
 		dao.userPoint(userid, point);
 	}
+
+	@Override
+	public PlayerVO selectPlayer(String userid) throws Exception {
+		return dao.selectPlayer(userid);
+	}
 }

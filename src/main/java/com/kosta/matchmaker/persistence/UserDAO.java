@@ -18,6 +18,9 @@ public interface UserDAO {
 	
 	// 선수 가입
 	public void playerJoin(PlayerVO player) throws Exception;
+	
+	// 선수 조회
+	public PlayerVO selectPlayer(String userid) throws Exception;
 
 	// 회원 전체조회
 	public List<UserVO> selectList() throws Exception;

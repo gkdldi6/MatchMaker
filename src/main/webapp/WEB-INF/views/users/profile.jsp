@@ -11,8 +11,14 @@
 }
 
 .tab-pane {
-            min-height: 640px
-         }
+   	min-height: 780px
+}
+
+@media (min-width: 768px) {
+	.tab-pane {
+    	min-height: 590px
+	}
+}
 </style>
 
 
@@ -26,23 +32,24 @@
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="사진">
 
-              <h3 class="profile-username text-center">이름</h3>
+              <h3 class="profile-username text-center">${user.username}</h3>
 
-              <p class="text-muted text-center">아이디</p>
+              <p class="text-muted text-center">${user.userid}</p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>가입일</b> <a class="pull-right">91.05.28</a>
+                  <b>가입일</b> 
+                  <a class="pull-right">
+                  	<fmt:formatDate pattern="yy-MM-dd" value="${user.regdate}" />
+                  </a>
                 </li>
                 <li class="list-group-item">
-                  <b>이메일</b> <a class="pull-right">선중@선중.com</a>
+                  <b>이메일</b> <a class="pull-right">${user.email}</a>
                 </li>
                 <li class="list-group-item">
-                  <b>전적</b> <a class="pull-right">5/10</a>
-                </li>
-                <li class="list-group-item">
-                  <b>승률</b> <a class="pull-right">50%</a>
-                </li>
+                  <b>회원 소개</b> 
+                  <div>${user.userinfo }</div>
+				</li>
               </ul>
               <button class="btn btn-success btn-sm">쪽지 보내기</button>
             </div>
@@ -59,24 +66,36 @@
             <div class="box-body">
               <strong><i class="fa fa-book margin-r-5"></i> 선수 소개</strong>
 
-              <p class="text-muted">
-                안녕? 난 선중이라고 해~ 
-                리바운드는 나한테 맡겨줘!
-              </p>
+              <p class="text-muted">${user.info }</p>
 
               <hr>
 
-              <strong><i class="fa fa-map-marker margin-r-5"></i> 활동 지역</strong>
+              <strong><i class="fa fa-map-marker margin-r-5"></i> 마지막으로 뛴 코트</strong>
 
-              <p class="text-muted">금천구 서울</p>
+              <p class="text-muted">여기</p>
 
               <hr>
               
               <strong><i class="fa fa-pencil margin-r-5"></i> 포지션</strong>
 
               <p>
-                <span class="label label-danger">센터</span>
-                <span class="label label-success">파워 포워드</span>
+              	<c:choose>
+              		<c:when test="${user.position == 'C' }">
+              			<span class="label label-danger">센터</span>
+              		</c:when>
+              		<c:when test="${user.position == 'PF' }">
+              			<span class="label label-success">파워 포워드</span>
+              		</c:when>
+              		<c:when test="${user.position == 'SF' }">
+              			<span class="label label-primary">스몰 포워드</span>
+              		</c:when>
+              		<c:when test="${user.position == 'SG' }">
+              			<span class="label label-info">슈팅 가드</span>
+              		</c:when>
+              		<c:otherwise>
+              			<span class="label label-warning">포인트 가드</span>
+              		</c:otherwise>
+              	</c:choose>
               </p>
           
               <hr>
@@ -97,12 +116,9 @@
             </ul>
             <div class="tab-content">
               		<div class="tab-pane active" id="activity">
+							<div style="height: 100px;padding-top:10px">
 							
-							<fieldset>
-								<legend>농구</legend>
-							</fieldset>
-							<div style="height: 100px">
-								<div class="col-md-6">
+								<div class="col-sm-6">
 									<span class="label bg-blue" style="font-size: 15px"> 농구 등급 </span>
 									<div style="margin-top: 10px">
 										<img src="http://localhost:8080//resources/img/silver.png"
@@ -117,28 +133,9 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="box box-danger">
-										<div class="box-header with-border">
-											<h3 class="box-title">농구 점수</h3>
-										</div>
-										<!-- /.box-header -->
-										<div class="box-body">The body of the box</div>
-										<!-- /.box-body -->
-									</div>
-									<div class="box box-warning">
-										<div class="box-header with-border">
-											<h3 class="box-title">신뢰 점수</h3>
-										</div>
-										<!-- /.box-header -->
-										<div class="box-body">The body of the box</div>
-										<!-- /.box-body -->
-									</div>
-								</div>
-								<fieldset>
-									<legend>회원</legend>								
-								</fieldset>
-								<div>
+								
+								<div class="col-sm-6">
+								
 									<span class="label bg-green" style="font-size: 15px"> 회원
 										등급 </span>
 
@@ -163,8 +160,30 @@
 										<!-- /.info-box-content -->
 									</div>
 								</div>
+								
+								<div class="col-xs-12">
+									<div class="box box-danger" style="margin-top:20px">
+										<div class="box-header with-border">
+											<h3 class="box-title">농구 점수</h3>
+										</div>
+										<!-- /.box-header -->
+										<div class="box-body" style="font-size:30px">${user.point }</div>
+										<!-- /.box-body -->
+									</div>
+								</div>
+								
+								<div class="col-xs-12">
+									<div class="box box-warning" style="margin-top:20px">
+										<div class="box-header with-border">
+											<h3 class="box-title">신뢰 점수</h3>
+										</div>
+										<!-- /.box-header -->
+										<div class="box-body" style="font-size:30px">${user.trust }</div>
+										<!-- /.box-body -->
+									</div>
+								</div>
+								
 							</div>
-
 						</div>
               <!-- /.tab-pane -->
               
@@ -269,7 +288,7 @@
 				  <table class="table table-hover table-striped">
                      <thead>
                       <tr>
-                        <th width="10%">게시판종류</th>
+                        <th width="10%">구분</th>
                         <th width="10%">글번호</th>
                         <th width="35%">제목</th>
                         <th width="10%">작성자</th>
@@ -283,19 +302,19 @@
 							<tr>
 								<td>
 									<c:if test="${article.bno eq 0}">
-										공지게시판
+										공지
 									</c:if>
 									<c:if test="${article.bno eq 1}">
-										자유게시판
+										자유
 									</c:if>
 									<c:if test="${article.bno eq 2}">
-										농구게시판
+										농구
 									</c:if>
 									<c:if test="${article.bno eq 3}">
-										게임게시판
+										게임
 									</c:if>
 									<c:if test="${article.bno eq 100}">
-										자료게시판
+										자료
 									</c:if>
 								</td>
 								<td>${article.ano}</td>
@@ -315,19 +334,19 @@
 						<ul class="pagination">
 			
 							<c:if test="${pageMaker.prev}">
-								<li><a href="?userid=${userid}&page=${pageMaker.startPage - 1}">&laquo;</a></li>
+								<li><a href="${user.userid}?page=${pageMaker.startPage - 1}">&laquo;</a></li>
 							</c:if>
 			
 							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
 								var="idx">
 								<li
 									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-									<a href="?userid=${userid}&page=${idx}">${idx}</a>
+									<a href="${user.userid}?page=${idx}">${idx}</a>
 								</li>
 							</c:forEach>
 			
 							<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-								<li><a href="?userid=${userid}&page=${pageMaker.endPage + 1}">&raquo;</a></li>
+								<li><a href="${user.userid}?page=${pageMaker.endPage + 1}">&raquo;</a></li>
 							</c:if>
 			
 						</ul>
@@ -339,52 +358,45 @@
               <div class="tab-pane" id="settings">
                 <form class="form-horizontal">
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                    <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputName" placeholder="Name">
+                    <label for="inputName" class="col-sm-2 control-label">이름</label>
+                    <div class="name col-sm-10">
+						이름
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
-                    <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    <label for="inputEmail" class="col-sm-2 control-label">나이</label>
+                    <div class="age col-sm-10">
+						나이
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputName" placeholder="Name">
+                    <label for="inputName" class="col-sm-2 control-label">성별</label>
+                    <div class="sex col-sm-10">
+                      성별
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputExperience" class="col-sm-2 control-label">Experience</label>
-
-                    <div class="col-sm-10">
-                      <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                    <label for="inputExperience" class="col-sm-2 control-label">키</label>
+                    <div class="height col-sm-10">
+                      키
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputSkills" class="col-sm-2 control-label">Skills</label>
-
-                    <div class="col-sm-10">
-                      <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
+                    <label for="inputSkills" class="col-sm-2 control-label">몸무게</label>
+                    <div class="weight col-sm-10">
+                      몸무게
                     </div>
                   </div>
                   <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                        </label>
-                      </div>
+                    <label for="inputSkills" class="col-sm-2 control-label">포지션</label>
+                    <div class="position col-sm-10">
+                      포지션
                     </div>
                   </div>
                   <div class="form-group">
-                    <div class="col-sm-offset-2 col-sm-10">
-                      <button type="submit" class="btn btn-danger">Submit</button>
+                    <label for="inputSkills" class="col-sm-2 control-label">게임수</label>
+                    <div class="gamecnt col-sm-10">
+                      게임수
                     </div>
                   </div>
                 </form>

@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<label for="inputEmail" class="col-lg-2 control-label">작성자</label>
 				<div class="col-lg-10">
-					<input type="text" class="form-control" name="writer" value="${login.username }" readonly>
+					<input type="text" class="form-control" name="writer" value="${login.userid }" readonly>
 				</div>
 			</div>
 

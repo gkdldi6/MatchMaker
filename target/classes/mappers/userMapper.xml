@@ -33,8 +33,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="selectId" resultType="UserVO">
-		select * 
-		from user 
+		select * from user
+		where userid = #{userid} 
+	</select>
+	
+	<select id="selectPlayer" resultType="PlayerVO">
+		select * from user natural join player
 		where userid = #{userid} 
 	</select>
 	
