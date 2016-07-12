@@ -11,10 +11,12 @@ var room;
 /*id, name은	map.jsp 윗부분에 세션에서 받음*/
 
 /*socket.io 서버에 접속*/
+/*AWS*/
+//var socket = io('http://52.78.15.21:3000');
 /*학원*/
-var socket = io('http://192.168.0.114:3000');
+//var socket = io('http://192.168.0.114:3000');
 /*집*/
-//var socket = io('http://localhost:3000');
+var socket = io('http://localhost:3000');
 socket.emit('enter', {uid: id, name: name});
 
 /*스크롤 자동으로 내리기*/

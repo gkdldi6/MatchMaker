@@ -233,9 +233,10 @@ public class ArticleDAOImpl implements ArticleDAO {
 	// 아래부터는 테스트 하지않은 미완성 코드..
 
 	@Override
-	public void updateReplyCnt(Integer ano, int amount) throws Exception {
+	public void updateReplyCnt(Integer bno, Integer ano, int amount) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 
+		paramMap.put("bno", bno);
 		paramMap.put("ano", ano);
 		paramMap.put("amount", amount);
 
@@ -310,6 +311,15 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public List<HashMap<String, Object>> maximumReply(Integer bno) throws Exception {
 		return session.selectList(namespace + ".maximumReply", bno);
 
+	}
+
+	@Override
+	public void plusLike(Integer bno, Integer ano) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano); 
+		
+		session.update(namespace + ".plusLike", map);
 	}
 
 }

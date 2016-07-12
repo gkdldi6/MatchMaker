@@ -12,7 +12,10 @@ public class PlayerVO extends UserVO {
 	private int point;
 	private int trust;
 	private String info;
-	
+	private String basketgrade;
+	private int blow;
+	private int bhigh;
+
 	public String getName() {
 		return name;
 	}
@@ -73,12 +76,30 @@ public class PlayerVO extends UserVO {
 	public void setInfo(String info) {
 		this.info = info;
 	}
+	public String getBasketgrade() {
+		return basketgrade;
+	}
+	public void setBasketgrade(String basketgrade) {
+		this.basketgrade = basketgrade;
+	}
+	public int getBlow() {
+		return blow;
+	}
+	public void setBlow(int blow) {
+		this.blow = blow;
+	}
+	public int getBhigh() {
+		return bhigh;
+	}
+	public void setBhigh(int bhigh) {
+		this.bhigh = bhigh;
+	}
 	
 	@Override
 	public String toString() {
 		return "PlayerVO [name=" + name + ", age=" + age + ", sex=" + sex + ", height=" + height + ", weight=" + weight
 				+ ", position=" + position + ", gamecnt=" + gamecnt + ", point=" + point + ", trust=" + trust
-				+ ", info=" + info + "]";
+				+ ", info=" + info + ", basketgrade=" + basketgrade + ", blow=" + blow + ", bhigh=" + bhigh + "]";
 	}
 	
 }

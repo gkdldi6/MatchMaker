@@ -11,6 +11,9 @@ public class UserVO {
 	private Date regdate;
 	private String userinfo;
 	private int userpoint;
+	private String usergrade;
+	private int ulow;
+	private int uhigh;
 	
 	public String getUserid() {
 		return userid;
@@ -54,11 +57,30 @@ public class UserVO {
 	public void setUserpoint(int userpoint) {
 		this.userpoint = userpoint;
 	}
-
+	public String getUsergrade() {
+		return usergrade;
+	}
+	public void setUsergrade(String usergrade) {
+		this.usergrade = usergrade;
+	}
+	public int getUlow() {
+		return ulow;
+	}
+	public void setUlow(int ulow) {
+		this.ulow = ulow;
+	}
+	public int getUhigh() {
+		return uhigh;
+	}
+	public void setUhigh(int uhigh) {
+		this.uhigh = uhigh;
+	}
+	
 	@Override
 	public String toString() {
 		return "UserVO [userid=" + userid + ", userpw=" + userpw + ", username=" + username + ", email=" + email
-				+ ", regdate=" + regdate + ", userinfo=" + userinfo + ", userpoint=" + userpoint + "]";
+				+ ", regdate=" + regdate + ", userinfo=" + userinfo + ", userpoint=" + userpoint + ", usergrade="
+				+ usergrade + ", ulow=" + ulow + ", uhigh=" + uhigh + "]";
 	}
-
+	
 }

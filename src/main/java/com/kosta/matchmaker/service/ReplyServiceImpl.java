@@ -21,14 +21,13 @@ public class ReplyServiceImpl implements ReplyService {
 	@Inject
 	private ArticleDAO aDao;
 
-	// 트랜젝션
 
 	@Transactional
 	@Override
 	public void addReply(ReplyVO reply) throws Exception {
 
 		dao.create(reply);	
-		aDao.updateReplyCnt(reply.getAno(), 1);
+		aDao.updateReplyCnt(reply.getBno(), reply.getAno(), 1);
 
 	}
 
@@ -54,10 +53,8 @@ public class ReplyServiceImpl implements ReplyService {
 	@Override
 	public void removeReply(Integer rno) throws Exception {
 		
-
-		int ano = dao.getAno(rno);
+		aDao.updateReplyCnt(dao.getBno(rno), dao.getAno(rno), -1);
 		dao.delete(rno);
-		aDao.updateReplyCnt(ano, -1);
 
 	}
 

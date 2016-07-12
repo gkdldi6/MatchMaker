@@ -95,7 +95,10 @@ public interface ArticleDAO {
 	public void deleteReference(Integer bno, Integer ano) throws Exception;
 
 	// 리플라이 카운터
-	public void updateReplyCnt(Integer ano, int amount) throws Exception;
+	public void updateReplyCnt(Integer bno, Integer ano, int amount) throws Exception;
+	
+	// 좋아요
+	public void plusLike(Integer bno, Integer ano) throws Exception;
 
 	// 조회수
 	public void updateHit(Integer bno, Integer ano) throws Exception;

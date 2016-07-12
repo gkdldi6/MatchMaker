@@ -19,7 +19,7 @@ public interface CourtDAO {
 	public CourtVO getCourt(Integer cno) throws Exception;
 	
 	// 코트 좋아요 올리기
-	public void likeCourt(Integer cno) throws Exception;
+	public void likeCourt(Integer bno, Integer ano) throws Exception;
 	
 	// 1개 게임 정보 가져오기
 	public MatchDTO getMatch(Integer mno) throws Exception;

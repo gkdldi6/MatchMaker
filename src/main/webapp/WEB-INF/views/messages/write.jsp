@@ -48,7 +48,8 @@
 					<label for="inputEmail" class="col-lg-2 control-label">받는 아이디</label>
 					<div class="col-lg-10">
 						<input type="text" class="form-control" id="targetid"
-							placeholder="작성자를 입력해주세요." name="targetid">
+							placeholder="작성자를 입력해주세요." name="targetid"
+							value="${targetid }">
 					</div>
 				</div>
 

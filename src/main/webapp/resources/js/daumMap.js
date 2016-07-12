@@ -228,6 +228,8 @@ function displayMarker(position, content, cno) {
 			$('#ccontent').text(data.content);
 			$('#liked').text(data.liked);
 			$('#replycnt').text(data.replycnt);
+			$('#likeCourt').attr('bno', data.bno);
+			$('#likeCourt').attr('ano', data.ano);
 			
 			$('#tab_0').addClass('active');
 			$(activeTab).removeClass('active');

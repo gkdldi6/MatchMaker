@@ -21,7 +21,7 @@ public class HomeInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}
 
-		response.sendRedirect("/users/profile");
+		response.sendRedirect("/users/" + user.getUserid());
 		return false;
 	}
 	

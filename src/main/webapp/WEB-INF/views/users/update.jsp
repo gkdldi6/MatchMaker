@@ -57,14 +57,6 @@
 				</div>
 	
 				<div class="form-group">
-					<label for="inputAge" class="col-lg-2 control-label">나이</label>
-					<div class="col-lg-10">
-						<input type="number" name="userage" class="form-control"
-							id="userage" value="${login.userage}">
-					</div>
-				</div>
-	
-				<div class="form-group">
 					<label for="textArea" class="col-lg-2 control-label">자기 소개</label>
 					<div class="col-lg-10">
 						<textarea class="form-control" name="userinfo" rows="3"

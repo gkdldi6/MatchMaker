@@ -37,11 +37,6 @@ public class CourtServiceImpl implements CourtService {
 	}
 
 	@Override
-	public void likeCourt(int cno) throws Exception {
-		dao.likeCourt(cno);
-	}
-
-	@Override
 	public List<Map<String, Object>> getTeam(Integer mno, String team) throws Exception {
 		return dao.getTeam(mno, team);
 	}

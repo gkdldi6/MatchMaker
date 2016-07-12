@@ -69,6 +69,13 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 		return session.selectOne(namespace + ".getAno", rno);
 	}
+	
+	// 본 게시판번호 가져오기 
+	@Override
+	public int getBno(Integer rno) throws Exception {
+
+		return session.selectOne(namespace + ".getBno", rno);
+	}
 
 		@Override
 	public int listCount(Integer rno) throws Exception {

@@ -10,6 +10,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.kosta.matchmaker.domain.UserVO;
+
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 
 	private static final String LOGIN = "login";
@@ -22,7 +24,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		
 		ModelMap modelMap =modelAndView.getModelMap();
-		Object userVO = modelMap.get("userVO");
+		UserVO userVO = (UserVO) modelMap.get("userVO");
 
 		if(userVO != null) {
 			
@@ -30,7 +32,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			session.setAttribute(LOGIN, userVO);
 			session.setAttribute("loginresult", "loginsuccess");
 			
-			dest = "/users/profile";
+			dest = "/users/" + userVO.getUserid();
 //			Object dest = session.getAttribute("dest");
 //			response.sendRedirect(dest != null ? (String)dest:"/users/login");
 		}

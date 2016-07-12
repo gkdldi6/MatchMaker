@@ -19,6 +19,14 @@
     	min-height: 590px
 	}
 }
+
+input[readonly] {
+	border: 0px;
+}
+
+input:read-only, textarea:read-only {
+	background-color: white !important;
+}
 </style>
 
 
@@ -51,12 +59,19 @@
                   <div>${user.userinfo }</div>
 				</li>
               </ul>
-              <button class="btn btn-success btn-sm">쪽지 보내기</button>
+	            <c:if test="${!empty login }">
+	              <c:if test="${login.userid != user.userid }">
+	              	<button id="sendMsg" class="btn btn-success btn-sm">쪽지 보내기</button>
+	              </c:if>
+	            </c:if>
             </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
 
+
+		<c:if test="${!empty user.name }">
+		
           <!-- About Me Box -->
           <div class="box box-primary">
             <div class="box-header with-border">
@@ -104,6 +119,9 @@
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
+          
+        </c:if>
+          
         </div>
         <!-- /.col -->
         <div class="col-md-9">
@@ -118,21 +136,32 @@
               		<div class="tab-pane active" id="activity">
 							<div style="height: 100px;padding-top:10px">
 							
+							<c:if test="${!empty user.name }">
 								<div class="col-sm-6">
 									<span class="label bg-blue" style="font-size: 15px"> 농구 등급 </span>
 									<div style="margin-top: 10px">
-										<img src="http://localhost:8080//resources/img/silver.png"
-											width="135" style="padding: 10px">
+										<c:choose>
+											<c:when test="${user.basketgrade ==  '브론즈'}">
+												<img src="http://localhost:8080//resources/img/bronze.png" width="135" style="padding: 10px">
+											</c:when>
+											<c:when test="${user.basketgrade == '실버' }">
+												<img src="http://localhost:8080//resources/img/silver.png" width="135" style="padding: 10px">
+											</c:when>
+											<c:otherwise>
+												<img src="http://localhost:8080//resources/img/gold.png" width="135" style="padding: 10px">
+											</c:otherwise>
+										</c:choose>
 									</div>
 									<div class="progress">
-										<div
+										<div id="basket-progress"
 											class="progress-bar progress-bar-primary progress-bar-striped"
 											role="progressbar" aria-valuenow="40" aria-valuemin="0"
-											aria-valuemax="100" style="width: 30%">
-											<span class="sr-only">40% Complete (success)</span>
+											aria-valuemax="100">
+											<span class="sr-only"></span>
 										</div>
 									</div>
 								</div>
+							</c:if>
 								
 								<div class="col-sm-6">
 								
@@ -140,8 +169,17 @@
 										등급 </span>
 
 									<div style="margin-top: 10px">
-										<img src="http://localhost:8080//resources/img/level3.png"
-											width="250" style="padding: 10px">
+										<c:choose>
+											<c:when test="${user.usergrade ==  '3등급'}">
+												<img src="http://localhost:8080//resources/img/level1.png" width="250" style="padding: 10px">
+											</c:when>
+											<c:when test="${user.usergrade == '2등급' }">
+												<img src="http://localhost:8080//resources/img/level2.png" width="250" style="padding: 10px">
+											</c:when>
+											<c:otherwise>
+												<img src="http://localhost:8080//resources/img/level3.png" width="250" style="padding: 10px">
+											</c:otherwise>
+										</c:choose>
 									</div>
 									<div class="info-box bg-green" style="margin-top: 20px">
 										<span class="info-box-icon"><i
@@ -149,18 +187,18 @@
 
 										<div class="info-box-content">
 											<span class="info-box-text">회원 점수</span> <span
-												class="info-box-number">92,050</span>
+												class="info-box-number">${user.userpoint }</span>
 
 											<div class="progress">
-												<div class="progress-bar" style="width: 100%"></div>
+												<div id="user-progress" class="progress-bar"></div>
 											</div>
-											<span class="progress-description"> 20% Increase in 30
-												Days </span>
+											<span class="progress-description"></span>
 										</div>
 										<!-- /.info-box-content -->
 									</div>
 								</div>
 								
+							<c:if test="${!empty user.name }">								
 								<div class="col-xs-12">
 									<div class="box box-danger" style="margin-top:20px">
 										<div class="box-header with-border">
@@ -182,6 +220,7 @@
 										<!-- /.box-body -->
 									</div>
 								</div>
+							</c:if>
 								
 							</div>
 						</div>
@@ -356,50 +395,64 @@
               <!-- /.tab-pane -->
               
               <div class="tab-pane" id="settings">
-                <form class="form-horizontal">
+                  
+              <c:choose>
+                <c:when test="${!empty user.name }">	
+                  	<form class="form-horizontal">
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">이름</label>
-                    <div class="name col-sm-10">
-						이름
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputName" readonly value="${user.name }">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputEmail" class="col-sm-2 control-label">나이</label>
-                    <div class="age col-sm-10">
-						나이
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputAge" readonly value="${user.age }">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">성별</label>
-                    <div class="sex col-sm-10">
-                      성별
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputSex" readonly value="${user.sex }">
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputExperience" class="col-sm-2 control-label">키</label>
-                    <div class="height col-sm-10">
-                      키
+                    <label for="inputSkills" class="col-sm-2 control-label">키</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputHeight" readonly value="${user.height }">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputSkills" class="col-sm-2 control-label">몸무게</label>
-                    <div class="weight col-sm-10">
-                      몸무게
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="inputWeight" readonly value="${user.weight }">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputSkills" class="col-sm-2 control-label">포지션</label>
                     <div class="position col-sm-10">
-                      포지션
+                      <input type="text" class="form-control" id="inputPosition" readonly value="${user.position }">
                     </div>
                   </div>
                   <div class="form-group">
                     <label for="inputSkills" class="col-sm-2 control-label">게임수</label>
                     <div class="gamecnt col-sm-10">
-                      게임수
+                      <input type="text" class="form-control" id="inputGamecnt" readonly value="${user.gamecnt }">
                     </div>
                   </div>
-                </form>
+                  <div class="form-group">
+                    <label for="inputExperience" class="col-sm-2 control-label">자기 소개</label>
+                    <div class="col-sm-10">
+                      <div id="content" style="padding:7px">${user.info }</div>
+                    </div>
+                  </div>
+                </form> 
+              </c:when>
+              <c:otherwise>
+              	선수 정보가 없습니다.
+              </c:otherwise>
+            </c:choose>    
               </div>
               <!-- /.tab-pane -->
             </div>
@@ -413,6 +466,22 @@
   </div>
 
 <script type="text/javascript">
+	var targetid = '${user.userid}';
+	
+	var userhigh = ${user.uhigh} - ${user.ulow};
+	var userpoint = ${user.userpoint} - ${user.ulow};
+	var userprogress = userpoint/userhigh * 100;
+	$('#user-progress').css('width', userprogress);
+
+	var baskethigh = ${user.bhigh} - ${user.blow};
+	var basketpoint = ${user.point} - ${user.blow};
+	var basketprogress = basketpoint/baskethigh * 100;
+	$('#basket-progress').css('width', basketprogress);
+	
+	$('#sendMsg').click(function() {
+		window.open('/messages/write?targetid=' + targetid, 'new', 'width=850, height=660');
+	});
+
 	var result = '${result}';
 
 	if(result == 'updatesuccess'){

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -113,6 +114,15 @@ public class BoardController {
 		}
 		
 		return "boards/freeRead";
+	}
+	
+	/*글 좋아요*/
+	@RequestMapping(value = "/{bno}/{ano}/like", method=RequestMethod.GET)
+	public @ResponseBody String likeArticle(@PathVariable("bno") int bno, @PathVariable("ano") int ano, 
+			@RequestParam("userid") String userid,
+						Model model) throws Exception {
+		String result = service.likeArticle(userid, bno, ano);
+		return result;
 	}
 	
 	/*글 수정 폼 열기*/

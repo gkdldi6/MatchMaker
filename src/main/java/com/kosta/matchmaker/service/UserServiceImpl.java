@@ -180,7 +180,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public PlayerVO selectPlayer(String userid) throws Exception {
+	public UserVO selectUser(String userid) throws Exception {
 		return dao.selectPlayer(userid);
 	}
 }

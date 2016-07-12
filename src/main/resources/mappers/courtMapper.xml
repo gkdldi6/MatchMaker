@@ -107,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 코트 좋아요 올리기 -->
 	<update id="likeCourt">
-		update court set liked = liked + 1 where cno = #{cno}
+		update court set liked = liked + 1 where bno = #{bno} and ano = #{ano}
 	</update>
 
 	<!-- 게임 1개 조회 -->

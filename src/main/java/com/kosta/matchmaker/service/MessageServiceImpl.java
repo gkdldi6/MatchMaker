@@ -71,7 +71,10 @@ public class MessageServiceImpl implements MessageService {
 	public int notReadMessageCount(String targetid) throws Exception {
 		return messageDAO.notReadMessageCount(targetid);
 	}
-	
-	
+
+	@Override
+	public List<MessageVO> notReadMessage(String targetid) throws Exception {
+		return messageDAO.notReadMessage(targetid);
+	}
 	
 }

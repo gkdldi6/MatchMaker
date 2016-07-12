@@ -201,7 +201,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<update id="updateReplyCnt">
 		update article set replycnt = replycnt + #{amount}
-		where bno = 1 and ano = #{ano}
+		where bno = #{bno} and ano = #{ano}
 	</update>
 
 	<!-- 파일첨부 기능 자료게시판용 -->
@@ -229,22 +229,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="maximumLike" resultMap="maximum">
 		select ano, title from article a natural join free f
 		where f.bno = #{bno}
-		order by f.liked desc
+		order by f.liked desc, ano desc
 		limit 5
 	</select>
 
 	<select id="maximumHit" resultMap="maximum">
 		select ano, title from article a natural join free f
 		where f.bno = #{bno}
-		order by a.hit desc
+		order by a.hit desc, ano desc
 		limit 5
 	</select>
 
 	<select id="maximumReply" resultMap="maximum">
 		select ano, title from article a natural join free f
 		where f.bno = #{bno}
-		order by a.replycnt desc
+		order by a.replycnt desc, ano desc
 		limit 5
 	</select>
+
+	<update id="plusLike">
+		update free set liked = liked + 1 where bno = #{bno} and ano = #{ano}
+	</update>
 
 </mapper>

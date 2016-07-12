@@ -129,4 +129,26 @@ public class UserDAOImpl implements UserDAO {
 	public PlayerVO selectPlayer(String userid) throws Exception {
 		return session.selectOne(namespace + ".selectPlayer", userid);
 	}
+
+	@Override
+	public void clickLike(String userid, Integer bno, Integer ano) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
+		map.put("userid", userid);
+		
+		session.insert(namespace + ".clickLike", map);
+	}
+
+	@Override
+	public int checkLike(String userid, Integer bno, Integer ano) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
+		map.put("userid", userid);
+		
+		int check = session.selectOne(namespace + ".checkLike", map);
+		
+		return check;
+	}
 }

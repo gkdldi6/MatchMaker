@@ -56,13 +56,9 @@ public class UserController {
 	@RequestMapping(value = "/{userid}", method=RequestMethod.GET)
 	public String getProfile(Model model, @PathVariable("userid") String userid, Criteria cri) throws Exception {
 		
-		System.out.println(userid);
-		
 		model.addAttribute("list", service.articleList(userid, cri));
-		model.addAttribute("user", service.selectPlayer(userid));
-		
-		System.out.println(service.articleList(userid, cri));
-		
+		model.addAttribute("user", service.selectUser(userid));
+
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 		

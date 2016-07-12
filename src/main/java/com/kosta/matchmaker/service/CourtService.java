@@ -21,9 +21,6 @@ public interface CourtService {
 	// 1개 코트 정보 가져오기
 	public CourtVO getCourt(int cno) throws Exception;
 	
-	// 코트 좋아요 누르기
-	public void likeCourt(int cno) throws Exception;
-	
 	// 1개의 게임 가져오기
 	public MatchDTO getMatch(int mno) throws Exception;
 	

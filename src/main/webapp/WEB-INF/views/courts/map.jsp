@@ -2,13 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <jsp:include page="../include/header.jsp"></jsp:include>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<!-- <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script> -->
 
 
-<script type="text/javascript">
-var id = '${login.userid}';			/* 회원 아이디 */
-var name = '${login.username}';		/* 회원 이름 */
-</script>
 <link rel="stylesheet" href="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <style>
@@ -254,10 +250,12 @@ $(function() {
 <script src="//mugifly.github.io/jquery-simple-datetimepicker/jquery.simple-dtpicker.js"></script>
 <script>$('.datetimepicker').appendDtpicker({'locale':'ko'});</script>
 <!-- socket.io api -->
+<!-- AWS -->
+<!-- <script src="http://52.78.15.21:3000/socket.io/socket.io.js"></script> -->
 <!-- 학원 -->
-<script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script>
+<!-- <script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
 <!-- 집 -->
-<!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
+<script src="http://localhost:3000/socket.io/socket.io.js"></script>
 <!-- socket.io client -->
 <script src="/resources/js/socket.io.client.js"></script>
 <!-- 다음 지도 API -->

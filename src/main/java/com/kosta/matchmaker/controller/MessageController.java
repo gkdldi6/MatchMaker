@@ -1,14 +1,19 @@
 package com.kosta.matchmaker.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kosta.matchmaker.domain.Criteria;
@@ -25,7 +30,7 @@ public class MessageController {
 	private MessageService service;
 
 	@RequestMapping("/write")
-	public String MessagesWrite() {
+	public String MessagesWrite(@ModelAttribute("targetid") String targetid) {
 		return "messages/write";
 	}
 	
@@ -73,6 +78,11 @@ public class MessageController {
 		service.delete(mno);
 		rttr.addFlashAttribute("msg", "removesucess");
 		return "redirect:/messages";
+	}
+	
+	@RequestMapping(value = "/notReadMsg", method = RequestMethod.GET)
+	public @ResponseBody List<MessageVO> notReadMsg(@RequestParam("targetid") String targetid) throws Exception{
+		return service.notReadMessage(targetid);
 	}
 	
 }

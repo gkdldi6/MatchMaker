@@ -21,6 +21,7 @@
     <link href="/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
 
     <script src="/resources/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+    <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
     
     <title>매치메이커</title>
   </head>
@@ -77,25 +78,13 @@
 						        <li class="dropdown messages-menu">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						            <i class="fa fa-envelope-o"></i>
-						            <span class="label label-success">4</span>
+						            <span class="label label-success msgcnt"></span>
 						          </a>
 						          <ul class="dropdown-menu">
-						            <li class="header">You have 4 messages</li>
+						            <li class="header">읽지 않은 메시지가 <span class="msgcnt"></span>개 있습니다.</li>
 						            <li>
 						              <!-- inner menu: contains the actual data -->
-						              <ul class="menu">
-						                <li><!-- start message -->
-						                  <a href="#">
-						                    <div class="pull-left">
-						                      <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-						                    </div>
-						                    <h4>
-						                      Sender Name
-						                      <small><i class="fa fa-clock-o"></i> 5 mins</small>
-						                    </h4>
-						                    <p>Message Excerpt</p>
-						                  </a>
-						                </li><!-- end message -->
+						              <ul id="msg" class="menu">
 						                	<!-- 메시지들 -->
 						              </ul>
 						            </li>
@@ -180,3 +169,56 @@
 				<!-- /.container-fluid -->
 			</nav>
 		</header>
+<!-- 읽지 않은 메시지 템플릿 -->
+<script id="msgTemplate" type="text/x-handlebars-template">
+	{{#each .}}
+		<li>
+		  <a onclick="msgOpen({{mno}})">
+		    <div class="pull-left">
+		      <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+ 	  	    </div>
+            <h4>
+		      {{sender}}
+   	          <small><i class="fa fa-clock-o"></i>{{date senddate}}</small>
+            </h4>
+			<p>{{message}}</p>
+          </a>
+        </li>
+	{{/each}}
+</script>
+		<script type="text/javascript">
+			var id = '${login.userid}';			/* 회원 아이디 */
+			var name = '${login.username}';		/* 회원 이름 */
+		
+			function msgOpen(mno) {
+				window.open('/messages/read?mno=' + mno, 'new', 'width=850, height=660'); 
+			};
+		
+			var msgid = '${login.userid}'; 
+			
+			getNotReadMsg();
+			
+			Handlebars.registerHelper("date", function(timeValue) {
+				var dateObj = new Date(timeValue);
+				var year = dateObj.getFullYear();
+				var month = dateObj.getMonth() + 1;
+				var date = dateObj.getDate();
+				return year + "/" + month + "/" + date;
+			});
+			
+			function getNotReadMsg() {
+				$.getJSON('/messages/notReadMsg?targetid=' + msgid, function(data) {
+					var msgcnt = data.length;
+					$('.msgcnt').text(msgcnt);
+					
+					var templateObj = $('#msgTemplate');
+					var target = $('#msg');
+					
+					var template = Handlebars.compile(templateObj.html());
+					var html = template(data);
+
+					target.html(html);
+				});
+			};
+		</script>
+		

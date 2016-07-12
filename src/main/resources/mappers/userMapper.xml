@@ -38,8 +38,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectPlayer" resultType="PlayerVO">
-		select * from user natural join player
-		where userid = #{userid} 
+		select userid, username, email, regdate, userinfo, userpoint, name, age, sex, height, weight, position, gamecnt, point, trust, info, u.grade usergrade, b.grade basketgrade from user left join player using(userid) left join basket_grade b on player.point between b.low and b.high, user_grade u 
+		where userpoint between u.low and u.high
+		and userid = #{userid} 
 	</select>
 	
 	<select id="findId" resultType="UserVO">
@@ -70,7 +71,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="userPoint" resultType="UserVO">
 		UPDATE user
 		SET userpoint = userpoint + #{point}
-		WHERE userid = #{userid};
+		WHERE userid = #{userid}
+	</select>
+	
+	<insert id="clickLike">
+		insert into user_like(userid, bno, ano) values(#{userid}, #{bno}, #{ano})
+	</insert>
+	
+	<select id="checkLike" resultType="int">
+		select count(*) from user_like where DATE_FORMAT(regdate, '%y/%m/%d') = DATE_FORMAT(now(), '%y/%m/%d') 
+		and ano = #{ano} and bno = #{bno} and userid = #{userid}
 	</select>
 	
 </mapper>

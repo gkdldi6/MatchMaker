@@ -57,4 +57,11 @@ public interface UserDAO {
 	
 	//유저 포인트 관리
 	public void userPoint(String userid, int point) throws Exception;
+	
+	//게시판 좋아요 누르기
+	public void clickLike(String userid, Integer bno, Integer ano) throws Exception;
+	
+	//좋아요 눌렀는지 확인하기
+	public int checkLike(String userid, Integer bno, Integer ano) throws Exception;
+	
 }

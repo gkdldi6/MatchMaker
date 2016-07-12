@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <jsp:include page="../include/header.jsp"></jsp:include>
 
@@ -26,8 +27,7 @@ input:read-only, #textArea:read-only {
 	background-color: white;
 }
 </style>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<!-- <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script> -->
 
 <div class="content-wrapper">
 
@@ -69,7 +69,7 @@ input:read-only, #textArea:read-only {
 				</div>
 				
 				<div align="center">
-					<a class="btn btn-app">
+					<a id="like" class="btn btn-app">
 		                <span class="badge bg-red">${article.liked }</span>
 		                <i class="fa fa-heart-o"></i> Likes
 		            </a>
@@ -95,8 +95,10 @@ input:read-only, #textArea:read-only {
 
 				<div class="form-group">
 					<div class="col-lg-10 col-lg-offset-2">
-						<button class="btn btn-warning btn-flat" id="edit">수정</button>
-						<button class="btn btn-primary btn-flat" id="delete">삭제</button>
+						<c:if test="${login.userid ==  article.writer}">
+							<button class="btn btn-warning btn-flat" id="edit">수정</button>
+							<button class="btn btn-primary btn-flat" id="delete">삭제</button>
+						</c:if>
 						<button class="btn btn-success btn-flat" id="list">목록</button>
 					</div>
 				</div>
@@ -110,6 +112,8 @@ input:read-only, #textArea:read-only {
 
 		<!-- 댓글 입력폼 -->
 		<div class="container">
+		
+		<c:if test="${!empty login }">
 			<form class="form-horizontal">
 				<fieldset>
 					<legend class="col-lg-10 col-lg-offset-1">댓글</legend>
@@ -117,7 +121,7 @@ input:read-only, #textArea:read-only {
 						<label for="writer" class="col-lg-2 control-label">작성자</label>
 						<div class="col-lg-10">
 							<input type="text" class="form-control" id="replyer"
-								value="${login.username }" readonly>
+								value="${login.userid }" readonly>
 						</div>
 					</div>
 					<div class="form-group">
@@ -129,12 +133,15 @@ input:read-only, #textArea:read-only {
 					</div>
 					<div class="form-group">
 						<div class="col-lg-10 col-lg-offset-2">
-							<input type="button" class="btn btn-success btn-flat"
-								value="댓글 쓰기" id="new-reply">
+							<c:if test="${!empty login }">
+								<input type="button" class="btn btn-success btn-flat"
+									value="댓글 쓰기" id="new-reply">
+							</c:if>
 						</div>
 					</div>
 				</fieldset>
 			</form>
+		</c:if>
 
 			<!-- 댓글 목록 -->
 			<ul id="reply-list">
@@ -200,10 +207,24 @@ input:read-only, #textArea:read-only {
 
 <!-- 글 처리 스크립트 -->
 <script type="text/javascript">
-
 	var ano = ${article.ano};
 	var pageForm = $('form[role="page"]');
 	var content = '${article.content}';
+	
+	/* 좋아요 클릭 */
+	$('#like').click(function() {
+		if(id) {
+			$.get(ano + '/like?userid=' + id, function(result) {
+				if(result === 'success') {
+					alert('추천했습니다.');					
+				} else {
+					alert('하루에 한 번밖에 추천할 수 없습니다.');
+				}
+			});
+		} else {
+			alert('비회원은 이용할 수 없습니다.');			
+		}
+	});
 
 	$('#content').html(content);
 

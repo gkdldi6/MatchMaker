@@ -35,8 +35,12 @@ public class CourtDAOImpl implements CourtDAO {
 	}
 
 	@Override
-	public void likeCourt(Integer cno) throws Exception {
-		session.update(namespace + ".likeCourt", cno);
+	public void likeCourt(Integer bno, Integer ano) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("ano", ano);
+		
+		session.update(namespace + ".likeCourt", map);
 	}
 	
 	@Override

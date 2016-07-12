@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
 <div class="nav-tabs-custom">
@@ -90,15 +91,17 @@
 					
 					<!-- 댓글 입력 공간 -->
 					<div style="padding-top:10px">
-                      <div class="col-xs-12">
-                        <div class="input-group">
-                          <div class="input-group-btn">
-                            <button id="inputReply" class="btn btn-success">입력</button>
-                          </div>
-                          <!-- /btn-group -->
-                          <input id="replyText" type="text" class="form-control">
-                        </div>
-                      </div>
+                      <c:if test="${!empty login }">
+	                      <div class="col-xs-12">
+	                        <div class="input-group">
+	                          <div class="input-group-btn">
+	                            <button id="inputReply" class="btn btn-success">입력</button>
+	                          </div>
+	                          <!-- /btn-group -->
+	                          <input id="replyText" type="text" class="form-control">
+	                        </div>
+	                      </div>
+	               	  </c:if>
                     </div>
                     
 				</div>
@@ -307,3 +310,23 @@
 	</div>
 	<!-- /.tab-content -->
 </div>
+
+<script type="text/javascript">
+/* 좋아요 클릭 */
+$('#likeCourt').click(function() {
+	if(id) {
+		var bno = $(this).attr('bno');
+		var ano = $(this).attr('ano');
+		
+		$.get('/boards/' + bno + '/' + ano + '/like?userid=' + id, function(result) {
+			if(result === 'success') {
+				alert('추천했습니다.');					
+			} else {
+				alert('하루에 한 번밖에 추천할 수 없습니다.');
+			}
+		});
+	} else {
+		alert('비회원은 이용할 수 없습니다.');			
+	}
+});
+</script>

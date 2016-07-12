@@ -31,5 +31,8 @@ public interface BoardService {
 	
 	// 베스트 게시글(추천, 조회, 댓글)
 	public Map<String, Object> maximum(Integer bno) throws Exception;
+	
+	// 좋아요 누르기
+	public String likeArticle(String userid, int bno, int ano) throws Exception;
 
 }

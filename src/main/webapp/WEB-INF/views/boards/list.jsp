@@ -100,7 +100,9 @@
 					
 					<div class="row">
 	                  <div class="col-sm-2 col-xs-3">
-	                  	<button id="write" class="btn btn-primary btn-sm">글쓰기</button>
+	                  	<c:if test="${!empty login }">
+	                  		<button id="write" class="btn btn-primary btn-sm">글쓰기</button>
+	                  	</c:if>
 	                  </div>
 	                  
 					  <div class="col-sm-offset-6 col-sm-4 col-md-offset-7 col-md-3 col-xs-9">

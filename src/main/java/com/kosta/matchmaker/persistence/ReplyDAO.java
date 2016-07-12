@@ -24,8 +24,10 @@ public interface ReplyDAO {
 
 	// 본글번호 가져오기 
 	public int getAno(Integer rno) throws Exception;
-
 	
+	// 본 게시판번호 가져오기
+	public int getBno(Integer rno) throws Exception;
+
 	public int listCount(Integer rno) throws Exception;
 	
 }

@@ -14,12 +14,20 @@ import com.kosta.matchmaker.domain.ArticleVO;
 import com.kosta.matchmaker.domain.ReferenceBoardVO;
 import com.kosta.matchmaker.domain.SearchCriteria;
 import com.kosta.matchmaker.persistence.ArticleDAO;
+import com.kosta.matchmaker.persistence.CourtDAO;
+import com.kosta.matchmaker.persistence.UserDAO;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Inject
 	private ArticleDAO dao;
+	
+	@Inject
+	private UserDAO udao;
+	
+	@Inject
+	private CourtDAO cdao;
 
 	// -------------------------- 게시판 등록 -------------------------
 
@@ -165,6 +173,22 @@ public class BoardServiceImpl implements BoardService {
 		map.put("mReply", dao.maximumReply(bno));
 		
 		return map;
+	}
+	
+	@Transactional
+	@Override
+	public String likeArticle(String userid, int bno, int ano) throws Exception {
+		if(udao.checkLike(userid, bno, ano) == 0) {
+			udao.clickLike(userid, bno, ano);
+			
+			if(bno == 101) {
+				cdao.likeCourt(bno, ano);
+			} else {
+				dao.plusLike(bno, ano);
+			}
+			return "success";
+		}
+		return "fail";
 	}
 
 }
