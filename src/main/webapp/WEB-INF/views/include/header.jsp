@@ -32,7 +32,9 @@
 			<nav class="navbar navbar-static-top">
 				<div class="container-fluid">
 					<div class="navbar-header">
-						<a href="/" class="navbar-brand"><b>매치</b>메이커</a>
+						<a href="/" class="navbar-brand">
+							<img alt="" src="/resources/img/MATCHMAKER2logo.png" height="30px">
+						</a>
 						<button type="button" class="navbar-toggle collapsed"
 							data-toggle="collapse" data-target="#navbar-collapse">
 							<i class="fa fa-bars"></i>
@@ -158,8 +160,8 @@
 						<!-- 로그인 안했을때 -->
 						<c:if test="${empty login }">
 							<div class="navbar-form navbar-right">
-								<a class="btn btn-default btn-flat" href="/users/login">로그인</a>
-								<a class="btn btn-info btn-flat" href="/users/join">회원가입</a>
+								<a class="btn btn-default btn-flat" data-toggle="modal" data-target="#loginbox">로그인</a>
+								<a class="btn btn-warning btn-flat" href="/users/join">회원가입</a>
 							</div>
 						</c:if>
 						
@@ -169,6 +171,56 @@
 				<!-- /.container-fluid -->
 			</nav>
 		</header>
+		
+		
+        <div id="loginbox" class="modal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+          	      <img alt="" src="/resources/img/matchmakerlogin.png" width="200px">
+              </div>
+              <div class="modal-body">
+                <div class="login-box-body">
+				
+				    <form action="../../index2.html" method="post">
+				      <div class="form-group has-feedback">
+				        <input type="email" class="form-control" placeholder="Email">
+				        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+				      </div>
+				      <div class="form-group has-feedback">
+				        <input type="password" class="form-control" placeholder="Password">
+				        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+				      </div>
+				      <div class="row">
+				        <!-- /.col -->
+				        <div class="col-sm-6" style="padding-bottom:5px">
+				          <button type="submit" class="btn btn-default btn-block btn-flat">로그인</button>
+				        </div>
+				        <div class="col-sm-6" style="padding-bottom:5px">
+				          <button class="btn btn-warning btn-block btn-flat">회원가입</button>
+				        </div>
+				        <!-- /.col -->
+				      </div>
+				    </form>
+				
+				    <a href="#">비밀번호를 잃어버렸습니다.</a><br>
+				    <a href="register.html" class="text-center">아이디를 찾아주세요.</a>
+				
+				  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+		
+		
 <!-- 읽지 않은 메시지 템플릿 -->
 <script id="msgTemplate" type="text/x-handlebars-template">
 	{{#each .}}

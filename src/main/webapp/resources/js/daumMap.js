@@ -33,10 +33,10 @@ function relayout() {
 /* 다음 지도 API */
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = {
-        center: new daum.maps.LatLng(37.611362040343465, 127.0059800242873), // 지도의 중심좌표
+        center: new daum.maps.LatLng(37.47880193503217, 126.88130982449914), // 지도의 중심좌표
         level: 3, // 지도의 확대 레벨
         mapTypeId : daum.maps.MapTypeId.ROADMAP // 지도종류
-    }; 
+    };
 
 // 지도를 생성한다 
 var map = new daum.maps.Map(mapContainer, mapOption); 

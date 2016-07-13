@@ -4,25 +4,50 @@ body {
 	padding-top: 50px;
 }
 
+.navbar-brand {
+	padding: 10px !important;
+}
+
+.inJumbo {
+	/* width: 100px;
+	height: 100px; */
+	
+	background-color: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+	color: white;
+}
+
 #bg {
-	background-image: url('/resources/img/new-bg.jpg');
+	background-image: url('/resources/img/new-main-bg.png');
 	background-size: cover;
     background-position: center;
-	height: 755px;
+	height: 900px;
 }
 
 #jumbo1 {
-	background-color: #40B2F0;
+	/* background-color: #2D7FAB;  */
+	
+	background-image: url('/resources/img/bg1new.jpg');
+	background-size: cover;
+    background-position: center;
 }
 
 #jumbo2 {
-	background-color: #2D7FAB;
+	/* background-color: #40B2F0; */
 	margin-top: 30px;
+	
+	background-image: url('/resources/img/team1.jpg');
+	background-size: cover;
+    background-position: left top;	
 }
 
 #jumbo3 {
-	background-color: #3AA1D9;
+	/* background-color: #3AA1D9; */
 	margin-top: 30px;
+	
+	background-image: url('/resources/img/bg3new.jpg');
+	background-size: cover;
+    background-position: 50% 40%;
 }
 
 .placeholder {
