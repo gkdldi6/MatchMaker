@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,8 @@ import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.PageMaker;
 import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
+import com.kosta.matchmaker.mail.MailSend;
+import com.kosta.matchmaker.mail.RandomString;
 import com.kosta.matchmaker.service.UserService;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
@@ -174,14 +177,14 @@ public class UserController {
 	}
 	
 	//회원 탈퇴
-		@RequestMapping(value = "/delete", method = RequestMethod.POST)
-		public String deletePost(UserVO user, RedirectAttributes rttr) throws Exception{
-			service.delete(user.getUserid());
-			
-			rttr.addAttribute("result", "deletesuccess");
-			
-			return "redirect:/users/logout";
-		}
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String deletePost(UserVO user, RedirectAttributes rttr) throws Exception{
+		service.delete(user.getUserid());
+		
+		rttr.addAttribute("result", "deletesuccess");
+		
+		return "redirect:/users/logout";
+	}
 	
 	//회원 인증(비밀번호 바꾸기전에 이전 비밀번호 확인)
 	@ResponseBody
@@ -203,10 +206,50 @@ public class UserController {
 		return "users/findPassword";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/findPassword/auth", method = RequestMethod.POST)
+	public String findPasswordAuth(@RequestParam("username") String username,@RequestParam("userid") String userid, 
+			@RequestParam("email") String email) throws Exception{
+		
+		UserVO user = service.findPassword(username, userid, email);
+		if(user !=null){
+			RandomString random = new RandomString();
+			String newPass = random.RandumPass(6);
+			
+			MailSend mailsend = new MailSend();
+			mailsend.sendMail(email, newPass);
+
+			System.out.println(email);
+			System.out.println(newPass);
+			
+			user.setUserpw(newPass);
+			service.update(user);
+			
+			
+			return "success";
+		}
+		return "fail";
+	}
+	
+	
 	//아이디 찾기
 	@RequestMapping(value = "/findId", method =RequestMethod.GET)
 	public String findId(){
 		return "users/findId";
+	}
+	
+	//아이디 찾기
+	@ResponseBody
+	@RequestMapping(value = "/findId/auth", method = RequestMethod.POST)
+	public String findIdAuth(@RequestParam("username") String username, @RequestParam("email") String email) throws Exception{
+		
+		UserVO user = service.findId(username, email);
+		
+		if(user !=null){
+			return user.getUserid();
+		}
+		return "fail";
+		
 	}
 	
 }

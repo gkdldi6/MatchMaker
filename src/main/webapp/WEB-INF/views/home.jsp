@@ -34,8 +34,8 @@
 				</form>
 				
 				<br>
-				<a href="#">비밀번호를 잃어버렸어요.</a><br> 
-				<a href="register.html" class="text-center">아이디를 잃어버렸어요.</a>
+				<a href="users/findPassword">비밀번호를 잃어버렸어요.</a><br> 
+				<a href="users/findId" class="text-center">아이디를 잃어버렸어요.</a>
 
 			</div>
 		</div>

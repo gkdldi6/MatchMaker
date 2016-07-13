@@ -1,4 +1,4 @@
-package com.kosta.matchmaker.maill;
+package com.kosta.matchmaker.mail;
 
 import java.util.Date;
 import java.util.Properties;
@@ -13,7 +13,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class MailSend {
-	public String sendMail(String toEmail,String authNum) throws Exception {
+	public String sendMail(String toEmail,String tempPass) throws Exception {
 		//인증번호(4자리) 생성
 		
 		Properties p = System.getProperties();
@@ -36,13 +36,13 @@ public class MailSend {
 		msg.setFrom(from);
 		
 		// 이메일 내용
-		String message = "인증번호 " + "[" + authNum + "]";
+		String message = "임시 비밀번호 " + "[" + tempPass + "]";
 
 		// 이메일 수신자
 		InternetAddress to = new InternetAddress(toEmail);
 		msg.setRecipient(Message.RecipientType.TO, to);
 		// 이메일 제목
-		msg.setSubject("MatchMaker 인증번호", "UTF-8");
+		msg.setSubject("MatchMaker 임시 비밀번호", "UTF-8");
 		// 이메일 내용
 		msg.setText(message, "UTF-8");
 		// 이메일 헤더
@@ -52,7 +52,7 @@ public class MailSend {
 		System.out.println("메일 전송 완료");
 		System.out.println(message);
 
-		return authNum;
+		return tempPass;
 	}
 
 }
