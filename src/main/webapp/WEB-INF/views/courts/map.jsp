@@ -143,6 +143,54 @@
      </div>
    </div>
 </div>
+<!-- 접속 목록 템플릿 -->
+<script id="contactsTemplate" type="text/x-handlebars-template">
+{{#each .}}
+<li uid="{{uid}}">
+	<a href="#"> 
+		<img class="contacts-list-img" src="../dist/img/user1-128x128.jpg" alt="User Image">
+		<div class="contacts-list-info">
+			<span class="contacts-list-name"> {{name}} 
+				<small class="contacts-list-date pull-right">{{leader}}</small>
+			</span> 
+			<span class="contacts-list-msg">{{uid}}</span>
+		</div> 
+	</a>
+</li>
+{{/each}}
+</script>
+<!-- 알림 메시지 템플릿 -->
+<script id="calloutTemplate" type="text/x-handlebars-template">
+              <div class="callout {{class}}">
+                <p>{{name}}({{id}}){{msg}}</p>
+              </div>
+</script>
+<!-- 다른 사람들 메시지 템플릿 -->
+<script id="otherMsgTemplate" type="text/x-handlebars-template">
+                <div class="direct-chat-msg">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-left">{{name}}</span>
+                    <span class="direct-chat-timestamp pull-right">{{id}}</span>
+                  </div>
+                  <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                  <div class="direct-chat-text" style="min-height:30px">
+                    {{msg}}
+                  </div>
+                </div>
+</script>
+<!-- 내 메시지 템플릿 -->
+<script id="myMsgTemplate" type="text/x-handlebars-template">
+                <div class="direct-chat-msg right">
+                  <div class="direct-chat-info clearfix">
+                    <span class="direct-chat-name pull-right">{{name}}</span>
+                    <span class="direct-chat-timestamp pull-left">{{id}}</span>
+                  </div>
+                  <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                  <div class="direct-chat-text" style="min-height:30px">
+                    {{msg}}
+                  </div>
+                </div>
+</script>
 <!-- 코트 템플릿 -->
 <script id="courtTemplate" type="text/x-handlebars-template">
 	{{#each .}}

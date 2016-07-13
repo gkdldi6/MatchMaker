@@ -269,17 +269,18 @@
 
 					<!-- 접속한 인원들 -->
 					<div class="direct-chat-contacts">
-					  	<div id="waitUserlist"></div>
+                		<ul id="waitUserlist" class="contacts-list">
+					  	</ul>
 						<div id="roomUserlist">
 							<div>
 								<span><b>Home</b></span>
-								<div class="home">
-								</div>
+								<ul class="home contacts-list">
+								</ul>
 							</div>							
 							<div>
 								<span><b>Away</b></span>
-								<div class="away">
-								</div>
+								<ul class="away contacts-list">
+								</ul>
 							</div>
 						</div>
 					</div>

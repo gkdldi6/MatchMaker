@@ -3118,7 +3118,8 @@ table.text-center th {
     transform: translate(0, 0);
     padding: 10px;
     height: 250px;
-    overflow: auto
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .direct-chat-msg,

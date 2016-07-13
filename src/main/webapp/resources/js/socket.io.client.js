@@ -28,6 +28,11 @@ function scrollAuto(isOn) {
 function sendPrivateMsg() {
 	var msg = message.val();
 	
+	if(msg === '') {
+		alert('메시지를 입력해주세요.');
+		return;
+	}
+	
 	var start = msg.indexOf('@$') + 2;
 	var end = msg.indexOf('$@');
 	
@@ -57,9 +62,33 @@ message.keypress(function(event) {
 	}
 });
 
-/*메시지 수신*/
+/*다른 사람들 메시지 수신*/
 socket.on('message', function(msg) {
-	msgbox.append(msg + '<br>');
+	var templateObj = $('#otherMsgTemplate');
+	var template = Handlebars.compile(templateObj.html());
+	var html = template(msg);
+	
+	msgbox.append(html);
+	scrollAuto();
+});
+
+/*내 메시지 수신*/
+socket.on('myMsg', function(msg) {
+	var templateObj = $('#myMsgTemplate');
+	var template = Handlebars.compile(templateObj.html());
+	var html = template(msg);
+	
+	msgbox.append(html);
+	scrollAuto();
+});
+
+/*알림 메시지 수신*/
+socket.on('callout', function(msg) {
+	var templateObj = $('#calloutTemplate');
+	var template = Handlebars.compile(templateObj.html());
+	var html = template(msg);
+	
+	msgbox.append(html);
 	scrollAuto();
 });
 
@@ -75,9 +104,13 @@ socket.on('userlist', function(userlist) {
 		userbox.show();
 		
 		userbox.html('');
-		for(i in userlist) {
-			userbox.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
-		};
+	
+			var templateObj = $('#contactsTemplate');
+			var template = Handlebars.compile(templateObj.html());
+			var html = template(userlist);
+			
+			userbox.append(html);
+			
 		return;
 	}
 	
@@ -87,15 +120,26 @@ socket.on('userlist', function(userlist) {
 	home.html('');
 	away.html('');
 	
+	var homelist = new Array();
+	var awaylist = new Array();
+	
 	for(i in userlist) {
 		if(userlist[i].team === 'home') {
-			home.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
+			homelist.push(userlist[i]);
+			
 		} else if(userlist[i].team === 'away') {
-			away.append('<div uid="' + userlist[i].uid + '">' + userlist[i].name + '(' + userlist[i].uid + ')</div>');
-		} else {
-			console.log('아무것도 아님');
-		}
+			awaylist.push(userlist[i]);
+			
+		} 
 	}
+	
+	var templateObj = $('#contactsTemplate');
+	var template = Handlebars.compile(templateObj.html());
+	var hometeam = template(homelist);
+	var awayteam = template(awaylist);
+	
+	home.html(hometeam);
+	away.html(awayteam);
 });
 
 /*방 만들기 */
@@ -121,21 +165,33 @@ $('#create').click(function() {
 /*방 접속하는 인원 정보 받기*/
 socket.on('enterroom', function(user) {
 	if(user.roomno === 'waitroom') {
-		userbox.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
+		var templateObj = $('#contactsTemplate');
+		var template = Handlebars.compile(templateObj.html());
+		var html = template([user]);
+		
+		userbox.append(html);
 		return;
 	}
 	
 	if(user.team === 'home') {
-		home.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
+		var templateObj = $('#contactsTemplate');
+		var template = Handlebars.compile(templateObj.html());
+		var html = template([user]);
+		
+		home.append(html);
 	} else {
-		away.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
+		var templateObj = $('#contactsTemplate');
+		var template = Handlebars.compile(templateObj.html());
+		var html = template([user]);
+		
+		away.append(html);
 	}
 });
 
 /*방 나가는 인원 정보 받기*/
 socket.on('exitroom', function(user) {
 	if(user.roomno !== 'waitroom') {
-		userbox.find('div').each(function() {
+		userbox.find('li').each(function() {
 			var userid = $(this).attr('uid');
 			if(userid === user.uid) {
 				$(this).remove();
@@ -152,7 +208,7 @@ socket.on('exitroom', function(user) {
 		position = away;
 	}
 	
-	position.find('div').each(function() {
+	position.find('li').each(function() {
 		var userid = $(this).attr('uid');
 		if(userid === user.uid) {
 			$(this).remove();
@@ -266,7 +322,39 @@ $('#teamChange').click(function() {
 });
 
 socket.on('teamChange', function(user) {
-	var position;
+	if(user.team !== 'home') {
+		home.find('li').each(function() {
+			var userid = $(this).attr('uid');
+			if(userid === user.uid) {
+				$(this).remove();
+			};
+		});
+		
+		var templateObj = $('#contactsTemplate');
+		var template = Handlebars.compile(templateObj.html());
+		var html = template([user]);
+		
+		away.append(html);
+	} else {
+		away.find('li').each(function() {
+			var userid = $(this).attr('uid');
+			if(userid === user.uid) {
+				$(this).remove();
+			};
+		});
+		
+		var templateObj = $('#contactsTemplate');
+		var template = Handlebars.compile(templateObj.html());
+		var html = template([user]);
+		
+		home.append(html);
+	}
+	
+	
+	
+	
+	
+	/*var position;
 	
 	if(user.team !== 'home') {
 		position = home;
@@ -274,7 +362,7 @@ socket.on('teamChange', function(user) {
 		position = away;
 	}
 	
-	position.find('div').each(function() {
+	position.find('li').each(function() {
 		var userid = $(this).attr('uid');
 		if(userid === user.uid) {
 			$(this).remove();
@@ -288,7 +376,7 @@ socket.on('teamChange', function(user) {
 		position = away;
 	}
 	
-	position.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');
+	position.append('<div uid="' + user.uid + '">' + user.name + '(' + user.uid + ')</div>');*/
 });
 
 /*방 예약 버튼 생성*/
