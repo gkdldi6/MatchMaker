@@ -84,19 +84,34 @@
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-                  <input type="number" class="form-control" id="inputCno" placeholder="사용할 코트를 입력해주세요.">
+                  <input type="text" class="form-control" id="inputCname" readonly="readonly">
+                </div>
+				<div class="form-group">
+                  <input type="hidden" class="form-control" id="inputCno">
                 </div>
 				<div class="form-group">
                   <input type="text" class="form-control" id="inputRname" placeholder="생성할 게임방의 이름을 입력해주세요.">
                 </div>
                 <div class="form-group">
-                  <input type="number" class="form-control" id="inputUsercnt" placeholder="최대 인원을 입력해주세요.">
+                  <select id="inputUsercnt">
+                  	<option value="2" selected="selected">1:1</option>
+                  	<option value="4">2:2</option>
+                  	<option value="6">3:3</option>
+                  	<option value="8">4:4</option>
+                  	<option value="10">5:5</option>
+                  </select>
+                  <!-- <input type="number" class="form-control" id="inputUsercnt" placeholder="최대 인원을 입력해주세요."> -->
                 </div>
                 <div class="form-group">
                 	<input type="text" class='datetimepicker form-control' id="inputBegintime" placeholder="예약 날짜 및 시간을 선택해주세요.">
                 </div>
                 <div class="form-group">
-					<input type="number" class="form-control" id="inputEndtime" placeholder="사용 시간을 입력해주세요.">                	
+	              <select id="inputEndtime">
+                  	<option value="30" selected="selected">30분</option>
+                  	<option value="60">60분</option>
+                  	<option value="90">90분</option>
+                  </select>
+					<!-- <input type="number" class="form-control" id="inputEndtime" placeholder="사용 시간을 입력해주세요."> -->                	
                 </div>
 			</div>
 			<div class="modal-footer">
@@ -148,7 +163,7 @@
 {{#each .}}
 <li uid="{{uid}}">
 	<a href="#"> 
-		<img class="contacts-list-img" src="../dist/img/user1-128x128.jpg" alt="User Image">
+		<img class="contacts-list-img" src="/resources/img/user.jpg" alt="User Image">
 		<div class="contacts-list-info">
 			<span class="contacts-list-name"> {{name}} 
 				<small class="contacts-list-date pull-right">{{leader}}</small>
@@ -172,7 +187,7 @@
                     <span class="direct-chat-name pull-left">{{name}}</span>
                     <span class="direct-chat-timestamp pull-right">{{id}}</span>
                   </div>
-                  <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                  <img class="direct-chat-img" src="/resources/img/user.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
                   <div class="direct-chat-text" style="min-height:30px">
                     {{msg}}
                   </div>
@@ -185,7 +200,7 @@
                     <span class="direct-chat-name pull-right">{{name}}</span>
                     <span class="direct-chat-timestamp pull-left">{{id}}</span>
                   </div>
-                  <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
+                  <img class="direct-chat-img" src="/resources/img/user.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
                   <div class="direct-chat-text" style="min-height:30px">
                     {{msg}}
                   </div>
@@ -229,7 +244,8 @@
 				<span>현재 접속중인 회원:</span><span class="rusers"></span>
 			</div>
 			<div class="box-footer" style="border-top:0px">
-				<button id="join" type="button" class="btn btn-primary btn-flat">참가</button>
+				<button id="join" type="button" class="btn bg-orange btn-xs">참가</button>
+				<button id="rcourt" cno="{{cno}}" type="button" class="pull-right btn btn-success btn-xs">코트 보기</button>
 			</div>
 		</div>
 	{{/each}}

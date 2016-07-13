@@ -142,6 +142,15 @@ socket.on('userlist', function(userlist) {
 	away.html(awayteam);
 });
 
+/*방 만들기 버튼 클릭*/
+$('#makeRoom').click(function() {
+	var cname = $(this).parents('.box-widget').find('#cname').text();
+	var cno = $(this).parents('.box-widget').find('#cno').text();
+	
+	$('#inputCname').val(cname);
+	$('#inputCno').val(cno);
+});
+
 /*방 만들기 */
 $('#create').click(function() {
 	var begintime = new Date($('#inputBegintime').val());
@@ -227,6 +236,18 @@ $('#roomSpace').on('click', '#join', function() {
 /*방 접속 이벤트*/
 socket.on('join', function(msg) {
 	room = msg;
+	
+	if(room.leader === id) {
+		$('#room-name').text(msg.rname);
+		$('a[href="#tab_1"]').parent('li').removeClass('active');
+		$('a[href="#tab_2"]').parent('li').css('display', 'none');
+		$('a[href="#tab_3"]').parent('li').addClass('active');
+		$('#tab_0').removeClass('active');
+		$('#tab_3').addClass('active');
+		$('#exit-btn-group').show();
+		scrollAuto();
+	}
+	
 	$('#room-name').text(msg.rname);
 	$('a[href="#tab_2"]').parent('li').removeClass('active');
 	$('a[href="#tab_2"]').parent('li').css('display', 'none');
@@ -272,9 +293,9 @@ socket.on('detail', function(msg) {
 		if(roomno == msg.roomno) {
 			$(this).parents('.eachRoom').find('.ruserscnt').text(msg.ruserscnt);
 			
-			var output = '' + msg.rusers[0].name;
+			var output = '' + msg.rusers[0].uid;
 			for(var i = 1; i < msg.rusers.length; i++) {
-				output += ', ' + msg.rusers[i].name;
+				output += ', ' + msg.rusers[i].uid;
 			}
 			$(this).parents('.eachRoom').find('.rusers').text(output);
 			return;

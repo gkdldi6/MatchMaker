@@ -97,34 +97,29 @@
 						        <li class="dropdown notifications-menu">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						            <i class="fa fa-bell-o"></i>
-						            <span class="label label-warning">10</span>
+						            <span class="label label-warning gamecnt"></span>
 						          </a>
 						          <ul class="dropdown-menu">
-						            <li class="header">You have 10 notifications</li>
+						            <li class="header">종료되지 않은 게임이 <span class="gamecnt"></span>개 있습니다.</li>
 						            <li>
 						              <!-- inner menu: contains the actual data -->
-						              <ul class="menu">
-						                <li>
-						                  <a href="#">
-						                    <i class="ion ion-ios-people info"></i> Notification title
-						                  </a>
-						                </li>
-						                	<!-- 예약된 게임 목록 -->
+						              <ul class="menu gamelist">
+										<!-- 게임 목록 -->
 						              </ul>
 						            </li>
-						            <li class="footer"><a href="#">모든 게임 보기</a></li>
+						            <li class="footer"><a href="/users/${login.userid }">모든 게임 보기</a></li>
 						          </ul>
 						        </li>
 						        <!-- User Account: style can be found in dropdown.less -->
 						        <li class="dropdown user user-menu">
 						          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+						            <img src="/resources/img/user.jpg" class="user-image" alt="User Image">
 						            <span class="hidden-xs">${login.userid}</span>
 						          </a>
 						          <ul class="dropdown-menu">
 						            <!-- User image -->
 						            <li class="user-header">
-						              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+						              <img src="/resources/img/user.jpg" class="img-circle" alt="User Image">
 						              <p>
 						                ${login.userid } - ${login.username }
 						                <small>${login.regdate }</small>
@@ -172,7 +167,7 @@
 			</nav>
 		</header>
 		
-		
+		<!-- 로그인 창 -->
         <div id="loginbox" class="modal">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -183,36 +178,27 @@
               </div>
               <div class="modal-body">
                 <div class="login-box-body">
-				
-				    <form action="../../index2.html" method="post">
-				      <div class="form-group has-feedback">
-				        <input type="email" class="form-control" placeholder="Email">
-				        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-				      </div>
-				      <div class="form-group has-feedback">
-				        <input type="password" class="form-control" placeholder="Password">
-				        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-				      </div>
-				      <div class="row">
-				        <!-- /.col -->
-				        <div class="col-sm-6" style="padding-bottom:5px">
-				          <button type="submit" class="btn btn-default btn-block btn-flat">로그인</button>
-				        </div>
-				        <div class="col-sm-6" style="padding-bottom:5px">
-				          <button class="btn btn-warning btn-block btn-flat">회원가입</button>
-				        </div>
-				        <!-- /.col -->
-				      </div>
-				    </form>
-				
+				    <form action="/users/loginPost" method="post">
+					<div class="form-group has-feedback">
+						<input type="text" class="form-control" placeholder="아이디" name="userid">
+						<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+					</div>
+					<div class="form-group has-feedback">
+						<input type="password" class="form-control" placeholder="비밀번호" name="userpw">
+						<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+					</div>
+					<div class="row">
+						<div class="col-sm-6" style="padding-bottom:5px">
+							<button type="submit" class="btn btn-default btn-block btn-flat">로그인</button>
+						</div>
+						<div class="col-sm-6" style="padding-bottom:5px">
+							<a class="btn bg-orange btn-block btn-flat" href="/users/join">가입하기</a>
+						</div>
+					</div>
+				</form>
 				    <a href="/users/findPassword">비밀번호를 잃어버렸어요.</a><br> 
 					<a href="/users/findId" class="text-center">아이디를 잃어버렸어요.</a>
-
-				
 				  </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -221,14 +207,24 @@
         </div>
         <!-- /.modal -->
 		
-		
+	
+<!-- 종료되지 않은 내 게임 목록 템플릿 -->
+<script id="myGameTemplate" type="text/x-handlebars-template">
+{{#each .}}
+<li>
+	<a href="#" mno="{{mno}}">
+		<span class="label bg-green">{{state}}</span> {{mname}}
+	</a>
+</li>
+{{/each}}
+</script>									
 <!-- 읽지 않은 메시지 템플릿 -->
 <script id="msgTemplate" type="text/x-handlebars-template">
 	{{#each .}}
 		<li>
 		  <a onclick="msgOpen({{mno}})">
 		    <div class="pull-left">
-		      <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+		      <img src="/resources/img/user.jpg" class="img-circle" alt="User Image">
  	  	    </div>
             <h4>
 		      {{sender}}
@@ -250,6 +246,7 @@
 			var msgid = '${login.userid}'; 
 			
 			getNotReadMsg();
+			getMyGame();
 			
 			Handlebars.registerHelper("date", function(timeValue) {
 				var dateObj = new Date(timeValue);
@@ -266,6 +263,21 @@
 					
 					var templateObj = $('#msgTemplate');
 					var target = $('#msg');
+					
+					var template = Handlebars.compile(templateObj.html());
+					var html = template(data);
+
+					target.html(html);
+				});
+			};
+			
+			function getMyGame() {
+				$.getJSON('/courts/myGames?userid=' + id, function(data) {
+					var gamecnt = data.length;
+					$('.gamecnt').text(gamecnt);
+					
+					var templateObj = $('#myGameTemplate');
+					var target = $('.gamelist');
 					
 					var template = Handlebars.compile(templateObj.html());
 					var html = template(data);

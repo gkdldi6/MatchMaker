@@ -86,6 +86,40 @@ public class CourtController {
 		return entity;
 	}
 	
+	/*내 게임 목록 조회*/
+	@RequestMapping(value="/myGames", method=RequestMethod.GET)
+	public ResponseEntity<List<MatchDTO>> getMyGames(@RequestParam("userid") String userid) {
+		
+		ResponseEntity<List<MatchDTO>> entity = null;
+		
+		try {
+			List<MatchDTO> list = service.getMyMatch(userid);
+			entity = new ResponseEntity<List<MatchDTO>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<MatchDTO>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	/*내 모든 게임 목록 조회*/
+	@RequestMapping(value="/allMyGames", method=RequestMethod.GET)
+	public ResponseEntity<List<MatchDTO>> getAllMyGames(@RequestParam("userid") String userid) {
+		
+		ResponseEntity<List<MatchDTO>> entity = null;
+		
+		try {
+			List<MatchDTO> list = service.getMyMatch2(userid);
+			entity = new ResponseEntity<List<MatchDTO>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<MatchDTO>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
 	/*1개의 게임 조회*/
 	@RequestMapping(value="/games/{mno}", method=RequestMethod.GET)
 	public ResponseEntity<MatchDTO> getGame(@PathVariable("mno") int mno) {

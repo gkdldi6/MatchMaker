@@ -222,6 +222,8 @@ function displayMarker(position, content, cno) {
 			replyPage = 1;
 			getReply();
 			
+			$('#findWay').attr('lat', data.lat);
+			$('#findWay').attr('lng', data.lng);
 			$('#cno').text(data.cno);
 			$('#cname').text(data.title);
 			$('#address').text(data.address);
@@ -237,8 +239,10 @@ function displayMarker(position, content, cno) {
 		});
 	};
 	
-	$('#likeCourt').click(function() {
-		// 좋아요
+	/*생성된 방에서 코트 보기 클릭*/
+	$('#rcourt').click(function() {
+		var cno = $(this).attr('cno');
+		getCourt(cno);
 	});
 	
 	/*생성된 마커를 지운다.*/
@@ -902,3 +906,12 @@ function printPaging(pageMaker) {
 	}
 	$('.pagination').html(str);
 };
+
+// 길찾기
+$('#findWay').click(function() {
+	var cname = $(this).parents('.box-widget').find('#cname').text();
+	var lat = $(this).attr('lat');
+	var lng = $(this).attr('lng');
+	
+	window.open('http://map.daum.net/link/to/' + cname + ',' + lat + ',' + lng, 'new');
+});

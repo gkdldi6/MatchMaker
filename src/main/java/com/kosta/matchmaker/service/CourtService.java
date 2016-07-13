@@ -18,6 +18,12 @@ public interface CourtService {
 	// 모든 게임 가져오기
 	public List<MatchDTO> getMatches(GameSearchDTO dto) throws Exception;
 	
+	// 내 게임 가져오기
+	public List<MatchDTO> getMyMatch(String userid) throws Exception;
+	
+	// 내 게임 가져오기
+	public List<MatchDTO> getMyMatch2(String userid) throws Exception;
+	
 	// 1개 코트 정보 가져오기
 	public CourtVO getCourt(int cno) throws Exception;
 	

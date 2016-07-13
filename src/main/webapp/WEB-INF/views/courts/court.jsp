@@ -6,9 +6,10 @@
 	<ul class="nav nav-tabs">
 	
 		<li class="active"><a href="#tab_1" data-toggle="tab">검색</a></li>
-		<li><a href="#tab_2" data-toggle="tab">방목록</a></li>
-		<li><a href="#tab_3" data-toggle="tab">대화방</a></li>
-		
+		<c:if test="${!empty login }">	
+			<li><a href="#tab_2" data-toggle="tab">방목록</a></li>
+			<li><a href="#tab_3" data-toggle="tab">대화방</a></li>
+		</c:if>
 		<li class="pull-right">
 			<i type="button" class="close" style="margin-top:8px;margin-right:8px" onclick="closeSbar()">&times;</i>
 		</li>
@@ -80,7 +81,13 @@
 				<div class="box-body">
 
 					<!-- <img alt="코트 사진" width="200" height="200"></img> -->
-					<div class="pull-right"><button type="button" class="back btn btn-default btn-xs"><i class="fa fa-reply"></i> 뒤로 </button></div>
+					<div class="pull-right">
+						<c:if test="${!empty login }">
+							<button id="makeRoom" data-target="#createRoom" data-toggle="modal" class="btn bg-orange btn-xs">방 만들기</button>
+						</c:if>
+						<button lat lng id="findWay" class="btn bg-purple btn-xs">길 찾기</button>
+						<button type="button" class="back btn btn-default btn-xs"><i class="fa fa-reply"></i> 뒤로 </button>
+					</div>
 					<p><b>코트 상세</b></p>
 					<p id="ccontent"></p>
 					<!-- Social sharing buttons -->
@@ -121,18 +128,19 @@
 		
 		<div class="tab-pane active" id="tab_1">
 			<div id="search-header" class="row" style="padding-left:15px;padding-right:15px">
+				
+				<div style="padding-bottom:5px">
+					<button id="getAll" class="btn btn-danger btn-sm">전체 검색</button>
+				   	<button id="detail" class="btn btn-primary btn-sm">상세 검색</button>
+				   	<button id="date-search" class="btn btn-success btn-sm">날짜 검색</button>
+				</div>
+				
 				<div style="padding-bottom:5px">
 			      <select id="court-search" class="form-control">
 			        <option value="C" selected="selected">코트</option>
 			        <option value="G">게임</option>
 			      </select>
 			    </div>
-			    
-			   	<button id="getAll">전체 검색</button>
-			   	
-			   	<button id="detail">상세 검색</button>
-			   	
-			   	<button id="date-search">날짜 검색</button>
 			   	
 			   	<div id="date-space" hidden>
 					<p>예약기간: <input type="text" id="datepicker1"> ~ <input type="text" id="datepicker2"></p>
@@ -204,9 +212,6 @@
 				<div class="box-header">
 					<h3 class="box-title">생성된 방 목록</h3>
 					<button id="getRooms" type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-					<div class="pull-right">
-						<button data-target="#createRoom" data-toggle="modal" type="button" class="btn btn-warning btn-flat">만들기</button>
-					</div>
 				</div>
 				<!-- /.box-header -->
 				
@@ -216,7 +221,21 @@
 				<!-- 방 생성 공간 끝 -->
 				
 				<div class="box-footer" style="border-top:0px">
-					<div>
+					<div>기간: <input type="text" id="datepicker3"> ~ <input type="text" id="datepicker4"></div>
+					
+					<div class="row" style="padding-top:5px">
+					
+					<div class=" col-xs-9" style="padding-right:0px">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<button id="search-room" type="button" class="btn btn-danger">검색</button>
+						</div>
+						<!-- /btn-group -->
+						<input id="room-keyword" type="text" class="form-control">
+					</div>
+					</div>
+					
+					<div class="col-xs-3"style="padding-left:5px">
 						<select id="detail-room">
 							<option value="rname" selected="selected">방 이름</option>
 							<option value="ruser">접속 회원</option>
@@ -224,14 +243,8 @@
 							<option value="usercnt">게임 종류</option>
 							<option value="time">기간</option>										
 						</select>
-						<div>기간: <input type="text" id="datepicker3"> ~ <input type="text" id="datepicker4"></div>
 					</div>
-					<div class="input-group">
-						<div class="input-group-btn">
-							<button id="search-room" type="button" class="btn btn-danger">검색</button>
-						</div>
-						<!-- /btn-group -->
-						<input id="room-keyword" type="text" class="form-control">
+					
 					</div>
 				</div>
 			</div>

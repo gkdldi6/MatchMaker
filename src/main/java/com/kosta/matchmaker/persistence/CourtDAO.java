@@ -24,6 +24,12 @@ public interface CourtDAO {
 	// 1개 게임 정보 가져오기
 	public MatchDTO getMatch(Integer mno) throws Exception;
 	
+	// 내 종료되지 않은 게임 정보 가져오기
+	public List<MatchDTO> getMyMatch(String userid) throws Exception;
+	
+	// 내 모든 게임 정보 가져오기
+	public List<MatchDTO> getMyMatch2(String userid) throws Exception;
+	
 	// 모든 게임 정보 가져오기
 	public List<MatchDTO> getMatches(GameSearchDTO dto) throws Exception;
 	

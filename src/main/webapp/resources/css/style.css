@@ -18,10 +18,17 @@ body {
 }
 
 #bg {
-	background-image: url('/resources/img/new-main-bg.png');
+/* 	background-image: url('/resources/img/new-main-bg.jpg'); */
+	background-image: url('/resources/img/basic.jpg');
 	background-size: cover;
     background-position: center;
-	height: 900px;
+    height: 505px;
+}   
+
+@media (min-width: 768px) { 
+	#bg {
+        height: 905px;
+    }
 }
 
 #jumbo1 {

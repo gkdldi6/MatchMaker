@@ -71,7 +71,6 @@ public class AdminController {
 	@RequestMapping(value = "/adminview", method = RequestMethod.GET)
 	public void getAdmin(@ModelAttribute("cri") SearchCriteria cri, @ModelAttribute("userid") String userid,
 			Model model) throws Exception {
-		//System.out.println("호날두ㅅㅅ");
 		List<UserVO> userlist = service.selectList(cri);
 		int usercount = service.countUser();
 

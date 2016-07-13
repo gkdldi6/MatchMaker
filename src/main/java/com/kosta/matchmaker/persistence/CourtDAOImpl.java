@@ -124,4 +124,14 @@ public class CourtDAOImpl implements CourtDAO {
 		session.update(namespace + ".ratePlayer", dto);
 	}
 
+	@Override
+	public List<MatchDTO> getMyMatch(String userid) throws Exception {
+		return session.selectList(namespace + ".getMyMatch", userid);
+	}
+	
+	@Override
+	public List<MatchDTO> getMyMatch2(String userid) throws Exception {
+		return session.selectList(namespace + ".getMyMatch2", userid);
+	}
+
 }

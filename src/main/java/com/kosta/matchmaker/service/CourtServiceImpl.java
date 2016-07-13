@@ -78,4 +78,14 @@ public class CourtServiceImpl implements CourtService {
 		dao.ratePlayer(dto);
 	}
 
+	@Override
+	public List<MatchDTO> getMyMatch(String userid) throws Exception {
+		return dao.getMyMatch(userid);
+	}
+	
+	@Override
+	public List<MatchDTO> getMyMatch2(String userid) throws Exception {
+		return dao.getMyMatch2(userid);
+	}
+
 }
