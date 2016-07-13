@@ -21,6 +21,8 @@ import com.kosta.matchmaker.domain.LoginDTO;
 import com.kosta.matchmaker.domain.PageMaker;
 import com.kosta.matchmaker.domain.PlayerVO;
 import com.kosta.matchmaker.domain.UserVO;
+import com.kosta.matchmaker.mail.MailSend;
+import com.kosta.matchmaker.mail.RandomString;
 import com.kosta.matchmaker.service.UserService;
 
 import net.tanesha.recaptcha.ReCaptchaResponse;
@@ -198,15 +200,55 @@ public class UserController {
 	}
 	
 	//비밀번호 찾기
-	@RequestMapping(value = "/findPassword", method =RequestMethod.GET)
-	public String findPassword(){
-		return "users/findPassword";
-	}
-	
-	//아이디 찾기
-	@RequestMapping(value = "/findId", method =RequestMethod.GET)
-	public String findId(){
-		return "users/findId";
-	}
+		@RequestMapping(value = "/findPassword", method =RequestMethod.GET)
+		public String findPassword(){
+			return "users/findPassword";
+		}
+		
+		@ResponseBody
+		@RequestMapping(value = "/findPassword/auth", method = RequestMethod.POST)
+		public String findPasswordAuth(@RequestParam("username") String username,@RequestParam("userid") String userid, 
+				@RequestParam("email") String email) throws Exception{
+			
+			UserVO user = service.findPassword(username, userid, email);
+			if(user !=null){
+				RandomString random = new RandomString();
+				String newPass = random.RandumPass(6);
+				
+				MailSend mailsend = new MailSend();
+				mailsend.sendMail(email, newPass);
+
+				System.out.println(email);
+				System.out.println(newPass);
+				
+				user.setUserpw(newPass);
+				service.update(user);
+				
+				
+				return "success";
+			}
+			return "fail";
+		}
+		
+		
+		//아이디 찾기
+		@RequestMapping(value = "/findId", method =RequestMethod.GET)
+		public String findId(){
+			return "users/findId";
+		}
+		
+		//아이디 찾기
+		@ResponseBody
+		@RequestMapping(value = "/findId/auth", method = RequestMethod.POST)
+		public String findIdAuth(@RequestParam("username") String username, @RequestParam("email") String email) throws Exception{
+			
+			UserVO user = service.findId(username, email);
+			
+			if(user !=null){
+				return user.getUserid();
+			}
+			return "fail";
+			
+		}
 	
 }

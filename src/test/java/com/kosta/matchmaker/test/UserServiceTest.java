@@ -10,10 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kosta.matchmaker.domain.UserVO;
-import com.kosta.matchmaker.maill.MailSend;
-import com.kosta.matchmaker.maill.RandomNumber;
+import com.kosta.matchmaker.mail.MailSend;
+import com.kosta.matchmaker.mail.RandomString;
 import com.kosta.matchmaker.service.UserService;
-import com.kosta.matchmaker.util.work.crypt.BCrypt;
 import com.kosta.matchmaker.util.work.crypt.SHA256;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,9 +27,9 @@ public class UserServiceTest {
 	@Test
 	public void findId() throws Exception{
 		
-		RandomNumber random = new RandomNumber();
+		RandomString random = new RandomString();
 		
-		String authNum = random.RandumNuber();
+		String authNum = random.RandumPass(6);
 		
 		String username = "user00";
 		String email = "sunjoong91@naver.com";
@@ -56,9 +55,9 @@ public class UserServiceTest {
 	
 	@Test
 	public void findPassword() throws Exception{
-		RandomNumber random = new RandomNumber();
 		
-		String authNum = random.RandumNuber();
+		RandomString random = new RandomString();
+		String authNum = random.RandumPass(6);
 		
 		String username = "1234";
 		String email = "1234@adfasd.com";

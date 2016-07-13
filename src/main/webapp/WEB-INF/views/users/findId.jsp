@@ -1,12 +1,90 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+	pageEncoding="UTF-8"%>
 
-</body>
-</html>
+<head>
+    <meta charset="UTF-8">
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    
+    <!-- 내가 만든 css -->
+	<link href="/resources/css/style.css" rel="stylesheet" type="text/css" />    
+    <!-- Bootstrap 3.3.4 -->
+    <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="/resources/dist/css/AdminLTE.custom.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+    <link href="/resources/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="/resources/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+    <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    
+    <title>매치메이커</title>
+  </head>s
+
+
+<style type="text/css">
+.container {
+	margin-top: 50px;
+}
+</style>
+
+<div class="container">
+	<form name="form" class="form-horizontal">
+		<fieldset>
+
+			<legend>아이디 찾기</legend>
+
+			<div class="form-group">
+				<label for="inputId" class="col-lg-2 control-label">이름</label>
+				<div class="col-lg-10">
+					<input type="text" name="username" class="form-control" id="username"
+						placeholder="아이디를 입력해주세요." required></input>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
+				<div class="col-lg-10">
+					<input type="email" name="email" class="form-control" id="email"
+						placeholder="이메일을 입력해주세요."  required> 
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<div class="col-lg-10 col-lg-offset-2">
+					<a id ="auth" class="btn btn-primary btn-flat">인증</a>   
+					<a class="btn btn-default btn-flat" onclick="history.go(-1);">취소</a>
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
+
+<script type="text/javascript">
+	
+	$('#auth').click(function () {
+		var username = $('#username').val();
+		var email = $('#email').val();
+		
+		$.ajax({
+	            type: "POST",
+	            url: "/users/findId/auth",
+	            data: {
+	                username : username,
+	                email: email
+	            },
+	            success: function(data) {
+	                if(data == "fail") {
+						alert("일치하는 회원 정보가 없습니다.");
+	                }
+	    			else{
+	                	alert("회원님의 아이디는 " + data + " 입니다.");
+	    			}
+	            }
+	        });
+	});
+</script>
