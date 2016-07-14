@@ -178,7 +178,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		]]>
 	</update>
 	
-	<!-- 게임 종료후 30분 지나면 평가 상태에서 종료 상태로 변경 -->	
+	<!-- 게임 종료후 3분 지나면 평가 상태에서 종료 상태로 변경 -->	
 	<update id="checkMatch3">
 		<![CDATA[
 		update match_court set state = '종료' where state = '평가' and endtime + INTERVAL 3 day_minute < now()

@@ -5,9 +5,6 @@
 
 <div class="content-wrapper">
 	<div class="lockscreen-wrapper">
-	  <div class="lockscreen-logo">
-	    <a href="../../index2.html"><b>Admin</b>LTE</a>
-	  </div>
 	  <!-- User name -->
 	  <div class="lockscreen-name text-center">${login.userid }</div>
 	
@@ -15,7 +12,7 @@
 	  <div class="lockscreen-item">
 	    <!-- lockscreen image -->
 	    <div class="lockscreen-image">
-	      <img src="../../dist/img/user1-128x128.jpg" alt="User Image">
+	      <img src="/resources/img/user.jpg" alt="User Image">
 	    </div>
 	    <!-- /.lockscreen-image -->
 	

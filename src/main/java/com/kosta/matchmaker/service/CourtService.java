@@ -49,5 +49,6 @@ public interface CourtService {
 	// 선수 점수 주기
 	public void ratePlayer(MatchResultDTO dto) throws Exception;
 	
+	// 예약할 때 유효값 체크
 	public String checkReserve(Date begintime, Date endtime) throws Exception;
 }
