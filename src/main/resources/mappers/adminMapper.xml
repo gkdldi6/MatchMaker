@@ -7,14 +7,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 관리자 1인 정보보기(로그인용) -->
 	<select id="selectAdmin" resultType="AdminVO">
-		select * from admin where id
-		= #{id}
+		select * from admin 
+		where id = #{id} and pw = #{pw}
 	</select>
 	
-	<select id="join">
+	<!-- <select id="join">
 		insert into admin(id,pw)
 		values(#{id}, #{pw})
-	</select>
+	</select> -->
 
 	<!-- 유저 리스트 보기 -->
 	<select id="selectList" resultType="UserVO">

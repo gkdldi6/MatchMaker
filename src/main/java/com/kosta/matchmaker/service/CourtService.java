@@ -1,5 +1,6 @@
 package com.kosta.matchmaker.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -48,4 +49,5 @@ public interface CourtService {
 	// 선수 점수 주기
 	public void ratePlayer(MatchResultDTO dto) throws Exception;
 	
+	public String checkReserve(Date begintime, Date endtime) throws Exception;
 }

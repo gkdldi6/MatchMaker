@@ -1,5 +1,6 @@
 package com.kosta.matchmaker.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -86,6 +87,32 @@ public class CourtServiceImpl implements CourtService {
 	@Override
 	public List<MatchDTO> getMyMatch2(String userid) throws Exception {
 		return dao.getMyMatch2(userid);
+	}
+
+	@Override
+	public String checkReserve(Date begintime, Date endtime) throws Exception {
+		if(dao.chkReserve(begintime, endtime) != 0) {
+			System.out.println("시간안에 예약된 게임이 있습니다.");
+			return "fail";
+		}
+		
+		Date before = dao.chkBefore(begintime);
+		Date after = dao.chkBefore2(begintime); 
+		
+		if(after.compareTo(before) > 0) {
+			System.out.println("중복");
+			return "fail";
+		}
+		
+		after = dao.chkAfter(endtime);
+		before = dao.chkAfter2(endtime);
+		
+		if(after.compareTo(before) > 0) {
+			System.out.println("중복");
+			return "fail";
+		}
+		
+		return "success";
 	}
 
 }

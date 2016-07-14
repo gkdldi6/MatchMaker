@@ -1,33 +1,32 @@
 package com.kosta.matchmaker.domain;
 
 public class AdminVO {
-
-	private String userid;
-	private String userpw;
-	private String userauth;
+	private String id;
+	private String pw;
+	private String auth;
 	
-	public String getUserid() {
-		return userid;
+	public String getId() {
+		return id;
 	}
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getUserpw() {
-		return userpw;
+	public String getPw() {
+		return pw;
 	}
-	public void setUserpw(String userpw) {
-		this.userpw = userpw;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
-	public String getUserauth() {
-		return userauth;
+	public String getAuth() {
+		return auth;
 	}
-	public void setUserauth(String userauth) {
-		this.userauth = userauth;
+	public void setAuth(String auth) {
+		this.auth = auth;
 	}
 	
 	@Override
 	public String toString() {
-		return "AdminVO [userid=" + userid + ", userpw=" + userpw + ", userauth=" + userauth + "]";
+		return "AdminDTO [id=" + id + ", pw=" + pw + ", auth=" + auth + "]";
 	}
 	
 }

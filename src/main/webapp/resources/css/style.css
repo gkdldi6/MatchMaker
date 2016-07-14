@@ -22,14 +22,8 @@ body {
 	background-image: url('/resources/img/basic.jpg');
 	background-size: cover;
     background-position: center;
-    height: 505px;
+    height: 905px;
 }   
-
-@media (min-width: 768px) { 
-	#bg {
-        height: 905px;
-    }
-}
 
 #jumbo1 {
 	/* background-color: #2D7FAB;  */

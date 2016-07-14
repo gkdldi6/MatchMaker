@@ -1,5 +1,6 @@
 package com.kosta.matchmaker.persistence;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -65,5 +66,27 @@ public interface CourtDAO {
 	
 	// 선수 점수 평가
 	public void ratePlayer(MatchResultDTO dto) throws Exception;
+	
+	public int chkReserve(Date begintime, Date endtime) throws Exception;
+	
+	public Date chkBefore(Date begintime) throws Exception;
+	
+	public Date chkBefore2(Date begintime) throws Exception;
+	
+	public Date chkAfter(Date endtime) throws Exception;
+	
+	public Date chkAfter2(Date endtime) throws Exception;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

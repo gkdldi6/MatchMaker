@@ -128,9 +128,11 @@ input:read-only, textarea:read-only {
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
               <li class="active"><a href="#activity" data-toggle="tab" aria-expanded="true">활동</a></li>
-              <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">게임</a></li>
               <li class=""><a href="#board" data-toggle="tab" aria-expanded="false">게시글</a></li>
-              <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">선수 정보</a></li>
+              <c:if test="${!empty user.name }">
+	              <li class=""><a href="#timeline" data-toggle="tab" aria-expanded="false">게임</a></li>
+	              <li class=""><a href="#settings" data-toggle="tab" aria-expanded="false">선수 정보</a></li>
+	          </c:if>
             </ul>
             <div class="tab-content">
               		<div class="tab-pane active" id="activity">

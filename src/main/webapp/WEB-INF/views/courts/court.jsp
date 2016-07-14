@@ -132,7 +132,7 @@
 				<div style="padding-bottom:5px">
 					<button id="getAll" class="btn btn-danger btn-sm">전체 검색</button>
 				   	<button id="detail" class="btn btn-primary btn-sm">상세 검색</button>
-				   	<button id="date-search" class="btn btn-success btn-sm">날짜 검색</button>
+				   	<button id="date-search" class="btn btn-success btn-sm" style="display:none">날짜 검색</button>
 				</div>
 				
 				<div style="padding-bottom:5px">
@@ -143,7 +143,7 @@
 			    </div>
 			   	
 			   	<div id="date-space" hidden>
-					<p>예약기간: <input type="text" id="datepicker1"> ~ <input type="text" id="datepicker2"></p>
+					<p>예약기간: <input type="text" id="datepicker1" style="width:120px"> ~ <input type="text" id="datepicker2" style="width:120px"></p>
 			   	</div>
 			   	
 			   	<div id="detail-space" hidden>
@@ -221,7 +221,7 @@
 				<!-- 방 생성 공간 끝 -->
 				
 				<div class="box-footer" style="border-top:0px">
-					<div>기간: <input type="text" id="datepicker3"> ~ <input type="text" id="datepicker4"></div>
+					<div id="dateSearch" style="display:none"><input type="text" id="datepicker3"> ~ <input type="text" id="datepicker4"></div>
 					
 					<div class="row" style="padding-top:5px">
 					

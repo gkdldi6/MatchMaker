@@ -65,7 +65,7 @@
 <!-- 사이드바 끝 -->
 
 <!-- 사이드바 버튼 -->
-<span class="info-box-icon bg-red chatbtn"><i class="fa fa-comments-o"></i></span>
+<span id="sidebtn" class="info-box-icon bg-red chatbtn" style="display:none"><i class="fa fa-comments-o"></i></span>
 
 <!-- 지도가 표시될 공간 -->
 <div id="map"></div>
@@ -304,6 +304,11 @@ $(function() {
   $( "#datepicker1, #datepicker2, #datepicker3, #datepicker4" ).datepicker({
     dateFormat: 'yy-mm-dd'
   });
+});
+</script>
+<script type="text/javascript">
+$(function() {
+	$('#sidebtn').show();
 });
 </script>
 <script src="//code.jquery.com/jquery.min.js"></script>

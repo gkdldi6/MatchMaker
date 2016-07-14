@@ -771,6 +771,15 @@ function openGamebar(cno) {
 // 검색 타입 추적
 $('#court-search').change(function() {
 	selected = $('#court-search option:selected').val();
+	if(selected === 'C') {
+		$('#date-search').fadeOut('fast', function() {
+			$('#detail').fadeIn('fast');
+		});
+	} else if(selected === 'G') {
+		$('#detail').fadeOut('fast', function() {
+			$('#date-search').fadeIn('fast');
+		});
+	}
 });
 
 // 코트에 예약된 게임 목록 가져오기
@@ -915,3 +924,16 @@ $('#findWay').click(function() {
 	
 	window.open('http://map.daum.net/link/to/' + cname + ',' + lat + ',' + lng, 'new');
 });
+
+// 방검색에서 기간선택시 입력창 생성
+$('#detail-room').change(function() {
+	var selected = $('#detail-room option:selected').val();
+	
+	if(selected === 'time') {
+		$('#dateSearch').fadeIn('fast');
+		$('#room-keyword').val('날짜를 입력후 검색하세요.');
+	} else {
+		$('#dateSearch').fadeOut('fast');
+		$('#room-keyword').val('');
+	}
+  });

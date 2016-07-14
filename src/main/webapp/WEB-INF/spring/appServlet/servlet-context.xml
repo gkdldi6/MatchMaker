@@ -36,6 +36,14 @@
 		class="com.kosta.matchmaker.interceptor.AuthInterceptor">
 	</beans:bean>
 	
+	<beans:bean id="adminInterceptor"
+		class="com.kosta.matchmaker.interceptor.AdminInterceptor">
+	</beans:bean>
+	
+	<beans:bean id="adminLoginInterceptor"
+		class="com.kosta.matchmaker.interceptor.AdminLoginInterceptor">
+	</beans:bean>
+	
 	<interceptors>
 		<interceptor>
 			<mapping path="/users/loginPost"/>
@@ -51,6 +59,16 @@
 			<mapping path="/boards/new"/>
 			<mapping path="/messages"/>
 			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/admin/loginPost" />
+			<beans:ref bean="adminInterceptor" />
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/admin/adminview" />
+			<beans:ref bean="adminLoginInterceptor" />
 		</interceptor>
 	</interceptors>
 

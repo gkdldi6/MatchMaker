@@ -21,9 +21,10 @@ public class AdminServiceImpl implements AdminService {
 	// 관리자 로그인
 	@Override
 	public AdminVO login(AdminDTO dto) throws Exception {
-
-		if (dao.login(dto) != null) {
-			return dao.login(dto);
+		AdminVO vo = dao.login(dto);
+		
+		if (vo != null) {
+			return vo;
 		}
 
 		return null;

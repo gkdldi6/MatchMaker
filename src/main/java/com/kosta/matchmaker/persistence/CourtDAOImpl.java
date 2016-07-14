@@ -1,5 +1,6 @@
 package com.kosta.matchmaker.persistence;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,6 +133,35 @@ public class CourtDAOImpl implements CourtDAO {
 	@Override
 	public List<MatchDTO> getMyMatch2(String userid) throws Exception {
 		return session.selectList(namespace + ".getMyMatch2", userid);
+	}
+
+	@Override
+	public int chkReserve(Date begintime, Date endtime) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("begintime", begintime);
+		map.put("endtime", endtime);
+		
+		return session.selectOne(namespace + ".chkReserve", map);
+	}
+
+	@Override
+	public Date chkBefore(Date begintime) throws Exception {
+		return session.selectOne(namespace + ".chkBefore", begintime);
+	}
+
+	@Override
+	public Date chkBefore2(Date begintime) throws Exception {
+		return session.selectOne(namespace + ".chkBefore2", begintime);
+	}
+
+	@Override
+	public Date chkAfter(Date endtime) throws Exception {
+		return session.selectOne(namespace + ".chkAfter", endtime);
+	}
+
+	@Override
+	public Date chkAfter2(Date endtime) throws Exception {
+		return session.selectOne(namespace + ".chkAfter2", endtime);
 	}
 
 }

@@ -30,7 +30,7 @@ public class AdminController {
 	/* 관리자 로그인 페이지로 이동 */
 	@RequestMapping("")
 	public String admin() {
-		return "adminhome";
+		return "admin/login";
 	}
 
 	/* 로그인 */
@@ -86,7 +86,6 @@ public class AdminController {
 		model.addAttribute("user", userVO);*/
 	}
 	
-	// 진규가 작성한거 
 	@RequestMapping(value = "/{userid}", method = RequestMethod.GET)
 	public @ResponseBody UserVO getUser(@PathVariable("userid") String userid) throws Exception {
 		//System.out.println(userid);
@@ -95,9 +94,6 @@ public class AdminController {
 		return user;
 	}
 
-	public void userInfo() {
-
-	}
 
 	/*
 	 * //회원 한명 정보 불러오기

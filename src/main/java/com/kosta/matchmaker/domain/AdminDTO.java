@@ -7,11 +7,9 @@ public class AdminDTO {
 	public String getId() {
 		return id;
 	}
-	
 	public void setId(String id) {
 		this.id = id;
 	}
-	
 	public String getPw() {
 		return pw;
 	}
@@ -19,8 +17,4 @@ public class AdminDTO {
 		this.pw = pw;
 	}
 	
-	@Override
-	public String toString() {
-		return "AdminDTO [id=" + id + ", pw=" + pw + "]";
-	}
 }

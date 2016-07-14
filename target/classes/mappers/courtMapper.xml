@@ -223,4 +223,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where mno = #{mno} and id = #{id}
 	</update>
 	
+	<!-- 예약 가능한지 확인 -->
+	<select id="chkReserve" resultType="int">
+		select count(*) from match_court where begintime between #{begintime} and #{endtime} 
+	</select>
+	
+	<select id="chkBefore" resultType="Date">
+		<![CDATA[
+		select begintime from match_court where begintime < #{begintime} order by begintime desc limit 1
+		]]>
+	</select>
+	
+	<select id="chkBefore2" resultType="Date">
+		<![CDATA[
+		select endtime from match_court where endtime < #{begintime} order by endtime desc limit 1
+		]]>
+	</select>
+	
+	<select id="chkAfter" resultType="Date">
+		select endtime from match_court where endtime > #{endtime} limit 1
+	</select>
+	
+	<select id="chkAfter2" resultType="Date">
+		select begintime from match_court where begintime > #{endtime} limit 1
+	</select>
+	
 </mapper>
