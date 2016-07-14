@@ -25,7 +25,7 @@ public class MessageServiceTest {
 	
 	@Test
 	public void servicePaging() throws Exception{
-		String targetid = "user00";
+		String targetid = "sunjoong91";
 		int page = 1;
 
 		List<MessageVO> list = service.idReadAll(targetid, page);
@@ -33,7 +33,7 @@ public class MessageServiceTest {
 		for(MessageVO message : list) {
 			System.out.print(message.getMno() + "\t");
 			System.out.print(message.getTargetid() + "\t");
-			System.out.print(message.getReadpoint() + "\t");
+			//System.out.print(message.getReadpoint() + "\t");
 			System.out.print(message.getSender() + "\t");
 			System.out.print(message.getMessage() + "\t");
 			System.out.print(message.getOpendate() + "\t");

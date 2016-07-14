@@ -50,7 +50,7 @@
 											<td>${user.username}</td>
 											<td><span class="badge">${user.userpoint}</span></td>
 											<td><input userid="${user.userid }" type="button" class="btn btn-warning btn-xs btn-flat each-button"
-												value="수정" <%-- onclick ="userInfo('${user.userid}' --%>)"></td>
+												value="조회" <%-- onclick ="userInfo('${user.userid}' --%>)"></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -89,7 +89,7 @@
 									<label for="inputId" class="col-lg-2 control-label">아이디</label>
 									<div class="col-lg-10">
 										<input type="text" name="userid" class="form-control"
-											id="userid"></input>
+											id="userid" readonly></input>
 									</div>
 								</div>
 
@@ -97,7 +97,7 @@
 									<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
 									<div class="col-lg-10">
 										<input type="email" name="email" class="form-control"
-											id="email">
+											id="email" readonly>
 									</div>
 								</div>
 
@@ -105,7 +105,7 @@
 									<label for="inputName" class="col-lg-2 control-label">이름</label>
 									<div class="col-lg-10">
 										<input type="text" name="username" class="form-control"
-											id="username">
+											id="username" readonly>
 									</div>
 								</div>
 
@@ -160,29 +160,18 @@
 	});
 </script>
 <script type="text/javascript">
-	/* var id = user.userid; */
-	
-	/* $(".abc").on('click', function(e) {
-		// e.preventDefault();
-		
-		/* var userid = $('form button[value='+id+']').val;
-		
-		userInfo(userid);
-		
-		$('#userTab [href="#userinfo"]').tab('show'); */
-		
-		/* var userid = $('form button[value='+id+']').val; */
-		
-		/*alert(userid.val());
-	});  */
-/* 
-	function userInfo(userid){
-		self.location = ("adminview?userid="+userid);
-		$('#userinfo1').addClass('active');
-		$('#userlist').removeClass('active');
-		$('#userTab li:last').addClass('active');
-		$('#userTab li:first').removeClass('active');
-	}	  */
+	$('#delete').click(function (){
+		var userid = $('#userid').val();
+		$.ajax({
+			url: '/users/delete',		
+			type: 'POST',
+			data:{"userid" : userid},
+			success: function(data){
+				alert('아이디가 삭제 되었습니다.');
+				location.reload();	
+			}	
+		});
+	});
 </script>
 </body>
 </html>

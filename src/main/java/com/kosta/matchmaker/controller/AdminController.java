@@ -115,4 +115,11 @@ public class AdminController {
 	 * 
 	 * return "admin/adminview"; }
 	 */
+	@RequestMapping(value = "/users/delete", method=RequestMethod.POST)
+	public String userRemove(@PathVariable("userid") String userid) throws Exception {
+		System.out.println("ㅅㅅㅅㅅ");
+		service.remove(userid);
+		
+		return "admin/adminview";
+	}
 }

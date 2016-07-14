@@ -22,7 +22,7 @@
     <script	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
     
     <title>매치메이커</title>
-  </head>s
+  </head>
 
 
 <style type="text/css">

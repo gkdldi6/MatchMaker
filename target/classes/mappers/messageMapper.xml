@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kosta.matchmaker.mappers.MessageMapper">
+
+	<insert id="create">
+		insert into message(targetid, sender, message)
+		values (#{targetid}, #{sender}, #{message})
+	</insert>
+	
+	<select id="readMessage" resultType="MessageVO">
+		select * from message where mno = #{mno}
+	</select>
+	
+	<select id="readAll" resultType="MessageVO">
+		select *
+		from message order by mno desc
+	</select>
+	
+	<select id="idReadAll" resultType="MessageVO">
+	<![CDATA[
+		select * 
+		from message
+		where mno > 0 and targetid = #{targetid}
+		order by mno desc
+		limit #{page}, 10
+	]]>
+	</select>
+	
+	<select id="delete">
+		delete from message
+		where mno = #{mno}
+	</select>
+	
+	<select id="updateDate">
+		update message 
+		set opendate = now()
+		where opendate is null and mno = #{mno}
+	</select>
+	
+	<select id="messageCount" resultType="Integer">
+		select count(*)
+		from message
+		where targetid = #{targetid}
+	</select>
+	
+	<select id="listCriteria" resultType="MessageVO">
+	<![CDATA[
+		select * 
+		from message
+		where mno > 0 and targetid = #{targetid}
+		order by mno desc
+		limit #{pageStart}, #{perPageNum}
+	]]>
+	</select>
+	
+	<select id="notReadMessage" resultType="MessageVO">
+		select *
+		from message
+		where targetid = #{targetid} and opendate is null
+		order by mno desc
+	</select>
+	
+	<select id="notReadMessageCount" resultType="Integer">
+		select count(*)
+		from message
+		where targetid = #{targetid} and opendate is null
+	</select>
+	
+</mapper>

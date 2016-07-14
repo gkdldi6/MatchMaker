@@ -5,7 +5,6 @@ import java.util.Date;
 public class MessageVO {
 	private Integer mno;
 	private String targetid;
-	private int readpoint;
 	private String sender;
 	private String message;
 	private Date opendate;
@@ -29,15 +28,6 @@ public class MessageVO {
 
 	public void setTargetid(String targetid) {
 		this.targetid = targetid;
-	}
-
-	public int getReadpoint() {
-		return readpoint;
-	}
-
-
-	public void setReadpoint(int readpoint) {
-		this.readpoint = readpoint;
 	}
 
 	public String getSender() {

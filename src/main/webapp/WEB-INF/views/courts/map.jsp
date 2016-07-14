@@ -320,11 +320,11 @@ $(function() {
 <script>$('.datetimepicker').appendDtpicker({'locale':'ko'});</script>
 <!-- socket.io api -->
 <!-- AWS -->
-<!-- <script src="http://52.78.15.21:3000/socket.io/socket.io.js"></script> -->
+<script src="http://52.78.15.21:3000/socket.io/socket.io.js"></script>
 <!-- 학원 -->
 <!-- <script src="http://192.168.0.114:3000/socket.io/socket.io.js"></script> -->
 <!-- 집 -->
-<script src="http://localhost:3000/socket.io/socket.io.js"></script>
+<!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
 <!-- socket.io client -->
 <script src="/resources/js/socket.io.client.js"></script>
 <!-- 다음 지도 API -->

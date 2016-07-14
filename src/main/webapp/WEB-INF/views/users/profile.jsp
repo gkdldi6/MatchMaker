@@ -144,13 +144,13 @@ input:read-only, textarea:read-only {
 									<div style="margin-top: 10px">
 										<c:choose>
 											<c:when test="${user.basketgrade ==  '브론즈'}">
-												<img src="http://localhost:8080//resources/img/bronze.png" width="135" style="padding: 10px">
+												<img src="/resources/img/bronze.png" width="135" style="padding: 10px">
 											</c:when>
 											<c:when test="${user.basketgrade == '실버' }">
-												<img src="http://localhost:8080//resources/img/silver.png" width="135" style="padding: 10px">
+												<img src="/resources/img/silver.png" width="135" style="padding: 10px">
 											</c:when>
 											<c:otherwise>
-												<img src="http://localhost:8080//resources/img/gold.png" width="135" style="padding: 10px">
+												<img src="/resources/img/gold.png" width="135" style="padding: 10px">
 											</c:otherwise>
 										</c:choose>
 									</div>
@@ -173,13 +173,13 @@ input:read-only, textarea:read-only {
 									<div style="margin-top: 10px">
 										<c:choose>
 											<c:when test="${user.usergrade ==  '3등급'}">
-												<img src="http://localhost:8080//resources/img/level1.png" width="250" style="padding: 10px">
+												<img src="/resources/img/level1.png" width="250" style="padding: 10px">
 											</c:when>
 											<c:when test="${user.usergrade == '2등급' }">
-												<img src="http://localhost:8080//resources/img/level2.png" width="250" style="padding: 10px">
+												<img src="/resources/img/level2.png" width="250" style="padding: 10px">
 											</c:when>
 											<c:otherwise>
-												<img src="http://localhost:8080//resources/img/level3.png" width="250" style="padding: 10px">
+												<img src="/resources/img/level3.png" width="250" style="padding: 10px">
 											</c:otherwise>
 										</c:choose>
 									</div>

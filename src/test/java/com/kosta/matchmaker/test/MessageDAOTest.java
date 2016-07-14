@@ -30,7 +30,7 @@ public class MessageDAOTest {
 		MessageVO message = new MessageVO();
 
 		message.setTargetid("user00");
-		message.setReadpoint(0);
+		//message.setReadpoint(0);
 		message.setSender("user01");
 		message.setMessage("123123");
 
@@ -47,7 +47,7 @@ public class MessageDAOTest {
 		for(MessageVO message : list) {
 			System.out.print(message.getMno() + "\t");
 			System.out.print(message.getTargetid() + "\t");
-			System.out.print(message.getReadpoint() + "\t");
+			//System.out.print(message.getReadpoint() + "\t");
 			System.out.print(message.getSender() + "\t");
 			System.out.print(message.getMessage() + "\t");
 			System.out.print(message.getOpendate() + "\t");
@@ -66,7 +66,7 @@ public class MessageDAOTest {
 		for(MessageVO message : list) {
 			System.out.print(message.getMno() + "\t");
 			System.out.print(message.getTargetid() + "\t");
-			System.out.print(message.getReadpoint() + "\t");
+			//System.out.print(message.getReadpoint() + "\t");
 			System.out.print(message.getSender() + "\t");
 			System.out.print(message.getMessage() + "\t");
 			System.out.print(message.getOpendate() + "\t");
@@ -83,7 +83,7 @@ public class MessageDAOTest {
 		
 		System.out.print(message.getMno() + "\t");
 		System.out.print(message.getTargetid() + "\t");
-		System.out.print(message.getReadpoint() + "\t");
+		//System.out.print(message.getReadpoint() + "\t");
 		System.out.print(message.getSender() + "\t");
 		System.out.print(message.getMessage() + "\t");
 		System.out.print(message.getOpendate() + "\t");
@@ -121,7 +121,7 @@ public class MessageDAOTest {
 		for(MessageVO message : list){
 			System.out.print(message.getMno() + "\t");
 			System.out.print(message.getTargetid() + "\t");
-			System.out.print(message.getReadpoint() + "\t");
+			//System.out.print(message.getReadpoint() + "\t");
 			System.out.print(message.getSender() + "\t");
 			System.out.print(message.getMessage() + "\t");
 			System.out.print(message.getOpendate() + "\t");
