@@ -16,7 +16,7 @@
 
 @media (min-width: 768px) {
 	.tab-pane {
-    	min-height: 590px
+    	min-height: 550px
 	}
 }
 
@@ -85,11 +85,11 @@ input:read-only, textarea:read-only {
 
               <hr>
 
-              <strong><i class="fa fa-map-marker margin-r-5"></i> 마지막으로 뛴 코트</strong>
+              <!-- <strong><i class="fa fa-map-marker margin-r-5"></i> 마지막으로 뛴 코트</strong>
 
               <p class="text-muted">여기</p>
 
-              <hr>
+              <hr> -->
               
               <strong><i class="fa fa-pencil margin-r-5"></i> 포지션</strong>
 

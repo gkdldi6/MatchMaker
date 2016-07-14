@@ -182,8 +182,8 @@
 			        <option value="3000">3km</option>
 			        <option value="input">직접 입력</option>
 			      </select>
-			      <input type="hidden" id="dis-input" placeholder="단위: km">
 			    </div>
+			    <input type="hidden" id="dis-input" placeholder="단위: km" style="margin-bottom:5px">
 			    
 			    <div style="padding-bottom:5px">  
 			      <div class="input-group input-group-sm">

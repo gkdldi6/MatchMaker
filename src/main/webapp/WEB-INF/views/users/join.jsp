@@ -49,7 +49,7 @@
 					<label for="inputEmail" class="col-lg-2 control-label">이메일</label>
 					<div class="col-lg-10">
 						<input type="email" name="email" class="form-control" id="email"
-							placeholder="이메일을 입력해주세요. ex)test@test.test" required> 
+							placeholder="이메일을 입력해주세요." required> 
 					</div>
 				</div>
 	
